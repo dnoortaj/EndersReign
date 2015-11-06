@@ -6,7 +6,7 @@ Defines generic space suit item layout.
 @author Dale Burke
 @version November 2015
 *********************************************************************/
-public abstract class Suit extends KeyItem {
+public class Suit extends KeyItem {
 	
 	/*********************************************************************
 	Default constructor method for Suit class. Creates a blank Suit
