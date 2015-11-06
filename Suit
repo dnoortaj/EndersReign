@@ -11,7 +11,7 @@ public abstract class Suit extends KeyItem {
 	/*********************************************************************
 	Default constructor method for Suit class. Creates a blank Suit
 	object that cannot be discarded.
-	
+	 
 	@param none
 	@return none
 	*********************************************************************/
