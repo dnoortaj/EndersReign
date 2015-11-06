@@ -1,4 +1,4 @@
-package Project;
+package Inventory;
 
 /*********************************************************************
 Defines generic key item layout. Superclass to be extended by all key 

@@ -1,4 +1,4 @@
-
+package Obstacle;
 
 public class Enemy {
 

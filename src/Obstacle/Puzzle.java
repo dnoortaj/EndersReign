@@ -1,4 +1,4 @@
-//package Obstacle Subsystem;
+package Obstacle;
 
 import java.util.List;
 //import Inventory Subsystem.Item;
@@ -56,8 +56,8 @@ public class Puzzle {
 
 	}
 
-//	public Inventory Subsystem.Item getPuzzlePoints() {
-//		return null;
-//	}
+	public Inventory.Item getPuzzlePoints() {
+		return null;
+	}
 
 }

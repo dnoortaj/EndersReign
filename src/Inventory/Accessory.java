@@ -1,3 +1,5 @@
+package Inventory;
+
 
 public class Accessory extends Item{
 

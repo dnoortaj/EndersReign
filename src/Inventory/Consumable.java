@@ -1,3 +1,4 @@
+package Inventory;
 public class Consumable extends Item
 {
 	private int consumableHPRecovery;

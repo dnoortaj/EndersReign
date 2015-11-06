@@ -1,4 +1,4 @@
-package Project;
+package Inventory;
 
 /*********************************************************************
 Defines generic oxygen mask item layout.

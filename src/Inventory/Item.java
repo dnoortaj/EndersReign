@@ -1,3 +1,4 @@
+package Inventory;
 /*********************************************************************
 Defines generic item layout. Superclass to be extended by all item
 classes.

@@ -1,4 +1,4 @@
-package Project;
+package Inventory;
 
 /*********************************************************************
 Defines generic tablet item layout.

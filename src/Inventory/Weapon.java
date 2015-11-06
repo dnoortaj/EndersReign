@@ -1,3 +1,4 @@
+package Inventory;
 /**
  * @author Ethan Patterson
  *
