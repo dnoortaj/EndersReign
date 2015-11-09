@@ -20,16 +20,16 @@ public class Consumable extends Item
 	}
 	
 	@Override
-	public void useItem()
+	public void useItem(Player p)
 	{
-		int HP = currentPlayer.getPlayerCurrentHP() + consumableHPRecovery;
-		if (currentPlayer.getPlayerMaxHP() >= HP)
+		int HP = p.getPlayerCurrentHP() + consumableHPRecovery;
+		if (p.getPlayerMaxHP() >= HP)
 		{
-		  currentPlayer.setPlayerCurrentHP(HP);
+		  p.setPlayerCurrentHP(HP);
 		}
 		else
 		{
-		  currentPlayer.setPlayerCurrentHP(currentPlayer.getPlayerMaxHP());
+		  p.setPlayerCurrentHP(p.getPlayerMaxHP());
 		}
 	}
 	
