@@ -1,4 +1,5 @@
 package Inventory;
+import UserInteraction.*;
 
 /*********************************************************************
 Defines generic tablet item layout.
@@ -46,17 +47,17 @@ public class Tablet extends KeyItem {
 	@param none
 	@return none
 	*********************************************************************/
-	public void useItem(Game g)
+	public void useItem(Player p)
 	{
 		// add correct rooms here
-		if(isUsed || g.getCurrentRoom != tabletRoom)
+/*		if(isUsed || g.getCurrentRoom != tabletRoom)
 		{
 			System.out.println("You cannot use the Tablet at this time.");
 		}
 		else
 		{
 			//trigger tablet puzzle here
-		}
+		}*/
 	}
 }
 

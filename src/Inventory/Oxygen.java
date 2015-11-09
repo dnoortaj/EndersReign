@@ -1,4 +1,5 @@
 package Inventory;
+import UserInteraction.*;
 
 /*********************************************************************
 Defines generic oxygen mask item layout.
@@ -45,7 +46,7 @@ public class Oxygen extends KeyItem {
 	@param none
 	@return none
 	*********************************************************************/
-	public void useItem(Game g)
+	public void useItem(Player p)
 	{
 		if(isUsed)
 		{

@@ -1,4 +1,5 @@
 package Inventory;
+import UserInteraction.*;
 /*********************************************************************
 Defines generic item layout. Superclass to be extended by all item
 classes.
@@ -124,5 +125,5 @@ public abstract class Item {
 	@param none
 	@return none
 	*********************************************************************/
-	public abstract void useItem();
+	public abstract void useItem(Player p);
 }

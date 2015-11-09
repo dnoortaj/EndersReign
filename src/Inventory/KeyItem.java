@@ -1,4 +1,5 @@
 package Inventory;
+import UserInteraction.*;
 
 /*********************************************************************
 Defines generic key item layout. Superclass to be extended by all key 
@@ -73,5 +74,5 @@ public abstract class KeyItem extends Item {
 	@param none
 	@return none
 	*********************************************************************/
-	public abstract void useItem(Game g);
+	public abstract void useItem(Player p);
 }

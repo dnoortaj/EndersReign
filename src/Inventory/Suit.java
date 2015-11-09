@@ -1,4 +1,5 @@
 package Inventory;
+import UserInteraction.*;
 
 /*********************************************************************
 Defines generic space suit item layout.
@@ -45,7 +46,7 @@ public class Suit extends KeyItem {
 	@param none
 	@return none
 	*********************************************************************/
-	public void useItem(Game g)
+	public void useItem(Player p)
 	{
 		if(isUsed)
 		{

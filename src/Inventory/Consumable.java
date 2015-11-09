@@ -1,4 +1,6 @@
 package Inventory;
+import UserInteraction.*;
+
 public class Consumable extends Item
 {
 	private int consumableHPRecovery;
