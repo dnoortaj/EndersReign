@@ -26,10 +26,10 @@ public class Weapon extends Item
 	 * modifies the current player’s attack statistic based on the weapon’s attack. Invoked when
 	 * player attempts to use / equip this weapon.
 	 */
-	public void useItem()
+	public void useItem(Player p)
 	{
-		int attack = currentPlayer.getPlayerAttack() + weaponAttackBonus;
-		currentPlayer.setPlayerAttack(attack);
+		int attack = p.getPlayerAttack() + weaponAttackBonus;
+		p.setPlayerAttack(attack);
 	}
 	
 	/**
