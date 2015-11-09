@@ -46,10 +46,10 @@ public class Tablet extends KeyItem {
 	@param none
 	@return none
 	*********************************************************************/
-	public void useItem()
+	public void useItem(Game g)
 	{
 		// add correct rooms here
-		if(isUsed || currentRoom != tabletRoom)
+		if(isUsed || g.getCurrentRoom != tabletRoom)
 		{
 			System.out.println("You cannot use the Tablet at this time.");
 		}
