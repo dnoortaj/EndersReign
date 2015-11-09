@@ -45,7 +45,7 @@ public class Suit extends KeyItem {
 	@param none
 	@return none
 	*********************************************************************/
-	public void useItem(Player p)
+	public void useItem(Game g)
 	{
 		if(isUsed)
 		{
