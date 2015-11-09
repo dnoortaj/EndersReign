@@ -73,5 +73,5 @@ public abstract class KeyItem extends Item {
 	@param none
 	@return none
 	*********************************************************************/
-	public abstract void useItem();
+	public abstract void useItem(Player p);
 }
