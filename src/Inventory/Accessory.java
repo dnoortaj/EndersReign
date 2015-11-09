@@ -21,13 +21,13 @@ public class Accessory extends Item{
 		this.accessoryDodgeIncrease = dodge;
 	}
 	
-	public void useItem(){
-		int hP = currentPlayer.getPlayerMaxHP() + accessoryHPIncrease;
-		int aP = currentPlayer.getPlayerAttack() + accessoryAttackIncrease;
-		int dP = currentPlayer.getPlayerDodge() + accessoryDodgeIncrease;
+	public void useItem(Player p){
+		int hP = p.getPlayerMaxHP() + accessoryHPIncrease;
+		int aP = p.getPlayerAttack() + accessoryAttackIncrease;
+		int dP = p.getPlayerDodge() + accessoryDodgeIncrease;
 	
-		currentPlayer.setPlayerMaxHP(hP);
-		currentPlayer.setPlayerAttack(aP);
-		currentPlayer.setPlayerDodge(dP);
+		p.setPlayerMaxHP(hP);
+		p.setPlayerAttack(aP);
+		p.setPlayerDodge(dP);
 	}
 }
