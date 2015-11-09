@@ -124,5 +124,5 @@ public abstract class Item {
 	@param none
 	@return none
 	*********************************************************************/
-	public abstract void useItem();
+	public abstract void useItem(Player p);
 }
