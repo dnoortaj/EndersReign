@@ -28,7 +28,20 @@ public class Room
 	
 	public void determineEncounter()
 	{
-		
+		if (getRoomMonster() > 0)
+		{
+			Enemy currentEnemy = new Enemy();
+			//call for starting the battle...
+		}
+		else if (getRoomPuzzle() > 0)
+		{
+			Puzzle currentPuzzle = new Puzzle();
+			//call for starting the puzzle..
+		}
+		else
+		{
+			
+		}
 	}
 	
 	public void setRoomDescription(String roomDescription)

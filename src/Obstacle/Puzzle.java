@@ -1,7 +1,7 @@
 package Obstacle;
 
 import java.util.List;
-//import Inventory Subsystem.Item;
+import Inventory.*;
 
 public class Puzzle {
 
@@ -56,7 +56,7 @@ public class Puzzle {
 
 	}
 
-	public Inventory.Item getPuzzlePoints() {
+	public Item getPuzzlePoints() {
 		return null;
 	}
 

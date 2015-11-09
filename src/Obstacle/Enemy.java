@@ -1,5 +1,7 @@
 package Obstacle;
 
+import Inventory.*;
+
 public class Enemy {
 
 	private int enemyID;
@@ -9,7 +11,7 @@ public class Enemy {
 	private int enemyHP;
 	private int enemyAttack;
 	private int enemyDodge;
-	// private Inventory Subsystem.Item enemyReward;
+	private Item enemyReward;
 	private int enemyPoints;
 
 	

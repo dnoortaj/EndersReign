@@ -1,4 +1,5 @@
 package Inventory;
+import UserInteraction.*;
 
 
 public class Accessory extends Item{
