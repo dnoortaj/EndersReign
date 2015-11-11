@@ -1,13 +1,16 @@
 package Inventory;
 import UserInteraction.*;
+
 /*********************************************************************
 Defines generic item layout. Superclass to be extended by all item
 classes.
-
 @author Dale Burke
 @version November 2015
 *********************************************************************/
-public abstract class Item {
+public abstract class Item implements Comparable<Item> {
+	
+	/** item type to be used in Inventory */
+	String itemType;
 	
 	/** item name as it is to appear in game */
 	String itemName;
@@ -22,12 +25,12 @@ public abstract class Item {
 	/*********************************************************************
 	Default constructor method for Item superclass. Creates a blank Item
 	object that may be discarded.
-
 	@param none
 	@return none
 	*********************************************************************/
 	public Item()
 	{
+		itemType = "";
 		itemName = "";
 		itemDescription = "";
 		isKeyItem = false;
@@ -43,8 +46,9 @@ public abstract class Item {
 		   false for can discard, true for cannot discard.
 	@return none
 	*********************************************************************/
-	public Item(String itemName, String itemDescription, boolean isKeyItem)
+	public Item(String itemType, String itemName, String itemDescription, boolean isKeyItem)
 	{
+		this.itemType = itemType;
 		this.itemName = itemName;
 		this.itemDescription = itemDescription;
 		this.isKeyItem = isKeyItem;
@@ -52,7 +56,6 @@ public abstract class Item {
 
 	/*********************************************************************
 	Method to set this item's name.
-
 	@param String itemName - The item display name.
 	@return none
 	*********************************************************************/
@@ -63,7 +66,6 @@ public abstract class Item {
 	
 	/*********************************************************************
 	Method to set this item's description.
-
 	@param String itemDescription - The item display description.
 	@return none
 	*********************************************************************/
@@ -74,7 +76,6 @@ public abstract class Item {
 	
 	/*********************************************************************
 	Method to set whether or not this item may be discarded.
-
 	@param boolean isKeyItem - false for can discard, true for cannot 
 		   discard.
 	@return none
@@ -86,7 +87,6 @@ public abstract class Item {
 	
 	/*********************************************************************
 	Method to get this item's name.
-
 	@param none
 	@return String itemName - The item display name.
 	*********************************************************************/
@@ -97,7 +97,6 @@ public abstract class Item {
 	
 	/*********************************************************************
 	Method to get this item's description.
-
 	@param none
 	@return String itemDescription - The item display description.
 	*********************************************************************/
@@ -108,7 +107,6 @@ public abstract class Item {
 	
 	/*********************************************************************
 	Method to get whether or not this item may be discarded.
-
 	@param none
 	@return boolean isKeyItem - false for can discard, true for cannot 
 		    discard.
@@ -119,9 +117,36 @@ public abstract class Item {
 	}
 	
 	/*********************************************************************
+	Method to get this item's type.
+	@param none
+	@return String - This item's type.
+	*********************************************************************/
+	public String getItemType()
+	{
+		return itemType;
+	}
+	
+	/*********************************************************************
 	Abstract method to be defined in each subclass. Defines the action to
 	be take on item use.
-
+	@param none
+	@return none
+	*********************************************************************/
+	public int compareTo(Item item)
+	{
+		if(itemType.equalsIgnoreCase(item.getItemType()))
+		{
+			return itemName.compareTo(item.getItemName());
+		}
+		else
+		{
+			return itemType.compareTo(item.getItemType());
+		}
+	}
+	
+	/*********************************************************************
+	Abstract method to be defined in each subclass. Defines the action to
+	be take on item use.
 	@param none
 	@return none
 	*********************************************************************/

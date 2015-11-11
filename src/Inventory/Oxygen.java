@@ -3,7 +3,6 @@ import UserInteraction.*;
 
 /*********************************************************************
 Defines generic oxygen mask item layout.
-
 @author Dale Burke
 @version November 2015
 *********************************************************************/
@@ -42,7 +41,6 @@ public class Oxygen extends KeyItem {
 	/*********************************************************************
 	Defines the action to be take on Oxygen use. Checks to see if player
 	has equipped the suit item.
-
 	@param none
 	@return none
 	*********************************************************************/
@@ -54,7 +52,7 @@ public class Oxygen extends KeyItem {
 		}
 		else
 		{
-			isUsed = true;
+			p.getPlayerGame().setOxygenFlag(true);
 			System.out.println("You equip the oxygen mask.");
 		}
 	}

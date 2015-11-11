@@ -3,7 +3,6 @@ import UserInteraction.*;
 
 /*********************************************************************
 Defines generic space suit item layout.
-
 @author Dale Burke
 @version November 2015
 *********************************************************************/
@@ -42,7 +41,6 @@ public class Suit extends KeyItem {
 	/*********************************************************************
 	Defines the action to be take on Suit use. Checks to see if player
 	has equipped the suit item.
-
 	@param none
 	@return none
 	*********************************************************************/
@@ -54,7 +52,7 @@ public class Suit extends KeyItem {
 		}
 		else
 		{
-			isUsed = true;
+			p.getPlayerGame().setSuitFlag(true);
 			System.out.println("You equip the space suit.");
 		}
 	}

@@ -4,25 +4,23 @@ import UserInteraction.*;
 /*********************************************************************
 Defines generic key item layout. Superclass to be extended by all key 
 item classes.
-
 @author Dale Burke
 @version November 2015
 *********************************************************************/
 public abstract class KeyItem extends Item {
 	
-	/** item name as it is to appear in game */
+	/** whether or not the item has been successfully activated */
 	boolean isUsed;
 	
 	/*********************************************************************
 	Default constructor method for KeyItem superclass. Creates a blank 
 	KeyItem object that cannot be discarded.
-
 	@param none
 	@return none
 	*********************************************************************/
 	public KeyItem()
 	{
-		super("", "", true);
+		super("Key Item", "", "", true);
 		isUsed = false;
 	}
 
@@ -41,13 +39,12 @@ public abstract class KeyItem extends Item {
 	public KeyItem(String itemName, String itemDescription, 
 			boolean isKeyItem, boolean isUsed)
 	{
-		super(itemName, itemDescription, isKeyItem);
+		super("Key Item", itemName, itemDescription, isKeyItem);
 		this.isUsed = isUsed;
 	}
 
 	/*********************************************************************
 	Method to set whether or not this item has been used.
-
 	@param boolean isUsed - false for is not used, true for is used.
 	@return none
 	*********************************************************************/
@@ -58,7 +55,6 @@ public abstract class KeyItem extends Item {
 	
 	/*********************************************************************
 	Method to get whether or not this item has been used.
-
 	@param none
 	@return boolean isUsed - false for is not used, true for is used.
 	*********************************************************************/
@@ -70,7 +66,6 @@ public abstract class KeyItem extends Item {
 	/*********************************************************************
 	Abstract method to be defined in each subclass. Defines the action to
 	be take on item use.
-
 	@param none
 	@return none
 	*********************************************************************/

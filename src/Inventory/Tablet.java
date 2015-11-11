@@ -3,7 +3,6 @@ import UserInteraction.*;
 
 /*********************************************************************
 Defines generic tablet item layout.
-
 @author Dale Burke
 @version November 2015
 *********************************************************************/
@@ -43,21 +42,19 @@ public class Tablet extends KeyItem {
 	Defines the action to be take on Tablet use. Checks to see if player
 	is in the correct room and whether or not the Tablet puzzle has been
 	triggered. Triggers tabletPuzzle puzzle encounter.
-
 	@param none
 	@return none
 	*********************************************************************/
 	public void useItem(Player p)
 	{
 		// add correct rooms here
-/*		if(isUsed || g.getCurrentRoom != tabletRoom)
+		if(isUsed /*|| p.getPlayerGame().getGameCurrentRoom() != p.getPlayerGame().tabletRoom */)
 		{
 			System.out.println("You cannot use the Tablet at this time.");
 		}
 		else
 		{
-			//trigger tablet puzzle here
-		}*/
+			/* p.getPlayerGame().tabletPuzzle.solvePuzzle(); */
+		}
 	}
 }
-

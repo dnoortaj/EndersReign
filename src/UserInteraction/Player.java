@@ -1,4 +1,6 @@
 package UserInteraction;
+import Inventory.*;
+
 /**
  * @author Ethan Patterson
  *
@@ -12,9 +14,31 @@ public class Player
 	private int playerAttack;
 	private int playerDodge;
 	private int playerLives;
+	private Game playerGame;
+	private Inventory playerInventory;
 	
 	
 	
+	public Game getPlayerGame() {
+		return playerGame;
+	}
+
+
+	public void setPlayerGame(Game playerGame) {
+		this.playerGame = playerGame;
+	}
+
+
+	public Inventory getPlayerInventory() {
+		return playerInventory;
+	}
+
+
+	public void setPlayerInventory(Inventory playerInventory) {
+		this.playerInventory = playerInventory;
+	}
+
+
 	/**
 	 * 
 	 */

@@ -4,11 +4,11 @@ import UserInteraction.*;
 public class Consumable extends Item
 {
 	private int consumableHPRecovery;
-	
+
 	public Consumable(String itemName, String itemDescription, boolean isKeyItem, int consumableHPRecovery)
 	{
-	  super(itemName, itemDescription, isKeyItem);
-	  this.consumableHPRecovery = consumableHPRecovery;
+		super("Consumable", itemName, itemDescription, isKeyItem);
+		this.consumableHPRecovery = consumableHPRecovery;
 	}
 
 	public int getConsumableHPRecovery()
@@ -20,19 +20,18 @@ public class Consumable extends Item
 	{
 		this.consumableHPRecovery = consumableHPRecovery;
 	}
-	
+
 	@Override
 	public void useItem(Player p)
 	{
 		int HP = p.getPlayerCurrentHP() + consumableHPRecovery;
 		if (p.getPlayerMaxHP() >= HP)
 		{
-		  p.setPlayerCurrentHP(HP);
+			p.setPlayerCurrentHP(HP);
 		}
 		else
 		{
-		  p.setPlayerCurrentHP(p.getPlayerMaxHP());
+			p.setPlayerCurrentHP(p.getPlayerMaxHP());
 		}
 	}
-	
 }

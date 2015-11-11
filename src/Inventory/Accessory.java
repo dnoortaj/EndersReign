@@ -1,13 +1,13 @@
 package Inventory;
 import UserInteraction.*;
 
-
 public class Accessory extends Item{
 
 	int accessoryHPIncrease, accessoryAttackIncrease, accessoryDodgeIncrease;
 	
 	public Accessory(){
-		super("", "", false);
+		super("Accessory", "", "", false);
+		itemType = "Accessory";
 		accessoryHPIncrease = 0;
 		accessoryAttackIncrease = 0;
 		accessoryDodgeIncrease = 0;
@@ -15,7 +15,7 @@ public class Accessory extends Item{
 	
 	public Accessory(String name, String description, boolean isKeyItem, 
 			int hp, int attack, int dodge){
-		super(name, description, isKeyItem);
+		super("Accessory", name, description, isKeyItem);
 		this.accessoryHPIncrease = hp;
 		this.accessoryAttackIncrease = attack;
 		this.accessoryDodgeIncrease = dodge;
@@ -29,5 +29,29 @@ public class Accessory extends Item{
 		p.setPlayerMaxHP(hP);
 		p.setPlayerAttack(aP);
 		p.setPlayerDodge(dP);
+	}
+
+	public int getAccessoryHPIncrease() {
+		return accessoryHPIncrease;
+	}
+
+	public void setAccessoryHPIncrease(int accessoryHPIncrease) {
+		this.accessoryHPIncrease = accessoryHPIncrease;
+	}
+
+	public int getAccessoryAttackIncrease() {
+		return accessoryAttackIncrease;
+	}
+
+	public void setAccessoryAttackIncrease(int accessoryAttackIncrease) {
+		this.accessoryAttackIncrease = accessoryAttackIncrease;
+	}
+
+	public int getAccessoryDodgeIncrease() {
+		return accessoryDodgeIncrease;
+	}
+
+	public void setAccessoryDodgeIncrease(int accessoryDodgeIncrease) {
+		this.accessoryDodgeIncrease = accessoryDodgeIncrease;
 	}
 }

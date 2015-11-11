@@ -1,5 +1,6 @@
 package Inventory;
 import UserInteraction.*;
+
 /**
  * @author Ethan Patterson
  *
@@ -15,7 +16,7 @@ public class Weapon extends Item
 	public Weapon(String name, String description, boolean isKeyItem,
 				int attack)
 	{
-		super(name, description, isKeyItem);
+		super("Weapon", name, description, isKeyItem);
 		weaponAttackBonus = attack;
 	}
 
@@ -24,7 +25,7 @@ public class Weapon extends Item
 	 * 
 	 * Method Description: Returns any currently equipped weapon to inventory, and removes any
 	 * associated bonuses to player statistics. Equips this weapon to the associated slot and
-	 * modifies the current playerâ€™s attack statistic based on the weaponâ€™s attack. Invoked when
+	 * modifies the current player’s attack statistic based on the weapon’s attack. Invoked when
 	 * player attempts to use / equip this weapon.
 	 */
 	public void useItem(Player p)
