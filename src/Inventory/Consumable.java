@@ -33,5 +33,6 @@ public class Consumable extends Item
 		{
 			p.setPlayerCurrentHP(p.getPlayerMaxHP());
 		}
+		System.out.println("Your HP is now " + p.getPlayerCurrentHP() + " HP.");
 	}
 }
