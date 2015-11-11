@@ -2,8 +2,8 @@ package Obstacle;
 
 import java.util.Random;
 import java.util.Scanner;
-
-import UserInteraction.Player;
+import Inventory.*;
+import UserInteraction.*;
 
 
 public class Enemy {
@@ -12,13 +12,13 @@ public class Enemy {
 	private String eName;
 	private int eHP, eDodge, eAttack, ePoints, eID;
 	//private int pHP, pMaxHP, pDodge, pAttack;
-	private Object eReward = new Object();
-	//private Inventory Subsystem.Item eReward;
-	private Object rewardTest = new Object();
+
+	private Item eReward;
+	
 	Scanner s = new Scanner(System.in);
 	Random rand = new Random();
 	String [] hitOutput = new String[4];
-	Player playa = new Player();
+	Player playa;
 	
 	public Enemy(){
 		this.eID = 00;
@@ -34,13 +34,13 @@ public class Enemy {
 		
 	}
 	public Enemy(int iD, String name, int hp, int attack, int dodge, 
-			Object reward, int points, String[] hitList) {
+			Item reward, int points, String[] hitList) {
 		this.eID = iD;
 		eName = name;
 		this.eHP = hp;
 		this.eAttack = attack;
 		this.eDodge = dodge;
-		this.rewardTest = reward;
+		this.eReward = reward;
 		this.ePoints = points;
 		hitOutput = hitList;
 		enemyIsDead = false;
@@ -52,7 +52,7 @@ public class Enemy {
 		//pHP = playa.;
 		//pDodge = dodge;
 		//pAttack = attack;
-		Player playa = p;
+		playa = p;
 		inBattle = true;
 		System.out.println("You have engaged in combat with " + eName + "."+
 				" (Press H for Help)");
@@ -170,7 +170,7 @@ public class Enemy {
 			System.out.println(eName + " is dead.");
 			enemyIsDead = true;
 			inBattle = false;
-			
+			s.close();
 		}
 		else{
 			enemyAttack();
@@ -188,7 +188,6 @@ public class Enemy {
 	}
 	
 	public void useItem() {
-		playa.getPlayerInventory().useItem();
 		if(playa.getPlayerInventory().useItem()){
 			enemyAttack();
 		}
@@ -196,7 +195,11 @@ public class Enemy {
 			listener();
 		}
 	}
-
+	
+	public Item getReward(){
+		return eReward;
+	}
+	
 	public void helpMenu(){
 		System.out.println("A - Attack    E - Escape    T - Taunt    I - Inventory");
 		System.out.println(playa.getPlayerCurrentHP() + "/" + playa.getPlayerMaxHP() + " HP");
@@ -238,7 +241,7 @@ public class Enemy {
         	listener();
         	break;
         default:
-            System.out.println("1Command not recognized.");
+            System.out.println("Command not recognized.");
             listener();
             break;
 	}
