@@ -16,21 +16,6 @@ public class Game
 		gameCurrentRoom = new Room();
 	}
 	
-	public void startNewGame()
-	{
-		
-	}
-	
-	public void loadGame(int number)
-	{
-		
-	}
-	
-	public void saveGame()
-	{
-		
-	}
-	
 	public void displayHelp()
 	{
 		
@@ -69,12 +54,6 @@ public class Game
 	public void setGameCurrentRoom(Room gameCurrentRoom)
 	{
 		this.gameCurrentRoom = gameCurrentRoom;
-	}
-
-	public static void main(String[] args)
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 }

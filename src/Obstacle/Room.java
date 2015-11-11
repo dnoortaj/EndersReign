@@ -1,24 +1,22 @@
 package Obstacle;
 
-import java.util.ArrayList;
-
 public class Room
 {
 	private String roomDescription;
-	private int roomMonster;
-	private int roomMonsterChance;
-	private int roomPuzzle;
+	private Enemy roomEnemy;
+	private int roomEnemyChance;
+	private Puzzle roomPuzzle;
 	private int roomPuzzleChance;
-	private ArrayList<Room> roomExits;
+	private Room[] roomExits;
 	
 	public Room()
 	{
 		roomDescription = "";
-		roomMonster = 0;
-		roomMonsterChance = 0;
-		roomPuzzle = 0;
+		roomEnemy = new Enemy();
+		roomEnemyChance = 0;
+		roomPuzzle = new Puzzle();
 		roomPuzzleChance = 0;
-		roomExits = new ArrayList<Room>();
+		roomExits = new Room[4];
 	}
 	
 	public void look()
@@ -26,40 +24,22 @@ public class Room
 		
 	}
 	
-	public void determineEncounter()
-	{
-		if (getRoomMonster() > 0)
-		{
-			Enemy currentEnemy = new Enemy();
-			//call for starting the battle...
-		}
-		else if (getRoomPuzzle() > 0)
-		{
-			Puzzle currentPuzzle = new Puzzle();
-			//call for starting the puzzle..
-		}
-		else
-		{
-			
-		}
-	}
-	
 	public void setRoomDescription(String roomDescription)
 	{
 		this.roomDescription = roomDescription;
 	}
 
-	public void setRoomMonster(int roomMonster)
+	public void setroomEnemy(Enemy roomEnemy)
 	{
-		this.roomMonster = roomMonster;
+		this.roomEnemy = roomEnemy;
 	}
 
-	public void setRoomMonsterChance(int roomMonsterChance)
+	public void setroomEnemyChance(int roomEnemyChance)
 	{
-		this.roomMonsterChance = roomMonsterChance;
+		this.roomEnemyChance = roomEnemyChance;
 	}
 
-	public void setRoomPuzzle(int roomPuzzle)
+	public void setRoomPuzzle(Puzzle roomPuzzle)
 	{
 		this.roomPuzzle = roomPuzzle;
 	}
@@ -69,12 +49,12 @@ public class Room
 		this.roomPuzzleChance = roomPuzzleChance;
 	}
 
-	public ArrayList<Room> getRoomExits()
+	public Room getRoomExits(int n)
 	{
-		return roomExits;
+		return roomExits[n];
 	}
 	
-	public void setRoomExits(ArrayList<Room> roomExits)
+	public void setRoomExits(Room[] roomExits)
 	{
 		this.roomExits = roomExits;
 	}
@@ -84,17 +64,17 @@ public class Room
 		return roomDescription;
 	}
 	
-	public int getRoomMonster()
+	public Enemy getroomEnemy()
 	{
-		return roomMonster;
+		return roomEnemy;
 	}
 	
-	public int getRoomMonsterChance()
+	public int getroomEnemyChance()
 	{
-		return roomMonsterChance;
+		return roomEnemyChance;
 	}
 	
-	public int getRoomPuzzle()
+	public Puzzle getRoomPuzzle()
 	{
 		return roomPuzzle;
 	}
