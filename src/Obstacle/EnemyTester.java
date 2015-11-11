@@ -31,7 +31,6 @@ public class EnemyTester {
 		currentPlayer.setPlayerInventory(inv);
 		inv.setOwner(currentPlayer);
 		Object o = new Object();
-		
 		Enemy plucifer = new Enemy(01, "Plucifer", 50, 10, 10, o, 10, hitOutput);
 
 		plucifer.fight(currentPlayer);

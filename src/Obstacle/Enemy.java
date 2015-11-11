@@ -2,8 +2,8 @@ package Obstacle;
 
 import java.util.Random;
 import java.util.Scanner;
-
-import UserInteraction.Player;
+import Inventory.*;
+import UserInteraction.*;
 
 
 public class Enemy {
@@ -18,7 +18,7 @@ public class Enemy {
 	Scanner s = new Scanner(System.in);
 	Random rand = new Random();
 	String [] hitOutput = new String[4];
-	Player playa = new Player();
+	Player playa;
 	
 	public Enemy(){
 		this.eID = 00;
@@ -52,7 +52,7 @@ public class Enemy {
 		//pHP = playa.;
 		//pDodge = dodge;
 		//pAttack = attack;
-		Player playa = p;
+		playa = p;
 		inBattle = true;
 		System.out.println("You have engaged in combat with " + eName + "."+
 				" (Press H for Help)");
@@ -170,7 +170,7 @@ public class Enemy {
 			System.out.println(eName + " is dead.");
 			enemyIsDead = true;
 			inBattle = false;
-			
+			s.close();
 		}
 		else{
 			enemyAttack();
@@ -188,7 +188,6 @@ public class Enemy {
 	}
 	
 	public void useItem() {
-		playa.getPlayerInventory().useItem();
 		if(playa.getPlayerInventory().useItem()){
 			enemyAttack();
 		}
@@ -238,7 +237,7 @@ public class Enemy {
         	listener();
         	break;
         default:
-            System.out.println("1Command not recognized.");
+            System.out.println("Command not recognized.");
             listener();
             break;
 	}
