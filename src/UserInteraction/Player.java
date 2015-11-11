@@ -63,7 +63,7 @@ public class Player
 	 * @param playerDodge
 	 * @param playerLives
 	 */
-	public Player(String playerName, int playerScore, int playerMazHP,
+	public Player(String playerName, int playerScore, int playerMaxHP,
 				int playerCurrentHP, int playerAttack, int playerDodge,
 				int playerLives, Inventory playerInventory)
 	{
