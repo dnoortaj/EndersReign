@@ -3,20 +3,22 @@ package Obstacle;
 import java.util.Random;
 import java.util.Scanner;
 
+import UserInteraction.Player;
+
 
 public class Enemy {
 
 	private boolean enemyIsDead, inBattle;
 	private String eName;
 	private int eHP, eDodge, eAttack, ePoints, eID;
-	private int pHP, pMaxHP, pDodge, pAttack;
+	//private int pHP, pMaxHP, pDodge, pAttack;
 	private Object eReward = new Object();
 	//private Inventory Subsystem.Item eReward;
 	private Object rewardTest = new Object();
 	Scanner s = new Scanner(System.in);
 	Random rand = new Random();
 	String [] hitOutput = new String[4];
-	int in = 0;
+	Player playa = new Player();
 	
 	public Enemy(){
 		this.eID = 00;
@@ -29,6 +31,7 @@ public class Enemy {
 		hitOutput = hitOutput;
 		enemyIsDead = false;
 		inBattle = false;
+		
 	}
 	public Enemy(int iD, String name, int hp, int attack, int dodge, 
 			Object reward, int points, String[] hitList) {
@@ -44,11 +47,12 @@ public class Enemy {
 		inBattle = false;
 	}
 
-	public void fight(int max, int current, int attack, int dodge) {
-		pMaxHP = max;
-		pHP = current;
-		pDodge = dodge;
-		pAttack = attack;
+	public void fight(Player p) {
+		//pMaxHP = playa.getPlayerMaxHP();
+		//pHP = playa.;
+		//pDodge = dodge;
+		//pAttack = attack;
+		Player playa = p;
 		inBattle = true;
 		System.out.println("You have engaged in combat with " + eName + "."+
 				" (Press H for Help)");
@@ -56,17 +60,17 @@ public class Enemy {
 	}
 
 	public void enemyAttack() {
-		if(hitMiss(pDodge)){
+		if(hitMiss(playa.getPlayerDodge())){
 			int damage = damage();
 			double damageDescription = damage / 10;
 			Long L = Math.round(damageDescription);
 			int i = Integer.valueOf(L.intValue());
 			Double doubDamage = (double)damage;
 			Double actualDamage = (eAttack *((doubDamage / 100) + .7));
-			pHP = (int)(pHP - actualDamage);
+			playa.setPlayerCurrentHP((int)(playa.getPlayerCurrentHP() - actualDamage));
 			System.out.println(eName + " " + hitOutput[i] + " you. " + 
 					actualDamage.intValue() + " damage leaves you with " +
-					pHP + " hit points.");
+					playa.getPlayerCurrentHP() + " hit points.");
 			playerIsAlive();
 		}
 		else{
@@ -81,7 +85,7 @@ public class Enemy {
 			int damage = damage();
 			int damageDescription = damage / 10;
 			Double doubDamage = (double)damage;
-			Double actualDamage = (pAttack *((doubDamage / 100) + .7));
+			Double actualDamage = (playa.getPlayerAttack() *((doubDamage / 100) + .7));
 			eHP = (int)(eHP - actualDamage);
 			System.out.println("You " + hitOutput[damageDescription] + " " +
 				eName + ", inflicting " + actualDamage.intValue() + " points of damage.");
@@ -143,7 +147,7 @@ public class Enemy {
 	}
 
 	public void escape() {
-		if(rand.nextInt(pDodge) > (rand.nextInt(eDodge) + 3)){
+		if(rand.nextInt(playa.getPlayerDodge()) > (rand.nextInt(eDodge) + 3)){
 			System.out.println("As the French so often do, you turned tail"
 					+ " and ran like the coward that you are. ");
 			System.out.println(eName + " doesn't seem to know where you went.");
@@ -175,7 +179,7 @@ public class Enemy {
 	
 
 	public void playerIsAlive(){
-		if(pHP <= 0){
+		if(playa.getPlayerCurrentHP() <= 0){
 			System.out.println("You are dead.");
 		}
 		else{
@@ -184,12 +188,18 @@ public class Enemy {
 	}
 	
 	public void useItem() {
-
+		playa.getPlayerInventory().useItem();
+		if(playa.getPlayerInventory().useItem()){
+			enemyAttack();
+		}
+		else{
+			listener();
+		}
 	}
 
 	public void helpMenu(){
 		System.out.println("A - Attack    E - Escape    T - Taunt    I - Inventory");
-		System.out.println(pHP + "/" + pMaxHP + " HP");
+		System.out.println(playa.getPlayerCurrentHP() + "/" + playa.getPlayerMaxHP() + " HP");
 		listener();
 	}
 	
@@ -197,8 +207,8 @@ public class Enemy {
 		return inBattle;
 	}
 
-	public int getPlayerHP(){
-		return pHP;
+	public Player getPlayer(){
+		return playa;
 	}
 	public int getPoints(){
 		return ePoints;
@@ -219,13 +229,16 @@ public class Enemy {
         case "h":
         	helpMenu();
         	break;
+        case "i":
+        	useItem();
+        	break;
         case "u":
         	System.out.println("That command is not valid whilst engaged"
         			+ " in combat.");
         	listener();
         	break;
         default:
-            System.out.println("Command not recognized.");
+            System.out.println("1Command not recognized.");
             listener();
             break;
 	}
