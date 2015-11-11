@@ -17,6 +17,7 @@ public class EnemyTester {
 	public static Player playerUpdate(Enemy badGuy){
 		if(badGuy.enemyIsDead()){
 			badGuy.getPlayer().addToScore(badGuy.getPoints());
+			badGuy.getPlayer().getPlayerInventory().addToInventory(badGuy.getReward());
 		}
 		return badGuy.getPlayer();
 	}
@@ -27,17 +28,19 @@ public class EnemyTester {
 	public static void main(String[] args) {
 		Inventory inv = new Inventory();
 		
-		Player currentPlayer = new Player();
+		Player currentPlayer = new Player("Bobby", 7, 65, 65, 15, 10, 10, inv);
 		currentPlayer.setPlayerInventory(inv);
 		inv.setOwner(currentPlayer);
-		Object o = new Object();
-		Enemy plucifer = new Enemy(01, "Plucifer", 50, 10, 10, o, 10, hitOutput);
+		Weapon yourNameHere = new Weapon("Cudgle", "Crude beating stick", false, 12);
+	
+		Enemy plucifer = new Enemy(01, "Plucifer", 50, 10, 10, yourNameHere, 10, hitOutput);
 
 		plucifer.fight(currentPlayer);
 		currentPlayer = playerUpdate(plucifer);
 		System.out.println("You have returned from combat.");
 		System.out.println("Player score is now " + currentPlayer.getPlayerScore());
 		System.out.println("Player HP is " + currentPlayer.getPlayerCurrentHP());
+		currentPlayer.getPlayerInventory().useItem();
 	}
 
 }

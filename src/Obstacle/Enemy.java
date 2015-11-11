@@ -12,9 +12,9 @@ public class Enemy {
 	private String eName;
 	private int eHP, eDodge, eAttack, ePoints, eID;
 	//private int pHP, pMaxHP, pDodge, pAttack;
-	private Object eReward = new Object();
-	//private Inventory Subsystem.Item eReward;
-	private Object rewardTest = new Object();
+
+	private Item eReward;
+	
 	Scanner s = new Scanner(System.in);
 	Random rand = new Random();
 	String [] hitOutput = new String[4];
@@ -34,13 +34,13 @@ public class Enemy {
 		
 	}
 	public Enemy(int iD, String name, int hp, int attack, int dodge, 
-			Object reward, int points, String[] hitList) {
+			Item reward, int points, String[] hitList) {
 		this.eID = iD;
 		eName = name;
 		this.eHP = hp;
 		this.eAttack = attack;
 		this.eDodge = dodge;
-		this.rewardTest = reward;
+		this.eReward = reward;
 		this.ePoints = points;
 		hitOutput = hitList;
 		enemyIsDead = false;
@@ -195,7 +195,11 @@ public class Enemy {
 			listener();
 		}
 	}
-
+	
+	public Item getReward(){
+		return eReward;
+	}
+	
 	public void helpMenu(){
 		System.out.println("A - Attack    E - Escape    T - Taunt    I - Inventory");
 		System.out.println(playa.getPlayerCurrentHP() + "/" + playa.getPlayerMaxHP() + " HP");
