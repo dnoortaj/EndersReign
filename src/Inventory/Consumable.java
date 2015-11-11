@@ -1,5 +1,5 @@
 package Inventory;
-import UserInteraction.*;
+import UserInteraction.*; 
 
 public class Consumable extends Item
 {

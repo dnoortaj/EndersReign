@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import Inventory.*;
 
-public class Game
+public class Game 
 {
 	private int gameStage;
 	private Player gamePlayer;

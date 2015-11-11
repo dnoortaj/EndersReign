@@ -1,5 +1,5 @@
 package Inventory;
-import UserInteraction.*;
+import UserInteraction.*; 
 
 /**
  * @author Ethan Patterson

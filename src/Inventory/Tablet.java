@@ -1,5 +1,5 @@
 package Inventory;
-import UserInteraction.*;
+import UserInteraction.*; 
 
 /*********************************************************************
 Defines generic tablet item layout.

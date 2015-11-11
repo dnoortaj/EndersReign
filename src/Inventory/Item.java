@@ -1,5 +1,5 @@
 package Inventory;
-import UserInteraction.*;
+import UserInteraction.*; 
 
 /*********************************************************************
 Defines generic item layout. Superclass to be extended by all item

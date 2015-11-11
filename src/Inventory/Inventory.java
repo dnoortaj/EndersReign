@@ -4,7 +4,7 @@ import Obstacle.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Scanner; 
 
 /*********************************************************************
 Defines generic inventory layout. Allows management and storage of all

@@ -1,5 +1,5 @@
 package Inventory;
-import UserInteraction.*;
+import UserInteraction.*; 
 
 /*********************************************************************
 Defines generic space suit item layout.
