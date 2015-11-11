@@ -2,29 +2,41 @@ package Obstacle;
 
 public class Room
 {
-	private String roomDescription;
+	private String roomName;
+	private String[] roomDescription = {null, null};
 	private Enemy roomEnemy;
 	private int roomEnemyChance;
 	private Puzzle roomPuzzle;
 	private int roomPuzzleChance;
-	private Room[] roomExits;
+	private Room[] roomExits = {null, null, null, null};
 	
 	public Room()
 	{
-		roomDescription = "";
+		roomName = "";
 		roomEnemy = new Enemy();
 		roomEnemyChance = 0;
 		roomPuzzle = new Puzzle();
 		roomPuzzleChance = 0;
-		roomExits = new Room[4];
+	}
+	
+	public Room(String roomName, String[] roomDescription, Enemy roomEnemy, int roomEnemyChance, 
+			Puzzle roomPuzzle, int roomPuzzleChance)
+	{
+		this.roomName = roomName;
+		this.roomDescription = roomDescription;
+		this.roomEnemy = roomEnemy;
+		this.roomEnemyChance = roomEnemyChance;
+		this.roomPuzzle = roomPuzzle;
+		this.roomPuzzleChance = roomPuzzleChance;
 	}
 	
 	public void look()
 	{
+		System.out.println(this.getRoomDescription(1));
 		
 	}
 	
-	public void setRoomDescription(String roomDescription)
+	public void setRoomDescription(String[] roomDescription)
 	{
 		this.roomDescription = roomDescription;
 	}
@@ -59,9 +71,9 @@ public class Room
 		this.roomExits = roomExits;
 	}
 	
-	public String getRoomDescription()
+	public String getRoomDescription(int number)
 	{
-		return roomDescription;
+		return roomDescription[number];
 	}
 	
 	public Enemy getroomEnemy()

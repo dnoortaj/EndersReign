@@ -9,7 +9,7 @@ import Inventory.*;
 public class Game 
 {
 	private int gameStage;
-	private Player gamePlayer;
+	private Player currentPlayer;
 	private Room gameCurrentRoom;
 	private ArrayList<Enemy> gameEnemies;
 	private ArrayList<Puzzle> gamePuzzles;
@@ -53,7 +53,7 @@ public class Game
 	public Game()
 	{
 		gameStage = 0;
-		gamePlayer = new Player();
+		currentPlayer = new Player();
 		gameCurrentRoom = new Room();
 	}
 	
@@ -77,14 +77,14 @@ public class Game
 		this.gameStage = gameStage;
 	}
 
-	public Player getGamePlayer()
+	public Player getCurrentPlayer()
 	{
-		return gamePlayer;
+		return currentPlayer;
 	}
 
-	public void setGamePlayer(Player gamePlayer)
+	public void setCurrentPlayer(Player currentPlayer)
 	{
-		this.gamePlayer = gamePlayer;
+		this.currentPlayer = currentPlayer;
 	}
 
 	public Room getGameCurrentRoom()
