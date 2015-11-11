@@ -1,5 +1,5 @@
 package Inventory;
-import UserInteraction.*; 
+import UserInteraction.*;
 
 public class Accessory extends Item{
 
@@ -7,7 +7,6 @@ public class Accessory extends Item{
 	
 	public Accessory(){
 		super("Accessory", "", "", false);
-		itemType = "Accessory";
 		accessoryHPIncrease = 0;
 		accessoryAttackIncrease = 0;
 		accessoryDodgeIncrease = 0;
