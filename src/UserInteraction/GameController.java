@@ -1,12 +1,5 @@
 package UserInteraction;
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,6 +11,7 @@ public class GameController
 	private ArrayList<Game> games = new ArrayList<Game>();
 	private Game game;
 	private boolean run;
+	Scanner sc = new Scanner(new InputStreamReader(System.in));
 	
 	public GameController()
 	{
@@ -28,42 +22,59 @@ public class GameController
 	
 	public void mainMenu()
 	{		
-		Scanner sc = new Scanner(new InputStreamReader(System.in));
+
+				System.out.println("Welcome to Ender's Reign: Wiggin's Formic Rage! \nWould you like to:"
+						+ "\n> Start New Game \n> Load Game \n> Exit");
+				String input = sc.nextLine();
+				
+				if (input.contains("New") || input.contains("new"))
+				{
+					startNewGame();
+				}
+				else if (input.contains("Load") || input.contains("load"))
+				{
+					loadGame();
+				}
+				else if (input.equalsIgnoreCase("Exit"))
+				{
+					
+				}
+
+	}
+	
+	public void startNewGame()
+	{
+		readFromFile();
+		
+		
+	}
+	
+	public void loadGame()
+	{
+		int loadFile;
 		try
 		{
-			System.out.println("Welcome to Ender's Reign: Wiggin's Formic Rage!");
-			System.out.println("Which file would you like to open? (Enter a value 1-3)");
-			System.out.print("> ");			
-			loadGame(sc.nextInt());
-			if (run = false)
-			{
 
+			if (run == false)
+			{
+				System.out.println("Which file would you like to open? (Enter a value 1-3)");
+				System.out.print("> ");			
+				loadFile = Integer.parseInt(sc.nextLine());
 			}
 			else
 			{
 				System.out.println("Sorry, you've entered an incorrect value. \nPlease enter a value 1-3.");
+				System.out.print("> ");			
+				loadFile = Integer.parseInt(sc.nextLine());
 			}
-
+			readFromFile();
+			game = games.get((loadFile-1));
 		}
 		catch (Exception e)
 		{
 			run = true;
-			mainMenu();
+			loadGame();
 		}
-	}
-	
-	public void startNewGame(int number)
-	{
-		readFromFile();
-		
-		
-	}
-	
-	public void loadGame(int number)
-	{
-		readFromFile();
-		game = games.get((number-1));
-		
 	}
 	
 	   public  void readFromFile()

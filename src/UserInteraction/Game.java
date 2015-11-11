@@ -1,6 +1,9 @@
 package UserInteraction;
 
 import Obstacle.*;
+
+import java.util.ArrayList;
+
 import Inventory.*;
 
 public class Game
@@ -8,6 +11,9 @@ public class Game
 	private int gameStage;
 	private Player gamePlayer;
 	private Room gameCurrentRoom;
+	private ArrayList<Enemy> gameEnemies;
+	//private ArrayList<Inventory> gameInventory;
+	private ArrayList<Puzzle> gamePuzzles;
 
 	public Game()
 	{
