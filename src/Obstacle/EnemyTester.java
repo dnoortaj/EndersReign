@@ -19,12 +19,7 @@ public class EnemyTester {
 		return badGuy.getPlayer();
 	}
 	
-	//public Enemy(int iD, String name, int hp, int attack, int dodge, 
-	//		Item reward, int points, Array hitList[]) {
-	
-	
-	
-	
+
 	public static void main(String[] args) {
 		Inventory inv = new Inventory();
 		Consumable potion = new Consumable("drugs", "good drugs", false, 40);
@@ -38,7 +33,7 @@ public class EnemyTester {
 
 		plucifer.fight(currentPlayer);
 		currentPlayer = playerUpdate(plucifer);
-		System.out.println("You have returned from combat.");
+		System.out.println("You have disengaged from combat.");
 		System.out.println("Player score is now " + currentPlayer.getPlayerScore());
 		System.out.println("Player HP is " + currentPlayer.getPlayerCurrentHP());
 		currentPlayer.getPlayerInventory().useItem();
