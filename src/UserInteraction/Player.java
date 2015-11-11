@@ -65,16 +65,17 @@ public class Player
 	 */
 	public Player(String playerName, int playerScore, int playerMazHP,
 				int playerCurrentHP, int playerAttack, int playerDodge,
-				int playerLives)
+				int playerLives, Inventory playerInventory)
 	{
 		super();
 		this.playerName = playerName;
 		this.playerScore = playerScore;
-		this.playerMaxHP = playerMazHP;
+		this.playerMaxHP = playerMaxHP;
 		this.playerCurrentHP = playerCurrentHP;
 		this.playerAttack = playerAttack;
 		this.playerDodge = playerDodge;
 		this.playerLives = playerLives;
+		this.playerInventory = playerInventory;
 	}
 
 
