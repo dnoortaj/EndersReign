@@ -170,7 +170,6 @@ public class Enemy {
 			System.out.println(eName + " is dead.");
 			enemyIsDead = true;
 			inBattle = false;
-			s.close();
 		}
 		else{
 			enemyAttack();
@@ -245,6 +244,5 @@ public class Enemy {
             listener();
             break;
 	}
-
 }
 }
