@@ -1,63 +1,115 @@
 package Obstacle;
-
-import java.util.List;
 import Inventory.*;
+import java.util.Scanner;
 
-public class Puzzle {
-
-	private boolean puzzleCompleted;
-	private List puzzleChallengePart;
-	private List puzzleChallengeText;
-	private List puzzleOptions;
-	private List puzzleSolutionText;
-	private List puzzleSuccessMessage;
-	private List puzzleFailureMessage;
-	private List puzzleReward;
-	private int puzzlePoints;
+/**
+ * @author Ethan Patterson
+ * 
+ *         Class Description: The puzzle classes contain the puzzle challenges. The individual
+ *         puzzles will be custom written. The instances of puzzles will be determined by the Room
+ *         classes. The puzzle object prompt, answering/response system, and reward functionality
+ *         will be handled within this class.
+ */
+public class Puzzle
+{
+	private boolean puzzleIsCompleted = false;
+	private String[][] puzzleText = new String[3][5];
+	private Item puzzleReward;
+	private int puzzlePoints = 0;
+	private Scanner input = new Scanner(System.in);
 	
+	public Puzzle()
+	{
+		 puzzleIsCompleted = false;
+		 puzzleText = new String[3][5];
+		 puzzlePoints = 0;
+		 input = new Scanner(System.in);
+	}
 	
-	public void Puzzle() {
-
+	/**
+	 * General constructor used to instantiate puzzle objects. Sets state values for
+	 * puzzleIsCompleted, puzzleText, puzzleReward, and puzzlePoints.
+	 */
+	public Puzzle(boolean puzzleIsCompleted, String[][] puzzleText,
+				Item o, int puzzlePoints)
+	{
+		this.puzzleIsCompleted = puzzleIsCompleted;
+		this.puzzleText = puzzleText;
+		this.puzzleReward = o;
+		this.puzzlePoints = puzzlePoints;
 	}
 
-	public void solvePuzzle() {
+	/**
+	 * This method will encapsulate the entire puzzle challenge process including prompting the
+	 * puzzle, receiving user response, and checking correctness. Upon completion it will dole out
+	 * the appropriate reward and points.
+	 */
+	public void solvePuzzle()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			System.out.println(puzzleText[i][0]);
+			System.out.println(puzzleText[i][1]);
+			String answer = input.nextLine();
 
+			while (!answer.equalsIgnoreCase("a") && !answer.equalsIgnoreCase("b") && !answer.equalsIgnoreCase("c"))
+			{
+				System.out.println("Your input was invalid.\nPlease try again.");
+				answer = input.nextLine();
+			}
+			if (answer.equals(puzzleText[i][4]))
+			{
+				System.out.println(puzzleText[i][2]);
+				puzzlePoints += 5;
+
+			} else
+			{
+				System.out.println(puzzleText[i][3]);
+
+			}
+
+		}
 	}
 
-	public boolean getPuzzleIsCompleted() {
-		return puzzleCompleted;
+	/**
+	 * @return Returns a boolean value that describes whether the puzzle has been completed.
+	 */
+	public boolean getPuzzleIsCompleted()
+	{
+		return puzzleIsCompleted;
 	}
 
-	public int getPuzzleChallengePart() {
-		return 0;
+	/**
+	 * @param puzzleIsCompleted the puzzleIsCompleted to set
+	 * 
+	 * Description: Toggles the puzzleIsComplete state value.
+	 */
+	public void setPuzzleIsCompleted(boolean puzzleIsCompleted)
+	{
+		this.puzzleIsCompleted = puzzleIsCompleted;
 	}
 
-	public String getPuzzleChallengeText() {
-		return null;
+
+	/**
+	 * @return the puzzleReward
+	 * 
+	 *         Description: Returns the reward granted for successful completion of a puzzle
+	 *         challenge.
+	 */
+	public Item getPuzzleReward()
+	{
+		return puzzleReward;
 	}
 
-	public String getPuzzleOptions() {
-		return null;
-	}
-
-	public String getPuzzleSolutionText() {
-		return null;
-	}
-
-	public String getPuzzleSuccessMessage() {
-		return null;
-	}
-
-	public String getPuzzleFailureMessage() {
-		return null;
-	}
-
-	public void getPuzzleReward() {
-
-	}
-
-	public Item getPuzzlePoints() {
-		return null;
+	/**
+	 * @return the puzzlePoints
+	 * 
+	 *         Description: Returns the points that remain after the completion of a puzzle
+	 *         challenge.
+	 */
+	public int getPuzzlePoints()
+	{
+		return puzzlePoints;
 	}
 
 }
