@@ -16,6 +16,7 @@ public class Enemy {
 	Scanner s = new Scanner(System.in);
 	Random rand = new Random();
 	String [] hitOutput = new String[4];
+	int in = 0;
 	
 	public Enemy(){
 		this.eID = 00;
