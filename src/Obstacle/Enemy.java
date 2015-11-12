@@ -59,6 +59,9 @@ public class Enemy {
 		inBattle = true;
 		System.out.println("You have engaged in combat with " + eName + "."+
 				" (Press H for Help)");
+		if(eDodge > 50){
+			System.out.println(eName + " is very elusive.");
+		}
 		listener();
 	}
 
@@ -111,11 +114,15 @@ public class Enemy {
 	}
 	
 	public boolean hitMiss(int dodge){
-		int chance = rand.nextInt(15);
-		if(chance <= dodge){
+		int chance = rand.nextInt(40);
+		System.out.println("chance " + chance + ". Dodge " + dodge);
+		if(chance >= dodge){
 			return true;
 		}
 		else{
+			if(dodge >= 100){
+				System.out.println("Its hard to hit what you can't see.");	
+			}
 			return false;
 		}
 	}
@@ -125,31 +132,38 @@ public class Enemy {
 	}
 	
 	public void taunt(){
-		int temp = rand.nextInt(3) + 3;
-		if(Integer.parseInt(taunt[0]) > 0 && firstTaunt ){
-			eAttack = eAttack - Integer.parseInt(taunt[0]);
-			eName = taunt[2];
-			System.out.println(taunt[1]);
+		int temp = rand.nextInt(3) + 4;
+		if(taunt[0].equalsIgnoreCase("a") && firstTaunt){
+			eAttack = eAttack - Integer.parseInt(taunt[1]);
+			eName = taunt[3];
+			System.out.println(taunt[2]);
+			firstTaunt = false;
+			listener();
+		}
+		else if(taunt[0].equalsIgnoreCase("d") && firstTaunt){
+			eDodge = eDodge - Integer.parseInt(taunt[1]);
+			eName = taunt[3];
+			System.out.println(taunt[2]);
 			firstTaunt = false;
 			listener();
 		}
 		else{
-		if(temp == 3){
-			System.out.println(taunt[3] + " " + eName + ".");
+		if(temp == 4){
+			System.out.println(taunt[4] + " " + eName + ".");
 			tempo(650);
-			System.out.println(eName + " " + taunt[6]);
+			System.out.println(eName + " " + taunt[7]);
 			listener();
 		}
-		else if(temp == 4){
-			System.out.println(taunt[4]);
-			tempo(550);
-			System.out.println(eName + " " + taunt[7]);
-			enemyAttack();
-		}
 		else if(temp == 5){
-			System.out.println(taunt[5] + " " + eName + ".");
+			System.out.println(taunt[5]);
 			tempo(550);
 			System.out.println(eName + " " + taunt[8]);
+			enemyAttack();
+		}
+		else if(temp == 6){
+			System.out.println(taunt[6] + " " + eName + ".");
+			tempo(550);
+			System.out.println(eName + " " + taunt[9]);
 			tempo(350);
 			enemyAttack();		
 		}
@@ -188,8 +202,12 @@ public class Enemy {
 	
 
 	public void playerIsAlive(){
-		if(playa.getPlayerCurrentHP() <= 0){
+		if(playa.getPlayerCurrentHP() < 0 && playa.getPlayerCurrentHP() >= -5){
+			playa.setPlayerCurrentHP(0);
 			System.out.println("You are dead.");
+		}
+		else if(playa.getPlayerCurrentHP() <= -6){
+			System.out.println("You are so dead you're nearly undead.");
 		}
 		else{
 			listener();
@@ -226,7 +244,7 @@ public class Enemy {
 		return ePoints;
 	}
 	public void listener() {
-		System.out.print(">");
+		System.out.print("> ");
 		String input = s.next();
 		switch (input.toLowerCase()) {
         case "a":
