@@ -1,5 +1,19 @@
 package Obstacle;
 
+/** Class: Room.java
+ * @author Danyelle Noortajalli
+ * @version 1.0
+ * Course: ITEC 3150 Fall 2015
+ * Written: Nov 12, 2015
+ * 
+ * 
+ * This class - Room
+ * 
+ * 
+ * Purpose: creates a room with the current player, any possible enemies,
+ * any possible puzzles, and a description
+ *
+ */
 public class Room
 {
 	private String roomName;
@@ -10,6 +24,10 @@ public class Room
 	private int roomPuzzleChance;
 	private Room[] roomExits = {null, null, null, null};
 	
+	/** Method: Room
+	 * 
+	 * general constructor
+	 */
 	public Room()
 	{
 		roomName = "";
@@ -18,6 +36,17 @@ public class Room
 		roomPuzzle = new Puzzle();
 		roomPuzzleChance = 0;
 	}
+	
+	/** Method: Room
+	 * loaded constructor, takes in all attributes 
+	 * 
+	 * @param roomName
+	 * @param roomDescription
+	 * @param roomEnemy
+	 * @param roomEnemyChance
+	 * @param roomPuzzle
+	 * @param roomPuzzleChance
+	 */
 	
 	public Room(String roomName, String[] roomDescription, Enemy roomEnemy, int roomEnemyChance, 
 			Puzzle roomPuzzle, int roomPuzzleChance)
