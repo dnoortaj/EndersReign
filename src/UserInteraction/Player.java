@@ -17,28 +17,6 @@ public class Player
 	private Game playerGame;
 	private Inventory playerInventory;
 	
-	
-	
-	public Game getPlayerGame() {
-		return playerGame;
-	}
-
-
-	public void setPlayerGame(Game playerGame) {
-		this.playerGame = playerGame;
-	}
-
-
-	public Inventory getPlayerInventory() {
-		return playerInventory;
-	}
-
-
-	public void setPlayerInventory(Inventory playerInventory) {
-		this.playerInventory = playerInventory;
-	}
-
-
 	/**
 	 * 
 	 */
@@ -78,7 +56,27 @@ public class Player
 		this.playerInventory = playerInventory;
 	}
 
+	
+	
+	public Game getPlayerGame() {
+		return playerGame;
+	}
 
+
+	public void setPlayerGame(Game playerGame) {
+		this.playerGame = playerGame;
+	}
+
+
+	public Inventory getPlayerInventory() {
+		return playerInventory;
+	}
+
+
+	public void setPlayerInventory(Inventory playerInventory) {
+		this.playerInventory = playerInventory;
+	}
+	
 	/**
 	 * @return the playerName
 	 */
