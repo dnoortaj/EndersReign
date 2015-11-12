@@ -32,7 +32,7 @@ public class Weapon extends Item
 	{
 		int attack = p.getPlayerAttack() + weaponAttackBonus;
 		p.setPlayerAttack(attack);
-		System.out.println("You have just equipped " + itemName);
+		System.out.println("You equipped the " + itemName + ".");
 	}
 	
 	
