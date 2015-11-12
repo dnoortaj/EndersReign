@@ -18,6 +18,7 @@ public class Enemy {
 	Scanner s = new Scanner(System.in);
 	Random rand = new Random();
 	String [] hitOutput = new String[4];
+	String [] taunt = new String[7];
 	Player playa;
 	
 	public Enemy(){
@@ -34,7 +35,7 @@ public class Enemy {
 		
 	}
 	public Enemy(int iD, String name, int hp, int attack, int dodge, 
-			Item reward, int points, String[] hitList) {
+			Item reward, int points, String[] hitList, String[] taunt) {
 		this.eID = iD;
 		eName = name;
 		this.eHP = hp;
@@ -43,6 +44,7 @@ public class Enemy {
 		this.eReward = reward;
 		this.ePoints = points;
 		hitOutput = hitList;
+		this.taunt = taunt;
 		enemyIsDead = false;
 		inBattle = false;
 	}
@@ -122,29 +124,35 @@ public class Enemy {
 	}
 	
 	public void taunt(){
-		int temp = rand.nextInt(3);
-		if(temp == 0){
-			System.out.println("You wave your arms wildly in the air.");
-			tempo(650);
-			System.out.println(eName + " is not impressed.");
+		int temp = rand.nextInt(3) + 3;
+		if(Integer.parseInt(taunt[0]) > 0){
+			eAttack = eAttack - Integer.parseInt(taunt[0]);
+			eName = taunt[2];
+			System.out.println(taunt[1]);
 			listener();
 		}
-		else if(temp == 1){
-			System.out.println("You shout obsenities at " + eName + ".");
-			tempo(750);
-			System.out.println("Offended, " + eName + " uses this as an"
-					+ " opportunity to take a free hit on you.");
+		else{
+		if(temp == 3){
+			System.out.println(taunt[3]);
+			tempo(650);
+			System.out.println(eName + " " + taunt[6]);
+			listener();
+		}
+		else if(temp == 4){
+			System.out.println(taunt[4]);
+			tempo(550);
+			System.out.println(eName + " " + taunt[7]);
 			enemyAttack();
 		}
-		else if(temp == 2){
-			System.out.println("You bite your thumb at " + eName + ".");
-			tempo(750);
-			System.out.println("Undetered, " + eName + " makes a comment about"
-					+ " you being the son of a motherless goat.");
-			tempo(450);
+		else if(temp == 5){
+			System.out.println(taunt[5]);
+			tempo(550);
+			System.out.println(eName + " " + taunt[8]);
+			tempo(350);
 			enemyAttack();		
 		}
 	}
+}
 
 	public void escape() {
 		if(rand.nextInt(playa.getPlayerDodge()) > (rand.nextInt(eDodge) + 3)){
