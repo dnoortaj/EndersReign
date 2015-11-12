@@ -39,6 +39,11 @@ public class Room
 		}
 	}
 	
+	public void setRoomName(String roomName)
+	{
+		this.roomName = roomName;
+	}
+	
 	public void setRoomDescription(String[] roomDescription)
 	{
 		this.roomDescription = roomDescription;
@@ -72,6 +77,11 @@ public class Room
 	public void setRoomExits(Room[] roomExits)
 	{
 		this.roomExits = roomExits;
+	}
+	
+	public String getRoomName()
+	{
+		return roomName;
 	}
 	
 	public String getRoomDescription(int number)

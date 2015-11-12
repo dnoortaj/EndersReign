@@ -31,11 +31,11 @@ public class Puzzle
 	 * puzzleIsCompleted, puzzleText, puzzleReward, and puzzlePoints.
 	 */
 	public Puzzle(boolean puzzleIsCompleted, String[][] puzzleText,
-				Item o, int puzzlePoints)
+				Item puzzleReward, int puzzlePoints)
 	{
 		this.puzzleIsCompleted = puzzleIsCompleted;
 		this.puzzleText = puzzleText;
-		this.puzzleReward = o;
+		this.puzzleReward = puzzleReward;
 		this.puzzlePoints = puzzlePoints;
 	}
 
