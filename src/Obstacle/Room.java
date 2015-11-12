@@ -33,7 +33,10 @@ public class Room
 	public void look()
 	{
 		System.out.println(this.getRoomDescription(1));
-		
+		if (roomEnemy.enemyIsDead() == false)
+		{
+			
+		}
 	}
 	
 	public void setRoomDescription(String[] roomDescription)
