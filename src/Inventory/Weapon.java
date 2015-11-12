@@ -35,6 +35,7 @@ public class Weapon extends Item
 		System.out.println("You have just equipped " + itemName);
 	}
 	
+	
 	/**
 	 * @return the weaponAttackBonus
 	 */
