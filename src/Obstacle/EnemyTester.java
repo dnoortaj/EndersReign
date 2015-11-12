@@ -14,7 +14,7 @@ public class EnemyTester {
 	static String [] taunt = new String [] {"9", "You take a kungfu stance and grin menacingly. \n"
 			+ "Two of the bullies show their true colors and flee.", "Plucifer",
 			"You do your best to taunt", "You flaunt your puny muscles.", 
-			"You expell flatulence in the general direction of your foe.",
+			"You expell flatulence in the general direction of",
 			"is mildly amused that you thought that would have any affect.",
 			"is dumbfounded.", "is disgusted but unmoved."};
 

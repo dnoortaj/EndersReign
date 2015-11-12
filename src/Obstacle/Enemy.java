@@ -8,7 +8,7 @@ import UserInteraction.*;
 
 public class Enemy {
 
-	private boolean enemyIsDead, inBattle;
+	private boolean enemyIsDead, inBattle, firstTaunt;
 	private String eName;
 	private int eHP, eDodge, eAttack, ePoints, eID;
 	//private int pHP, pMaxHP, pDodge, pAttack;
@@ -32,7 +32,7 @@ public class Enemy {
 		hitOutput = hitOutput;
 		enemyIsDead = false;
 		inBattle = false;
-		
+		firstTaunt = true;
 	}
 	public Enemy(int iD, String name, int hp, int attack, int dodge, 
 			Item reward, int points, String[] hitList, String[] taunt) {
@@ -47,6 +47,7 @@ public class Enemy {
 		this.taunt = taunt;
 		enemyIsDead = false;
 		inBattle = false;
+		firstTaunt = true;
 	}
 
 	public void fight(Player p) {
@@ -125,15 +126,16 @@ public class Enemy {
 	
 	public void taunt(){
 		int temp = rand.nextInt(3) + 3;
-		if(Integer.parseInt(taunt[0]) > 0){
+		if(Integer.parseInt(taunt[0]) > 0 && firstTaunt ){
 			eAttack = eAttack - Integer.parseInt(taunt[0]);
 			eName = taunt[2];
 			System.out.println(taunt[1]);
+			firstTaunt = false;
 			listener();
 		}
 		else{
 		if(temp == 3){
-			System.out.println(taunt[3]);
+			System.out.println(taunt[3] + " " + eName + ".");
 			tempo(650);
 			System.out.println(eName + " " + taunt[6]);
 			listener();
@@ -145,7 +147,7 @@ public class Enemy {
 			enemyAttack();
 		}
 		else if(temp == 5){
-			System.out.println(taunt[5]);
+			System.out.println(taunt[5] + " " + eName + ".");
 			tempo(550);
 			System.out.println(eName + " " + taunt[8]);
 			tempo(350);
