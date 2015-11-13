@@ -119,7 +119,7 @@ public class Room
 		return roomDescription[number];
 	}
 	
-	public Enemy getroomEnemy()
+	public Enemy getRoomEnemy()
 	{
 		return roomEnemy;
 	}
