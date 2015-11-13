@@ -3,6 +3,7 @@ package UserInteraction;
 import Obstacle.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import Inventory.*;
 
@@ -17,6 +18,14 @@ public class Game
 	private boolean suitFlag = false;
 	private boolean tabletFlag = false;
 	private boolean battleFlag = false;
+	Scanner scan = new Scanner(System.in);
+	
+	public Game()
+	{
+		gameStage = 0;
+		currentPlayer = new Player();
+		gameCurrentRoom = new Room();
+	}
 	
 	public boolean isOxygenFlag() {
 		return oxygenFlag;
@@ -50,21 +59,18 @@ public class Game
 		this.battleFlag = battleFlag;
 	}
 
-	public Game()
-	{
-		gameStage = 0;
-		currentPlayer = new Player();
-		gameCurrentRoom = new Room();
-	}
+
 	
 	public void displayHelp()
 	{
 		
+	
 	}
 	
 	public void move()
 	{
 		
+
 	}
 	
 	public int getGameStage()
@@ -97,4 +103,44 @@ public class Game
 		this.gameCurrentRoom = gameCurrentRoom;
 	}
 
+	public void listener() {
+		System.out.print("> ");
+		String input = scan.next();
+		switch (input.toLowerCase()) {
+        case "w":
+        	move();
+        	break;
+        case "s":
+        	move();
+        	break;
+        case "a":
+        	move();
+        	break;
+        case "d":
+        	move();
+        	break;
+        case "f":
+        	//fight the things
+        	break;
+        case "h":
+        	displayHelp();
+        	break;
+        case "i":
+        	currentPlayer.getPlayerInventory().useItem();
+        	break;
+        case "1":
+        	//save the things
+        	break;
+        case "2":
+        	//load the things
+        	break;
+        case "0":
+        	//exit 
+        	break;
+        default:
+            System.out.println("Command not recognized.");
+            listener();
+            break;
+}
+}
 }
