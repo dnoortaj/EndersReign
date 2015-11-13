@@ -1,4 +1,4 @@
-package UserInteraction; 
+package UserInteraction;
 
 import Obstacle.*;
 
