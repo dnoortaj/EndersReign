@@ -127,16 +127,22 @@ public abstract class Item implements Comparable<Item> {
 	}
 	
 	/*********************************************************************
-	Abstract method to be defined in each subclass. Defines the action to
-	be take on item use.
-	@param none
-	@return none
+	Comparator used in sorting of item lists.
+	@param Item item - The item to compare this item to.
+	@return int - Value used to sort an Item collection (-1, 0, 1).
 	*********************************************************************/
 	public int compareTo(Item item)
 	{
 		if(itemType.equalsIgnoreCase(item.getItemType()))
 		{
-			return itemName.compareTo(item.getItemName());
+			if(itemName != null && item.getItemName() != null)
+			{
+				return itemName.compareTo(item.getItemName());
+			}
+			else
+			{
+				return 1;
+			}
 		}
 		else
 		{

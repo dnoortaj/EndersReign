@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-import UserInteraction.*; 
+import UserInteraction.*;
 
 /*********************************************************************
 Defines generic inventory layout. Allows management and storage of all
@@ -28,7 +28,7 @@ public class Inventory {
 	private Accessory currentAccessory = null;
 	
 	/** maximum inventory capacity */
-	private int maxItems = 15;
+	private int maxItems = 10;
 
 	/** scanner used to receive user input */
 	private Scanner scanner = new Scanner(System.in);
@@ -87,11 +87,11 @@ public class Inventory {
 		{
 			// displays the item list
 			Collections.sort(list);
-			System.out.println(displayItemList());
-			System.out.println("Which item would you like to use?");
+			System.out.print(displayItemList());
+			System.out.print("Which item would you like to use?\n> ");
 			input = scanner.next();
 
-			// attempts to parse an integer from user input
+			// attempts to parse an appropriate integer from user input
 			do
 			{
 				try
@@ -104,7 +104,7 @@ public class Inventory {
 				catch(NumberFormatException e)
 				{
 					System.out.println("Integer value not detected.");
-					System.out.println("Please enter an integer value (0 to cancel).");
+					System.out.print("Please enter an integer value (0 to cancel).\n> ");
 					input = scanner.next();
 					numberFlag = false;
 				}
@@ -127,7 +127,7 @@ public class Inventory {
 						System.out.println("Value out of bounds.");
 
 						// ask for new input
-						System.out.println("Please select a valid number.");
+						System.out.print("Please select a valid number (0 to cancel).\n> ");
 						input = scanner.next();
 						numberFlag = false;
 					}
@@ -137,7 +137,9 @@ public class Inventory {
 					{
 						// ask for new input
 						System.out.println("You cannot use that item in battle.");
-						System.out.println("Please select a different item.");
+						Collections.sort(list);
+						System.out.print(displayItems());
+						System.out.print("Please select a different item (0 to cancel).\n> ");
 						input = scanner.next();
 						numberFlag = false;
 					}
@@ -210,29 +212,29 @@ public class Inventory {
 		}
 		else
 		{
-			System.out.println(displayItemList());
+			System.out.print(displayItemList());
 			return false;
 		}
 	}
 
 	/*********************************************************************
-	Private helper method for use with useItem method. Generates a single 
-	list of all items in inventory.
+	Private helper method for use with useItem method. Generates a list of
+	player statistics, equipped items, and all items in inventory.
 
 	@param none
-	@return String - Comprehensive list of items with item numbers.
+	@return String - Comprehensive inventory list with player statistics.
 	 *********************************************************************/
 	private String displayItemList()
 	{
 		String weapon = "Current Weapon: ";
 		String accessory = "Current Accessory: ";
-		String itemList = "Inventory:\n";
+		String itemList = "Inventory:\n" + displayItems();
 		String playerStats = "";
 		
 		// determines player statistics
 		if(owner != null)
 		{
-			if(owner.getPlayerName()!= null)
+			if(owner.getPlayerName()!= null && owner.getPlayerName() != "")
 			{
 				playerStats += owner.getPlayerName() + "'s Statistics:\n";
 			}
@@ -252,7 +254,7 @@ public class Inventory {
 		}
 		else
 		{
-			weapon += currentWeapon.getItemName() + "\n";
+			weapon += "[" + currentWeapon.getItemName() + "] (ATTACK " + currentWeapon.getWeaponAttackBonus() + ")\n";
 		}
 		if(currentAccessory == null)
 		{
@@ -260,8 +262,24 @@ public class Inventory {
 		}
 		else
 		{
-			accessory += currentAccessory.getItemName() + "\n";
+			accessory += "[" + currentAccessory.getItemName() + "] (ATTACK " + 
+					currentAccessory.getAccessoryAttackIncrease() +
+					" / MAX HP " + currentAccessory.getAccessoryHPIncrease() + 
+					" / DODGE " + currentAccessory.getAccessoryDodgeIncrease() + ")\n";
 		}
+		return playerStats + weapon + accessory + itemList;
+	}
+	
+	/*********************************************************************
+	Private helper method for use with displayItemList. Generates a single 
+	list of all items in inventory.
+
+	@param none
+	@return String - List of items with item numbers.
+	 *********************************************************************/
+	private String displayItems()
+	{
+		String itemList = "";
 
 		// fills out the itemList
 		if(list != null)
@@ -274,12 +292,49 @@ public class Inventory {
 			{
 				for(int i = 0; i < list.size(); i++)
 				{
-					itemList += "\t" + (i + 1) + ": " + list.get(i).getItemName() + " - " +
-							list.get(i).getItemDescription() + "\n";
+					// construct the item profile
+					itemList += "\t" + (i + 1) + ": [";
+
+					if(list.get(i).getItemName() != null)
+					{
+						itemList += list.get(i).getItemName();
+					}
+					else 
+					{
+						itemList += "NO NAME";
+					}
+					itemList += "] - " + list.get(i).getItemType();
+
+					// assign parameters if appropriate
+					if(list.get(i).getItemType().equalsIgnoreCase("Weapon"))
+					{
+						itemList += " (ATTACK " + ((Weapon)list.get(i)).getWeaponAttackBonus() + ")";
+					}
+					else if(list.get(i).getItemType().equalsIgnoreCase("Accessory"))
+					{
+						itemList += " (ATTACK " + ((Accessory)list.get(i)).getAccessoryAttackIncrease() +
+								" / MAX HP " + ((Accessory)list.get(i)).getAccessoryHPIncrease() + " / DODGE " + 
+								((Accessory)list.get(i)).getAccessoryDodgeIncrease() + ")";
+					}
+					else if(list.get(i).getItemType().equalsIgnoreCase("Consumable"))
+					{
+						itemList += " (HEALS " + ((Consumable) list.get(i)).getConsumableHPRecovery() + " HP)";
+					}
+					itemList += " - ";
+
+					if(list.get(i).getItemDescription() != null)
+					{
+						itemList += list.get(i).getItemDescription();
+					}
+					else
+					{
+						itemList += "NO DESCRIPTION";
+					}
+					itemList += "\n";
 				}
 			}
 		}
-		return playerStats + weapon + accessory + itemList;
+		return itemList;
 	}
 
 	/*********************************************************************
@@ -293,24 +348,55 @@ public class Inventory {
 	public void addToInventory(Item item)
 	{
 		String input = "";
+		String replacedItem = "a nameless ";
+		String newItem = "a nameless ";
 		int number = 0;
 		boolean numberFlag = false;
+		
+		// set new item name string		
+		if(item.getItemName() != null)
+		{
+			newItem = "[" + item.getItemName() + "]";
+		}
+		else
+		{
+			newItem += item.getItemType().toLowerCase();
+		}
 
 		// general check to see if the list is valid
 		if(list != null)
 		{
-			// if inventory space is available, add the new item
-			if(list.size() <= maxItems)
+			// acquisition message
+				if(item.getItemName() != null)
+				{
+					System.out.println("You acquire the " + item.getItemType().toLowerCase() + " " + newItem + ".");
+				}
+				else
+				{
+					System.out.println("You acquire " + newItem + ".");
+				}
+			
+			// if the item is a key item, allocate space
+			if(item.getIsKeyItem())
 			{
+				maxItems ++;
 				list.add(item);
+			}
+			// if inventory space is available, add the new item
+			else if(list.size() < maxItems)
+			{
+				list.add(item);		
 			}
 			else
 			{
+				System.out.println("Your inventory is full.");
 				// get user input for item to discard
-				System.out.println("Please select an item to discard.");
+				Collections.sort(list);
+				System.out.print(displayItems());
+				System.out.print("Please select an item to discard (0 to refuse " + newItem + ").\n> ");
 				input = scanner.next();
 
-				// attempts to parse an integer from user input
+				// attempts to parse an appropriate integer from user input
 				do
 				{
 					try
@@ -323,7 +409,9 @@ public class Inventory {
 					catch(NumberFormatException e)
 					{
 						System.out.println("Integer value not detected.");
-						System.out.println("Please select an item to discard.");
+						Collections.sort(list);
+						System.out.print(displayItems());
+						System.out.print("Please select an item to discard (0 to refuse " + newItem + ").\n> ");
 						input = scanner.next();
 						numberFlag = false;
 					}
@@ -334,25 +422,20 @@ public class Inventory {
 						number --;
 
 						// if number checks out, see if it is abandoned
-						if(!item.getIsKeyItem() && number == -1)
+						if(number == -1)
 						{
 							System.out.println("You abandon the new item.");
 						}
 
 						// if it is a key item or number is outside of bounds
-						else if(number < 0 || number >= list.size())
+						else if(number < -1 || number >= list.size())
 						{
-							if(number == -1)
-							{
-								System.out.println("You cannot refuse a key item.");
-							}
-							else
-							{
-								System.out.println("Value out of bounds.");
-							}
+							System.out.println("Value out of bounds.");
 
 							// ask for new input
-							System.out.println("Please select an item to discard.");
+							Collections.sort(list);
+							System.out.print(displayItems());
+							System.out.print("Please select an item to discard (0 to refuse " + newItem + ").\n> ");
 							input = scanner.next();
 							numberFlag = false;
 						}
@@ -362,12 +445,29 @@ public class Inventory {
 						{
 							// ask for new input
 							System.out.println("You cannot discard a key item.");
-							System.out.println("Please select an item to discard.");
+							Collections.sort(list);
+							System.out.print(displayItems());
+							System.out.print("Please select an item to discard (0 to refuse " + newItem + ").\n> ");
 							input = scanner.next();
 							numberFlag = false;
 						}
+						
+						// replace an item with the new item
 						else
 						{
+							// set replaced item name string
+							if(list.get(number).getItemName() != null)
+							{
+								replacedItem = "[" + list.get(number).getItemName() + "]";
+							}
+							else
+							{
+								replacedItem += list.get(number).getItemType().toLowerCase();
+							}
+							
+							// output replace message
+							System.out.println("You replace " + replacedItem + " with " + newItem + ".");
+							
 							// remove and replace the specified item with new item
 							list.remove(number);
 							list.add(item);
@@ -397,5 +497,25 @@ public class Inventory {
 	 *********************************************************************/
 	public void setOwner(Player owner) {
 		this.owner = owner;
+	}
+	
+	/*********************************************************************
+	Method for getting the maximum item capacity of this Inventory.
+
+	@param none
+	@return Player - The maximum amount of items in this Inventory.
+	 *********************************************************************/
+	public int getMaxItems() {
+		return maxItems;
+	}
+
+	/*********************************************************************
+	Method for setting the maximum item capacity of this Inventory.
+
+	@param int maxItems - The maximum amount of items in this Inventory.
+	@return none
+	 *********************************************************************/
+	public void setMaxItems(int maxItems) {
+		this.maxItems = maxItems;
 	}
 }
