@@ -1,4 +1,4 @@
-package Obstacle;
+package Obstacle; 
 import Inventory.*;
 import java.util.Scanner;
 

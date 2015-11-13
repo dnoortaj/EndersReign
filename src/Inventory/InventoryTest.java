@@ -1,4 +1,4 @@
-package Inventory;
+package Inventory; 
 
 import static org.junit.Assert.*;
 
