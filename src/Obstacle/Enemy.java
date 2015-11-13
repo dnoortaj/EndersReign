@@ -74,7 +74,7 @@ public class Enemy {
 			int i = Integer.valueOf(L.intValue());
 			Double doubDamage = (double)damage;
 			Double actualDamage = (eAttack *((doubDamage / 100) + .7));
-			playa.setPlayerCurrentHP((int)(playa.getPlayerCurrentHP() - actualDamage));
+			playa.setPlayerCurrentHP((playa.getPlayerCurrentHP() - actualDamage.intValue()));
 			System.out.println(eName + " " + hitOutput[i] + " you. " + 
 					actualDamage.intValue() + " damage leaves you with " +
 					playa.getPlayerCurrentHP() + " hit points.");
