@@ -133,7 +133,8 @@ public class Inventory {
 					}
 
 					// if trying to use a key item in battle
-					else if(list.get(number).getIsKeyItem() && owner.getPlayerGame().isBattleFlag())	
+					else if(list.get(number).getItemType().equalsIgnoreCase("Key Item") && 
+							owner.getPlayerGame().isBattleFlag())	
 					{
 						// ask for new input
 						System.out.println("You cannot use that item in battle.");
