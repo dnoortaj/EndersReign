@@ -69,8 +69,14 @@ public class RoomTester
 					"landed a solid strike on", "whacked the crap out of"};
 		String[] roomDescription2 = {"You've entered a classroom", "This is a room full of seats and desks. "
 				+ "There is no one in here and nothing to do"};
+		String[] taunt = {"a", "9", "You take a kungfu stance and grin menacingly. \n"
+				+ "Two of the bullies show their true colors and flee.", "Jerry",
+				"You do your best to taunt", "You flaunt your puny muscles.", 
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any affect.",
+				"is dumbfounded.", "is disgusted but unmoved."};
 		
-		Enemy bully = new Enemy(001, "Bully", 20, 15, 5, null, 5, hitOutput);
+		Enemy bully = new Enemy(001, "Bully", 20, 15, 5, null, 5, hitOutput, taunt);
 		Puzzle jigsaw = new Puzzle(false, jigsawText,
 				null, 5);
 		Room room1 = new Room("Convocation Area", roomDescription, 

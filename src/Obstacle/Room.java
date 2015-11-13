@@ -38,7 +38,7 @@ public class Room
 	}
 	
 	/** Method: Room
-	 * loaded constructor, takes in all attributes 
+	 * loaded constructor, takes in all attributes of room
 	 * 
 	 * @param roomName
 	 * @param roomDescription
@@ -59,13 +59,14 @@ public class Room
 		this.roomPuzzleChance = roomPuzzleChance;
 	}
 	
+	/**
+	 * Method: look
+	 * allows player to see around the room, gives second description
+	 * of roomDescription
+	 */
 	public void look()
 	{
 		System.out.println(this.getRoomDescription(1));
-		if (roomEnemy.enemyIsDead() == false)
-		{
-			
-		}
 	}
 	
 	public void setRoomName(String roomName)
@@ -78,12 +79,12 @@ public class Room
 		this.roomDescription = roomDescription;
 	}
 
-	public void setroomEnemy(Enemy roomEnemy)
+	public void setRoomEnemy(Enemy roomEnemy)
 	{
 		this.roomEnemy = roomEnemy;
 	}
 
-	public void setroomEnemyChance(int roomEnemyChance)
+	public void setRoomEnemyChance(int roomEnemyChance)
 	{
 		this.roomEnemyChance = roomEnemyChance;
 	}
@@ -123,7 +124,7 @@ public class Room
 		return roomEnemy;
 	}
 	
-	public int getroomEnemyChance()
+	public int getRoomEnemyChance()
 	{
 		return roomEnemyChance;
 	}
