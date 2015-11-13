@@ -21,8 +21,28 @@ public class GameController
 	}
 	
 	public void mainMenu()
-	{		
+	{		 
 
+        
+				System.out.println(" ______   ______   ______   ______   ______   ______   ______      \n"+
+									"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
+									"._.__._. /______________/  /_____.________/  /_/\\__/  /__._./ ._.  \n" +
+									"| |  | |    \\_   _____/ ____   __| _/__________)/______  | |  | |  \n" +
+									"|_|  |_|     |    __)_ /    \\ / __ _/ __ \\_  __ /  ___/  |_|  |_|  \n" +
+									"|-|  |-|     |        |   |  / /_/ \\  ___/|  | \\\\___ \\   |-|  |-|  \n" +
+									"| |  | |    /_______  |___|  \\____ |\\___  |__| /____  >  | |  | |  \n" +
+									"._.  ._.    __________     \\/.__  \\/    \\/          \\/   ._.  ._.  \n" +
+									"| |  | |    \\______   \\ ____ |__| ____   ____            | |  | |  \n" +
+									"|_|  |_|     |       __/ __ \\|  |/ ___\\ /    \\           |_|  |_|  \n" +
+									"|-|  |-|     |    |   \\  ___/|  / /_/  |   |  \\          |-|  |-|  \n" +
+									"| |  | |     |____|_  /\\___  |__\\___  /|___|  /          | |  | |  \n" +
+									"|______|  ______   ______  \\_______________ \\/______   ______ |_|  \n" +
+									"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
+									"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/     \n");
+				for (int i = 0; i < 3; i++)
+				{
+				System.out.println();
+				}
 				System.out.println("Welcome to Ender's Reign: Wiggin's Formic Rage! \nWould you like to:"
 						+ "\n> Start New Game \n> Load Game \n> Exit");
 				String input = sc.nextLine();
@@ -37,7 +57,7 @@ public class GameController
 				}
 				else if (input.equalsIgnoreCase("Exit"))
 				{
-					
+					System.exit(0);
 				}
 
 	}
@@ -60,15 +80,24 @@ public class GameController
 				System.out.println("Which file would you like to open? (Enter a value 1-3)");
 				System.out.print("> ");			
 				loadFile = Integer.parseInt(sc.nextLine());
+				if (loadFile <= 3 && loadFile > 0 )
+				{
+					readFromFile();
+					game = games.get((loadFile-1));
+				}
 			}
 			else
 			{
 				System.out.println("Sorry, you've entered an incorrect value. \nPlease enter a value 1-3.");
 				System.out.print("> ");			
 				loadFile = Integer.parseInt(sc.nextLine());
+				if (loadFile <= 3 && loadFile > 0 )
+				{
+					readFromFile();
+					game = games.get((loadFile-1));
+				}
 			}
-			readFromFile();
-			game = games.get((loadFile-1));
+
 		}
 		catch (Exception e)
 		{

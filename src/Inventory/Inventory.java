@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-import UserInteraction.*;
+import UserInteraction.*; 
 
 /*********************************************************************
 Defines generic inventory layout. Allows management and storage of all
@@ -26,6 +26,9 @@ public class Inventory {
 
 	/** owner's equipped accessory */
 	private Accessory currentAccessory = null;
+	
+	/** maximum inventory capacity */
+	private int maxItems = 15;
 
 	/** scanner used to receive user input */
 	private Scanner scanner = new Scanner(System.in);
@@ -50,14 +53,17 @@ public class Inventory {
 	@param Weapon currentWeapon - Owner's currently equipped weapon.
 	@param Accessory currentAccessory - Owner's currently equipped
 		   accessory.
+	@param int maxItems - Maximum capacity for inventory.
 	@return none
 	 *********************************************************************/
-	public Inventory(List<Item> list, Player owner, Weapon currentWeapon, Accessory currentAccessory)
+	public Inventory(List<Item> list, Player owner, Weapon currentWeapon, 
+			Accessory currentAccessory, int maxItems)
 	{
 		this.list = list;
 		this.owner = owner;
 		this.currentWeapon = currentWeapon;
 		this.currentAccessory = currentAccessory;
+		this.maxItems = maxItems;
 	}
 
 	/*********************************************************************
@@ -218,26 +224,43 @@ public class Inventory {
 	 *********************************************************************/
 	private String displayItemList()
 	{
-		String weapon = "";
-		String accessory = "";
-		String itemList = "";
+		String weapon = "Current Weapon: ";
+		String accessory = "Current Accessory: ";
+		String itemList = "Inventory:\n";
+		String playerStats = "";
+		
+		// determines player statistics
+		if(owner != null)
+		{
+			if(owner.getPlayerName()!= null)
+			{
+				playerStats += owner.getPlayerName() + "'s Statistics:\n";
+			}
+			else
+			{
+				playerStats += "Nobody's Statistics:\n";
+			}
+			playerStats += "\tHit Points: " + owner.getPlayerCurrentHP() + "/" +
+					owner.getPlayerMaxHP() + "\n\tAttack: " + owner.getPlayerAttack() +
+					"\n\tDodge: " + owner.getPlayerDodge() + "\n";
+		}
 
 		// determines if weapon and accessory are equipped
 		if(currentWeapon == null)
 		{
-			weapon += "None";
+			weapon += "None\n";
 		}
 		else
 		{
-			weapon += currentWeapon.getItemName();
+			weapon += currentWeapon.getItemName() + "\n";
 		}
 		if(currentAccessory == null)
 		{
-			accessory += "None";
+			accessory += "None\n";
 		}
 		else
 		{
-			accessory += currentAccessory.getItemName();
+			accessory += currentAccessory.getItemName() + "\n";
 		}
 
 		// fills out the itemList
@@ -245,18 +268,18 @@ public class Inventory {
 		{
 			if(list.size() == 0)
 			{
-				itemList = "You do not currently possess any usable items.\n";
+				itemList = "\tYou do not currently possess any usable items.\n";
 			}
 			else
 			{
 				for(int i = 0; i < list.size(); i++)
 				{
-					itemList += (i + 1) + ": " + list.get(i).getItemName() +"\n";
+					itemList += "\t" + (i + 1) + ": " + list.get(i).getItemName() + " - " +
+							list.get(i).getItemDescription() + "\n";
 				}
 			}
 		}
-		return "Current Weapon: " + weapon + "\nCurrent Accessory: " + accessory +
-				"\nInventory:\n" + itemList;
+		return playerStats + weapon + accessory + itemList;
 	}
 
 	/*********************************************************************
@@ -276,8 +299,8 @@ public class Inventory {
 		// general check to see if the list is valid
 		if(list != null)
 		{
-			// if there are 14 or fewer items, add the new item
-			if(list.size() < 15)
+			// if inventory space is available, add the new item
+			if(list.size() <= maxItems)
 			{
 				list.add(item);
 			}

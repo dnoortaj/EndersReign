@@ -212,7 +212,7 @@ public class Enemy {
 		else{
 			listener();
 		}
-	}
+	} 
 	
 	public void useItem() {
 		if(playa.getPlayerInventory().useItem()){

@@ -44,7 +44,7 @@ public class Puzzle
 	 * puzzle, receiving user response, and checking correctness. Upon completion it will dole out
 	 * the appropriate reward and points.
 	 */
-	public void solvePuzzle()
+	public int solvePuzzle()
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -69,6 +69,8 @@ public class Puzzle
 			}
 
 		}
+		System.out.println("Your score just increased by " + puzzlePoints + " points!");
+		return puzzlePoints;
 	}
 
 	/**
