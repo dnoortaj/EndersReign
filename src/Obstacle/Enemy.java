@@ -60,7 +60,8 @@ public class Enemy {
 		System.out.println("You have engaged in combat with " + eName + "."+
 				" (Press H for Help)");
 		if(eDodge > 50){
-			System.out.println(eName + " is very elusive.");
+			System.out.println(eName + " is agile and very elusive.  You would do well"
+					+ " to be mindful that your opponent is hiding.");
 		}
 		listener();
 	}
@@ -115,7 +116,6 @@ public class Enemy {
 	
 	public boolean hitMiss(int dodge){
 		int chance = rand.nextInt(40);
-		System.out.println("chance " + chance + ". Dodge " + dodge);
 		if(chance >= dodge){
 			return true;
 		}

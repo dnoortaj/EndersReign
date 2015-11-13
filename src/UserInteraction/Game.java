@@ -120,7 +120,10 @@ public class Game
         	move();
         	break;
         case "f":
-        	//fight the things
+        	//what if roomEnemy is null?
+        	if(!gameCurrentRoom.getroomEnemy().enemyIsDead()){
+        	gameCurrentRoom.getroomEnemy().fight(currentPlayer);
+        	}
         	break;
         case "h":
         	displayHelp();
@@ -128,6 +131,8 @@ public class Game
         case "i":
         	currentPlayer.getPlayerInventory().useItem();
         	break;
+        case "l":
+        	System.out.println(gameCurrentRoom.getRoomDescription(1));
         case "1":
         	//save the things
         	break;
