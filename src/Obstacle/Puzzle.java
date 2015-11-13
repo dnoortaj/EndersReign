@@ -69,7 +69,6 @@ public class Puzzle
 			}
 
 		}
-		System.out.println("Your score just increased by " + puzzlePoints + " points!");
 		return puzzlePoints;
 	}
 

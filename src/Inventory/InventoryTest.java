@@ -21,8 +21,8 @@ public class InventoryTest {
 		Consumable c1 = new Consumable("heals1", "heals for reals", false, 30);
 		Consumable c2 = new Consumable("heals2", "heals for reals", false, 30);
 		Consumable c3 = new Consumable("heals3", "heals for reals", false, 30);
-		Consumable c4 = new Consumable("heals4", "heals for reals", false, 30);
-		Consumable c5 = new Consumable("heals5", "heals for reals", false, 30);
+		Consumable c4 = new Consumable("heals4", "heals for reals", true, 30);
+		Consumable c5 = new Consumable("heals5", "heals for reals", true, 30);
 		Consumable c6 = new Consumable(null, "Maybe heals.", false, 20);
 		Player guy = new Player();
 		Inventory inv = new Inventory();

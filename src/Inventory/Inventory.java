@@ -180,6 +180,10 @@ public class Inventory {
 								owner.setPlayerAttack(owner.getPlayerAttack() - currentAccessory.getAccessoryAttackIncrease());
 								owner.setPlayerDodge(owner.getPlayerDodge() - currentAccessory.getAccessoryDodgeIncrease());
 								owner.setPlayerMaxHP(owner.getPlayerMaxHP() - currentAccessory.getAccessoryHPIncrease());
+								if(owner.getPlayerCurrentHP() > owner.getPlayerMaxHP())
+								{
+									owner.setPlayerCurrentHP(owner.getPlayerMaxHP());
+								}
 								currentAccessory = (Accessory)list.get(number);
 								list.remove(number);
 								list.add(tempAccessory);
