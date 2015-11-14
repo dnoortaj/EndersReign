@@ -51,15 +51,11 @@ public class Enemy {
 	}
 
 	public void fight(Player p) {
-		//pMaxHP = playa.getPlayerMaxHP();
-		//pHP = playa.;
-		//pDodge = dodge;
-		//pAttack = attack;
 		playa = p;
 		inBattle = true;
 		System.out.println("You have engaged in combat with " + eName + "."+
 				" (Press H for Help)");
-		if(eDodge > 50){
+		if(taunt[0].equalsIgnoreCase("d")){
 			System.out.println(eName + " is agile and very elusive.  You would do well"
 					+ " to be mindful that your opponent is hiding.");
 		}
@@ -131,19 +127,45 @@ public class Enemy {
 		return rand.nextInt(40);
 	}
 	
+	/*********************************************************************
+	taunt String array description
+	
+	0- describes special taunt cases "a" alters attack upon first taunt,
+		"d" alters dodge, anything else taunt has no real consequence
+	1- how much the taunt type is altered
+	2- string output for special taunt case
+	3- new enemy name for "a" special taunt case 
+			taunt # corresponds with response #
+	4- taunt 1, should end open for enemy name eg. "You shout at" place name here.
+	5- taunt 2, closed sentence
+	6- taunt 3, open ended for enemy name
+	7- response 1, begins open for enemy name eg. enemy name here "is angered."
+	8- response 2, begins open
+	9- response 3, begins open
+	*********************************************************************/
+	
 	public void taunt(){
 		int temp = rand.nextInt(3) + 4;
-		if(taunt[0].equalsIgnoreCase("a") && firstTaunt){
+		if(taunt[0].equalsIgnoreCase("attDown") && firstTaunt){
 			eAttack = eAttack - Integer.parseInt(taunt[1]);
 			eName = taunt[3];
 			System.out.println(taunt[2]);
 			firstTaunt = false;
 			listener();
 		}
-		else if(taunt[0].equalsIgnoreCase("d") && firstTaunt){
+		else if(taunt[0].equalsIgnoreCase("dodgeDown") && firstTaunt){
 			eDodge = eDodge - Integer.parseInt(taunt[1]);
 			eName = taunt[3];
 			System.out.println(taunt[2]);
+			firstTaunt = false;
+			listener();
+		}
+		else if(taunt[0].equalsIgnoreCase("enrage") && firstTaunt){
+			eAttack = eAttack + Integer.parseInt(taunt[1]);
+			eName = taunt[3];
+			System.out.println(taunt[2]);
+			tempo(1250);
+			System.out.println(eName + " " + taunt[9]);
 			firstTaunt = false;
 			listener();
 		}
@@ -194,6 +216,8 @@ public class Enemy {
 			System.out.println(eName + " is dead.");
 			enemyIsDead = true;
 			inBattle = false;
+			tempo(150);
+			System.out.println("You are no longer in combat.");
 		}
 		else{
 			enemyAttack();
