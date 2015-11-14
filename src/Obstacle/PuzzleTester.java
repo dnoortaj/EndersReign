@@ -14,19 +14,6 @@ import Inventory.*;
  */
 public class PuzzleTester
 {
-	//	public Player playerUpdate(Puzzle puzz, Player playa)
-	//	{
-	//		playa.addToScore(puzz.getPuzzlePoints());
-	//		if(puzz.getPuzzleIsCompleted())
-	//		{
-	//			playa.addToScore(puzz.getPuzzlePoints());
-	//		}
-	//		return playa;
-	//	}
-
-
-	// public Puzzle(boolean puzzleIsCompleted, String[][] puzzleText,
-	// Item puzzleReward, int puzzlePoints)
 
 	public static void main(String[] args) 
 	{
