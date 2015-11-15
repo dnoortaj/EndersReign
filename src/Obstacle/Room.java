@@ -69,71 +69,143 @@ public class Room
 		System.out.println(this.getRoomDescription(1));
 	}
 	
+	/**
+	 * Method: setRoomName
+	 * sets the roomName for the room
+	 *  @param roomName
+	 */
 	public void setRoomName(String roomName)
 	{
 		this.roomName = roomName;
 	}
 	
+	/**
+	 * Method: setRoomDescription
+	 * sets both Strings in roomDescription
+	 *  @param roomDescription
+	 */
 	public void setRoomDescription(String[] roomDescription)
 	{
 		this.roomDescription = roomDescription;
 	}
 
+	/**
+	 * Method: setRoomEnemy
+	 * sets the roomEnemy in a room
+	 *  @param roomEnemy
+	 */
 	public void setRoomEnemy(Enemy roomEnemy)
 	{
 		this.roomEnemy = roomEnemy;
 	}
 
+	/**
+	 * Method: setRoomEnemyChance
+	 * sets the chance of a roomEnemy engaging in combat
+	 *  @param roomEnemyChance
+	 */
 	public void setRoomEnemyChance(int roomEnemyChance)
 	{
 		this.roomEnemyChance = roomEnemyChance;
 	}
 
+	/**
+	 * Method: setRoomPuzzle
+	 * setter for roomPuzzle
+	 *  @param roomPuzzle
+	 */
 	public void setRoomPuzzle(Puzzle roomPuzzle)
 	{
 		this.roomPuzzle = roomPuzzle;
 	}
 
+	/**
+	 * Method: setRoomPuzzleChance
+	 * setter for roomPuzzleChance
+	 *  @param roomPuzzleChance
+	 */
 	public void setRoomPuzzleChance(int roomPuzzleChance)
 	{
 		this.roomPuzzleChance = roomPuzzleChance;
 	}
 
+	/**
+	 * Method: getRoomExits
+	 * gets roomExit in array
+	 *  @param n
+	 *  @return
+	 */
 	public Room getRoomExits(int n)
 	{
 		return roomExits[n];
 	}
-	
+
+	/**
+	 * Method: setRoomExits
+	 * setter for roomExits
+	 *  @param roomExits
+	 */
 	public void setRoomExits(Room[] roomExits)
 	{
 		this.roomExits = roomExits;
 	}
 	
+	/**
+	 * Method: getRoomName
+	 * gets roomName
+	 *  @return
+	 */
 	public String getRoomName()
 	{
 		return roomName;
 	}
 	
+	/**
+	 * Method: getRoomDescription
+	 * retrieves roomDescription based on the position in the array
+	 *  @param number
+	 *  @return
+	 */
 	public String getRoomDescription(int number)
 	{
 		return roomDescription[number];
 	}
 	
+	/**
+	 * Method: getRoomEnemy
+	 * getter for roomEnemy
+	 *  @return
+	 */
 	public Enemy getRoomEnemy()
 	{
 		return roomEnemy;
 	}
 	
+	/**
+	 * Method: getRoomEnemyChance
+	 * getter for chance of roomEnemy engaging in combat
+	 *  @return
+	 */
 	public int getRoomEnemyChance()
 	{
 		return roomEnemyChance;
 	}
 	
+	/**
+	 * Method: getRoomPuzzle
+	 * getter for roomPuzzle
+	 *  @return
+	 */
 	public Puzzle getRoomPuzzle()
 	{
 		return roomPuzzle;
 	}
 	
+	/**
+	 * Method: getRoomPuzzleChance
+	 * getter for chance of a puzzle in a room
+	 *  @return
+	 */
 	public int getRoomPuzzleChance()
 	{
 		return roomPuzzleChance;

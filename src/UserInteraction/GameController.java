@@ -1,4 +1,19 @@
 package UserInteraction;
+
+/** Class: GameController.java
+ * @author Danyelle Noortajalli
+ * @version 1.0
+ * Course: ITEC 3150 Fall 2015
+ * Written: Nov 12, 2015
+ * 
+ * 
+ * This class - GameController
+ * 
+ * 
+ * Purpose: creates the game, loads main menu,
+ * loads save file, and writes save file.
+ *
+ */
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,6 +28,11 @@ public class GameController
 	private boolean run;
 	Scanner sc = new Scanner(new InputStreamReader(System.in));
 	
+
+	/**
+	 * Method: GameController
+	 * constructor for GameController class
+	 */
 	public GameController()
 	{
 		games = new ArrayList<Game>();
@@ -20,6 +40,10 @@ public class GameController
 		run = false;
 	}
 	
+	/**
+	 * Method: mainMenu
+	 *builds main menu in the console to the user
+	 */
 	public void mainMenu()
 	{		 
 
@@ -46,6 +70,17 @@ public class GameController
 				System.out.println("Welcome to Ender's Reign: Wiggin's Formic Rage! \nWould you like to:"
 						+ "\n> Start New Game \n> Load Game \n> Exit");
 				String input = sc.nextLine();
+
+				
+				
+				while (!input.equalsIgnoreCase("New")
+						&& !input.equalsIgnoreCase("Load")
+						&& !input.equalsIgnoreCase("Exit"))
+				{
+					System.out.println("Your input did not match available options." +
+								"\n Please type \"New\", \"Load\", or \"Exit\"");
+					input = sc.nextLine();
+				}
 				
 				if (input.contains("New") || input.contains("new"))
 				{
@@ -62,13 +97,80 @@ public class GameController
 
 	}
 	
+	/**
+	 * Method: startNewGame
+	 * runs when user wants to start a new game. If there is a save file in
+	 * that position prior, it asks to delete it before overwriting the new save
+	 * file in which a base case of the game will be stored
+	 */
 	public void startNewGame()
-	{
-		readFromFile();
-		
-		
+	{	
+		int newFile;
+		String answer;
+		try
+		{
+
+			if (run == false)
+			{
+				System.out.println("Which save spot would you like to utilize? (Enter a value 1-3)");
+				System.out.print("> ");			
+				newFile = Integer.parseInt(sc.nextLine());
+				if (newFile <= 3 && newFile > 0 )
+				{
+					if (games.get(newFile-1) != null)
+					{
+						System.out.println("Are you sure you wish to overwrite this file?");
+						answer = sc.nextLine();
+						if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y"))
+						{
+							//readFromFile();
+							games.remove(newFile-1);
+							games.add((newFile-1), game);
+							//writeToFile(games);
+						}
+						else
+						{
+							System.out.println("Do you still want to start a new game?");
+							answer = sc.nextLine();
+							if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y"))
+							{
+								startNewGame();
+							}
+							else
+							{
+								System.exit(0);
+							}
+						}
+					}
+
+				}
+			}
+			else
+			{
+				System.out.println("Sorry, you've entered an incorrect value. \nPlease enter a value 1-3.");
+				System.out.print("> ");			
+				newFile = Integer.parseInt(sc.nextLine());
+				if (newFile <= 3 && newFile > 0 )
+				{
+					//readFromFile();
+					games.remove(newFile-1);
+					games.add((newFile-1), game);
+					//writeToFile(games);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			run = true;
+			startNewGame();
+		}
+
 	}
 	
+	/**
+	 * Method: loadGame
+	 * allows user to access save file and load where they left off last time playing
+	 */
 	public void loadGame()
 	{
 		int loadFile;
@@ -82,7 +184,7 @@ public class GameController
 				loadFile = Integer.parseInt(sc.nextLine());
 				if (loadFile <= 3 && loadFile > 0 )
 				{
-					readFromFile();
+					//readFromFile();
 					game = games.get((loadFile-1));
 				}
 			}
@@ -93,7 +195,7 @@ public class GameController
 				loadFile = Integer.parseInt(sc.nextLine());
 				if (loadFile <= 3 && loadFile > 0 )
 				{
-					readFromFile();
+					//readFromFile();
 					game = games.get((loadFile-1));
 				}
 			}
@@ -106,6 +208,13 @@ public class GameController
 		}
 	}
 	
+	
+	
+	/**
+	 * Method: readFromFile
+	 *  created to read a binary file of the saved game
+	 */
+/*	
 	   public  void readFromFile()
 	    {
 	       ObjectInputStream inFile = null;
@@ -157,7 +266,13 @@ public class GameController
 	     
 	    }
 	
-    public void writeToFile(ArrayList<Game> games)
+	/**
+	 * Method: writeToFile
+	 * writes games into a binary file
+	 * @param games
+	 */
+	
+/*	public void writeToFile(ArrayList<Game> games)
     {
         try
         {
@@ -178,8 +293,13 @@ public class GameController
         {
             e.printStackTrace();
         }
-    }
+    }*/
 	
+	/**
+	 * Method: main
+	 * runs game
+	 *  @param args
+	 */
 	public static void main(String[] args)
 	{
 		GameController gameCont = new GameController();

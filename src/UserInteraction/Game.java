@@ -1,21 +1,42 @@
 package UserInteraction;
 
+/** Class: Game.java
+ * @author Danyelle Noortajalli
+ * @author Dale Burke
+ * @author Jp Sprouse
+ * @version 1.0
+ * Course: ITEC 3150 Fall 2015
+ * Written: Nov 12, 2015
+ * 
+ * 
+ * This class - Game
+ * 
+ * 
+ * Purpose: Brings together all objects of the game, 
+ * sets up the game stage, movement, help menu, and
+ * run
+ *
+ */
+
 import Obstacle.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
 import Inventory.*;
 
-public class Game 
+public class Game
 {
+	private String Username;
 	private int gameStage;
 	private Player currentPlayer;
 	private Room currentRoom;
 	private ArrayList<Room> gameRooms;
 	private ArrayList<Enemy> gameEnemies;
 	private ArrayList<Puzzle> gamePuzzles;
+	private ArrayList<Inventory> gameItems;
 	private boolean oxygenFlag = false;
 	private boolean suitFlag = false;
 	private boolean tabletFlag = false;
@@ -232,4 +253,25 @@ public class Game
 			break;
 		}
 	}
+    
+    public String getUsername()
+	{
+		return Username;
+	}
+
+	public void setUsername(String username)
+	{
+		Username = username;
+	}
+
+	public ArrayList<Inventory> getGameItems()
+	{
+		return gameItems;
+	}
+
+	public void setGameItems(ArrayList<Inventory> gameItems)
+	{
+		this.gameItems = gameItems;
+	}
+
 }

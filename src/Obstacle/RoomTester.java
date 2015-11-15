@@ -14,7 +14,7 @@ public class RoomTester
 	public void listener(Room room, Player player, Puzzle puzzle, Enemy enemy, String sentence) 
 	{
 		System.out.print("> ");
-		String input = sc.next();
+		String input = sc.nextLine();
 		switch (input.toLowerCase()) {
         case "look":
         	System.out.println(room.getRoomDescription(1));
@@ -22,9 +22,10 @@ public class RoomTester
     		listener(room, player, puzzle, enemy, sentence);
         	break;
         case "move":
-        	if (puzzle != null)
+        	if (puzzle != null && puzzle.getPuzzleIsCompleted() != true)
         	{
         		player.addToScore(puzzle.solvePuzzle());
+        		puzzle.setPuzzleIsCompleted(true);
         	}
         	System.out.println("There are no obstacles in your way. \n" + sentence);
     		listener(room, player, puzzle, enemy, sentence);
