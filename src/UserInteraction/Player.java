@@ -204,7 +204,7 @@ public class Player
 	
 	
 	/**
-	 * @param addToScore adds a specified value(points) to the player’s score.
+	 * @param addToScore adds a specified value(points) to the player's score.
 	 */
 	public void addToScore(int points)
 	{
