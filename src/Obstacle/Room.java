@@ -1,4 +1,4 @@
-package Obstacle;
+package Obstacle; 
 
 /** Class: Room.java
  * @author Danyelle Noortajalli

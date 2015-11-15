@@ -165,7 +165,7 @@ public class GameController
 			startNewGame();
 		}
 
-	}
+	} 
 	
 	/**
 	 * Method: loadGame
