@@ -27,7 +27,7 @@ public class GameController
 	private Game game;
 	private boolean run;
 	Scanner sc = new Scanner(new InputStreamReader(System.in));
-	
+
 
 	/**
 	 * Method: GameController
@@ -39,7 +39,7 @@ public class GameController
 		game = new Game();
 		run = false;
 	}
-	
+
 	/**
 	 * Method: mainMenu
 	 *builds main menu in the console to the user
@@ -47,56 +47,56 @@ public class GameController
 	public void mainMenu()
 	{		 
 
-        
-				System.out.println(" ______   ______   ______   ______   ______   ______   ______      \n"+
-									"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
-									"._.__._. /______________/  /_____.________/  /_/\\__/  /__._./ ._.  \n" +
-									"| |  | |    \\_   _____/ ____   __| _/__________)/______  | |  | |  \n" +
-									"|_|  |_|     |    __)_ /    \\ / __ _/ __ \\_  __ /  ___/  |_|  |_|  \n" +
-									"|-|  |-|     |        |   |  / /_/ \\  ___/|  | \\\\___ \\   |-|  |-|  \n" +
-									"| |  | |    /_______  |___|  \\____ |\\___  |__| /____  >  | |  | |  \n" +
-									"._.  ._.    __________     \\/.__  \\/    \\/          \\/   ._.  ._.  \n" +
-									"| |  | |    \\______   \\ ____ |__| ____   ____            | |  | |  \n" +
-									"|_|  |_|     |       __/ __ \\|  |/ ___\\ /    \\           |_|  |_|  \n" +
-									"|-|  |-|     |    |   \\  ___/|  / /_/  |   |  \\          |-|  |-|  \n" +
-									"| |  | |     |____|_  /\\___  |__\\___  /|___|  /          | |  | |  \n" +
-									"|______|  ______   ______  \\_______________ \\/______   ______ |_|  \n" +
-									"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
-									"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/     \n");
-				for (int i = 0; i < 3; i++)
-				{
-				System.out.println();
-				}
-				System.out.println("Welcome to Ender's Reign: Wiggin's Formic Rage! \nWould you like to:"
-						+ "\n> Start New Game \n> Load Game \n> Exit");
-				String input = sc.nextLine();
 
-				
-				
-				while (!input.equalsIgnoreCase("New")
-						&& !input.equalsIgnoreCase("Load")
-						&& !input.equalsIgnoreCase("Exit"))
-				{
-					System.out.println("Your input did not match available options." +
-								"\n Please type \"New\", \"Load\", or \"Exit\"");
-					input = sc.nextLine();
-				}
-				
-				if (input.contains("New") || input.contains("new"))
-				{
-					startNewGame();
-				}
-				else if (input.contains("Load") || input.contains("load"))
-				{
-					loadGame();
-				}
-				else if (input.equalsIgnoreCase("Exit"))
-				{
-					System.exit(0);
-				}
+		System.out.println(" ______   ______   ______   ______   ______   ______   ______      \n"+
+				"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
+				"._.__._. /______________/  /_____.________/  /_/\\__/  /__._./ ._.  \n" +
+				"| |  | |    \\_   _____/ ____   __| _/__________)/______  | |  | |  \n" +
+				"|_|  |_|     |    __)_ /    \\ / __ _/ __ \\_  __ /  ___/  |_|  |_|  \n" +
+				"|-|  |-|     |        |   |  / /_/ \\  ___/|  | \\\\___ \\   |-|  |-|  \n" +
+				"| |  | |    /_______  |___|  \\____ |\\___  |__| /____  >  | |  | |  \n" +
+				"._.  ._.    __________     \\/.__  \\/    \\/          \\/   ._.  ._.  \n" +
+				"| |  | |    \\______   \\ ____ |__| ____   ____            | |  | |  \n" +
+				"|_|  |_|     |       __/ __ \\|  |/ ___\\ /    \\           |_|  |_|  \n" +
+				"|-|  |-|     |    |   \\  ___/|  / /_/  |   |  \\          |-|  |-|  \n" +
+				"| |  | |     |____|_  /\\___  |__\\___  /|___|  /          | |  | |  \n" +
+				"|______|  ______   ______  \\_______________ \\/______   ______ |_|  \n" +
+				"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
+				"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/     \n");
+		for (int i = 0; i < 3; i++)
+		{
+			System.out.println();
+		}
+		System.out.println("Welcome to Ender's Reign: Wiggin's Formic Rage! \nWould you like to:"
+				+ "\n> Start New Game \n> Load Game \n> Exit");
+		String input = sc.nextLine();
+
+
+
+		while (!input.equalsIgnoreCase("New")
+				&& !input.equalsIgnoreCase("Load")
+				&& !input.equalsIgnoreCase("Exit"))
+		{
+			System.out.println("Your input did not match available options." +
+					"\n Please type \"New\", \"Load\", or \"Exit\"");
+			input = sc.nextLine();
+		}
+
+		if (input.contains("New") || input.contains("new"))
+		{
+			startNewGame();
+		}
+		else if (input.contains("Load") || input.contains("load"))
+		{
+			loadGame();
+		}
+		else if (input.equalsIgnoreCase("Exit"))
+		{
+			System.exit(0);
+		}
 
 	}
-	
+
 	/**
 	 * Method: startNewGame
 	 * runs when user wants to start a new game. If there is a save file in
@@ -144,18 +144,18 @@ public class GameController
 					}
 
 				}
-			}
-			else
-			{
-				System.out.println("Sorry, you've entered an incorrect value. \nPlease enter a value 1-3.");
-				System.out.print("> ");			
-				newFile = Integer.parseInt(sc.nextLine());
-				if (newFile <= 3 && newFile > 0 )
+				else
 				{
-					//readFromFile();
-					games.remove(newFile-1);
-					games.add((newFile-1), game);
-					//writeToFile(games);
+					System.out.println("Sorry, you've entered an incorrect value. \nPlease enter a value 1-3.");
+					System.out.print("> ");			
+					newFile = Integer.parseInt(sc.nextLine());
+					if (newFile <= 3 && newFile > 0 )
+					{
+						//readFromFile();
+						games.remove(newFile-1);
+						games.add((newFile-1), game);
+						//writeToFile(games);
+					}
 				}
 			}
 		}
@@ -166,7 +166,7 @@ public class GameController
 		}
 
 	} 
-	
+
 	/**
 	 * Method: loadGame
 	 * allows user to access save file and load where they left off last time playing
@@ -207,18 +207,18 @@ public class GameController
 			loadGame();
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Method: readFromFile
 	 *  created to read a binary file of the saved game
 	 */
-/*	
+	/*	
 	   public  void readFromFile()
 	    {
 	       ObjectInputStream inFile = null;
-	      
+
 	       // open the file
 	       try
 	       {
@@ -228,9 +228,9 @@ public class GameController
 	       {
 	           System.out.println("Problem opening games.dat");
 	           e.printStackTrace();
-	          
+
 	       }
-	
+
 	       // separate try block to make sure if problem occurs we have a better idea at what point it
 	       // occurs
 	       try
@@ -240,7 +240,7 @@ public class GameController
 	               Game g = (Game)inFile.readObject();
 	               games.add(g);
 	           }
-	           
+
 	       }
 	       catch (EOFException ex)
 	       {
@@ -261,40 +261,40 @@ public class GameController
 	           System.out.println("Problem reading from file");
 	           e.printStackTrace();
 	       }
-	       
+
 	       // got all games
-	     
+
 	    }
-	
+
 	/**
 	 * Method: writeToFile
 	 * writes games into a binary file
 	 * @param games
 	 */
-	
-/*	public void writeToFile(ArrayList<Game> games)
+
+	/*	public void writeToFile(ArrayList<Game> games)
     {
         try
         {
             ObjectOutputStream outFile = new ObjectOutputStream(new FileOutputStream("games.dat"));
-            
+
             // now write the Game classes from the ArrayList
             for(Game g : games)
             {
                 outFile.writeObject(g);
             }
             outFile.close();
-            
+
         } catch (FileNotFoundException e)
         {
             e.printStackTrace();
-            
+
         } catch (IOException e)
         {
             e.printStackTrace();
         }
     }*/
-	
+
 	/**
 	 * Method: main
 	 * runs game
