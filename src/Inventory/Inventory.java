@@ -26,7 +26,7 @@ public class Inventory {
 
 	/** owner's equipped accessory */
 	private Accessory currentAccessory = null;
-	
+
 	/** maximum inventory capacity */
 	private int maxItems = 10;
 
@@ -63,7 +63,7 @@ public class Inventory {
 		this.owner = owner;
 		this.currentWeapon = currentWeapon;
 		this.currentAccessory = currentAccessory;
-		this.maxItems = maxItems;
+		setMaxItems(maxItems);
 	}
 
 	/*********************************************************************
@@ -82,142 +82,159 @@ public class Inventory {
 		Weapon tempWeapon = null;
 		Accessory tempAccessory = null;
 
-		// check to see if player owns any items
-		if(list.size() > 0)
+		// general check to see if the list is valid
+		if(list != null)
 		{
-			// displays the item list
-			Collections.sort(list);
-			System.out.print(displayItemList());
-			System.out.print("Which item would you like to use?\n> ");
-			input = scanner.next();
-
-			// attempts to parse an appropriate integer from user input
-			do
+			// check to see if player owns any items
+			if(list.size() > 0)
 			{
-				try
-				{
-					number = Integer.parseInt(input);
-					numberFlag = true;
-				}
+				// displays the item list
+				Collections.sort(list);
+				System.out.print(displayItemList());
+				System.out.print("Which item would you like to use?\n> ");
+				input = scanner.next();
 
-				// attempts to get an integer value again
-				catch(NumberFormatException e)
+				// attempts to parse an appropriate integer from user input
+				do
 				{
-					System.out.println("Integer value not detected.");
-					System.out.print("Please enter an integer value (0 to cancel).\n> ");
-					input = scanner.next();
-					numberFlag = false;
-				}
-
-				if(numberFlag)
-				{
-					// make the number align with indexes
-					number --;
-
-					// if number checks out, see if item use was cancelled
-					if(number == -1)
+					try
 					{
-						System.out.println("You decide not to use an item.");
-						return false;
+						number = Integer.parseInt(input);
+						numberFlag = true;
 					}
 
-					// if it is a key item or number is outside of bounds
-					else if(number < -1 || number >= list.size())
+					// attempts to get an integer value again
+					catch(NumberFormatException e)
 					{
-						System.out.println("Value out of bounds.");
-
-						// ask for new input
-						System.out.print("Please select a valid number (0 to cancel).\n> ");
+						System.out.println("Integer value not detected.");
+						System.out.print("Please enter an integer value (0 to cancel).\n> ");
 						input = scanner.next();
 						numberFlag = false;
 					}
 
-					// if trying to use a key item in battle
-					else if(list.get(number).getItemType().equalsIgnoreCase("Key Item") && 
-							owner.getPlayerGame().isBattleFlag())	
+					if(numberFlag)
 					{
-						// ask for new input
-						System.out.println("You cannot use that item in battle.");
-						Collections.sort(list);
-						System.out.print(displayItems());
-						System.out.print("Please select a different item (0 to cancel).\n> ");
-						input = scanner.next();
-						numberFlag = false;
-					}
-					else
-					{
-						if(list.get(number).getItemType().equalsIgnoreCase("Weapon"))
+						// make the number align with indexes
+						number --;
+
+						// if number checks out, see if item use was cancelled
+						if(number == -1)
 						{
-							// use the weapon
-							list.get(number).useItem(owner);
-							tempWeapon = currentWeapon;
-
-							// if there is a weapon equipped, swap it out
-							if(currentWeapon != null)
-							{
-								owner.setPlayerAttack(owner.getPlayerAttack() - currentWeapon.getWeaponAttackBonus());
-								currentWeapon = (Weapon)list.get(number);
-								list.remove(number);
-								list.add(tempWeapon);
-							}
-
-							// or just remove it if not
-							else
-							{
-								currentWeapon = (Weapon)list.get(number);
-								list.remove(number);
-							}
+							System.out.println("You decide not to use an item.");
+							return false;
 						}
-						else if(list.get(number).getItemType().equalsIgnoreCase("Accessory"))
-						{
-							// use the accessory
-							list.get(number).useItem(owner);
-							tempAccessory = currentAccessory;
 
-							// if there is an accessory equipped, swap it out
-							if(currentAccessory != null)
+						// if it is a key item or number is outside of bounds
+						else if(number < -1 || number >= list.size())
+						{
+							System.out.println("Value out of bounds.");
+
+							// ask for new input
+							System.out.print("Please select a valid number (0 to cancel).\n> ");
+							input = scanner.next();
+							numberFlag = false;
+						}
+
+						// if trying to use a key item in battle
+						else if(list.get(number).getItemType().equalsIgnoreCase("Key Item") && 
+								owner.isBattleFlag())	
+						{
+							// ask for new input
+							System.out.println("You cannot use that item in battle.");
+							System.out.print("Please select a different item (0 to cancel).\n> ");
+							input = scanner.next();
+							numberFlag = false;
+						}
+						else
+						{
+							if(list.get(number).getItemType().equalsIgnoreCase("Weapon"))
 							{
-								owner.setPlayerAttack(owner.getPlayerAttack() - currentAccessory.getAccessoryAttackIncrease());
-								owner.setPlayerDodge(owner.getPlayerDodge() - currentAccessory.getAccessoryDodgeIncrease());
-								owner.setPlayerMaxHP(owner.getPlayerMaxHP() - currentAccessory.getAccessoryHPIncrease());
-								if(owner.getPlayerCurrentHP() > owner.getPlayerMaxHP())
+								// use the weapon
+								list.get(number).useItem(owner);
+								tempWeapon = currentWeapon;
+
+								// if there is a weapon equipped, swap it out
+								if(currentWeapon != null)
 								{
-									owner.setPlayerCurrentHP(owner.getPlayerMaxHP());
+									owner.setPlayerAttack(owner.getPlayerAttack() - 
+											currentWeapon.getWeaponAttackBonus());
+									currentWeapon = (Weapon)list.get(number);
+									list.remove(number);
+									list.add(tempWeapon);
 								}
-								currentAccessory = (Accessory)list.get(number);
-								list.remove(number);
-								list.add(tempAccessory);
-							}
 
-							// or just remove it if not
-							else
+								// or just remove it if not
+								else
+								{
+									currentWeapon = (Weapon)list.get(number);
+									list.remove(number);
+								}
+							}
+							else if(list.get(number).getItemType().equalsIgnoreCase("Accessory"))
 							{
-								currentAccessory = (Accessory)list.get(number);
+								// use the accessory
+								list.get(number).useItem(owner);
+								tempAccessory = currentAccessory;
+
+								// if there is an accessory equipped, swap it out
+								if(currentAccessory != null)
+								{
+									owner.setPlayerAttack(owner.getPlayerAttack() - 
+											currentAccessory.getAccessoryAttackIncrease());
+									owner.setPlayerDodge(owner.getPlayerDodge() - 
+											currentAccessory.getAccessoryDodgeIncrease());
+									owner.setPlayerMaxHP(owner.getPlayerMaxHP() - 
+											currentAccessory.getAccessoryHPIncrease());
+									if(owner.getPlayerCurrentHP() > owner.getPlayerMaxHP())
+									{
+										owner.setPlayerCurrentHP(owner.getPlayerMaxHP());
+									}
+									currentAccessory = (Accessory)list.get(number);
+									list.remove(number);
+									list.add(tempAccessory);
+								}
+
+								// or just remove it if not
+								else
+								{
+									currentAccessory = (Accessory)list.get(number);
+									list.remove(number);
+								}
+							}
+
+							// consumables are removed on use
+							else if(list.get(number).getItemType().equalsIgnoreCase("Consumable"))
+							{
+								list.get(number).useItem(owner);
+
+								// if key item, adjust max item capacity
+								if(list.get(number).getIsKeyItem())
+								{
+									maxItems --;
+								}
 								list.remove(number);
 							}
-						}
 
-						// consumables are removed on use
-						else if(list.get(number).getItemType().equalsIgnoreCase("Consumable"))
-						{
-							list.get(number).useItem(owner);
-							list.remove(number);
-						}
-
-						// key items are not removed on use
-						else if(list.get(number).getItemType().equalsIgnoreCase("Key Item"))
-						{
-							list.get(number).useItem(owner);
+							// key item type is not removed on use
+							else if(list.get(number).getItemType().equalsIgnoreCase("Key Item"))
+							{
+								list.get(number).useItem(owner);
+							}
 						}
 					}
 				}
+				while(!numberFlag);
+				return true;
 			}
-			while(!numberFlag);
-			return true;
+			else
+			{
+				System.out.print(displayItemList());
+				return false;
+			}
 		}
 		else
 		{
-			System.out.print(displayItemList());
+			System.out.println("INVENTORY LIST NOT FOUND");
 			return false;
 		}
 	}
@@ -235,7 +252,7 @@ public class Inventory {
 		String accessory = "Current Accessory: ";
 		String itemList = "Inventory:\n" + displayItems();
 		String playerStats = "";
-		
+
 		// determines player statistics
 		if(owner != null)
 		{
@@ -259,7 +276,8 @@ public class Inventory {
 		}
 		else
 		{
-			weapon += "[" + currentWeapon.getItemName() + "] (ATTACK " + currentWeapon.getWeaponAttackBonus() + ")\n";
+			weapon += "[" + currentWeapon.getItemName() + "] (ATTACK " + 
+					currentWeapon.getWeaponAttackBonus() + ")\n";
 		}
 		if(currentAccessory == null)
 		{
@@ -274,7 +292,7 @@ public class Inventory {
 		}
 		return playerStats + weapon + accessory + itemList;
 	}
-	
+
 	/*********************************************************************
 	Private helper method for use with displayItemList. Generates a single 
 	list of all items in inventory.
@@ -357,130 +375,143 @@ public class Inventory {
 		String newItem = "a nameless ";
 		int number = 0;
 		boolean numberFlag = false;
-		
-		// set new item name string		
-		if(item.getItemName() != null)
-		{
-			newItem = "[" + item.getItemName() + "]";
-		}
-		else
-		{
-			newItem += item.getItemType().toLowerCase();
-		}
 
-		// general check to see if the list is valid
-		if(list != null)
+		// general check to see if the item is valid 
+		if(item != null)
 		{
-			// acquisition message
+			// set new item name string		
+			if(item.getItemName() != null)
+			{
+				newItem = "[" + item.getItemName() + "]";
+			}
+			else
+			{
+				newItem += item.getItemType().toLowerCase();
+			}
+
+			// general check to see if the list is valid
+			if(list != null)
+			{
+				// acquisition message
 				if(item.getItemName() != null)
 				{
-					System.out.println("You acquire the " + item.getItemType().toLowerCase() + " " + newItem + ".");
+					System.out.println("You acquire the " + item.getItemType().toLowerCase() + 
+							" " + newItem + ".");
 				}
 				else
 				{
 					System.out.println("You acquire " + newItem + ".");
 				}
-			
-			// if the item is a key item, allocate space
-			if(item.getIsKeyItem())
-			{
-				maxItems ++;
-				list.add(item);
-			}
-			// if inventory space is available, add the new item
-			else if(list.size() < maxItems)
-			{
-				list.add(item);		
+
+				// if the item is a key item, allocate space
+				if(item.getIsKeyItem())
+				{
+					maxItems ++;
+					list.add(item);
+				}
+
+				// if inventory space is available, add the new item
+				else if(list.size() < maxItems)
+				{
+					list.add(item);		
+				}
+				else
+				{
+					System.out.println("Your inventory is full.");
+
+					// get user input for item to discard
+					Collections.sort(list);
+					System.out.print(displayItems());
+					System.out.print("Please select an item to discard (0 to refuse " + 
+							newItem + ").\n> ");
+					input = scanner.next();
+
+					// attempts to parse an appropriate integer from user input
+					do
+					{
+						try
+						{
+							number = Integer.parseInt(input);
+							numberFlag = true;
+						}
+
+						// attempts to get an integer value again
+						catch(NumberFormatException e)
+						{
+							System.out.println("Integer value not detected.");
+							System.out.print("Please select an item to discard (0 to refuse " + 
+									newItem + ").\n> ");
+							input = scanner.next();
+							numberFlag = false;
+						}
+
+						if(numberFlag)
+						{
+							// make the number align with indexes
+							number --;
+
+							// if number checks out, see if it is abandoned
+							if(number == -1)
+							{
+								System.out.println("You abandon the new item.");
+							}
+
+							// if it is a key item or number is outside of bounds
+							else if(number < -1 || number >= list.size())
+							{
+								System.out.println("Value out of bounds.");
+
+								// ask for new input
+								System.out.print("Please select an item to discard (0 to refuse " + 
+										newItem + ").\n> ");
+								input = scanner.next();
+								numberFlag = false;
+							}
+
+							// if trying to replace a key item
+							else if(list.get(number).getIsKeyItem())	
+							{
+								// ask for new input
+								System.out.println("You cannot discard a key item.");
+								System.out.print("Please select an item to discard (0 to refuse " + 
+										newItem + ").\n> ");
+								input = scanner.next();
+								numberFlag = false;
+							}
+
+							// replace an item with the new item
+							else
+							{
+								// set replaced item name string
+								if(list.get(number).getItemName() != null)
+								{
+									replacedItem = "[" + list.get(number).getItemName() + "]";
+								}
+								else
+								{
+									replacedItem += list.get(number).getItemType().toLowerCase();
+								}
+
+								// output replace message
+								System.out.println("You replace " + replacedItem + " with " + newItem + ".");
+
+								// remove and replace the specified item with new item
+								list.remove(number);
+								list.add(item);
+							}
+						}
+					}
+					while(!numberFlag);
+				}
 			}
 			else
 			{
-				System.out.println("Your inventory is full.");
-				// get user input for item to discard
-				Collections.sort(list);
-				System.out.print(displayItems());
-				System.out.print("Please select an item to discard (0 to refuse " + newItem + ").\n> ");
-				input = scanner.next();
-
-				// attempts to parse an appropriate integer from user input
-				do
-				{
-					try
-					{
-						number = Integer.parseInt(input);
-						numberFlag = true;
-					}
-
-					// attempts to get an integer value again
-					catch(NumberFormatException e)
-					{
-						System.out.println("Integer value not detected.");
-						Collections.sort(list);
-						System.out.print(displayItems());
-						System.out.print("Please select an item to discard (0 to refuse " + newItem + ").\n> ");
-						input = scanner.next();
-						numberFlag = false;
-					}
-
-					if(numberFlag)
-					{
-						// make the number align with indexes
-						number --;
-
-						// if number checks out, see if it is abandoned
-						if(number == -1)
-						{
-							System.out.println("You abandon the new item.");
-						}
-
-						// if it is a key item or number is outside of bounds
-						else if(number < -1 || number >= list.size())
-						{
-							System.out.println("Value out of bounds.");
-
-							// ask for new input
-							Collections.sort(list);
-							System.out.print(displayItems());
-							System.out.print("Please select an item to discard (0 to refuse " + newItem + ").\n> ");
-							input = scanner.next();
-							numberFlag = false;
-						}
-
-						// if trying to replace a key item
-						else if(list.get(number).getIsKeyItem())	
-						{
-							// ask for new input
-							System.out.println("You cannot discard a key item.");
-							Collections.sort(list);
-							System.out.print(displayItems());
-							System.out.print("Please select an item to discard (0 to refuse " + newItem + ").\n> ");
-							input = scanner.next();
-							numberFlag = false;
-						}
-						
-						// replace an item with the new item
-						else
-						{
-							// set replaced item name string
-							if(list.get(number).getItemName() != null)
-							{
-								replacedItem = "[" + list.get(number).getItemName() + "]";
-							}
-							else
-							{
-								replacedItem += list.get(number).getItemType().toLowerCase();
-							}
-							
-							// output replace message
-							System.out.println("You replace " + replacedItem + " with " + newItem + ".");
-							
-							// remove and replace the specified item with new item
-							list.remove(number);
-							list.add(item);
-						}
-					}
-				}
-				while(!numberFlag);
+				System.out.println("INVENTORY LIST NOT FOUND");
 			}
+		}
+		else
+		{
+			System.out.println("CANNOT ADD NULL TO LIST");
 		}
 	}
 
@@ -490,7 +521,8 @@ public class Inventory {
 	@param none
 	@return Player - The owner of this Inventory instance.
 	 *********************************************************************/
-	public Player getOwner() {
+	public Player getOwner() 
+	{
 		return owner;
 	}
 
@@ -500,17 +532,19 @@ public class Inventory {
 	@param Player owner - The player that owns this instance of Inventory.
 	@return none
 	 *********************************************************************/
-	public void setOwner(Player owner) {
+	public void setOwner(Player owner) 
+	{
 		this.owner = owner;
 	}
-	
+
 	/*********************************************************************
 	Method for getting the maximum item capacity of this Inventory.
 
 	@param none
-	@return Player - The maximum amount of items in this Inventory.
+	@return int - The maximum amount of items in this Inventory.
 	 *********************************************************************/
-	public int getMaxItems() {
+	public int getMaxItems() 
+	{
 		return maxItems;
 	}
 
@@ -520,7 +554,38 @@ public class Inventory {
 	@param int maxItems - The maximum amount of items in this Inventory.
 	@return none
 	 *********************************************************************/
-	public void setMaxItems(int maxItems) {
-		this.maxItems = maxItems;
+	public void setMaxItems(int maxItems) 
+	{
+		// cannot set below zero
+		if(maxItems > -1)
+		{
+			this.maxItems = maxItems;
+		}
+		else
+		{
+			this.maxItems = 0;
+		}
+	}
+
+	/*********************************************************************
+	Method for getting the owner's currently equipped accessory.
+
+	@param none
+	@return Item - The owner's currently equipped accessory.
+	 *********************************************************************/
+	public Item getCurrentAccessory() 
+	{
+		return currentAccessory;
+	}
+
+	/*********************************************************************
+	Method for getting the owner's currently equipped weapon.
+
+	@param none
+	@return Item - The owner's currently equipped weapon.
+	 *********************************************************************/
+	public Item getCurrentWeapon() 
+	{
+		return currentWeapon;
 	}
 }

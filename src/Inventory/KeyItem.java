@@ -27,7 +27,6 @@ public abstract class KeyItem extends Item {
 	/*********************************************************************
 	Constructor method for KeyItem superclass. Creates a KeyItem object 
 	with the provided attributes.
-	
 	@param String itemName - The item display name.
 	@param String itemDescription - The item display description.
 	@param boolean isKeyItem - Whether or not the item may be removed.
@@ -58,7 +57,7 @@ public abstract class KeyItem extends Item {
 	@param none
 	@return boolean isUsed - false for is not used, true for is used.
 	*********************************************************************/
-	public boolean setIsUsed()
+	public boolean getIsUsed()
 	{
 		return isUsed;
 	}

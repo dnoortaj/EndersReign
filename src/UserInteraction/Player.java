@@ -14,7 +14,10 @@ public class Player
 	private int playerAttack;
 	private int playerDodge;
 	private int playerLives;
-	private Game playerGame;
+	private boolean battleFlag;
+	private boolean suitFlag;
+	private boolean oxygenFlag;
+	private boolean tabletFlag;
 	private Inventory playerInventory;
 	
 	/**
@@ -29,8 +32,12 @@ public class Player
 		  playerAttack = 0;
 		  playerDodge = 0;
 		  playerLives = 0;
+		  battleFlag = false;
+		  suitFlag = false;
+		  oxygenFlag = false;
+		  tabletFlag = false;
+		  playerInventory = new Inventory();
 	}
-
 
 	/**
 	 * @param playerName
@@ -40,12 +47,18 @@ public class Player
 	 * @param playerAttack
 	 * @param playerDodge
 	 * @param playerLives
+	 * @param battleFlag
+	 * @param suitFlag
+	 * @param oxygenFlag
+	 * @param tabletFlag
+	 * @param playerInventory
 	 */
 	public Player(String playerName, int playerScore, int playerMaxHP,
 				int playerCurrentHP, int playerAttack, int playerDodge,
-				int playerLives, Inventory playerInventory)
+				int playerLives, boolean battleFlag, boolean suitFlag,
+				boolean oxygenFlag, boolean tabletFlag, 
+				Inventory playerInventory)
 	{
-		super();
 		this.playerName = playerName;
 		this.playerScore = playerScore;
 		this.playerMaxHP = playerMaxHP;
@@ -53,25 +66,16 @@ public class Player
 		this.playerAttack = playerAttack;
 		this.playerDodge = playerDodge;
 		this.playerLives = playerLives;
+		this.battleFlag = battleFlag;
+		this.suitFlag = suitFlag;
+		this.oxygenFlag = oxygenFlag;
+		this.tabletFlag = tabletFlag;
 		this.playerInventory = playerInventory;
 	}
-
-	
-	
-	public Game getPlayerGame() {
-		return playerGame;
-	}
-
-
-	public void setPlayerGame(Game playerGame) {
-		this.playerGame = playerGame;
-	}
-
 
 	public Inventory getPlayerInventory() {
 		return playerInventory;
 	}
-
 
 	public void setPlayerInventory(Inventory playerInventory) {
 		this.playerInventory = playerInventory;
@@ -85,7 +89,6 @@ public class Player
 		return playerName;
 	}
 
-
 	/**
 	 * @param playerName the playerName to set
 	 */
@@ -93,7 +96,6 @@ public class Player
 	{
 		this.playerName = playerName;
 	}
-
 
 	/**
 	 * @return the playerScore
@@ -103,7 +105,6 @@ public class Player
 		return playerScore;
 	}
 
-
 	/**
 	 * @param playerScore the playerScore to set
 	 */
@@ -111,7 +112,6 @@ public class Player
 	{
 		this.playerScore = playerScore;
 	}
-
 
 	/**
 	 * @return the playerMaxHP
@@ -121,7 +121,6 @@ public class Player
 		return playerMaxHP;
 	}
 
-
 	/**
 	 * @param playerMaxHP the playerMaxHP to set
 	 */
@@ -129,7 +128,6 @@ public class Player
 	{
 		this.playerMaxHP = playerMaxHP;
 	}
-
 
 	/**
 	 * @return the playerCurrentHP
@@ -139,7 +137,6 @@ public class Player
 		return playerCurrentHP;
 	}
 
-
 	/**
 	 * @param playerCurrentHP the playerCurrentHP to set
 	 */
@@ -147,7 +144,6 @@ public class Player
 	{
 		this.playerCurrentHP = playerCurrentHP;
 	}
-
 
 	/**
 	 * @return the playerAttack
@@ -157,7 +153,6 @@ public class Player
 		return playerAttack;
 	}
 
-
 	/**
 	 * @param playerAttack the playerAttack to set
 	 */
@@ -165,7 +160,6 @@ public class Player
 	{
 		this.playerAttack = playerAttack;
 	}
-
 
 	/**
 	 * @return the playerDodge
@@ -175,7 +169,6 @@ public class Player
 		return playerDodge;
 	}
 
-
 	/**
 	 * @param playerDodge the playerDodge to set
 	 */
@@ -183,7 +176,6 @@ public class Player
 	{
 		this.playerDodge = playerDodge;
 	}
-
 
 	/**
 	 * @return the playerLives
@@ -193,7 +185,6 @@ public class Player
 		return playerLives;
 	}
 
-
 	/**
 	 * @param playerLives the playerLives to set
 	 */
@@ -202,13 +193,43 @@ public class Player
 		this.playerLives = playerLives;
 	}
 	
-	
 	/**
-	 * @param addToScore adds a specified value(points) to the player's score.
+	 * @param addToScore adds a specified value(points) to the player’s score.
 	 */
 	public void addToScore(int points)
 	{
 		playerScore += points;
 	}
 
+	public boolean isBattleFlag() {
+		return battleFlag;
+	}
+
+	public void setBattleFlag(boolean battleFlag) {
+		this.battleFlag = battleFlag;
+	}
+
+	public boolean isSuitFlag() {
+		return suitFlag;
+	}
+
+	public void setSuitFlag(boolean suitFlag) {
+		this.suitFlag = suitFlag;
+	}
+
+	public boolean isOxygenFlag() {
+		return oxygenFlag;
+	}
+
+	public void setOxygenFlag(boolean oxygenFlag) {
+		this.oxygenFlag = oxygenFlag;
+	}
+
+	public boolean isTabletFlag() {
+		return tabletFlag;
+	}
+
+	public void setTabletFlag(boolean tabletFlag) {
+		this.tabletFlag = tabletFlag;
+	}
 }

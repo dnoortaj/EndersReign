@@ -37,10 +37,7 @@ public class Game
 	private ArrayList<Enemy> gameEnemies;
 	private ArrayList<Puzzle> gamePuzzles;
 	private ArrayList<Inventory> gameItems;
-	private boolean oxygenFlag = false;
-	private boolean suitFlag = false;
-	private boolean tabletFlag = false;
-	private boolean battleFlag = false;
+	private String helpList;
 	Random random = new Random();
 	Scanner scan = new Scanner(System.in);
 
@@ -51,44 +48,9 @@ public class Game
 		currentRoom = new Room();
 	}
 
-	public boolean isOxygenFlag() {
-		return oxygenFlag;
-	}
-
-	public void setOxygenFlag(boolean oxygenFlag) {
-		this.oxygenFlag = oxygenFlag;
-	}
-
-	public boolean isSuitFlag() {
-		return suitFlag;
-	}
-
-	public void setSuitFlag(boolean suitFlag) {
-		this.suitFlag = suitFlag;
-	}
-
-	public boolean isTabletFlag() {
-		return tabletFlag;
-	}
-
-	public void setTabletFlag(boolean tabletFlag) {
-		this.tabletFlag = tabletFlag;
-	}
-
-	public boolean isBattleFlag() {
-		return battleFlag;
-	}
-
-	public void setBattleFlag(boolean battleFlag) {
-		this.battleFlag = battleFlag;
-	}
-
-
-
 	public void displayHelp()
 	{
-
-
+		System.out.println(helpList);
 	}
 
 	public void move(int direction)
@@ -143,9 +105,9 @@ public class Game
 					monsterEncountered = true;
 
 					// combat flag set prior to fight, updated after fight
-					battleFlag = true;
+					currentPlayer.setBattleFlag(true);
 					currentRoom.getRoomEnemy().fight(currentPlayer);
-					battleFlag = false;
+					currentPlayer.setBattleFlag(false);
 
 					if(currentRoom.getRoomEnemy().enemyIsDead())
 					{

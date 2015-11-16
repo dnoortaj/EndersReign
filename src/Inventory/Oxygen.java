@@ -48,11 +48,15 @@ public class Oxygen extends KeyItem {
 	{
 		if(isUsed)
 		{
+			// message displayed on use
 			System.out.println("The oxygen mask is already equipped.");
 		}
 		else
 		{
-			p.getPlayerGame().setOxygenFlag(true);
+			p.setOxygenFlag(true);
+			isUsed = true;
+			
+			// message displayed on use
 			System.out.println("You equip the oxygen mask.");
 		}
 	}

@@ -48,7 +48,7 @@ public class RoomTester
 	public static void main(String[] args)
 	{
 		RoomTester roomTest = new RoomTester();
-		Player playa = new Player("Sally", 0, 65, 65, 15, 10, 3, null);
+		Player playa = new Player("Sally", 0, 65, 65, 15, 10, 3, false, false, false, false, null);
 		String[] roomDescription = { "You enter the room full of students and tables.", 
 				"You look around and notice no one is studying \nand everyone is wasting time playing Magic."};
 		String[][] jigsawText = new String[3][5];

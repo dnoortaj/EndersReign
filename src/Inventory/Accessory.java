@@ -28,7 +28,9 @@ public class Accessory extends Item{
 		p.setPlayerMaxHP(hP);
 		p.setPlayerAttack(aP);
 		p.setPlayerDodge(dP);
-		System.out.println("You have equipped " + itemName);
+		
+		// message displayed on use
+		System.out.println("You equip the " + itemType.toLowerCase() +" [" + itemName + "].");
 	}
 
 	public int getAccessoryHPIncrease() {

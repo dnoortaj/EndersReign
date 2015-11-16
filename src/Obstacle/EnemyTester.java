@@ -10,11 +10,11 @@ public class EnemyTester {
 	
 
 	
-	//"You wave your arms wildly in the air." " is not impressed." "You shout obsenities at " +
+	//"You wave your arms wildly in the air." " is not impressed." "You shout obscenities at " +
 	//sentence;
 //	"Offended, uses this as an" + " opportunity to take a free hit on you."
 //	"You bite your thumb at " + eName + "."
-//	"Undetered, " + eName + " makes a comment about"
+//	"Undeterred, " + eName + " makes a comment about"
 //					+ " you being the son of a motherless goat."
 	
 
@@ -81,7 +81,7 @@ public class EnemyTester {
 		Inventory inv = new Inventory();
 		Consumable potion = new Consumable("drugs", "good drugs", false, 40);
 		inv.addToInventory(potion);
-		Player currentPlayer = new Player("Bobby", 7, 65, 65, 20, 8, 10, inv);
+		Player currentPlayer = new Player("Bobby", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
 		currentPlayer.setPlayerInventory(inv);
 		inv.setOwner(currentPlayer);
 		Weapon yourNameHere = new Weapon("Cudgle", "Crude beating stick", false, 12);

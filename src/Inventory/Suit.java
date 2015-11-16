@@ -48,11 +48,15 @@ public class Suit extends KeyItem {
 	{
 		if(isUsed)
 		{
+			// message displayed on use
 			System.out.println("The space suit is already equipped.");
 		}
 		else
 		{
-			p.getPlayerGame().setSuitFlag(true);
+			p.setSuitFlag(true);
+			isUsed = true;
+
+			// message displayed on use
 			System.out.println("You equip the space suit.");
 		}
 	}

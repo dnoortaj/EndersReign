@@ -32,7 +32,9 @@ public class Weapon extends Item
 	{
 		int attack = p.getPlayerAttack() + weaponAttackBonus;
 		p.setPlayerAttack(attack);
-		System.out.println("You equipped the " + itemDescription + " " + itemName + ".");
+		
+		// message displayed on use
+		System.out.println("You equip the " + itemType.toLowerCase() +" [" + itemName + "].");
 	}
 	
 	
