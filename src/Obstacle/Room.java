@@ -1,4 +1,6 @@
-package Obstacle; 
+package Obstacle;
+
+import java.io.Serializable;
 
 /** Class: Room.java
  * @author Danyelle Noortajalli
@@ -14,7 +16,7 @@ package Obstacle;
  * any possible puzzles, and a description
  *
  */
-public class Room
+public class Room implements Serializable
 {
 	private String roomName;
 	private String[] roomDescription = {null, null};

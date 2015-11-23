@@ -1,12 +1,13 @@
 package Obstacle;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Scanner;
 import Inventory.*;
 import UserInteraction.*;
 
 
-public class Enemy {
+public class Enemy implements Serializable {
 
 	private boolean enemyIsDead, inBattle, firstTaunt;
 	private String eName;
@@ -14,13 +15,13 @@ public class Enemy {
 	//private int pHP, pMaxHP, pDodge, pAttack;
 
 	private Item eReward;
-	
-	Scanner s = new Scanner(System.in);
+
+	Scanner s;
 	Random rand = new Random();
 	String [] hitOutput = new String[4];
 	String [] taunt = new String[7];
 	Player playa;
-	
+
 	public Enemy(){
 		this.eID = 00;
 		eName = "Bob";
@@ -91,7 +92,7 @@ public class Enemy {
 			Double actualDamage = (playa.getPlayerAttack() *((doubDamage / 100) + .7));
 			eHP = (int)(eHP - actualDamage);
 			System.out.println("You " + hitOutput[damageDescription] + " " +
-				eName + ", inflicting " + actualDamage.intValue() + " points of damage.");
+					eName + ", inflicting " + actualDamage.intValue() + " points of damage.");
 			tempo(850);
 			enemyIsAlive();
 		}
@@ -101,15 +102,15 @@ public class Enemy {
 			enemyAttack();
 		}
 	}
-	
+
 	public void tempo(int time){
 		try {
-		    Thread.sleep(time);                 
+			Thread.sleep(time);                 
 		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
+			Thread.currentThread().interrupt();
 		}
 	}
-	
+
 	public boolean hitMiss(int dodge){
 		int chance = rand.nextInt(40);
 		if(chance >= dodge){
@@ -122,14 +123,14 @@ public class Enemy {
 			return false;
 		}
 	}
-	
+
 	public int damage(){
 		return rand.nextInt(40);
 	}
-	
+
 	/*********************************************************************
 	taunt String array description
-	
+
 	0- describes special taunt cases "a" alters attack upon first taunt,
 		"d" alters dodge, anything else taunt has no real consequence
 	1- how much the taunt type is altered
@@ -142,8 +143,8 @@ public class Enemy {
 	7- response 1, begins open for enemy name eg. enemy name here "is angered."
 	8- response 2, begins open
 	9- response 3, begins open
-	*********************************************************************/
-	
+	 *********************************************************************/
+
 	public void taunt(){
 		int temp = rand.nextInt(3) + 4;
 		if(taunt[0].equalsIgnoreCase("attDown") && firstTaunt){
@@ -170,27 +171,27 @@ public class Enemy {
 			listener();
 		}
 		else{
-		if(temp == 4){
-			System.out.println(taunt[4] + " " + eName + ".");
-			tempo(650);
-			System.out.println(eName + " " + taunt[7]);
-			listener();
-		}
-		else if(temp == 5){
-			System.out.println(taunt[5]);
-			tempo(550);
-			System.out.println(eName + " " + taunt[8]);
-			enemyAttack();
-		}
-		else if(temp == 6){
-			System.out.println(taunt[6] + " " + eName + ".");
-			tempo(550);
-			System.out.println(eName + " " + taunt[9]);
-			tempo(350);
-			enemyAttack();		
+			if(temp == 4){
+				System.out.println(taunt[4] + " " + eName + ".");
+				tempo(650);
+				System.out.println(eName + " " + taunt[7]);
+				listener();
+			}
+			else if(temp == 5){
+				System.out.println(taunt[5]);
+				tempo(550);
+				System.out.println(eName + " " + taunt[8]);
+				enemyAttack();
+			}
+			else if(temp == 6){
+				System.out.println(taunt[6] + " " + eName + ".");
+				tempo(550);
+				System.out.println(eName + " " + taunt[9]);
+				tempo(350);
+				enemyAttack();		
+			}
 		}
 	}
-}
 
 	public void escape() {
 		if(rand.nextInt(playa.getPlayerDodge()) > (rand.nextInt(eDodge) + 3)){
@@ -206,11 +207,11 @@ public class Enemy {
 			enemyAttack();
 		}
 	}
-	
+
 	public Boolean enemyIsDead() {
 		return enemyIsDead;
 	}
-	
+
 	public void enemyIsAlive() {
 		if(eHP <= 0){
 			System.out.println(eName + " is dead.");
@@ -223,7 +224,7 @@ public class Enemy {
 			enemyAttack();
 		}
 	}
-	
+
 
 	public void playerIsAlive(){
 		if(playa.getPlayerCurrentHP() < 0 && playa.getPlayerCurrentHP() >= -5){
@@ -237,7 +238,7 @@ public class Enemy {
 			listener();
 		}
 	} 
-	
+
 	public void useItem() {
 		if(playa.getPlayerInventory().useItem()){
 			enemyAttack();
@@ -246,17 +247,17 @@ public class Enemy {
 			listener();
 		}
 	}
-	
+
 	public Item getReward(){
 		return eReward;
 	}
-	
+
 	public void helpMenu(){
 		System.out.println("A - Attack    E - Escape    T - Taunt    I - Inventory");
 		System.out.println(playa.getPlayerCurrentHP() + "/" + playa.getPlayerMaxHP() + " HP");
 		listener();
 	}
-	
+
 	public boolean inBattle() {
 		return inBattle;
 	}
@@ -268,33 +269,34 @@ public class Enemy {
 		return ePoints;
 	}
 	public void listener() {
+		s = new Scanner(System.in);
 		System.out.print("> ");
 		String input = s.next();
 		switch (input.toLowerCase()) {
-        case "a":
-        	playerAttack();
-        	break;
-        case "t":
-        	taunt();
-        	break;
-        case "e":
-        	escape();
-        	break;
-        case "h":
-        	helpMenu();
-        	break;
-        case "i":
-        	useItem();
-        	break;
-        case "u":
-        	System.out.println("That command is not valid whilst engaged"
-        			+ " in combat.");
-        	listener();
-        	break;
-        default:
-            System.out.println("Command not recognized.");
-            listener();
-            break;
+		case "a":
+			playerAttack();
+			break;
+		case "t":
+			taunt();
+			break;
+		case "e":
+			escape();
+			break;
+		case "h":
+			helpMenu();
+			break;
+		case "i":
+			useItem();
+			break;
+		case "u":
+			System.out.println("That command is not valid whilst engaged"
+					+ " in combat.");
+			listener();
+			break;
+		default:
+			System.out.println("Command not recognized.");
+			listener();
+			break;
+		}
 	}
-}
 }

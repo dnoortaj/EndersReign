@@ -1,7 +1,9 @@
 package Inventory;
+import java.io.Serializable;
+
 import UserInteraction.*;  
 
-public class Consumable extends Item
+public class Consumable extends Item implements Serializable
 {
 	private int consumableHPRecovery;
 

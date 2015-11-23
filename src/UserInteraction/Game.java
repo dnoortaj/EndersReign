@@ -21,13 +21,14 @@ package UserInteraction;
 import Obstacle.*;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
 import Inventory.*;
 
-public class Game
+public class Game implements Serializable
 {
 	private String Username;
 	private int gameStage;
@@ -39,7 +40,7 @@ public class Game
 	private ArrayList<Inventory> gameItems;
 	private String helpList;
 	Random random = new Random();
-	Scanner scan = new Scanner(System.in);
+	Scanner scan;
 
 	public Game()
 	{
@@ -171,6 +172,7 @@ public class Game
 	}
 
 	public void listener() {
+		scan = new Scanner(System.in);
 		System.out.print("> ");
 		String input = scan.next();
 		switch (input.toLowerCase()) {
@@ -186,12 +188,12 @@ public class Game
 		case "d":
 			move(3);
 			break;
-		case "f":
-			//what if roomEnemy is null?
-			if(!currentRoom.getRoomEnemy().enemyIsDead()){
-				currentRoom.getRoomEnemy().fight(currentPlayer);
-			}
-			break;
+//		case "f":
+//			//what if roomEnemy is null?
+//			if(!currentRoom.getRoomEnemy().enemyIsDead()){
+//				currentRoom.getRoomEnemy().fight(currentPlayer);
+//			}
+//			break;
 		case "h":
 			displayHelp();
 			break;

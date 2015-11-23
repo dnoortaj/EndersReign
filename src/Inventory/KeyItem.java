@@ -1,4 +1,6 @@
 package Inventory;
+import java.io.Serializable;
+
 import UserInteraction.*; 
 
 /*********************************************************************
@@ -7,7 +9,8 @@ item classes.
 @author Dale Burke
 @version November 2015
 *********************************************************************/
-public abstract class KeyItem extends Item {
+public abstract class KeyItem extends Item implements Serializable
+{
 	
 	/** whether or not the item has been successfully activated */
 	boolean isUsed;

@@ -1,4 +1,6 @@
 package Inventory;
+import java.io.Serializable;
+
 import UserInteraction.*; 
 
 /*********************************************************************
@@ -7,7 +9,7 @@ classes.
 @author Dale Burke
 @version November 2015
 *********************************************************************/
-public abstract class Item implements Comparable<Item> {
+public abstract class Item implements Comparable<Item>, Serializable {
 	
 	/** item type to be used in Inventory */
 	String itemType;

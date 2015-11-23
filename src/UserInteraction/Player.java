@@ -1,11 +1,13 @@
 package UserInteraction;
+import java.io.Serializable;
+
 import Inventory.*; 
 
 /**
  * @author Ethan Patterson
  *
  */
-public class Player
+public class Player implements Serializable
 {
 	private String playerName;
 	private int playerScore;

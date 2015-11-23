@@ -1,7 +1,9 @@
 package Inventory;
+import java.io.Serializable;
+
 import UserInteraction.*; 
 
-public class Accessory extends Item{
+public class Accessory extends Item implements Serializable{
 
 	int accessoryHPIncrease, accessoryAttackIncrease, accessoryDodgeIncrease;
 	

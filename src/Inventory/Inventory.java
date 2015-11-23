@@ -1,5 +1,6 @@
 package Inventory; 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,8 @@ player items.
 @author Dale Burke
 @version November 2015
  *********************************************************************/
-public class Inventory {
+@SuppressWarnings("serial")
+public class Inventory implements Serializable {
 
 	/** list to store items */
 	private List<Item> list = new ArrayList<Item>();
@@ -29,9 +31,9 @@ public class Inventory {
 
 	/** maximum inventory capacity */
 	private int maxItems = 10;
-
-	/** scanner used to receive user input */
-	private Scanner scanner = new Scanner(System.in);
+	
+	/** scanner for use with Inventory class */
+	transient private Scanner scanner;
 
 	/*********************************************************************
 	Default constructor method. Creates a blank Inventory object.
@@ -76,6 +78,7 @@ public class Inventory {
 	 *********************************************************************/
 	public boolean useItem()
 	{
+		scanner = new Scanner(System.in);
 		String input = "";
 		int number = 0;
 		boolean numberFlag = false;
@@ -370,6 +373,7 @@ public class Inventory {
 	 *********************************************************************/
 	public void addToInventory(Item item)
 	{
+		scanner = new Scanner(System.in);
 		String input = "";
 		String replacedItem = "a nameless ";
 		String newItem = "a nameless ";
@@ -587,5 +591,50 @@ public class Inventory {
 	public Item getCurrentWeapon() 
 	{
 		return currentWeapon;
+	}
+
+	/*********************************************************************
+	Method for setting the owner's currently equipped accessory.
+
+	@param Accessory currentAccessory - The owner's currently equipped 
+		   accessory.
+	@return none
+	 *********************************************************************/
+	public void setCurrentAccessory(Accessory currentAccessory) 
+	{
+		this.currentAccessory = currentAccessory;
+	}
+
+	/*********************************************************************
+	Method for setting the owner's currently equipped weapon.
+
+	@param Weapon currentWeapon - The owner's currently equipped weapon.
+	@return none
+	 *********************************************************************/
+	public void setCurrentWeapon(Weapon currentWeapon) 
+	{
+		this.currentWeapon = currentWeapon;
+	}
+
+	/*********************************************************************
+	Method for getting the inventory list.
+
+	@param none
+	@return ArrayList<Item> - The current inventory list.
+	 *********************************************************************/
+	public List<Item> getInventoryList() 
+	{
+		return list;
+	}
+
+	/*********************************************************************
+	Method for setting the inventory list.
+
+	@param ArrayList<Item> list - The inventory list to be used.
+	@return none
+	 *********************************************************************/
+	public void setInventoryList(List<Item> list) 
+	{
+		this.list = list;
 	}
 }

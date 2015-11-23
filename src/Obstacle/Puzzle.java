@@ -1,5 +1,7 @@
 package Obstacle;
 import Inventory.*;
+
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
@@ -10,20 +12,19 @@ import java.util.Scanner;
  *         classes. The puzzle object prompt, answering/response system, and reward functionality
  *         will be handled within this class.
  */
-public class Puzzle
+public class Puzzle implements Serializable
 {
 	private boolean puzzleIsCompleted = false;
 	private String[][] puzzleText = new String[3][5];
 	private Item puzzleReward;
 	private int puzzlePoints = 0;
-	private Scanner input = new Scanner(System.in);
+	private Scanner input;
 	
 	public Puzzle()
 	{
 		 puzzleIsCompleted = false;
 		 puzzleText = new String[3][5];
 		 puzzlePoints = 0;
-		 input = new Scanner(System.in);
 	}
 	
 	/**
@@ -46,6 +47,7 @@ public class Puzzle
 	 */
 	public int solvePuzzle()
 	{
+		input = new Scanner(System.in);
 		for (int i = 0; i < 3; i++)
 		{
 			System.out.println(puzzleText[i][0]);

@@ -1,11 +1,13 @@
 package Inventory;
+import java.io.Serializable;
+
 import UserInteraction.*; 
 
 /**
  * @author Ethan Patterson
  *
  */
-public class Weapon extends Item
+public class Weapon extends Item implements Serializable
 {
 	private int weaponAttackBonus;
 
