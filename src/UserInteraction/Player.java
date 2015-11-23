@@ -7,6 +7,7 @@ import Inventory.*;
  * @author Ethan Patterson
  *
  */
+@SuppressWarnings("serial")
 public class Player implements Serializable
 {
 	private String playerName;

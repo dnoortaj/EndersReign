@@ -12,6 +12,7 @@ import java.util.Scanner;
  *         classes. The puzzle object prompt, answering/response system, and reward functionality
  *         will be handled within this class.
  */
+@SuppressWarnings("serial")
 public class Puzzle implements Serializable
 {
 	private boolean puzzleIsCompleted = false;

@@ -6,7 +6,9 @@ Defines generic oxygen mask item layout.
 @author Dale Burke
 @version November 2015
 *********************************************************************/
-public class Oxygen extends KeyItem {
+@SuppressWarnings("serial")
+public class Oxygen extends KeyItem 
+{
 	
 	/*********************************************************************
 	Default constructor method for Oxygen class. Creates a blank Oxygen

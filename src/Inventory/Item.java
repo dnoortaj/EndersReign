@@ -9,7 +9,9 @@ classes.
 @author Dale Burke
 @version November 2015
 *********************************************************************/
-public abstract class Item implements Comparable<Item>, Serializable {
+@SuppressWarnings("serial")
+public abstract class Item implements Comparable<Item>, Serializable 
+{
 	
 	/** item type to be used in Inventory */
 	String itemType;

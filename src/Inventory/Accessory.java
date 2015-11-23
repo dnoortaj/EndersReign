@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 import UserInteraction.*; 
 
+@SuppressWarnings("serial")
 public class Accessory extends Item implements Serializable{
 
 	int accessoryHPIncrease, accessoryAttackIncrease, accessoryDodgeIncrease;

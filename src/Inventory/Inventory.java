@@ -15,7 +15,8 @@ player items.
 @version November 2015
  *********************************************************************/
 @SuppressWarnings("serial")
-public class Inventory implements Serializable {
+public class Inventory implements Serializable 
+{
 
 	/** list to store items */
 	private List<Item> list = new ArrayList<Item>();
@@ -94,7 +95,7 @@ public class Inventory implements Serializable {
 				// displays the item list
 				Collections.sort(list);
 				System.out.print(displayItemList());
-				System.out.print("Which item would you like to use?\n> ");
+				System.out.print("Which item would you like to use? (0 to cancel)\n> ");
 				input = scanner.next();
 
 				// attempts to parse an appropriate integer from user input
@@ -110,7 +111,7 @@ public class Inventory implements Serializable {
 					catch(NumberFormatException e)
 					{
 						System.out.println("Integer value not detected.");
-						System.out.print("Please enter an integer value (0 to cancel).\n> ");
+						System.out.print("Please enter an integer value. (0 to cancel)\n> ");
 						input = scanner.next();
 						numberFlag = false;
 					}
@@ -133,7 +134,7 @@ public class Inventory implements Serializable {
 							System.out.println("Value out of bounds.");
 
 							// ask for new input
-							System.out.print("Please select a valid number (0 to cancel).\n> ");
+							System.out.print("Please select a valid number. (0 to cancel)\n> ");
 							input = scanner.next();
 							numberFlag = false;
 						}
@@ -144,7 +145,7 @@ public class Inventory implements Serializable {
 						{
 							// ask for new input
 							System.out.println("You cannot use that item in battle.");
-							System.out.print("Please select a different item (0 to cancel).\n> ");
+							System.out.print("Please select a different item. (0 to cancel)\n> ");
 							input = scanner.next();
 							numberFlag = false;
 						}
@@ -426,8 +427,8 @@ public class Inventory implements Serializable {
 					// get user input for item to discard
 					Collections.sort(list);
 					System.out.print(displayItems());
-					System.out.print("Please select an item to discard (0 to refuse " + 
-							newItem + ").\n> ");
+					System.out.print("Please select an item to discard. (0 to refuse " + 
+							newItem + ")\n> ");
 					input = scanner.next();
 
 					// attempts to parse an appropriate integer from user input
@@ -443,8 +444,8 @@ public class Inventory implements Serializable {
 						catch(NumberFormatException e)
 						{
 							System.out.println("Integer value not detected.");
-							System.out.print("Please select an item to discard (0 to refuse " + 
-									newItem + ").\n> ");
+							System.out.print("Please select an item to discard. (0 to refuse " + 
+									newItem + ")\n> ");
 							input = scanner.next();
 							numberFlag = false;
 						}
@@ -466,8 +467,8 @@ public class Inventory implements Serializable {
 								System.out.println("Value out of bounds.");
 
 								// ask for new input
-								System.out.print("Please select an item to discard (0 to refuse " + 
-										newItem + ").\n> ");
+								System.out.print("Please select an item to discard. (0 to refuse " + 
+										newItem + ")\n> ");
 								input = scanner.next();
 								numberFlag = false;
 							}
@@ -477,8 +478,8 @@ public class Inventory implements Serializable {
 							{
 								// ask for new input
 								System.out.println("You cannot discard a key item.");
-								System.out.print("Please select an item to discard (0 to refuse " + 
-										newItem + ").\n> ");
+								System.out.print("Please select an item to discard. (0 to refuse " + 
+										newItem + ")\n> ");
 								input = scanner.next();
 								numberFlag = false;
 							}

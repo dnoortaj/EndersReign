@@ -6,7 +6,9 @@ Defines generic tablet item layout.
 @author Dale Burke
 @version November 2015
 *********************************************************************/
-public class Tablet extends KeyItem {
+@SuppressWarnings("serial")
+public class Tablet extends KeyItem 
+{
 	
 	/*********************************************************************
 	Default constructor method for Tablet class. Creates a blank Tablet

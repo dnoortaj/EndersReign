@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 import UserInteraction.*;  
 
+@SuppressWarnings("serial")
 public class Consumable extends Item implements Serializable
 {
 	private int consumableHPRecovery;

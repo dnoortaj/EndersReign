@@ -6,7 +6,7 @@ import java.util.Scanner;
 import Inventory.*;
 import UserInteraction.*;
 
-
+@SuppressWarnings("serial")
 public class Enemy implements Serializable {
 
 	private boolean enemyIsDead, inBattle, firstTaunt;
@@ -16,11 +16,11 @@ public class Enemy implements Serializable {
 
 	private Item eReward;
 
-	Scanner s;
-	Random rand = new Random();
-	String [] hitOutput = new String[4];
-	String [] taunt = new String[7];
-	Player playa;
+	transient private Scanner s;
+	private Random rand = new Random();
+	private String [] hitOutput = new String[4];
+	private String [] taunt = new String[7];
+	private Player playa;
 
 	public Enemy(){
 		this.eID = 00;

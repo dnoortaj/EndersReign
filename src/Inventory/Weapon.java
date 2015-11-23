@@ -7,6 +7,7 @@ import UserInteraction.*;
  * @author Ethan Patterson
  *
  */
+@SuppressWarnings("serial")
 public class Weapon extends Item implements Serializable
 {
 	private int weaponAttackBonus;

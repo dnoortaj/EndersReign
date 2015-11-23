@@ -16,6 +16,7 @@ import java.io.Serializable;
  * any possible puzzles, and a description
  *
  */
+@SuppressWarnings("serial")
 public class Room implements Serializable
 {
 	private String roomName;

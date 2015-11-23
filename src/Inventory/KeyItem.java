@@ -9,6 +9,7 @@ item classes.
 @author Dale Burke
 @version November 2015
 *********************************************************************/
+@SuppressWarnings("serial")
 public abstract class KeyItem extends Item implements Serializable
 {
 	

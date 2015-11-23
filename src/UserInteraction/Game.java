@@ -28,6 +28,7 @@ import java.util.Random;
 
 import Inventory.*;
 
+@SuppressWarnings("serial")
 public class Game implements Serializable
 {
 	private String Username;
