@@ -20,20 +20,20 @@ public class Puzzle implements Serializable
 	private Item puzzleReward;
 	private int puzzlePoints = 0;
 	private Scanner input;
-	
+
 	public Puzzle()
 	{
-		 puzzleIsCompleted = false;
-		 puzzleText = new String[3][5];
-		 puzzlePoints = 0;
+		puzzleIsCompleted = false;
+		puzzleText = new String[3][5];
+		puzzlePoints = 0;
 	}
-	
+
 	/**
 	 * General constructor used to instantiate puzzle objects. Sets state values for
 	 * puzzleIsCompleted, puzzleText, puzzleReward, and puzzlePoints.
 	 */
 	public Puzzle(boolean puzzleIsCompleted, String[][] puzzleText,
-				Item puzzleReward, int puzzlePoints)
+			Item puzzleReward, int puzzlePoints)
 	{
 		this.puzzleIsCompleted = puzzleIsCompleted;
 		this.puzzleText = puzzleText;
@@ -51,24 +51,26 @@ public class Puzzle implements Serializable
 		input = new Scanner(System.in);
 		for (int i = 0; i < 3; i++)
 		{
-			System.out.println(puzzleText[i][0]);
-			System.out.println(puzzleText[i][1]);
-			String answer = input.nextLine();
-
-			while (!answer.equalsIgnoreCase("a") && !answer.equalsIgnoreCase("b") && !answer.equalsIgnoreCase("c"))
+			if(puzzleText[i][0] != null)
 			{
-				System.out.println("Your input was invalid.\nPlease try again.");
-				answer = input.nextLine();
-			}
-			if (answer.equals(puzzleText[i][4]))
-			{
-				System.out.println(puzzleText[i][2]);
-				puzzlePoints += 5;
+				System.out.println(puzzleText[i][0]);
+				System.out.println(puzzleText[i][1]);
+				String answer = input.nextLine();
 
-			} else
-			{
-				System.out.println(puzzleText[i][3]);
+				while (!answer.equalsIgnoreCase("a") && !answer.equalsIgnoreCase("b") && !answer.equalsIgnoreCase("c"))
+				{
+					System.out.println("Your input was invalid.\nPlease try again.");
+					answer = input.nextLine();
+				}
+				if (answer.equals(puzzleText[i][4]))
+				{
+					System.out.println(puzzleText[i][2]);
+					puzzlePoints += 5;
 
+				} else
+				{
+					System.out.println(puzzleText[i][3]);
+				}
 			}
 
 		}
