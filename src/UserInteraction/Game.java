@@ -38,7 +38,7 @@ public class Game implements Serializable
 	private ArrayList<Room> gameRooms;
 	private ArrayList<Enemy> gameEnemies;
 	private ArrayList<Puzzle> gamePuzzles;
-	private ArrayList<Inventory> gameItems;
+	private Inventory inv;
 	private String helpList;
 	Random random = new Random();
 	Scanner scan;
@@ -48,6 +48,11 @@ public class Game implements Serializable
 		gameStage = 0;
 		currentPlayer = new Player();
 		currentRoom = new Room();
+	}
+	
+	public Game(Player playa, Room room){
+		currentPlayer = playa;
+		currentRoom = room;
 	}
 
 	public void displayHelp()
@@ -171,8 +176,6 @@ public class Game implements Serializable
 	{
 		this.currentRoom = currentRoom;
 	}
-
-
     
     public String getUsername()
 	{
@@ -184,14 +187,6 @@ public class Game implements Serializable
 		Username = username;
 	}
 
-	public ArrayList<Inventory> getGameItems()
-	{
-		return gameItems;
-	}
 
-	public void setGameItems(ArrayList<Inventory> gameItems)
-	{
-		this.gameItems = gameItems;
-	}
 
 }
