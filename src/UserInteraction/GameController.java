@@ -207,7 +207,45 @@ public class GameController
 			loadGame();
 		}
 	}
-
+	public void listener() {
+		System.out.print("> ");
+		String input = sc.next();
+		switch (input.toLowerCase()) {
+		case "w":
+			game.move(1);
+			break;
+		case "s":
+			game.move(2);
+			break;
+		case "a":
+			game.move(4);
+			break;
+		case "d":
+			game.move(3);
+			break;
+		case "h":
+			game.displayHelp();
+			break;
+		case "i":
+			game.getCurrentPlayer().getPlayerInventory().useItem();
+			break;
+		case "l":
+			System.out.println(game.getGameCurrentRoom().getRoomDescription(1));
+		case "1":
+			//save the things
+			break;
+		case "2":
+			//load the things
+			break;
+		case "0":
+			//exit 
+			break;
+		default:
+			System.out.println("Command not recognized.");
+			listener();
+			break;
+		}
+	}
 
 
 	/**

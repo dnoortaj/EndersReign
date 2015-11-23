@@ -172,52 +172,7 @@ public class Game implements Serializable
 		this.currentRoom = currentRoom;
 	}
 
-	public void listener() {
-		scan = new Scanner(System.in);
-		System.out.print("> ");
-		String input = scan.next();
-		switch (input.toLowerCase()) {
-		case "w":
-			move(1);
-			break;
-		case "s":
-			move(2);
-			break;
-		case "a":
-			move(4);
-			break;
-		case "d":
-			move(3);
-			break;
-//		case "f":
-//			//what if roomEnemy is null?
-//			if(!currentRoom.getRoomEnemy().enemyIsDead()){
-//				currentRoom.getRoomEnemy().fight(currentPlayer);
-//			}
-//			break;
-		case "h":
-			displayHelp();
-			break;
-		case "i":
-			currentPlayer.getPlayerInventory().useItem();
-			break;
-		case "l":
-			System.out.println(currentRoom.getRoomDescription(1));
-		case "1":
-			//save the things
-			break;
-		case "2":
-			//load the things
-			break;
-		case "0":
-			//exit 
-			break;
-		default:
-			System.out.println("Command not recognized.");
-			listener();
-			break;
-		}
-	}
+
     
     public String getUsername()
 	{

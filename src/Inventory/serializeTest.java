@@ -40,8 +40,10 @@ public class serializeTest {
 	Player player;
 	Player playerInvNotFound;
 	Enemy mazer;
-	Enemy plucifer;
+	Enemy cadet;
 	Enemy bullies;
+	Enemy jerry, peter, dissenter, droid, bonzo, hyrum, vader, queen, bugs;
+	
 	String [] hitOutput = new String [] {"barely grazed", "scored a major hit on", 
 			"landed a solid strike on", "whacked the crap out of"};
 	
@@ -74,12 +76,28 @@ public class serializeTest {
 
 	@Before
 	public void setUp() throws Exception {
-		mazer = new Enemy(01, "Mazer Rackham", 70, 15, 
+		mazer = new Enemy(06, "Mazer Rackham", 70, 15, 
 				10, w5, 10, hitOutput, tauntEnrage);
-		plucifer = new Enemy(01, "Plucifer", 30, 10, 
+		cadet = new Enemy(11, "Cadet", 30, 10, 
 				110, w5, 10, hitOutput, tauntHide);
 		bullies = new Enemy(01, "Jerry and two of his cohorts", 50, 19, 
 				10, w5, 10, hitOutput, tauntFlee);
+		peter = new Enemy(02, "Peter", 40, 10, 10, w5, 10, hitOutput,
+				tauntHide);
+		dissenter = new Enemy(03, "Dissenter", 40, 12, 10, cBandAid, 10, 
+				hitOutput, tauntStandard);
+		droid = new Enemy(04, "Hand-to-Hand Combat Droid", 50, 10, 10, 
+				cMorphine, 10, hitOutput, tauntConcentration);
+		bonzo = new Enemy(05, "Bonzo and two of his buddies", 55, 25, 10,
+				cBandAid, 10, hitOutput, tauntFlee);
+		hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, wLaserPistol, 10, 
+				hitOutput, tauntStandard);
+		vader = new Enemy(08, "Darth Vader", 65, 12, 15, wLightSaber, 20, 
+				hitOutput, tauntStandard);
+		queen = new Enemy(09, "Formic Queen", 70, 12, 15, cQueenEggs, 20, 
+				hitOutput, tauntWait);
+		bugs = new Enemy(10, "Bugs", 35, 12, 10, cStimpak, 6, hitOutput, tauntStandard);
+		
 		
 		// weapons
 		w1 = new Weapon("Weapon 1", "First weapon.", false, 10);
