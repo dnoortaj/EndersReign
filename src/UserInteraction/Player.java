@@ -4,7 +4,7 @@ import java.io.Serializable;
 import Inventory.*; 
 
 /**
- * @author Ethan Patterson
+ * @author Ethan Patterson 
  *
  */
 @SuppressWarnings("serial")
