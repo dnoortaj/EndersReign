@@ -232,6 +232,7 @@ public class GameController
 			break;
 		case "h":
 			displayHelp();
+			listener();
 			break;
 		case "i":
 			currentPlayer.getPlayerInventory().useItem();
@@ -239,10 +240,12 @@ public class GameController
 		case "l":
 			System.out.println(currentRoom.getRoomDescription(1));
 		case "1":
-			//save the things
+			saveObject();
+			listener();
 			break;
 		case "2":
-			//load the things
+			loadGame();
+			listener();
 			break;
 		case "0":
 			//exit 
