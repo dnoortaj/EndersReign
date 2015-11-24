@@ -63,7 +63,7 @@ public class GameController
 	tauntStandard;
 	
 	Enemy mazer, jerry, peter, dissenter, droid, bonzo, hyrum, vader, queen, 
-	bugs, cadet, bullies;
+	beatle, cadet, bullies, ant, centipede, bee, housefly, mosquito, bedBug;
 	
 	/**
 	 * Method: GameController
@@ -445,10 +445,8 @@ public class GameController
 		queenEggs = new Consumable("Queen Eggs", "Taste like chicken.", false, 1);
 
 		//EnemYS
-		mazer = new Enemy(06, "Mazer Rackham", 70, 15, 
-				10, theBird, 10, hitOutput, tauntEnrage);
-		cadet = new Enemy(11, "Cadet", 30, 10, 
-				110, potion, 10, hitOutput, tauntHide);
+
+
 		bullies = new Enemy(01, "Jerry and two of his cohorts", 50, 19, 
 				10, writ, 10, hitOutput, tauntFlee);
 		peter = new Enemy(02, "Peter", 40, 10, 10, bluntObject, 10, hitOutput,
@@ -459,13 +457,30 @@ public class GameController
 				morphine, 10, hitOutput, tauntConcentration);
 		bonzo = new Enemy(05, "Bonzo and two of his buddies", 55, 25, 10,
 				laserPistol, 10, hitOutput, tauntFlee);
+		mazer = new Enemy(06, "Mazer Rackham", 70, 15, 
+				10, theBird, 10, hitOutput, tauntEnrage);
 		hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, hat, 10, 
 				hitOutput, tauntStandard);
 		vader = new Enemy(8, "Darth Vader", 65, 12, 15, lightSaber, 20, 
 				hitOutput, tauntStandard);
 		queen = new Enemy(9, "Formic Queen", 70, 12, 15, queenEggs, 20, 
 				hitOutput, tauntStandard);
-		bugs = new Enemy(10, "Lots of Bugs", 35, 12, 10, stimpak, 6, hitOutput, tauntStandard);
+		cadet = new Enemy(10, "Cadet", 30, 10, 
+				110, surgeryKit, 10, hitOutput, tauntHide);
+		beatle = new Enemy(11, "Rock Beatle", 35, 12, 10, stimpak, 6, 
+				hitOutput, tauntStandard);
+		ant = new Enemy(12, "Really Big Ant", 35, 12, 10, bandAid, 6, 
+				hitOutput, tauntStandard);
+		centipede = new Enemy(13, "Centipede", 35, 12, 10, morphine, 6, 
+				hitOutput, tauntStandard);
+		bee = new Enemy(14, "Large Africanized Killer Bee", 35, 12, 10, 
+				potion, 6, hitOutput, tauntStandard);
+		housefly = new Enemy(15, "Annoying HouseFly", 35, 12, 10, stimpak,
+				6, hitOutput, tauntStandard);
+		bedBug = new Enemy(16, "Bed Bug", 35, 12, 10, bandAid,
+				6, hitOutput, tauntStandard);
+		mosquito = new Enemy(17, "Swarm of Mosquitos", 35, 12, 10, stimpak,
+				6, hitOutput, tauntStandard);
 
 		
 		// set up test player 1
