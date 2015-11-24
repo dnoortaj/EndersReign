@@ -17,6 +17,7 @@ package UserInteraction;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.junit.Before;
@@ -29,21 +30,41 @@ public class GameController
 
 	private Game game;
 	private boolean run;
-	Scanner sc = new Scanner(new InputStreamReader(System.in));
+	String helpList;
+	String gameFile;
+	
 	Inventory inv;
 	Inventory invNotFound;
-	Player player;
+	Player currentPlayer;
 	Player playerInvNotFound;
+	private Room currentRoom;
+	
 	List<Enemy> enemyList = new ArrayList<Enemy>();
-	Enemy mazer, jerry, peter, dissenter, droid, bonzo, hyrum, vader, queen, 
-	bugs, cadet, bullies;
-	String [] hitOutput, tauntFlee, tauntEnrage, tauntHide, tauntConcentration, 
-	tauntStandard;
-	String gameFile;
+	List<Puzzle> puzzleList = new ArrayList<Puzzle>();
+	
+	Scanner sc = new Scanner(new InputStreamReader(System.in));
+	Random random = new Random();
 	FileInputStream fIn;
 	FileOutputStream fOut;
 	ObjectInputStream deserializer; 
 
+	Tablet tablet;
+	Suit suit;
+	Oxygen oxygen;
+	
+	Accessory academy, writ, goldStar, buggerMask, launchie, salamander, dragon,
+	admiralsCrest, hat;
+	
+	Weapon fisticuffs, bluntObject, laserPistol, dualLaser, theBird, lightSaber;
+	
+	Consumable bandAid,	morphine, potion, stimpak, surgeryKit, phoenixDown, queenEggs;
+
+	String [] hitOutput, tauntFlee, tauntEnrage, tauntHide, tauntConcentration, 
+	tauntStandard;
+	
+	Enemy mazer, jerry, peter, dissenter, droid, bonzo, hyrum, vader, queen, 
+	bugs, cadet, bullies;
+	
 	/**
 	 * Method: GameController
 	 * constructor for GameController class
@@ -198,25 +219,25 @@ public class GameController
 		String input = sc.next();
 		switch (input.toLowerCase()) {
 		case "w":
-			game.move(1);
+			move(1);
 			break;
 		case "s":
-			game.move(2);
+			move(2);
 			break;
 		case "a":
-			game.move(4);
+			move(4);
 			break;
 		case "d":
-			game.move(3);
+			move(3);
 			break;
 		case "h":
-			game.displayHelp();
+			displayHelp();
 			break;
 		case "i":
-			game.getCurrentPlayer().getPlayerInventory().useItem();
+			currentPlayer.getPlayerInventory().useItem();
 			break;
 		case "l":
-			System.out.println(game.getGameCurrentRoom().getRoomDescription(1));
+			System.out.println(currentRoom.getRoomDescription(1));
 		case "1":
 			//save the things
 			break;
@@ -233,7 +254,100 @@ public class GameController
 		}
 	}
 
+	public void move(int direction)
+	{
+		boolean hasMoved = false;
+		boolean monsterEncountered = false;
+		String dir = "nowhere.";
+
+		// set direction string element
+		if(direction == 1)
+		{
+			dir = "north.";
+		}
+		else if(direction == 2)
+		{
+			dir = "south.";
+		}
+		else if(direction == 3)
+		{
+			dir = "west.";
+		}
+		else if(direction == 4)
+		{
+			dir = "east.";
+		}
+
+		// see if player can move, make the move
+		if(currentRoom.getRoomExits(direction) != null)
+		{
+			// move in desired direction, update room
+			currentRoom = currentRoom.getRoomExits(direction);
+			System.out.println("You head " + dir);
+			hasMoved = true;
+		}
+		else
+		{
+			// notify player of non-move
+			System.out.println("You cannot move " + dir);
+		}
+
+		// if player moved
+		if(hasMoved)
+		{
+			System.out.println(currentRoom.getRoomDescription(0));
+
+			// attempt trigger current room's enemy
+			if(!currentRoom.getRoomEnemy().enemyIsDead())
+			{
+				if(random.nextInt(100) + 1 > currentRoom.getRoomEnemyChance())
+				{
+					// monster was encountered
+					monsterEncountered = true;
+
+					// combat flag set prior to fight, updated after fight
+					currentPlayer.setBattleFlag(true);
+					currentRoom.getRoomEnemy().fight(currentPlayer);
+					currentPlayer.setBattleFlag(false);
+
+					if(currentRoom.getRoomEnemy().enemyIsDead())
+					{
+						// updates score
+						System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
+								+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+
+						// retrieves the room's enemy reward and adds to current player inventory
+						currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomEnemy().getReward());
+					}			
+				}
+			}
+
+			// attempt to trigger current room's puzzle if enemy was not encountered
+			if(!currentRoom.getRoomPuzzle().getPuzzleIsCompleted() && !monsterEncountered)
+			{
+				if(random.nextInt(100) + 1 > currentRoom.getRoomEnemyChance())
+				{
+					// triggers the puzzle, adds outcome to player score
+					currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
+
+					// updates score
+					System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
+							+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+
+					// retrieves the room's puzzle reward and adds to current player inventory
+					currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+				}
+			}
+		}
+	}
+	
+	public void displayHelp()
+	{
+		System.out.println(helpList);
+	}
+	
 	public void constructGame(){
+		
 		hitOutput = new String [] {"barely grazed", "scored a major hit on", 
 				"landed a solid strike on", "whacked the crap out of"};
 
@@ -252,7 +366,7 @@ public class GameController
 				"You flaunt your puny muscles.", "",
 				"You expell flatulence in the general direction of",
 				"is mildly amused that you thought that would have any effect.",
-		"is like full-on Super Seiyan berserker mode mad right now."};
+				"is like full-on Super Seiyan berserker mode mad right now."};
 
 		tauntHide = new String [] {"dodgeDown", "100", "You shout insults about your foes "
 				+ "maternal unit. \n"
@@ -264,11 +378,11 @@ public class GameController
 
 		tauntConcentration = new String [] {"dodgeDown", "25", 
 				"You shout insults about your foes maternal unit. \n"
-						+ "Enraged, he is having trouble concentrating.", "Plucifer",
-						"You do your best to taunt", "You flaunt your puny muscles.", 
-						"You expell flatulence in the general direction of",
-						"is mildly amused that you thought that would have any effect.",
-						"is dumbfounded.", "is disgusted but unmoved."};
+				+ "Enraged, he is having trouble concentrating.", "Plucifer",
+				"You do your best to taunt", "You flaunt your puny muscles.", 
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any effect.",
+				"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntStandard = new String [] {"z", "0", " ", " ", 
 				"You bite your thumb at ",
@@ -279,60 +393,82 @@ public class GameController
 				" uses this as an" + " opportunity to take a free hit on you." };
 
 
-//		mazer = new Enemy(06, "Mazer Rackham", 70, 15, 
-//				10, w5, 10, hitOutput, tauntEnrage);
-//		cadet = new Enemy(11, "Cadet", 30, 10, 
-//				110, w5, 10, hitOutput, tauntHide);
-//		bullies = new Enemy(01, "Jerry and two of his cohorts", 50, 19, 
-//				10, w5, 10, hitOutput, tauntFlee);
-//		peter = new Enemy(02, "Peter", 40, 10, 10, w5, 10, hitOutput,
-//				tauntHide);
-//		dissenter = new Enemy(03, "Dissenter", 40, 12, 10, cBandAid, 10, 
-//				hitOutput, tauntStandard);
-//		droid = new Enemy(04, "Hand-to-Hand Combat Droid", 50, 10, 10, 
-//				cMorphine, 10, hitOutput, tauntConcentration);
-//		bonzo = new Enemy(05, "Bonzo and two of his buddies", 55, 25, 10,
-//				cBandAid, 10, hitOutput, tauntFlee);
-//		hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, wLaserPistol, 10, 
-//				hitOutput, tauntStandard);
-//		vader = new Enemy(08, "Darth Vader", 65, 12, 15, wLightSaber, 20, 
-//				hitOutput, tauntStandard);
-//		queen = new Enemy(09, "Formic Queen", 70, 12, 15, cQueenEggs, 20, 
-//				hitOutput, tauntWait);
-//		bugs = new Enemy(10, "Bugs", 35, 12, 10, cStimpak, 6, hitOutput, tauntStandard);
-//
-//
-//		// weapons
-//		w1 = new Weapon("Weapon 1", "First weapon.", false, 10);
-//		w2 = new Weapon("Weapon 2", "Second weapon.", false, 20);
-//		w3 = new Weapon("Weapon 3", "Third weapon.", false, 30);
-//		w4 = new Weapon("Weapon 4", "Fourth weapon.", false, 40);
-//		w5 = new Weapon("Weapon 5", "Fifth weapon.", false, 50);
-//
-//		// accessories
-//		a1 = new Accessory("Accessory 1", "First accessory.", false, 1, 1, 1);
-//		a2 = new Accessory("Accessory 2", "Second accessory.", false, 2, 2, 2);
-//		a3 = new Accessory("Accessory 3", "Third accessory.", false, 3, 3, 3);
-//		a4 = new Accessory("Accessory 4", "Fourth accessory.", false, 4, 4, 4);
-//		a5 = new Accessory("Accessory 5", "Fifth accessory.", false, 5, 5, 5);
-//
-//		// consumables
-//		c1 = new Consumable("Consumable 1", "First consumable.", false, 1);
-//		c2 = new Consumable("Consumable 2", "Second consumable.", false, 2);
-//		c3 = new Consumable("Consumable 3", "Third consumable.", false, 3);
-//		c4 = new Consumable("Consumable 4", "Fourth consumable.", false, 4);
-//		c5 = new Consumable("Consumable 5", "Fifth consumable.", false, 5);
-//		cNull = new Consumable(null, null, false, 100);
-//
-//		// key items
-//		k1 = new Oxygen("O2 Test Key Item 1", "First test key item.", true, false);
-//		k2 = new Oxygen("O2 Test Key Item 2", "Second test key item.", true, false);
-//		k3 = new Oxygen("O2 Test Key Item 3", "Third test key item.", true, false);
 
+		//Items
+		//Key items
+		tablet = new Tablet ("Tablet", "A cutting-edge computational device, standard issue to Academy"
+				+ " enrollees.", true, false);
+		suit = new Suit ("Combat Suit", "A suit made of tightly interwoven fibers. Required for zero "
+				+ "gravity combat training.", true, false);
+		oxygen = new Oxygen ("Supplemental O2 Device", "Vader's voice changer. Makes you sound cool and"
+				+ " prevents asphyxiation in thin atmosphere.", true, false);
+		
+		//accessories
+		academy = new Accessory ("Academy Monitor", "Hurts about as much as a papercut to remove."
+				+ " If the paper was made of salted knives.", false, -1, -1, 0);
+		writ = new Accessory ("Writ of Advanced Bullying", "Beware that, when fighting bullies, you "
+				+ "yourself do not become a bully.", false, 2, -1, 2);
+		goldStar = new Accessory ("Gold Star", "Grants the title, \"Teacher's Pet.\"", false, 0, 3, 0);
+		buggerMask = new Accessory ("Bugger Mask", "Buggers and Astronauts. Get with the program.", false,
+				1, 0, 3);
+		launchie = new Accessory("Launchie Insignia", "A bright yellow patch. Granted for reaching Battle"
+				+ " School without throwing up.", false, 0, 2, 2);
+		salamander = new Accessory("Salamander Insignia", "An emerald green patch. Granted for being a pain "
+				+ "in Bonzo's ass.", false, 2, 2, 2);
+		dragon = new Accessory("Dragon Insignia", "A pale orange patch. Makes you feel like a badass.",
+				false, 2, 3, 3);
+		admiralsCrest = new Accessory("Admiral's Crest", "You're kind of a big deal now, you murderer.",
+				false, 3, 3, 3);
+		hat = new Accessory("Harrison Ford's Hat", "Fortune and glory, kid. Fortune and glory.",false, 2, 5, 5);
+		
+		//weapons
+		fisticuffs = new Weapon("Fisticuffs", "Have at thee, coward!", false, 1);
+		bluntObject = new Weapon("Blunt Object", "No, not that kind of \"blunt.\"", false, 2);
+		laserPistol = new Weapon("Laser Pistol", "Cautionary note reads: \"NOT FOR ACTUAL USE.\"", false, 0);
+		dualLaser = new Weapon("Dual Laser Pistols", "What's 0 times 2? Because that's how much damage you'll"
+				+ " be doing with these.", false, 0);
+		theBird = new Weapon("The Bird", "Mazer's weapon of choice, used to devastating effect.", false, 3);
+		lightSaber = new Weapon("Lightsaber", "Vader's lightsaber. You should be ticketed for all the physical"
+				+ " laws you're violating with this.", false, 5);
+		
+		//consumables
+		bandAid = new Consumable("Band-Aid", "Cheap, non-effective healing technology from the 20th century.",
+				false, 1);
+		morphine = new Consumable("Morphine", "Consumable,It's not addictive. Promise.", false, 4);
+		potion = new Consumable("Potion", "Cures light wounds for 1d8 health.", false, 8);
+		stimpak = new Consumable("Stimpak", "Standard-issue healing medication.", false, 16);
+		surgeryKit = new Consumable("Surgery Kit", "Now with 20% more amputation!" , false,32);
+		phoenixDown = new Consumable("Phoenix Down", "Reraise sold separately.", false, 999);
+		queenEggs = new Consumable("Queen Eggs", "Taste like chicken.", false, 1);
+
+		//EnemYS
+		mazer = new Enemy(06, "Mazer Rackham", 70, 15, 
+				10, theBird, 10, hitOutput, tauntEnrage);
+		cadet = new Enemy(11, "Cadet", 30, 10, 
+				110, potion, 10, hitOutput, tauntHide);
+		bullies = new Enemy(01, "Jerry and two of his cohorts", 50, 19, 
+				10, writ, 10, hitOutput, tauntFlee);
+		peter = new Enemy(02, "Peter", 40, 10, 10, bluntObject, 10, hitOutput,
+				tauntHide);
+		dissenter = new Enemy(03, "Dissenter", 40, 12, 10, fisticuffs, 10, 
+				hitOutput, tauntStandard);
+		droid = new Enemy(04, "Hand-to-Hand Combat Droid", 50, 10, 10, 
+				morphine, 10, hitOutput, tauntConcentration);
+		bonzo = new Enemy(05, "Bonzo and two of his buddies", 55, 25, 10,
+				laserPistol, 10, hitOutput, tauntFlee);
+		hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, hat, 10, 
+				hitOutput, tauntStandard);
+		vader = new Enemy(8, "Darth Vader", 65, 12, 15, lightSaber, 20, 
+				hitOutput, tauntStandard);
+		queen = new Enemy(9, "Formic Queen", 70, 12, 15, queenEggs, 20, 
+				hitOutput, tauntStandard);
+		bugs = new Enemy(10, "Lots of Bugs", 35, 12, 10, stimpak, 6, hitOutput, tauntStandard);
+
+		
 		// set up test player 1
 		inv = new Inventory();
-		player = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
-		inv.setOwner(player);
+		currentPlayer = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
+		inv.setOwner(currentPlayer);
 
 		// set up test player 2
 		invNotFound = new Inventory(null, null, null, null, 0);
@@ -343,90 +479,6 @@ public class GameController
 
 
 
-	/**
-	 * Method: readFromFile
-	 *  created to read a binary file of the saved game
-	 */
-	/*	
-	   public  void readFromFile()
-	    {
-	       ObjectInputStream inFile = null;
-
-	       // open the file
-	       try
-	       {
-	           inFile = new ObjectInputStream(new FileInputStream("games.dat"));
-	       }
-	       catch (IOException e)
-	       {
-	           System.out.println("Problem opening games.dat");
-	           e.printStackTrace();
-
-	       }
-
-	       // separate try block to make sure if problem occurs we have a better idea at what point it
-	       // occurs
-	       try
-	       {
-	           while (true)
-	           {
-	               Game g = (Game)inFile.readObject();
-	               games.add(g);
-	           }
-
-	       }
-	       catch (EOFException ex)
-	       {
-	           // this is expected -just close file
-	           try
-	        {
-	            inFile.close();
-	        } catch (IOException e)
-	        {
-
-	            System.out.println("Problem closing the file");
-	            e.printStackTrace();
-	        }
-	       }
-	       catch (Exception e)
-	       {
-	           // unexpected exception
-	           System.out.println("Problem reading from file");
-	           e.printStackTrace();
-	       }
-
-	       // got all games
-
-	    }
-
-	/**
-	 * Method: writeToFile
-	 * writes games into a binary file
-	 * @param games
-	 */
-
-	/*	public void writeToFile(ArrayList<Game> games)
-    {
-        try
-        {
-            ObjectOutputStream outFile = new ObjectOutputStream(new FileOutputStream("games.dat"));
-
-            // now write the Game classes from the ArrayList
-            for(Game g : games)
-            {
-                outFile.writeObject(g);
-            }
-            outFile.close();
-
-        } catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }*/
 
 	/**
 	 * Method: main
