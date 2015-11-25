@@ -84,19 +84,19 @@ public class serializeTest {
 				10, w5, 10, hitOutput, tauntFlee);
 		peter = new Enemy(02, "Peter", 40, 10, 10, w5, 10, hitOutput,
 				tauntHide);
-		dissenter = new Enemy(03, "Dissenter", 40, 12, 10, cBandAid, 10, 
-				hitOutput, tauntStandard);
-		droid = new Enemy(04, "Hand-to-Hand Combat Droid", 50, 10, 10, 
-				cMorphine, 10, hitOutput, tauntConcentration);
-		bonzo = new Enemy(05, "Bonzo and two of his buddies", 55, 25, 10,
-				cBandAid, 10, hitOutput, tauntFlee);
-		hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, wLaserPistol, 10, 
-				hitOutput, tauntStandard);
-		vader = new Enemy(08, "Darth Vader", 65, 12, 15, wLightSaber, 20, 
-				hitOutput, tauntStandard);
-		queen = new Enemy(09, "Formic Queen", 70, 12, 15, cQueenEggs, 20, 
-				hitOutput, tauntWait);
-		bugs = new Enemy(10, "Bugs", 35, 12, 10, cStimpak, 6, hitOutput, tauntStandard);
+//		dissenter = new Enemy(03, "Dissenter", 40, 12, 10, cBandAid, 10, 
+//				hitOutput, tauntStandard);
+//		droid = new Enemy(04, "Hand-to-Hand Combat Droid", 50, 10, 10, 
+//				cMorphine, 10, hitOutput, tauntConcentration);
+//		bonzo = new Enemy(05, "Bonzo and two of his buddies", 55, 25, 10,
+//				cBandAid, 10, hitOutput, tauntFlee);
+//		hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, wLaserPistol, 10, 
+//				hitOutput, tauntStandard);
+//		vader = new Enemy(08, "Darth Vader", 65, 12, 15, wLightSaber, 20, 
+//				hitOutput, tauntStandard);
+//		queen = new Enemy(09, "Formic Queen", 70, 12, 15, cQueenEggs, 20, 
+//				hitOutput, tauntWait);
+//		bugs = new Enemy(10, "Bugs", 35, 12, 10, cStimpak, 6, hitOutput, tauntStandard);
 		
 		
 		// weapons
@@ -153,7 +153,7 @@ public class serializeTest {
 		inv.addToInventory(a5);
 
 		enemyList.add(mazer);
-		enemyList.add(plucifer);
+//		enemyList.add(plucifer);
 		enemyList.add(bullies);
 
 		fOut = new FileOutputStream("game.dat");
@@ -178,7 +178,7 @@ public class serializeTest {
 		
 		enemyList.get(0).fight(player);
 		enemyList.get(1).fight(player);
-		enemyList.get(2).fight(player);
+//		enemyList.get(2).fight(player);
 		System.out.println("You have disengaged from combat.");
 		System.out.println("Player score is now " + player.getPlayerScore());
 		System.out.println("Player HP is " + player.getPlayerCurrentHP());

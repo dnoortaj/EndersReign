@@ -164,9 +164,9 @@ public class GameController
 	 *********************************************************************/
 	public void loadGame()
 	{
-		int input = 0;
+		int input = -1;
 		boolean errorFlag = false;
-		System.out.println("Please select a save file to load. (Enter a value 1-3)\n> ");
+		System.out.println("Please select a save file to load. (Enter a value 1-3, or 0 to cancel)\n> ");
 		do
 		{
 			try
@@ -175,11 +175,15 @@ public class GameController
 			}
 			catch (Exception e)
 			{
-				input = 0;
+				input = -1;
 				errorFlag = true;
 			}
 
-			if (input == 1)
+			if (input == 0)
+			{
+				return;
+			}
+			else if (input == 1)
 			{
 				gameFile = "game1.dat";
 				errorFlag = false;
@@ -196,7 +200,7 @@ public class GameController
 			}
 			else
 			{
-				System.out.println("Valid value not detected; please try again. (Enter a value 1-3)\n> ");
+				System.out.println("Valid value not detected; please try again. (Enter a value 1-3, or 0 to cancel)\n> ");
 				errorFlag = true;
 			}
 		}
@@ -305,9 +309,9 @@ public class GameController
 	
 	public void saveGame()
 	{
-		int input = 0;
+		int input = -1;
 		boolean errorFlag = false;
-		System.out.println("Please select a save slot to use. (Enter a value 1-3)\n> ");
+		System.out.println("Please select a save slot to use. (Enter a value 1-3, or 0 to cancel)\n> ");
 		do
 		{
 			try
@@ -316,11 +320,15 @@ public class GameController
 			}
 			catch (Exception e)
 			{
-				input = 0;
+				input = -1;
 				errorFlag = true;
 			}
 
-			if (input == 1)
+			if (input == 0)
+			{
+				return;
+			}
+			else if (input == 1)
 			{
 				gameFile = "game1.dat";
 				errorFlag = false;
@@ -337,7 +345,7 @@ public class GameController
 			}
 			else
 			{
-				System.out.println("Valid value not detected; please try again. (Enter a value 1-3)\n> ");
+				System.out.println("Valid value not detected; please try again. (Enter a value 1-3, or 0 to cancel)\n> ");
 				errorFlag = true;
 			}
 		}
@@ -457,16 +465,16 @@ public class GameController
 		String input = scanner.next();
 		switch (input.toLowerCase()) {
 		case "w":
-			move(1);
+			move(0);
 			break;
 		case "s":
-			move(2);
+			move(1);
 			break;
 		case "a":
-			move(4);
+			move(3);
 			break;
 		case "d":
-			move(3);
+			move(2);
 			break;
 		case "h":
 			displayHelp();
@@ -495,6 +503,14 @@ public class GameController
 		}
 	}
 
+	/*********************************************************************
+	Method for moving between rooms. Accepts an integer corresponding to
+	an index position of the room's roomExits[].
+
+	@param int direction - Index position of currentRoom roomExits[] to
+						   move to.
+	@return none
+	 *********************************************************************/
 	public void move(int direction)
 	{
 		boolean hasMoved = false;
@@ -502,19 +518,19 @@ public class GameController
 		String dir = "nowhere.";
 
 		// set direction string element
-		if(direction == 1)
+		if(direction == 0)
 		{
 			dir = "north.";
 		}
-		else if(direction == 2)
+		else if(direction == 1)
 		{
 			dir = "south.";
 		}
-		else if(direction == 3)
+		else if(direction == 2)
 		{
 			dir = "west.";
 		}
-		else if(direction == 4)
+		else if(direction == 3)
 		{
 			dir = "east.";
 		}
@@ -582,12 +598,25 @@ public class GameController
 		}
 	}
 	
+	/*********************************************************************
+	Method for displaying the game's helpList String.
+
+	@param none
+	@return none
+	 *********************************************************************/
 	public void displayHelp()
 	{
 		System.out.println(helpList);
 	}
-	
-	public void constructGame(){
+
+	/*********************************************************************
+	Method for initializing all game objects.
+
+	@param none
+	@return none
+	 *********************************************************************/
+	public void constructGame()
+	{
 		
 		hitOutput = new String [] {"barely grazed", "scored a major hit on", 
 				"landed a solid strike on", "whacked the crap out of"};
@@ -726,14 +755,12 @@ public class GameController
 		currentPlayer = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
 	}
 
+	/*********************************************************************
+	Main method for running GameController.
 
-
-
-	/**
-	 * Method: main
-	 * runs game
-	 *  @param args
-	 */
+	@param String[] args - General main method argument.
+	@return none
+	 *********************************************************************/
 	public static void main(String[] args)
 	{
 		GameController gameCont = new GameController();
