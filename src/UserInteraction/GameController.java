@@ -63,8 +63,9 @@ public class GameController
 	Consumable bandAid,	morphine, potion, stimpak, surgeryKit, phoenixDown, queenEggs;
 
 	/** enemy taunt text arrays */
-	String[] hitOutput, laserOutput, fistOutput, birdOutput, saberOutput, tauntFlee, 
-	tauntEnrage, tauntHide, tauntConcentration, tauntStandard;
+	String[] bluntOutput, hitOutput, laserOutput, fistOutput, birdOutput, saberOutput, 
+	tauntFlee, tauntEnrage, tauntHide, tauntConcentration, tauntStandard, bugOutput, 
+	tauntBug, bzzOutput;
 
 	/** game enemies */
 	Enemy mazer, jerry, peter, dissenter, droid, bonzo, hyrum, vader, queen, 
@@ -720,47 +721,60 @@ public class GameController
 	public void constructGame()
 	{
 
-		hitOutput = new String [] {"barely grazed", "scored a major hit on", 
-				"landed a solid strike on", "whacked the crap out of"};
-		laserOutput = new String [] {"just grazed", "beamed", "zapped", "zapped a headshot on"};
-		fistOutput = new String [] {"jabbed", "socked", "gut-punched", "decked em right in the kisser, poor"};
-		birdOutput = new String [] {"shot the bird but it was barely noticed by", "gave the finger to", 
-				"flicked off", "shot the double bird to"};
-		saberOutput = new String [] {"poked", "removed the eyebrows of", "cut off an appendage of", "scalped"};
+		hitOutput = new String [] {"You barely grazed doe.", "You scored a major hit on doe.", 
+				"You landed a solid strike on doe.", "You whacked the crap out of doe."};
+		bluntOutput = new String [] {"You tapped doe.", "You whacked doe.", "You smashed doe's head.",
+				"You bludgeoned doe's face in."};	
+		laserOutput = new String [] {"You just grazed doe", "You beamed doe in the leg", 
+				"You zapped doe in the chest", "You zapped doe square in the forehead."};
+		fistOutput = new String [] {"You jabbed at doe and just clipped his shoulder", 
+				"You socked doe.", "You gut-punched doe.", "You decked em right in the kisser, poor doe"};
+		birdOutput = new String [] {"You shot the bird but doe barely noticed", "You gave the finger to doe.",
+				"You flicked off doe", "You shot doe the double bird."};
+		saberOutput = new String [] {"You poked doe with a lightsaber.", 
+				"You swing your laser sword at doe and just managed to remove his eyebrows.",
+				"You cut off one of doe/'s appendages.", "You scalped doe"};
+		bugOutput = new String [] {"The You pesters doe.", 
+				"You sneaks up on you and bites you on the back of the neck.", 
+				"You crawls up your arm and it feels all ichy.", 
+				"You crawls in your ear and lays eggs in your brain."};
+		bzzOutput = new String [] {"\"Bzzzz, Bzzz\" says the You.", 
+				"You flys in close and darts off at the last moment.  /n In an attempt to smack it you manage"
+				+ " to slap yourself across the face.", "You stings you in the eyeball."};
 
 		
 		tauntFlee = new String [] {"attDown", "10", "You take a kungfu stance "
-					+ "and grin menacingly. \n"
-					+ "Two of the bullies show their true colors and flee.", "Jerry",
-					"You do your best to taunt", "You flaunt your puny muscles.", 
-					"You expell flatulence in the general direction of",
-					"is mildly amused that you thought that would have any affect.",
-					"is dumbfounded.", "is disgusted but unmoved."};
+				+ "and grin menacingly. \n"
+				+ "Two of the bullies show their true colors and flee.", "Jerry",
+				"You do your best to taunt", "You flaunt your puny muscles.", 
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any affect.",
+				"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntEnrage = new String [] {"enrage", "50", "You show your opponent "
-					+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
-					+ "really mad.", 
-					"ENRAGED Mazer Rackham", "You do your best to taunt", 
-					"You flaunt your puny muscles.", "",
-					"You expell flatulence in the general direction of",
-					"is mildly amused that you thought that would have any effect.",
-		"is like full-on Super Seiyan berserker mode mad right now."};
+				+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
+				+ "really mad.", 
+				"ENRAGED Mazer Rackham", "You do your best to taunt", 
+				"You flaunt your puny muscles.", "",
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any effect.",
+				"is like full-on Super Seiyan berserker mode mad right now."};
 
 		tauntHide = new String [] {"dodgeDown", "100", "You shout insults about your foes "
-					+ "maternal unit. \n"
-					+ "Enraged, he is done playing the hiding game.", "Plucifer",
-					"You do your best to taunt", "You flaunt your puny muscles.", 
-					"You expell flatulence in the general direction of",
-					"is mildly amused that you thought that would have any effect.",
-					"is dumbfounded.", "is disgusted but unmoved."};
+				+ "maternal unit. \n"
+				+ "Enraged, he is done playing the hiding game.", "Plucifer",
+				"You do your best to taunt", "You flaunt your puny muscles.", 
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any effect.",
+				"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntConcentration = new String [] {"dodgeDown", "25", 
 				"You shout insults about your foes maternal unit. \n"
-							+ "Enraged, he is having trouble concentrating.", "Plucifer",
-							"You do your best to taunt", "You flaunt your puny muscles.", 
-							"You expell flatulence in the general direction of",
-							"is mildly amused that you thought that would have any effect.",
-							"is dumbfounded.", "is disgusted but unmoved."};
+				+ "Enraged, he is having trouble concentrating.", "Plucifer",
+				"You do your best to taunt", "You flaunt your puny muscles.", 
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any effect.",
+				"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntStandard = new String [] {"z", "0", " ", " ", 
 				"You bite your thumb at ",
@@ -769,6 +783,15 @@ public class GameController
 				" is not impressed.",
 				" makes a comment about you being the son of a motherless goat.",
 				" uses this as an" + " opportunity to take a free hit on you." };
+		
+		tauntBug = new String [] {"z", "0", " ", " ", 
+				"You threaten to stomp ",
+				"You wave your arms wildly in the air.",
+				"You buzz mockingly ",
+				" is a bug, thus is impervious to your misguided attempts at psychological warfare.",
+				"says \"bzzzz\".",
+				" uses this as an opportunity to take a free hit on you." };
+
 
 		
 		//Items
@@ -820,39 +843,39 @@ public class GameController
 
 		//EnemYS
 		bullies = new Enemy(01, "Jerry and two of his cohorts", 50, 19, 
-					10, writ, 10, hitOutput, tauntFlee);
-		peter = new Enemy(02, "Peter", 40, 10, 10, bluntObject, 10, hitOutput,
+					10, writ, 10, bluntOutput, tauntFlee);
+		peter = new Enemy(02, "Peter", 40, 8, 10, bluntObject, 10, hitOutput,
 					tauntHide);
-		dissenter = new Enemy(03, "Dissenter", 40, 12, 10, fisticuffs, 10, 
-					hitOutput, tauntStandard);
+		dissenter = new Enemy(03, "Dissenter", 40, 10, 10, fisticuffs, 10, 
+					fistOutput, tauntStandard);
 		droid = new Enemy(04, "Hand-to-Hand Combat Droid", 50, 10, 10, 
 					morphine, 10, hitOutput, tauntConcentration);
 		bonzo = new Enemy(05, "Bonzo and two of his buddies", 55, 25, 10,
-					laserPistol, 10, hitOutput, tauntFlee);
-		mazer = new Enemy(06, "Mazer Rackham", 70, 15, 
-					10, theBird, 10, hitOutput, tauntEnrage);
+					laserPistol, 10, bluntOutput, tauntFlee);
+		mazer = new Enemy(06, "Mazer Rackham", 70, 14, 
+					10, theBird, 10, birdOutput, tauntEnrage);
 		hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, hat, 10, 
-					hitOutput, tauntStandard);
-		vader = new Enemy(8, "Darth Vader", 65, 12, 15, lightSaber, 20, 
-					hitOutput, tauntStandard);
-		queen = new Enemy(9, "Formic Queen", 70, 12, 15, queenEggs, 20, 
+					laserOutput, tauntStandard);
+		vader = new Enemy(8, "Darth Vader", 65, 17, 12, lightSaber, 20, 
+					saberOutput, tauntStandard);
+		queen = new Enemy(9, "Formic Queen", 70, 11, 15, queenEggs, 20, 
 					hitOutput, tauntStandard);
 		cadet = new Enemy(10, "Cadet", 30, 10, 
-					110, surgeryKit, 10, hitOutput, tauntHide);
-		beatle = new Enemy(11, "Rock Beatle", 35, 12, 10, stimpak, 6, 
-					hitOutput, tauntStandard);
-		ant = new Enemy(12, "Really Big Ant", 35, 12, 10, bandAid, 6, 
-					hitOutput, tauntStandard);
-		centipede = new Enemy(13, "Centipede", 35, 12, 10, morphine, 6, 
-					hitOutput, tauntStandard);
-		bee = new Enemy(14, "Large Africanized Killer Bee", 35, 12, 10, 
-					potion, 6, hitOutput, tauntStandard);
-		housefly = new Enemy(15, "Annoying HouseFly", 35, 12, 10, stimpak,
-					6, hitOutput, tauntStandard);
-		bedBug = new Enemy(16, "Bed Bug", 35, 12, 10, bandAid,
-					6, hitOutput, tauntStandard);
-		mosquito = new Enemy(17, "Swarm of Mosquitos", 35, 12, 10, stimpak,
-					6, hitOutput, tauntStandard);
+					110, surgeryKit, 10, laserOutput, tauntHide);
+		beatle = new Enemy(11, "Rock Beatle", 35, 7, 10, stimpak, 6, 
+					bugOutput, tauntBug);
+		ant = new Enemy(12, "Really Big Ant", 35, 10, 10, bandAid, 6, 
+					bugOutput, tauntBug);
+		centipede = new Enemy(13, "Centipede", 35, 6, 10, morphine, 6, 
+					bugOutput, tauntBug);
+		bee = new Enemy(14, "Large Africanized Killer Bee", 35, 12, 19, 
+					potion, 6, bzzOutput, tauntBug);
+		housefly = new Enemy(15, "Annoying HouseFly", 35, 8, 19, stimpak,
+					6, bzzOutput, tauntBug);
+		bedBug = new Enemy(16, "Bed Bug", 35, 12, 8, bandAid,
+					6, bugOutput, tauntBug);
+		mosquito = new Enemy(17, "Swarm of Mosquitos", 35, 8, 17, stimpak,
+					6, bzzOutput, tauntBug);
 
 		
 		//puzzles

@@ -208,7 +208,9 @@ public class Enemy implements Serializable {
 	}
 
 	public void escape() {
-		if(rand.nextInt(playa.getPlayerDodge()) > (rand.nextInt(eDodge) + 3)){
+		
+		if(rand.nextInt(playa.getPlayerDodge()) > (rand.nextInt(eDodge) + 3)
+				&& eID != 9 && eID != 8){
 			System.out.println("As the French so often do, you turned tail"
 					+ " and ran like the coward that you are. ");
 			System.out.println(eName + " doesn't seem to know where you went.");
