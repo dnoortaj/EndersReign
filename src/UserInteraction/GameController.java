@@ -102,30 +102,30 @@ public class GameController
 	public void mainMenu()
 	{		 
 		System.out.println(" ______   ______   ______   ______   ______   ______   ______      \n"+
-				"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
-				"._.__._. /______________/  /_____.________/  /_/\\__/  /__._./ ._.  \n" +
-				"| |  | |    \\_   _____/ ____   __| _/__________)/______  | |  | |  \n" +
-				"|_|  |_|     |    __)_ /    \\ / __ _/ __ \\_  __ /  ___/  |_|  |_|  \n" +
-				"|-|  |-|     |        |   |  / /_/ \\  ___/|  | \\\\___ \\   |-|  |-|  \n" +
-				"| |  | |    /_______  |___|  \\____ |\\___  |__| /____  >  | |  | |  \n" +
-				"._.  ._.    __________     \\/.__  \\/    \\/          \\/   ._.  ._.  \n" +
-				"| |  | |    \\______   \\ ____ |__| ____   ____            | |  | |  \n" +
-				"|_|  |_|     |       __/ __ \\|  |/ ___\\ /    \\           |_|  |_|  \n" +
-				"|-|  |-|     |    |   \\  ___/|  / /_/  |   |  \\          |-|  |-|  \n" +
-				"| |  | |     |____|_  /\\___  |__\\___  /|___|  /          | |  | |  \n" +
-				"|______|  ______   ______  \\_______________ \\/______   ______ |_|  \n" +
-				"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
-				"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/     \n\n\n\n" +
-				"Welcome to Ender's Reign: Wiggin's Formic Rage! \nWould you like to:" +
-				"\n> Start New Game \n> Load Game \n> Exit");
+					"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
+					"._.__._. /______________/  /_____.________/  /_/\\__/  /__._./ ._.  \n" +
+					"| |  | |    \\_   _____/ ____   __| _/__________)/______  | |  | |  \n" +
+					"|_|  |_|     |    __)_ /    \\ / __ _/ __ \\_  __ /  ___/  |_|  |_|  \n" +
+					"|-|  |-|     |        |   |  / /_/ \\  ___/|  | \\\\___ \\   |-|  |-|  \n" +
+					"| |  | |    /_______  |___|  \\____ |\\___  |__| /____  >  | |  | |  \n" +
+					"._.  ._.    __________     \\/.__  \\/    \\/          \\/   ._.  ._.  \n" +
+					"| |  | |    \\______   \\ ____ |__| ____   ____            | |  | |  \n" +
+					"|_|  |_|     |       __/ __ \\|  |/ ___\\ /    \\           |_|  |_|  \n" +
+					"|-|  |-|     |    |   \\  ___/|  / /_/  |   |  \\          |-|  |-|  \n" +
+					"| |  | |     |____|_  /\\___  |__\\___  /|___|  /          | |  | |  \n" +
+					"|______|  ______   ______  \\_______________ \\/______   ______ |_|  \n" +
+					"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
+					"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/     \n\n\n\n" +
+					"Welcome to Ender's Reign: Wiggin's Formic Rage! \nWould you like to:" +
+					"\n> Start New Game \n> Load Game \n> Exit");
 		String input = scanner.nextLine();
 
 		while (!input.equalsIgnoreCase("new")
-				&& !input.equalsIgnoreCase("load")
-				&& !input.equalsIgnoreCase("exit"))
+					&& !input.equalsIgnoreCase("load")
+					&& !input.equalsIgnoreCase("exit"))
 		{
 			System.out.println("Your input did not match available options." +
-					"\n Please type \"New\", \"Load\", or \"Exit\"");
+						"\n Please type \"New\", \"Load\", or \"Exit\"");
 			input = scanner.nextLine();
 		}
 
@@ -673,7 +673,7 @@ public class GameController
 					{
 						// updates score
 						System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
-								+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+									+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
 
 						// retrieves the room's enemy reward and adds to current player inventory
 						currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomEnemy().getReward());
@@ -691,7 +691,7 @@ public class GameController
 
 					// updates score
 					System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
-							+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+								+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
 
 					// retrieves the room's puzzle reward and adds to current player inventory
 					currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
@@ -724,37 +724,37 @@ public class GameController
 				"landed a solid strike on", "whacked the crap out of"};
 
 		tauntFlee = new String [] {"attDown", "10", "You take a kungfu stance "
-				+ "and grin menacingly. \n"
-				+ "Two of the bullies show their true colors and flee.", "Jerry",
-				"You do your best to taunt", "You flaunt your puny muscles.", 
-				"You expell flatulence in the general direction of",
-				"is mildly amused that you thought that would have any affect.",
-				"is dumbfounded.", "is disgusted but unmoved."};
+					+ "and grin menacingly. \n"
+					+ "Two of the bullies show their true colors and flee.", "Jerry",
+					"You do your best to taunt", "You flaunt your puny muscles.", 
+					"You expell flatulence in the general direction of",
+					"is mildly amused that you thought that would have any affect.",
+					"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntEnrage = new String [] {"enrage", "50", "You show your opponent "
-				+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
-				+ "really mad.", 
-				"ENRAGED Mazer Rackham", "You do your best to taunt", 
-				"You flaunt your puny muscles.", "",
-				"You expell flatulence in the general direction of",
-				"is mildly amused that you thought that would have any effect.",
+					+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
+					+ "really mad.", 
+					"ENRAGED Mazer Rackham", "You do your best to taunt", 
+					"You flaunt your puny muscles.", "",
+					"You expell flatulence in the general direction of",
+					"is mildly amused that you thought that would have any effect.",
 		"is like full-on Super Seiyan berserker mode mad right now."};
 
 		tauntHide = new String [] {"dodgeDown", "100", "You shout insults about your foes "
-				+ "maternal unit. \n"
-				+ "Enraged, he is done playing the hiding game.", "Plucifer",
-				"You do your best to taunt", "You flaunt your puny muscles.", 
-				"You expell flatulence in the general direction of",
-				"is mildly amused that you thought that would have any effect.",
-				"is dumbfounded.", "is disgusted but unmoved."};
+					+ "maternal unit. \n"
+					+ "Enraged, he is done playing the hiding game.", "Plucifer",
+					"You do your best to taunt", "You flaunt your puny muscles.", 
+					"You expell flatulence in the general direction of",
+					"is mildly amused that you thought that would have any effect.",
+					"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntConcentration = new String [] {"dodgeDown", "25", 
 				"You shout insults about your foes maternal unit. \n"
-						+ "Enraged, he is having trouble concentrating.", "Plucifer",
-						"You do your best to taunt", "You flaunt your puny muscles.", 
-						"You expell flatulence in the general direction of",
-						"is mildly amused that you thought that would have any effect.",
-						"is dumbfounded.", "is disgusted but unmoved."};
+							+ "Enraged, he is having trouble concentrating.", "Plucifer",
+							"You do your best to taunt", "You flaunt your puny muscles.", 
+							"You expell flatulence in the general direction of",
+							"is mildly amused that you thought that would have any effect.",
+							"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntStandard = new String [] {"z", "0", " ", " ", 
 				"You bite your thumb at ",
@@ -769,28 +769,28 @@ public class GameController
 		//Items
 		//Key items
 		tablet = new Tablet ("Tablet", "A cutting-edge computational device, standard issue to Academy"
-				+ " enrollees.", true, false);
+					+ " enrollees.", true, false);
 		suit = new Suit ("Combat Suit", "A suit made of tightly interwoven fibers. Required for zero "
-				+ "gravity combat training.", true, false);
+					+ "gravity combat training.", true, false);
 		oxygen = new Oxygen ("Supplemental O2 Device", "Vader's voice changer. Makes you sound cool and"
-				+ " prevents asphyxiation in thin atmosphere.", true, false);
+					+ " prevents asphyxiation in thin atmosphere.", true, false);
 
 		//accessories
 		academy = new Accessory ("Academy Monitor", "Hurts about as much as a papercut to remove."
-				+ " If the paper was made of salted knives.", false, -1, -1, 0);
+					+ " If the paper was made of salted knives.", false, -1, -1, 0);
 		writ = new Accessory ("Writ of Advanced Bullying", "Beware that, when fighting bullies, you "
-				+ "yourself do not become a bully.", false, 2, -1, 2);
+					+ "yourself do not become a bully.", false, 2, -1, 2);
 		goldStar = new Accessory ("Gold Star", "Grants the title, \"Teacher's Pet.\"", false, 0, 3, 0);
 		buggerMask = new Accessory ("Bugger Mask", "Buggers and Astronauts. Get with the program.", false,
-				1, 0, 3);
+					1, 0, 3);
 		launchie = new Accessory("Launchie Insignia", "A bright yellow patch. Granted for reaching Battle"
-				+ " School without throwing up.", false, 0, 2, 2);
+					+ " School without throwing up.", false, 0, 2, 2);
 		salamander = new Accessory("Salamander Insignia", "An emerald green patch. Granted for being a pain "
-				+ "in Bonzo's ass.", false, 2, 2, 2);
+					+ "in Bonzo's ass.", false, 2, 2, 2);
 		dragon = new Accessory("Dragon Insignia", "A pale orange patch. Makes you feel like a badass.",
-				false, 2, 3, 3);
+					false, 2, 3, 3);
 		admiralsCrest = new Accessory("Admiral's Crest", "You're kind of a big deal now, you murderer.",
-				false, 3, 3, 3);
+					false, 3, 3, 3);
 		hat = new Accessory("Harrison Ford's Hat", "Fortune and glory, kid. Fortune and glory.",false, 2, 5, 5);
 
 		//weapons
@@ -798,14 +798,14 @@ public class GameController
 		bluntObject = new Weapon("Blunt Object", "No, not that kind of \"blunt.\"", false, 2);
 		laserPistol = new Weapon("Laser Pistol", "Cautionary note reads: \"NOT FOR ACTUAL USE.\"", false, 0);
 		dualLaser = new Weapon("Dual Laser Pistols", "What's 0 times 2? Because that's how much damage you'll"
-				+ " be doing with these.", false, 0);
+					+ " be doing with these.", false, 0);
 		theBird = new Weapon("The Bird", "Mazer's weapon of choice, used to devastating effect.", false, 3);
 		lightSaber = new Weapon("Lightsaber", "Vader's lightsaber. You should be ticketed for all the physical"
-				+ " laws you're violating with this.", false, 5);
+					+ " laws you're violating with this.", false, 5);
 
 		//consumables
 		bandAid = new Consumable("Band-Aid", "Cheap, non-effective healing technology from the 20th century.",
-				false, 1);
+					false, 1);
 		morphine = new Consumable("Morphine", "Consumable,It's not addictive. Promise.", false, 4);
 		potion = new Consumable("Potion", "Cures light wounds for 1d8 health.", false, 8);
 		stimpak = new Consumable("Stimpak", "Standard-issue healing medication.", false, 16);
@@ -817,39 +817,39 @@ public class GameController
 
 
 		bullies = new Enemy(01, "Jerry and two of his cohorts", 50, 19, 
-				10, writ, 10, hitOutput, tauntFlee);
+					10, writ, 10, hitOutput, tauntFlee);
 		peter = new Enemy(02, "Peter", 40, 10, 10, bluntObject, 10, hitOutput,
-				tauntHide);
+					tauntHide);
 		dissenter = new Enemy(03, "Dissenter", 40, 12, 10, fisticuffs, 10, 
-				hitOutput, tauntStandard);
+					hitOutput, tauntStandard);
 		droid = new Enemy(04, "Hand-to-Hand Combat Droid", 50, 10, 10, 
-				morphine, 10, hitOutput, tauntConcentration);
+					morphine, 10, hitOutput, tauntConcentration);
 		bonzo = new Enemy(05, "Bonzo and two of his buddies", 55, 25, 10,
-				laserPistol, 10, hitOutput, tauntFlee);
+					laserPistol, 10, hitOutput, tauntFlee);
 		mazer = new Enemy(06, "Mazer Rackham", 70, 15, 
-				10, theBird, 10, hitOutput, tauntEnrage);
+					10, theBird, 10, hitOutput, tauntEnrage);
 		hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, hat, 10, 
-				hitOutput, tauntStandard);
+					hitOutput, tauntStandard);
 		vader = new Enemy(8, "Darth Vader", 65, 12, 15, lightSaber, 20, 
-				hitOutput, tauntStandard);
+					hitOutput, tauntStandard);
 		queen = new Enemy(9, "Formic Queen", 70, 12, 15, queenEggs, 20, 
-				hitOutput, tauntStandard);
+					hitOutput, tauntStandard);
 		cadet = new Enemy(10, "Cadet", 30, 10, 
-				110, surgeryKit, 10, hitOutput, tauntHide);
+					110, surgeryKit, 10, hitOutput, tauntHide);
 		beatle = new Enemy(11, "Rock Beatle", 35, 12, 10, stimpak, 6, 
-				hitOutput, tauntStandard);
+					hitOutput, tauntStandard);
 		ant = new Enemy(12, "Really Big Ant", 35, 12, 10, bandAid, 6, 
-				hitOutput, tauntStandard);
+					hitOutput, tauntStandard);
 		centipede = new Enemy(13, "Centipede", 35, 12, 10, morphine, 6, 
-				hitOutput, tauntStandard);
+					hitOutput, tauntStandard);
 		bee = new Enemy(14, "Large Africanized Killer Bee", 35, 12, 10, 
-				potion, 6, hitOutput, tauntStandard);
+					potion, 6, hitOutput, tauntStandard);
 		housefly = new Enemy(15, "Annoying HouseFly", 35, 12, 10, stimpak,
-				6, hitOutput, tauntStandard);
+					6, hitOutput, tauntStandard);
 		bedBug = new Enemy(16, "Bed Bug", 35, 12, 10, bandAid,
-				6, hitOutput, tauntStandard);
+					6, hitOutput, tauntStandard);
 		mosquito = new Enemy(17, "Swarm of Mosquitos", 35, 12, 10, stimpak,
-				6, hitOutput, tauntStandard);
+					6, hitOutput, tauntStandard);
 
 		//puzzles
 		String[][] wombPuzzle = new String[3][5];
@@ -860,7 +860,7 @@ public class GameController
 		wombPuzzle[0][3] = "\n'You are stillborn'\n";
 		wombPuzzle[0][4] = "b";
 
-String[][] cribPuzzle = new String[3][5];
+		String[][] cribPuzzle = new String[3][5];
 
 		cribPuzzle[0][0] = "'After a few months have passed, you have grown to the point where your crib has become too small to sleep in. In order to find better sleeping arrangement, you must convince you parents you are too big for the crib by escaping it. How will you go about doing this?'\n";
 		cribPuzzle[0][1] = "Would you: \n'a' \tClimb up the sides \n'b' \tRock the cradle \n'c' \tEndlessly scream until relocated\n";
@@ -868,7 +868,7 @@ String[][] cribPuzzle = new String[3][5];
 		cribPuzzle[0][3] = "\n'Not quite'\n";
 		cribPuzzle[0][4] = "a";
 
-String[][] namePuzzle = new String[3][5];
+		String[][] namePuzzle = new String[3][5];
 
 		namePuzzle[0][0] = "'Upon frEeing yourself of the coNfinement of the crib, you Discover a namE inscRibed into the wood on the side of the crib. You presume that the name has to be yours, what is it?'\n";
 		namePuzzle[0][1] = "Options: \n'a' \tDaren \n'b' \tEnder \n'c' \tErnie\n";
@@ -876,7 +876,7 @@ String[][] namePuzzle = new String[3][5];
 		namePuzzle[0][3] = "\n'You must search deeper within yourself'\n";
 		namePuzzle[0][4] = "b";
 
-String[][] mathPuzzle = new String[3][5];
+		String[][] mathPuzzle = new String[3][5];
 
 		mathPuzzle[0][0] = "'During one of your math lessons you come across a mind boggling problem: Two fathers and two sons sat down to eat eggs for breakfast. They ate exactly three eggs, each person had an egg. How do you explain this?'\n";
 		mathPuzzle[0][1] = "Options: \n'a' \tThey split the eggs into multiple parts \n'b' \tThe 'sons' are conjoined twins \n'c' \tOne of the 'fathers' is also a grandfather\n";
@@ -885,7 +885,7 @@ String[][] mathPuzzle = new String[3][5];
 		mathPuzzle[0][4] = "c";
 
 
-String[][] sciencePuzzle = new String[3][5];
+		String[][] sciencePuzzle = new String[3][5];
 
 		sciencePuzzle[0][0] = "'Science class is proving to be no walk in the park either, and one question in particular seems to keep tripping you up: If you boiled some ice in a hot frying pan, would it become a gas or a liquid?'\n";
 		sciencePuzzle[0][1] = "Options: \n'a' \tLiquid \n'b' \tBoth \n'c' \tGas\n";
@@ -894,7 +894,7 @@ String[][] sciencePuzzle = new String[3][5];
 		sciencePuzzle[0][4] = "b";
 
 
-String[][] historyPuzzle = new String[3][5];
+		String[][] historyPuzzle = new String[3][5];
 
 		historyPuzzle[0][0] = "'Although history class is relatively simple, it can be arduous at times: What walks on four feet in the morning, two in the afternoon and three at night?'\n";
 		historyPuzzle[0][1] = "Options: \n'a' \tA Man \n'b' \tA Formic \n'c' \tA Monkey\n";
@@ -903,7 +903,7 @@ String[][] historyPuzzle = new String[3][5];
 		historyPuzzle[0][4] = "a";
 
 
-String[][] bullyPuzzle = new String[3][5];
+		String[][] bullyPuzzle = new String[3][5];
 
 		bullyPuzzle[0][0] = "'After the incident with Stilson(the bully) in science class, Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. With you on the verge of being kicked out of the academy, how would you explain your actions?'\n";
 		bullyPuzzle[0][1] = "Options: \n'a' \tIt was purely self-defense \n'b' \tHe deserved it \n'c' \tTo end all future fights\n";
@@ -912,7 +912,7 @@ String[][] bullyPuzzle = new String[3][5];
 		bullyPuzzle[0][4] = "c";
 
 
-String[][] spaceshipPuzzle = new String[3][5];
+		String[][] spaceshipPuzzle = new String[3][5];
 
 		spaceshipPuzzle[0][0] = "'A fellow cadet pukes on the spaceship during the flight to battle school, how do you avoid getting enveloped by this disgusting substance?'\n";
 		spaceshipPuzzle[0][1] = "Options: \n'a' \tLean/Dodge Left \n'b' \tSit there and take it like a real man \n'c' \tLean/Dodge Right\n";
@@ -921,7 +921,7 @@ String[][] spaceshipPuzzle = new String[3][5];
 		spaceshipPuzzle[0][4] = "a";
 
 
-String[][] giantPuzzle = new String[3][5];
+		String[][] giantPuzzle = new String[3][5];
 
 		giantPuzzle[0][0] = "'You are now a mouse and encounter a giant barring your way. He presents you with two chalices in order to get past him, which one do you choose?'\n";
 		giantPuzzle[0][1] = "Options: \n'a' \tThe Left Chalice \n'b' \tThe Right Chalice \n'c' \tAttack the Giant\n";
@@ -929,7 +929,7 @@ String[][] giantPuzzle = new String[3][5];
 		giantPuzzle[0][3] = "\n'Sorry, wrong choice'\n";
 		giantPuzzle[0][4] = "c";
 
-String[][] gunPuzzle = new String[3][5];
+		String[][] gunPuzzle = new String[3][5];
 
 		gunPuzzle[0][0] = "'You need to know how to assemble your laser pistol if you want to be a part of the Salamanders. How would you go about constructing it?'\n";
 		gunPuzzle[0][1] = "Options: \n'a' \t1. Crystal, 2. Aluminum Cylinder, 3. Barrel, 4. Magazine \n'b' \t1. Aluminum Cylinder, 2. Barrel, 3. Crystal, 4. Magazine \n'c' \t1. Magazine, 2. Barrel, 3. Aluminum Cylinder, 4. Crystal\n";
@@ -937,7 +937,7 @@ String[][] gunPuzzle = new String[3][5];
 		gunPuzzle[0][3] = "\n'You might need a bit more training'\n";
 		gunPuzzle[0][4] = "a";
 
-String[][] battlePuzzle = new String[3][5];
+		String[][] battlePuzzle = new String[3][5];
 
 		battlePuzzle[0][0] = "'You are now the new leader of the Dragon squad and are currently engaged in a battle simulator against your old squad (the Salamanders). In order to defeat your adversary and advance to command school, you must reach their gate by choosing the correct formation. Which formation will lead you to victory?'\n";
 		battlePuzzle[0][1] = "Options: \n'a' \tArrowhead Formation \n'b' \tBunch Formation \n'c' \tCrossfire Formation\n";
@@ -945,7 +945,7 @@ String[][] battlePuzzle = new String[3][5];
 		battlePuzzle[0][3] = "\n'TODO'\n";
 		battlePuzzle[0][4] = "b";
 
-String[][] preliminaryPuzzle = new String[3][5];
+		String[][] preliminaryPuzzle = new String[3][5];
 
 		preliminaryPuzzle[0][0] = "'TODO'\n";
 		preliminaryPuzzle[0][1] = "Options: \n'a' \tTODO \n'b' \tTODO \n'c' \tTODO\n";
@@ -953,14 +953,14 @@ String[][] preliminaryPuzzle = new String[3][5];
 		preliminaryPuzzle[0][3] = "\n'TODO'\n";
 		preliminaryPuzzle[0][4] = "b";
 
-String[][] genocidePuzzle = new String[3][5];
+		String[][] genocidePuzzle = new String[3][5];
 
 		genocidePuzzle[0][0] = "'TODO'\n";
 		genocidePuzzle[0][1] = "Options: \n'a' \tTODO \n'b' \tTODO \n'c' \tTODO\n";
 		genocidePuzzle[0][2] = "\n'TODO'\n";
 		genocidePuzzle[0][3] = "\n'TODO'\n";
 		genocidePuzzle[0][4] = "b";
-		
+
 		// set up test player 1
 		Inventory inv = new Inventory();
 		currentPlayer = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
