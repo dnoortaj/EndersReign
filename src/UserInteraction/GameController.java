@@ -1,88 +1,96 @@
 package UserInteraction;
-
-/** Class: GameController.java
- * @author Danyelle Noortajalli
- * @version 1.0
- * Course: ITEC 3150 Fall 2015
- * Written: Nov 12, 2015
- * 
- * 
- * This class - GameController
- * 
- * 
- * Purpose: creates the game, loads main menu,
- * loads save file, and writes save file.
- *
- */
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-
-import org.junit.Before;
-
 import Inventory.*;
 import Obstacle.*;
 
+/*********************************************************************
+ * GameController class. Facilitates game construction,
+ * user interaction with game objects, saving, loading.
+ * 
+ * @author Dale Burke
+ * @author John-Paul Sprouse
+ * @author Danyelle Noortajalli
+ * @author Ethan Patterson (once puzzles are formatted & submitted)
+ * 
+ * @version November 2015
+ *********************************************************************/
 public class GameController
 {
+	/** game command list */
+	private String helpList;
+	
+	/** file to be loaded, for use with save/load methods */
+	private String gameFile = null;
+	
+	/** current game's player */
+	private Player currentPlayer = null;
+	
+	/** current game's player location */
+	private Room currentRoom = null;
+	
+	/** inventory used with currentPlayer */
+	private Inventory inv = null;
+	
+	/** lists for use with serialization */
+	private List<Item> itemList = null;
+	private List<Enemy> enemyList = null;
+	private List<Puzzle> puzzleList = null;
+	private List<Room> roomList = null;
+	
+	/** scanner to read user input */
+	private Scanner scanner = new Scanner(System.in);
+	
+	/** random number generator */
+	private Random random = new Random();
+	
+	/** for use with serialization and de-serialization of files */
+	private FileInputStream fileReader;
+	private FileOutputStream fileWriter;
+	private ObjectInputStream deserializer; 
+	private ObjectOutputStream serializer;
 
-	private Game game;
-	private boolean run;
-	String helpList;
-	String gameFile;
-	
-	Inventory inv;
-	Inventory invNotFound;
-	Player currentPlayer;
-	Player playerInvNotFound;
-	private Room currentRoom;
-	
-	List<Enemy> enemyList = new ArrayList<Enemy>();
-	List<Puzzle> puzzleList = new ArrayList<Puzzle>();
-	
-	Scanner sc = new Scanner(new InputStreamReader(System.in));
-	Random random = new Random();
-	FileInputStream fIn;
-	FileOutputStream fOut;
-	ObjectInputStream deserializer; 
-
+	/** game items */
 	Tablet tablet;
 	Suit suit;
 	Oxygen oxygen;
-	
 	Accessory academy, writ, goldStar, buggerMask, launchie, salamander, dragon,
 	admiralsCrest, hat;
-	
 	Weapon fisticuffs, bluntObject, laserPistol, dualLaser, theBird, lightSaber;
-	
 	Consumable bandAid,	morphine, potion, stimpak, surgeryKit, phoenixDown, queenEggs;
-
-	String [] hitOutput, tauntFlee, tauntEnrage, tauntHide, tauntConcentration, 
+	
+	/** enemy taunt text arrays */
+	String[] hitOutput, tauntFlee, tauntEnrage, tauntHide, tauntConcentration, 
 	tauntStandard;
 	
+	/** game enemies */
 	Enemy mazer, jerry, peter, dissenter, droid, bonzo, hyrum, vader, queen, 
 	beatle, cadet, bullies, ant, centipede, bee, housefly, mosquito, bedBug;
 	
-	/**
-	 * Method: GameController
-	 * constructor for GameController class
-	 */
+	/*********************************************************************
+	Default constructor method for GameController.
+
+	@param none
+	@return none
+	 *********************************************************************/
 	public GameController()
 	{
-		game = new Game();
-		run = false;
+		// null
 	}
 
-	/**
-	 * Method: mainMenu
-	 *builds main menu in the console to the user
-	 */
+
+	/*********************************************************************
+	Method for main menu output. Interacts with user to determine game
+	startup.
+
+	@param none
+	@return none
+	 *********************************************************************/
 	public void mainMenu()
 	{		 
-
-
 		System.out.println(" ______   ______   ______   ______   ______   ______   ______      \n"+
 				"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
 				"._.__._. /______________/  /_____.________/  /_/\\__/  /__._./ ._.  \n" +
@@ -97,126 +105,356 @@ public class GameController
 				"| |  | |     |____|_  /\\___  |__\\___  /|___|  /          | |  | |  \n" +
 				"|______|  ______   ______  \\_______________ \\/______   ______ |_|  \n" +
 				"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
-				"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/     \n");
-		for (int i = 0; i < 3; i++)
-		{
-			System.out.println();
-		}
-		System.out.println("Welcome to Ender's Reign: Wiggin's Formic Rage! \nWould you like to:"
-				+ "\n> Start New Game \n> Load Game \n> Exit");
-		String input = sc.nextLine();
+				"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/     \n\n\n\n" +
+				"Welcome to Ender's Reign: Wiggin's Formic Rage! \nWould you like to:" +
+				"\n> Start New Game \n> Load Game \n> Exit");
+		String input = scanner.nextLine();
 
-
-
-		while (!input.equalsIgnoreCase("New")
-				&& !input.equalsIgnoreCase("Load")
-				&& !input.equalsIgnoreCase("Exit"))
+		while (!input.equalsIgnoreCase("new")
+				&& !input.equalsIgnoreCase("load")
+				&& !input.equalsIgnoreCase("exit"))
 		{
 			System.out.println("Your input did not match available options." +
 					"\n Please type \"New\", \"Load\", or \"Exit\"");
-			input = sc.nextLine();
+			input = scanner.nextLine();
 		}
 
-		if (input.contains("New") || input.contains("new"))
+		if (input.toLowerCase().contains("new"))
 		{
 			startNewGame();
 		}
-		else if (input.contains("Load") || input.contains("load"))
+		else if (input.toLowerCase().contains("load"))
 		{
 			loadGame();
 		}
-		else if (input.equalsIgnoreCase("Exit"))
+		else if (input.toLowerCase().contains("exit"))
 		{
 			System.exit(0);
 		}
-
 	}
 
-	/**
-	 * Method: startNewGame
-	 * runs when user wants to start a new game. If there is a save file in
-	 * that position prior, it asks to delete it before overwriting the new save
-	 * file in which a base case of the game will be stored
-	 */
+	/*********************************************************************
+	Method for starting a new game. Loads default game state.
+
+	@param none
+	@return none
+	 *********************************************************************/
 	public void startNewGame()
 	{	
-		try{
-			gameFile = "gameDefualt.dat";
-			fIn = new FileInputStream(gameFile);
-			deserializer = new ObjectInputStream(fIn);
+		try
+		{
+			gameFile = "DEFAULT.dat";
+			fileReader = new FileInputStream(gameFile);
+			deserializer = new ObjectInputStream(fileReader);
 			loadObjects();
-		}catch(IOException e){
-
+			// TODO requires some logic to start game
+		}
+		catch(IOException e)
+		{
+			System.out.println("ERROR - COULD NOT START NEW GAME");
 		}
 	}
 
+	/*********************************************************************
+	Method for loading a specified game state. User specifies state 1, 2,
+	or 3 and file is subsequently loaded to GameController.
 
-	/**
-	 * Method: loadGame
-	 * allows user to access save file and load where they left off last time playing
-	 */
+	@param none
+	@return none
+	 *********************************************************************/
 	public void loadGame()
 	{
-		int loadFile;
-		try
+		int input = 0;
+		boolean errorFlag = false;
+		System.out.println("Please select a save file to load. (Enter a value 1-3)\n> ");
+		do
 		{
+			try
+			{
+				input = Integer.parseInt(scanner.nextLine());
+			}
+			catch (Exception e)
+			{
+				input = 0;
+				errorFlag = true;
+			}
 
-			System.out.println("Which file would you like to open? (Enter a value 1-3)");
-			System.out.print("> ");			
-			loadFile = Integer.parseInt(sc.nextLine());
-			if (loadFile == 1)
+			if (input == 1)
 			{
-				gameFile = "game1.dat";			
+				gameFile = "game1.dat";
+				errorFlag = false;
 			}
-			else if (loadFile == 2)
+			else if (input == 2)
 			{
-				gameFile = "game2.dat";			
+				gameFile = "game2.dat";	
+				errorFlag = false;		
 			}
-			else if (loadFile == 3)
+			else if (input == 3)
 			{
-				gameFile = "game3.dat";			
+				gameFile = "game3.dat";	
+				errorFlag = false;		
 			}
 			else
 			{
-				System.out.println("Sorry, you've entered an incorrect value. \nPlease enter a value 1-3.");
-				loadGame();
+				System.out.println("Valid value not detected; please try again. (Enter a value 1-3)\n> ");
+				errorFlag = true;
 			}
-			fIn = new FileInputStream(gameFile);
-			deserializer = new ObjectInputStream(fIn);
+		}
+		while(errorFlag);
+
+		// TODO game loaded message, cancellation procedure
+		
+		try
+		{
+			fileReader = new FileInputStream(gameFile);
+			deserializer = new ObjectInputStream(fileReader);
 			loadObjects();
+			// TODO requires some logic to start game
 		}
 		catch (Exception e)
 		{
-			System.out.println("Somebody fcuked up");	
+			System.out.println("ERROR - COULD NOT READ FROM FILE\n");
+			loadGame();
 		}
 	}
 
-	public void loadObjects(){
-		try {
-			inv = (Inventory) deserializer.readObject();
+	/*********************************************************************
+	Method for loading a game state from file specified by gameFile.
+
+	@param none
+	@return none
+	 *********************************************************************/
+	public void loadObjects()
+	{
+		try 
+		{
+			currentPlayer = (Player) deserializer.readObject();
+			currentRoom = (Room) deserializer.readObject();
+			itemList = (List<Item>) deserializer.readObject();
 			enemyList = (List<Enemy>) deserializer.readObject();
-		//TODO read player, puzzles, rooms objects
-		} catch (ClassNotFoundException | IOException e) {
+			puzzleList = (List<Puzzle>) deserializer.readObject();
+			roomList = (List<Room>) deserializer.readObject();
+			loadLists();
+		} 
+		catch (Exception e) 
+		{
+			System.out.println("ERROR - COULD NOT LOAD OBJECTS FROM FILE");
 			e.printStackTrace();
 		}
 	}
+	
+	/*********************************************************************
+	Helper method for loading object lists into appropriate variables.
 
-	public void saveObject(){
-		try{
-			fOut = new FileOutputStream(gameFile);
-			ObjectOutputStream serializer = new ObjectOutputStream(fOut);
-			serializer.writeObject(inv);
+	@param none
+	@return none
+	 *********************************************************************/
+	private void loadLists()
+	{
+		// item section
+		tablet = (Tablet) itemList.get(0);
+		suit = (Suit) itemList.get(1);
+		oxygen = (Oxygen) itemList.get(2);
+		academy = (Accessory) itemList.get(3);
+		writ = (Accessory) itemList.get(4);
+		goldStar = (Accessory) itemList.get(5);
+		buggerMask = (Accessory) itemList.get(6);
+		launchie = (Accessory) itemList.get(7);
+		salamander = (Accessory) itemList.get(8);
+		dragon = (Accessory) itemList.get(9);
+		admiralsCrest = (Accessory) itemList.get(10);
+		hat = (Accessory) itemList.get(11);
+		fisticuffs = (Weapon) itemList.get(12);
+		bluntObject = (Weapon) itemList.get(13);
+		laserPistol = (Weapon) itemList.get(14);
+		dualLaser = (Weapon) itemList.get(15);
+		theBird = (Weapon) itemList.get(16);
+		lightSaber = (Weapon) itemList.get(17);
+		bandAid = (Consumable) itemList.get(18);
+		morphine = (Consumable) itemList.get(19);
+		potion = (Consumable) itemList.get(20);
+		stimpak = (Consumable) itemList.get(21);
+		surgeryKit = (Consumable) itemList.get(22);
+		phoenixDown = (Consumable) itemList.get(23);
+		queenEggs = (Consumable) itemList.get(24);
+		
+		// enemy section
+		mazer = enemyList.get(0);
+		jerry = enemyList.get(1);
+		peter = enemyList.get(2);
+		dissenter = enemyList.get(3);
+		droid = enemyList.get(4);
+		bonzo = enemyList.get(5);
+		hyrum = enemyList.get(6);
+		vader = enemyList.get(7);
+		queen = enemyList.get(8);
+		beatle = enemyList.get(9);
+		cadet = enemyList.get(10);
+		bullies = enemyList.get(11);
+		ant = enemyList.get(12);
+		centipede = enemyList.get(13);
+		bee = enemyList.get(14);
+		housefly = enemyList.get(15);
+		mosquito = enemyList.get(16);
+		bedBug = enemyList.get(17);
+		
+		// puzzle section
+		
+		// room section
+	}
+	
+	public void saveGame()
+	{
+		int input = 0;
+		boolean errorFlag = false;
+		System.out.println("Please select a save slot to use. (Enter a value 1-3)\n> ");
+		do
+		{
+			try
+			{
+				input = Integer.parseInt(scanner.nextLine());
+			}
+			catch (Exception e)
+			{
+				input = 0;
+				errorFlag = true;
+			}
+
+			if (input == 1)
+			{
+				gameFile = "game1.dat";
+				errorFlag = false;
+			}
+			else if (input == 2)
+			{
+				gameFile = "game2.dat";	
+				errorFlag = false;		
+			}
+			else if (input == 3)
+			{
+				gameFile = "game3.dat";	
+				errorFlag = false;		
+			}
+			else
+			{
+				System.out.println("Valid value not detected; please try again. (Enter a value 1-3)\n> ");
+				errorFlag = true;
+			}
+		}
+		while(errorFlag);
+		
+		// TODO save confirmation message, cancellation procedure
+		
+		try
+		{
+			fileWriter = new FileOutputStream(gameFile);
+			serializer = new ObjectOutputStream(fileWriter);
+			saveObjects();
+		}
+		catch (Exception e)
+		{
+			System.out.println("ERROR - COULD NOT SAVE TO FILE\n");
+			saveGame();
+		}
+	}
+	
+	/*********************************************************************
+	Method for saving the current game state to a specified file.
+
+	@param none
+	@return none
+	 *********************************************************************/
+	public void saveObjects()
+	{
+		try
+		{
+			saveLists();
+			serializer.writeObject(currentPlayer);
+			serializer.writeObject(currentRoom);
+			serializer.writeObject(itemList);
 			serializer.writeObject(enemyList);
-		//TODO write helper method for player, puzzles, rooms objects
+			serializer.writeObject(puzzleList);
+			serializer.writeObject(roomList);
 			serializer.flush();
-		}catch(IOException e){
+		}
+		catch(Exception e)
+		{
+			System.out.println("ERROR - COULD NOT SAVE OBJECTS TO FILE");
 			e.printStackTrace();
 		}
 	}
+	
+	/*********************************************************************
+	Helper method for saving object lists into appropriate lists.
 
+	@param none
+	@return none
+	 *********************************************************************/
+	private void saveLists()
+	{
+		// item section
+		itemList = new ArrayList<Item>();
+		itemList.add(tablet);
+		itemList.add(suit);
+		itemList.add(oxygen);
+		itemList.add(academy);
+		itemList.add(writ);
+		itemList.add(goldStar);
+		itemList.add(buggerMask);
+		itemList.add(launchie);
+		itemList.add(salamander);
+		itemList.add(dragon);
+		itemList.add(admiralsCrest);
+		itemList.add(hat);
+		itemList.add(fisticuffs);
+		itemList.add(bluntObject);
+		itemList.add(laserPistol);
+		itemList.add(dualLaser);
+		itemList.add(theBird);
+		itemList.add(lightSaber);
+		itemList.add(bandAid);
+		itemList.add(morphine);
+		itemList.add(potion);
+		itemList.add(stimpak);
+		itemList.add(surgeryKit);
+		itemList.add(phoenixDown);
+		itemList.add(queenEggs);
+		
+		// enemy section
+		enemyList = new ArrayList<Enemy>();
+		enemyList.add(mazer);
+		enemyList.add(jerry);
+		enemyList.add(peter);
+		enemyList.add(dissenter);
+		enemyList.add(droid);
+		enemyList.add(bonzo);
+		enemyList.add(hyrum);
+		enemyList.add(vader);
+		enemyList.add(queen);
+		enemyList.add(beatle);
+		enemyList.add(cadet);
+		enemyList.add(bullies);
+		enemyList.add(ant);
+		enemyList.add(centipede);
+		enemyList.add(bee);
+		enemyList.add(housefly);
+		enemyList.add(mosquito);
+		enemyList.add(bedBug);
+		
+		// puzzle section
+		
+		// room section
+	}
+
+	/*********************************************************************
+	Method for receiving and directing player input.
+
+	@param none
+	@return none
+	 *********************************************************************/
 	public void listener() {
 		System.out.print("> ");
-		String input = sc.next();
+		String input = scanner.next();
 		switch (input.toLowerCase()) {
 		case "w":
 			move(1);
@@ -240,7 +478,7 @@ public class GameController
 		case "l":
 			System.out.println(currentRoom.getRoomDescription(1));
 		case "1":
-			saveObject();
+			saveGame();
 			listener();
 			break;
 		case "2":
@@ -484,15 +722,8 @@ public class GameController
 
 		
 		// set up test player 1
-		inv = new Inventory();
+		Inventory inv = new Inventory();
 		currentPlayer = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
-		inv.setOwner(currentPlayer);
-
-		// set up test player 2
-		invNotFound = new Inventory(null, null, null, null, 0);
-		playerInvNotFound = new Player("Test Player 2", 0, 0, 0, 0, 0, 0, 
-				false, false, false, false, invNotFound);
-		invNotFound.setOwner(playerInvNotFound);
 	}
 
 
