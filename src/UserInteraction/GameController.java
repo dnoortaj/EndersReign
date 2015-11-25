@@ -793,14 +793,14 @@ public class GameController
 		hat = new Accessory("Harrison Ford's Hat", "Fortune and glory, kid. Fortune and glory.",false, 2, 5, 5);
 
 		//weapons
-		fisticuffs = new Weapon("Fisticuffs", "Have at thee, coward!", false, 1);
-		bluntObject = new Weapon("Blunt Object", "No, not that kind of \"blunt.\"", false, 2);
-		laserPistol = new Weapon("Laser Pistol", "Cautionary note reads: \"NOT FOR ACTUAL USE.\"", false, 0);
+		fisticuffs = new Weapon("Fisticuffs", "Have at thee, coward!", false, 1,hitOutput);
+		bluntObject = new Weapon("Blunt Object", "No, not that kind of \"blunt.\"", false, 2,hitOutput);
+		laserPistol = new Weapon("Laser Pistol", "Cautionary note reads: \"NOT FOR ACTUAL USE.\"", false, 0,hitOutput);
 		dualLaser = new Weapon("Dual Laser Pistols", "What's 0 times 2? Because that's how much damage you'll"
-					+ " be doing with these.", false, 0);
-		theBird = new Weapon("The Bird", "Mazer's weapon of choice, used to devastating effect.", false, 3);
+				+ " be doing with these.", false, 0, hitOutput);
+		theBird = new Weapon("The Bird", "Mazer's weapon of choice, used to devastating effect.", false, 3, hitOutput);
 		lightSaber = new Weapon("Lightsaber", "Vader's lightsaber. You should be ticketed for all the physical"
-					+ " laws you're violating with this.", false, 5);
+				+ " laws you're violating with this.", false, 5, hitOutput);
 
 		//consumables
 		bandAid = new Consumable("Band-Aid", "Cheap, non-effective healing technology from the 20th century.",
