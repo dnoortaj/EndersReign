@@ -71,6 +71,8 @@ public class GameController
 	beatle, cadet, bullies, ant, centipede, bee, housefly, mosquito, bedBug;
 	
 	/** game puzzles **/
+	Puzzle wombPuzzle, cribPuzzle, namePuzzle, mathPuzzle, sciencePuzzle, historyPuzzle,
+	bullyPuzzle, spaceshipPuzzle, giantPuzzle, gunPuzzle, battlePuzzle, preliminaryPuzzle, genocidePuzzle;
 	
 	/** game rooms **/
 	Room womb, deliveryRoom, crib, livingRoom, orrientation, battleStrategyClass,

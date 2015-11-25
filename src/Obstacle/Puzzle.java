@@ -73,7 +73,8 @@ public class Puzzle implements Serializable
 				}
 			}
 
-		}
+		} 
+		puzzleIsCompleted = true;
 		return puzzlePoints;
 	}
 
