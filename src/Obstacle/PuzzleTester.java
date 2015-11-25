@@ -19,24 +19,11 @@ public class PuzzleTester
 	{
 		String[][] puzzle = new String[3][5];
 
-		puzzle[0][0] = "'You're running a race and pass the person in 2nd place. What place are you in now?'\n";
-		puzzle[0][1] = "Choose either: \n'a' \t2nd place \n'b' \t1st place \n'c' \tNot possible\n";
-		puzzle[0][2] = "\n'Great Job!'\n";
-		puzzle[0][3] = "\n'Not quite'\n";
-		puzzle[0][4] = "a";
-		puzzle[1][0] = "'Imagine you are in a dark room. How do you get out?'\n";
-		puzzle[1][1] = "Choose either: \n'a' \tTurn on the lights \n'b' \tStop Imagining \n'c' \tCall in an AC-130\n";
-		puzzle[1][2] = "\n'Way 2 go!'\n";
-		puzzle[1][3] = "\n'Looks like you won't be getting out'\n";
-		puzzle[1][4] = "b";
-		puzzle[2][0] = "'Who makes it, but has no need of it.\n"
-					+  " Who buys it, but has no use for it.\n"
-					+  " Who uses it but can neither see nor feel it.\n"
-					+  " What is it?'\n";
-		puzzle[2][1] = "Choose either: \n'a' \tMoney \n'b' \tCalculus \n'c' \tA coffin\n";
-		puzzle[2][2] = "\n'Everything is awesome!'\n";
-		puzzle[2][3] = "\n'A swing and a miss'a\n";
-		puzzle[2][4] = "c";
+		puzzle[0][0] = "'You are in the womb and the umbilical cord is wrapped around your neck. How do you escape?'\n";
+		puzzle[0][1] = "You can either: \n'a' \tStruggle to get free \n'b' \tKeep as still as possible \n'c' \tEat your way out\n";
+		puzzle[0][2] = "\n'You escape the clutches of death...even though technically you weren't born yet'\n";
+		puzzle[0][3] = "\n'You are stillborn'\n";
+		puzzle[0][4] = "b";
 		
 		String[][] puzzle2 = new String[3][5];
 
@@ -50,13 +37,6 @@ public class PuzzleTester
 		puzzle2[1][2] = "\n'Impressive!'\n";
 		puzzle2[1][3] = "\n'You have failed me for the last time'\n";
 		puzzle2[1][4] = "c";
-		puzzle2[2][0] = "'Johnny's mother had three children. "
-					+  "The first was named April and the second was named May. "
-					+  "What was the name of the third child?'\n";
-		puzzle2[2][1] = "Choose either: \n'a' \tJune \n'b' \tJohnny \n'c' \tA John Cena\n";
-		puzzle2[2][2] = "\n'You have chosen wisely!'\n";
-		puzzle2[2][3] = "\n'Does your ignorance know no bounds...'a\n";
-		puzzle2[2][4] = "b";
 
 		Player currentPlayer = new Player();
 		Weapon wep = new Weapon("AWESOMESWORD", "IT'S AWESOME", false, 9999);
