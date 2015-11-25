@@ -12,7 +12,7 @@ public class Enemy implements Serializable {
 	private boolean enemyIsDead, inBattle, firstTaunt;
 	private String eName;
 	private int eHP, eDodge, eAttack, ePoints, eID;
-	//private int pHP, pMaxHP, pDodge, pAttack;
+	private String weaponOut;
 
 	private Item eReward;
 
@@ -91,8 +91,9 @@ public class Enemy implements Serializable {
 			Double doubDamage = (double)damage;
 			Double actualDamage = (playa.getPlayerAttack() *((doubDamage / 100) + .7));
 			eHP = (int)(eHP - actualDamage);
-			System.out.println("You " + hitOutput[damageDescription] + " " +
-					eName + ", inflicting " + actualDamage.intValue() + " points of damage.");
+			weaponOut =(((Weapon) playa.getPlayerInventory().getCurrentWeapon()).getOutput(damageDescription));
+			System.out.println("You " + weaponOut + " " + eName + ", inflicting " + actualDamage.intValue()
+			+ " points of damage.");
 			tempo(850);
 			enemyIsAlive();
 		}
