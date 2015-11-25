@@ -32,8 +32,7 @@ public class EnemyTester {
 		
 
 		
-		String [] hitOutput = new String [] {"barely grazed", "scored a major hit on", 
-				"landed a solid strike on", "whacked the crap out of"};
+		String [] hitOutput = {"You just grazed doe", "You beamed doe in the leg", "You zapped doe in the chest", "You zapped doe square in the forehead."};
 		
 		String [] tauntFlee = new String [] {"attDown", "10", "You take a kungfu stance "
 				+ "and grin menacingly. \n"
@@ -80,11 +79,13 @@ public class EnemyTester {
 
 		Inventory inv = new Inventory();
 		Consumable potion = new Consumable("drugs", "good drugs", false, 40);
+		Weapon yourNameHere = new Weapon("Cudgle", "Crude beating stick", false, 12, hitOutput);
 		inv.addToInventory(potion);
+		inv.addToInventory(yourNameHere);
 		Player currentPlayer = new Player("Bobby", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
 		currentPlayer.setPlayerInventory(inv);
 		inv.setOwner(currentPlayer);
-		Weapon yourNameHere = new Weapon("Cudgle", "Crude beating stick", false, 12);
+		
 	
 		Enemy mazer = new Enemy(01, "Mazer Rackham", 70, 15, 
 				10, yourNameHere, 10, hitOutput, tauntEnrage);

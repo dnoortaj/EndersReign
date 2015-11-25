@@ -12,7 +12,7 @@ public class Enemy implements Serializable {
 	private boolean enemyIsDead, inBattle, firstTaunt;
 	private String eName;
 	private int eHP, eDodge, eAttack, ePoints, eID;
-	private String weaponOut;
+	private String weaponOut, weaponOut2;
 
 	private Item eReward;
 
@@ -34,6 +34,7 @@ public class Enemy implements Serializable {
 		enemyIsDead = false;
 		inBattle = false;
 		firstTaunt = true;
+		weaponOut = "";
 	}
 	public Enemy(int iD, String name, int hp, int attack, int dodge, 
 			Item reward, int points, String[] hitList, String[] taunt) {
@@ -49,6 +50,7 @@ public class Enemy implements Serializable {
 		enemyIsDead = false;
 		inBattle = false;
 		firstTaunt = true;
+		weaponOut = "";
 	}
 
 	public void fight(Player p) {
@@ -71,8 +73,10 @@ public class Enemy implements Serializable {
 			int i = Integer.valueOf(L.intValue());
 			Double doubDamage = (double)damage;
 			Double actualDamage = (eAttack *((doubDamage / 100) + .7));
+			weaponOut = hitOutput[i].replace("You", eName);
+			weaponOut2 = weaponOut.replace("doe", "you");
 			playa.setPlayerCurrentHP((playa.getPlayerCurrentHP() - actualDamage.intValue()));
-			System.out.println(eName + " " + hitOutput[i] + " you. " + 
+			System.out.println(weaponOut2 + " " + 
 					actualDamage.intValue() + " damage leaves you with " +
 					playa.getPlayerCurrentHP() + " hit points.");
 			playerIsAlive();
@@ -91,10 +95,19 @@ public class Enemy implements Serializable {
 			Double doubDamage = (double)damage;
 			Double actualDamage = (playa.getPlayerAttack() *((doubDamage / 100) + .7));
 			eHP = (int)(eHP - actualDamage);
-			weaponOut =(((Weapon) playa.getPlayerInventory().getCurrentWeapon()).getOutput(damageDescription));
-			System.out.println("You " + weaponOut + " " + eName + ", inflicting " + actualDamage.intValue()
-			+ " points of damage.");
-			tempo(850);
+			Weapon temp = ((Weapon) playa.getPlayerInventory().getCurrentWeapon());
+			if(temp != null){
+				System.out.println(damageDescription);
+				weaponOut =(temp.getOutput(damageDescription));
+				weaponOut2  = weaponOut.replace("doe", eName);
+				System.out.println(weaponOut2 + " Inflicting " + actualDamage.intValue()
+				+ " points of damage.");
+			}
+			else{
+				System.out.println("You non-describtly attacked " + eName + ". Inflicting "
+						+ actualDamage.intValue() + " points of damage.");
+			}
+			tempo(650);
 			enemyIsAlive();
 		}
 		else{
