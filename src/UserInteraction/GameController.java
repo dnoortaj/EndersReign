@@ -14,7 +14,7 @@ import Obstacle.*;
  * @author Dale Burke
  * @author John-Paul Sprouse
  * @author Danyelle Noortajalli
- * @author Ethan Patterson (once puzzles are formatted & submitted)
+ * @author Ethan Patterson
  * 
  * @version November 2015
  *********************************************************************/
@@ -851,7 +851,116 @@ public class GameController
 		mosquito = new Enemy(17, "Swarm of Mosquitos", 35, 12, 10, stimpak,
 				6, hitOutput, tauntStandard);
 
+		//puzzles
+		String[][] wombPuzzle = new String[3][5];
 
+		wombPuzzle[0][0] = "'You are in the womb and the umbilical cord is wrapped around your neck. How do you escape?'\n";
+		wombPuzzle[0][1] = "You can either: \n'a' \tStruggle to get free \n'b' \tKeep as still as possible \n'c' \tEat your way out\n";
+		wombPuzzle[0][2] = "\n'You escape the clutches of death...even though technically you weren't born yet'\n";
+		wombPuzzle[0][3] = "\n'You are stillborn'\n";
+		wombPuzzle[0][4] = "b";
+
+String[][] cribPuzzle = new String[3][5];
+
+		cribPuzzle[0][0] = "'After a few months have passed, you have grown to the point where your crib has become too small to sleep in. In order to find better sleeping arrangement, you must convince you parents you are too big for the crib by escaping it. How will you go about doing this?'\n";
+		cribPuzzle[0][1] = "Would you: \n'a' \tClimb up the sides \n'b' \tRock the cradle \n'c' \tEndlessly scream until relocated\n";
+		cribPuzzle[0][2] = "\n'Very good!'\n";
+		cribPuzzle[0][3] = "\n'Not quite'\n";
+		cribPuzzle[0][4] = "a";
+
+String[][] namePuzzle = new String[3][5];
+
+		namePuzzle[0][0] = "'Upon frEeing yourself of the coNfinement of the crib, you Discover a namE inscRibed into the wood on the side of the crib. You presume that the name has to be yours, what is it?'\n";
+		namePuzzle[0][1] = "Options: \n'a' \tDaren \n'b' \tEnder \n'c' \tErnie\n";
+		namePuzzle[0][2] = "\n'I sense something very special about you Ender, but you still have much to learn at the Academy!'\n";
+		namePuzzle[0][3] = "\n'You must search deeper within yourself'\n";
+		namePuzzle[0][4] = "b";
+
+String[][] mathPuzzle = new String[3][5];
+
+		mathPuzzle[0][0] = "'During one of your math lessons you come across a mind boggling problem: Two fathers and two sons sat down to eat eggs for breakfast. They ate exactly three eggs, each person had an egg. How do you explain this?'\n";
+		mathPuzzle[0][1] = "Options: \n'a' \tThey split the eggs into multiple parts \n'b' \tThe 'sons' are conjoined twins \n'c' \tOne of the 'fathers' is also a grandfather\n";
+		mathPuzzle[0][2] = "\n'Way to think logically!'\n";
+		mathPuzzle[0][3] = "\n'Ok so math might not be your forte…'\n";
+		mathPuzzle[0][4] = "c";
+
+
+String[][] sciencePuzzle = new String[3][5];
+
+		sciencePuzzle[0][0] = "'Science class is proving to be no walk in the park either, and one question in particular seems to keep tripping you up: If you boiled some ice in a hot frying pan, would it become a gas or a liquid?'\n";
+		sciencePuzzle[0][1] = "Options: \n'a' \tLiquid \n'b' \tBoth \n'c' \tGas\n";
+		sciencePuzzle[0][2] = "\n'Yes! It melts and becomes a liquid. Then the liquid gets hot and evaporates into a vapor, which is a gas!'\n";
+		sciencePuzzle[0][3] = "\n'Well at least you can match your socks'\n";
+		sciencePuzzle[0][4] = "b";
+
+
+String[][] historyPuzzle = new String[3][5];
+
+		historyPuzzle[0][0] = "'Although history class is relatively simple, it can be arduous at times: What walks on four feet in the morning, two in the afternoon and three at night?'\n";
+		historyPuzzle[0][1] = "Options: \n'a' \tA Man \n'b' \tA Formic \n'c' \tA Monkey\n";
+		historyPuzzle[0][2] = "\n'A wise choice! as an infant, he crawls on all fours; as an adult, he walks on two legs and; in old age, he uses a 'walking' stick.'\n";
+		historyPuzzle[0][3] = "\n'It's better to focus on the future instead of the past anyway'\n";
+		historyPuzzle[0][4] = "a";
+
+
+String[][] bullyPuzzle = new String[3][5];
+
+		bullyPuzzle[0][0] = "'After the incident with Stilson(the bully) in science class, Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. With you on the verge of being kicked out of the academy, how would you explain your actions?'\n";
+		bullyPuzzle[0][1] = "Options: \n'a' \tIt was purely self-defense \n'b' \tHe deserved it \n'c' \tTo end all future fights\n";
+		bullyPuzzle[0][2] = "\n'A very effective battle tactic, Battle School can use more minds like yours. Congratulations!'\n";
+		bullyPuzzle[0][3] = "\n'That is not tactic we are looking for in our future leaders'\n";
+		bullyPuzzle[0][4] = "c";
+
+
+String[][] spaceshipPuzzle = new String[3][5];
+
+		spaceshipPuzzle[0][0] = "'A fellow cadet pukes on the spaceship during the flight to battle school, how do you avoid getting enveloped by this disgusting substance?'\n";
+		spaceshipPuzzle[0][1] = "Options: \n'a' \tLean/Dodge Left \n'b' \tSit there and take it like a real man \n'c' \tLean/Dodge Right\n";
+		spaceshipPuzzle[0][2] = "\n'You avoided a very unpleasant situation'\n";
+		spaceshipPuzzle[0][3] = "\n'That's just nasty, I wouldn't want to be you right now'\n";
+		spaceshipPuzzle[0][4] = "a";
+
+
+String[][] giantPuzzle = new String[3][5];
+
+		giantPuzzle[0][0] = "'You are now a mouse and encounter a giant barring your way. He presents you with two chalices in order to get past him, which one do you choose?'\n";
+		giantPuzzle[0][1] = "Options: \n'a' \tThe Left Chalice \n'b' \tThe Right Chalice \n'c' \tAttack the Giant\n";
+		giantPuzzle[0][2] = "\n'Congratulations, you have successfully murdered the giant by crawling up his arm and dismantling his brain though his eye socket'\n";
+		giantPuzzle[0][3] = "\n'Sorry, wrong choice'\n";
+		giantPuzzle[0][4] = "c";
+
+String[][] gunPuzzle = new String[3][5];
+
+		gunPuzzle[0][0] = "'You need to know how to assemble your laser pistol if you want to be a part of the Salamanders. How would you go about constructing it?'\n";
+		gunPuzzle[0][1] = "Options: \n'a' \t1. Crystal, 2. Aluminum Cylinder, 3. Barrel, 4. Magazine \n'b' \t1. Aluminum Cylinder, 2. Barrel, 3. Crystal, 4. Magazine \n'c' \t1. Magazine, 2. Barrel, 3. Aluminum Cylinder, 4. Crystal\n";
+		gunPuzzle[0][2] = "\n'Welcome to the Salamander Squad!'\n";
+		gunPuzzle[0][3] = "\n'You might need a bit more training'\n";
+		gunPuzzle[0][4] = "a";
+
+String[][] battlePuzzle = new String[3][5];
+
+		battlePuzzle[0][0] = "'You are now the new leader of the Dragon squad and are currently engaged in a battle simulator against your old squad (the Salamanders). In order to defeat your adversary and advance to command school, you must reach their gate by choosing the correct formation. Which formation will lead you to victory?'\n";
+		battlePuzzle[0][1] = "Options: \n'a' \tArrowhead Formation \n'b' \tBunch Formation \n'c' \tCrossfire Formation\n";
+		battlePuzzle[0][2] = "\n'We are proud to accept you into Command School!'\n";
+		battlePuzzle[0][3] = "\n'TODO'\n";
+		battlePuzzle[0][4] = "b";
+
+String[][] preliminaryPuzzle = new String[3][5];
+
+		preliminaryPuzzle[0][0] = "'TODO'\n";
+		preliminaryPuzzle[0][1] = "Options: \n'a' \tTODO \n'b' \tTODO \n'c' \tTODO\n";
+		preliminaryPuzzle[0][2] = "\n'TODO'\n";
+		preliminaryPuzzle[0][3] = "\n'TODO'\n";
+		preliminaryPuzzle[0][4] = "b";
+
+String[][] genocidePuzzle = new String[3][5];
+
+		genocidePuzzle[0][0] = "'TODO'\n";
+		genocidePuzzle[0][1] = "Options: \n'a' \tTODO \n'b' \tTODO \n'c' \tTODO\n";
+		genocidePuzzle[0][2] = "\n'TODO'\n";
+		genocidePuzzle[0][3] = "\n'TODO'\n";
+		genocidePuzzle[0][4] = "b";
+		
 		// set up test player 1
 		Inventory inv = new Inventory();
 		currentPlayer = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
