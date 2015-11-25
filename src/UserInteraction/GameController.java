@@ -22,31 +22,31 @@ public class GameController
 {
 	/** game command list */
 	private String helpList;
-	
+
 	/** file to be loaded, for use with save/load methods */
 	private String gameFile = null;
-	
+
 	/** current game's player */
 	private Player currentPlayer = null;
-	
+
 	/** current game's player location */
 	private Room currentRoom = null;
-	
+
 	/** inventory used with currentPlayer */
 	private Inventory inv = null;
-	
+
 	/** lists for use with serialization */
 	private List<Item> itemList = null;
 	private List<Enemy> enemyList = null;
 	private List<Puzzle> puzzleList = null;
 	private List<Room> roomList = null;
-	
+
 	/** scanner to read user input */
 	private Scanner scanner = new Scanner(System.in);
-	
+
 	/** random number generator */
 	private Random random = new Random();
-	
+
 	/** for use with serialization and de-serialization of files */
 	private FileInputStream fileReader;
 	private FileOutputStream fileWriter;
@@ -61,26 +61,26 @@ public class GameController
 	admiralsCrest, hat;
 	Weapon fisticuffs, bluntObject, laserPistol, dualLaser, theBird, lightSaber;
 	Consumable bandAid,	morphine, potion, stimpak, surgeryKit, phoenixDown, queenEggs;
-	
+
 	/** enemy taunt text arrays */
 	String[] hitOutput, tauntFlee, tauntEnrage, tauntHide, tauntConcentration, 
 	tauntStandard;
-	
+
 	/** game enemies */
 	Enemy mazer, jerry, peter, dissenter, droid, bonzo, hyrum, vader, queen, 
 	beatle, cadet, bullies, ant, centipede, bee, housefly, mosquito, bedBug;
-	
-	/** game puzzles **/
+
+	/** game puzzles */
 	Puzzle wombPuzzle, cribPuzzle, namePuzzle, mathPuzzle, sciencePuzzle, historyPuzzle,
 	bullyPuzzle, spaceshipPuzzle, giantPuzzle, gunPuzzle, battlePuzzle, preliminaryPuzzle, genocidePuzzle;
-	
-	/** game rooms **/
+
+	/** game rooms */
 	Room womb, deliveryRoom, crib, livingRoom, orrientation, battleStrategyClass,
 	scienceClass, mathClass, hallway, infirmary, bedroom, livingRoom2, spaceship,
 	bunkroomL, combatArena, strategyClass, bunkroomL2, hallwayS, bunkroomS, combatArena2,
-	bunkroomD, combatArena3, shower, sleepingQuarters, battleSimulatorRoom, sleepingQuarters2,
-	battleSimulatorRoom2, commandRoom, oxygenRoom, outside, formicCastle;
-	
+	bunkroomD, combatArena3, shower, cabin, sleepingQuarters, battleSimulatorRoom, sleepingQuarters2,
+	battleSimulatorRoom2, commandRoom, airlock, outside, formicCastle;
+
 	/*********************************************************************
 	Default constructor method for GameController.
 
@@ -91,7 +91,6 @@ public class GameController
 	{
 		// null
 	}
-
 
 	/*********************************************************************
 	Method for main menu output. Interacts with user to determine game
@@ -158,6 +157,7 @@ public class GameController
 			fileReader = new FileInputStream(gameFile);
 			deserializer = new ObjectInputStream(fileReader);
 			loadObjects();
+			listener();
 			// TODO requires some logic to start game
 		}
 		catch(IOException e)
@@ -218,12 +218,13 @@ public class GameController
 		while(errorFlag);
 
 		// TODO game loaded message, cancellation procedure
-		
+
 		try
 		{
 			fileReader = new FileInputStream(gameFile);
 			deserializer = new ObjectInputStream(fileReader);
 			loadObjects();
+			listener();
 			// TODO requires some logic to start game
 		}
 		catch (Exception e)
@@ -257,7 +258,7 @@ public class GameController
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*********************************************************************
 	Helper method for loading object lists into appropriate variables.
 
@@ -292,7 +293,7 @@ public class GameController
 		surgeryKit = (Consumable) itemList.get(22);
 		phoenixDown = (Consumable) itemList.get(23);
 		queenEggs = (Consumable) itemList.get(24);
-		
+
 		// enemy section
 		mazer = enemyList.get(0);
 		jerry = enemyList.get(1);
@@ -312,12 +313,57 @@ public class GameController
 		housefly = enemyList.get(15);
 		mosquito = enemyList.get(16);
 		bedBug = enemyList.get(17);
-		
+
 		// puzzle section
-		
+		wombPuzzle = puzzleList.get(0);
+		cribPuzzle = puzzleList.get(1);
+		namePuzzle = puzzleList.get(2);
+		mathPuzzle = puzzleList.get(3);
+		sciencePuzzle = puzzleList.get(4);
+		historyPuzzle = puzzleList.get(5);
+		bullyPuzzle = puzzleList.get(6);
+		spaceshipPuzzle = puzzleList.get(7);
+		giantPuzzle = puzzleList.get(8);
+		gunPuzzle = puzzleList.get(9);
+		battlePuzzle = puzzleList.get(10);
+		preliminaryPuzzle = puzzleList.get(11);
+		genocidePuzzle = puzzleList.get(12);
+
 		// room section
+		womb = roomList.get(0);
+		deliveryRoom = roomList.get(1);
+		crib = roomList.get(2);
+		livingRoom = roomList.get(3);
+		orrientation = roomList.get(4);
+		battleStrategyClass = roomList.get(5);
+		scienceClass = roomList.get(6);
+		mathClass = roomList.get(7);
+		hallway = roomList.get(8);
+		infirmary = roomList.get(9);
+		bedroom = roomList.get(10);
+		livingRoom2 = roomList.get(11);
+		spaceship = roomList.get(12);
+		bunkroomL = roomList.get(13);
+		combatArena = roomList.get(14);
+		strategyClass = roomList.get(15);
+		bunkroomL2 = roomList.get(16);
+		hallwayS = roomList.get(17);
+		bunkroomS = roomList.get(18);
+		combatArena2 = roomList.get(19);
+		bunkroomD = roomList.get(20);
+		combatArena3 = roomList.get(21);
+		shower = roomList.get(22);
+		cabin = roomList.get(23);
+		sleepingQuarters = roomList.get(24);
+		battleSimulatorRoom = roomList.get(25);
+		sleepingQuarters2 = roomList.get(26);
+		battleSimulatorRoom2 = roomList.get(27);
+		commandRoom = roomList.get(28);
+		airlock = roomList.get(29);
+		outside = roomList.get(30);
+		formicCastle = roomList.get(31);
 	}
-	
+
 	public void saveGame()
 	{
 		int input = -1;
@@ -361,9 +407,9 @@ public class GameController
 			}
 		}
 		while(errorFlag);
-		
+
 		// TODO save confirmation message, cancellation procedure
-		
+
 		try
 		{
 			fileWriter = new FileOutputStream(gameFile);
@@ -376,7 +422,7 @@ public class GameController
 			saveGame();
 		}
 	}
-	
+
 	/*********************************************************************
 	Method for saving the current game state to a specified file.
 
@@ -402,7 +448,7 @@ public class GameController
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*********************************************************************
 	Helper method for saving object lists into appropriate lists.
 
@@ -438,7 +484,7 @@ public class GameController
 		itemList.add(surgeryKit);
 		itemList.add(phoenixDown);
 		itemList.add(queenEggs);
-		
+
 		// enemy section
 		enemyList = new ArrayList<Enemy>();
 		enemyList.add(mazer);
@@ -459,10 +505,55 @@ public class GameController
 		enemyList.add(housefly);
 		enemyList.add(mosquito);
 		enemyList.add(bedBug);
-		
+
 		// puzzle section
-		
+		puzzleList.add(wombPuzzle);
+		puzzleList.add(cribPuzzle);
+		puzzleList.add(namePuzzle);
+		puzzleList.add(mathPuzzle);
+		puzzleList.add(sciencePuzzle);
+		puzzleList.add(historyPuzzle);
+		puzzleList.add(bullyPuzzle);
+		puzzleList.add(spaceshipPuzzle);
+		puzzleList.add(giantPuzzle);
+		puzzleList.add(gunPuzzle);
+		puzzleList.add(battlePuzzle);
+		puzzleList.add(preliminaryPuzzle);
+		puzzleList.add(genocidePuzzle);
+
 		// room section
+		roomList.add(womb);
+		roomList.add(deliveryRoom);
+		roomList.add(crib);
+		roomList.add(livingRoom);
+		roomList.add(orrientation);
+		roomList.add(battleStrategyClass);
+		roomList.add(scienceClass);
+		roomList.add(mathClass);
+		roomList.add(hallway);
+		roomList.add(infirmary);
+		roomList.add(bedroom);
+		roomList.add(livingRoom2);
+		roomList.add(spaceship);
+		roomList.add(bunkroomL);
+		roomList.add(combatArena);
+		roomList.add(strategyClass);
+		roomList.add(bunkroomL2);
+		roomList.add(hallwayS);
+		roomList.add(bunkroomS);
+		roomList.add(combatArena2);
+		roomList.add(bunkroomD);
+		roomList.add(combatArena3);
+		roomList.add(shower);
+		roomList.add(cabin);
+		roomList.add(sleepingQuarters);
+		roomList.add(battleSimulatorRoom);
+		roomList.add(sleepingQuarters2);
+		roomList.add(battleSimulatorRoom2);
+		roomList.add(commandRoom);
+		roomList.add(airlock);
+		roomList.add(outside);
+		roomList.add(formicCastle);
 	}
 
 	/*********************************************************************
@@ -471,46 +562,46 @@ public class GameController
 	@param none
 	@return none
 	 *********************************************************************/
-	public void listener() {
-		System.out.print("> ");
-		String input = scanner.next();
-		switch (input.toLowerCase()) {
-		case "w":
-			move(0);
-			break;
-		case "s":
-			move(1);
-			break;
-		case "a":
-			move(3);
-			break;
-		case "d":
-			move(2);
-			break;
-		case "h":
-			displayHelp();
-			listener();
-			break;
-		case "i":
-			currentPlayer.getPlayerInventory().useItem();
-			break;
-		case "l":
-			System.out.println(currentRoom.getRoomDescription(1));
-		case "1":
-			saveGame();
-			listener();
-			break;
-		case "2":
-			loadGame();
-			listener();
-			break;
-		case "0":
-			//exit 
-			break;
-		default:
-			System.out.println("Command not recognized.");
-			listener();
-			break;
+	public void listener() 
+	{
+		while(true)
+		{
+			System.out.print("> ");
+			String input = scanner.next();
+			switch (input.toLowerCase()) {
+			case "w":
+				move(0);
+				break;
+			case "s":
+				move(1);
+				break;
+			case "a":
+				move(3);
+				break;
+			case "d":
+				move(2);
+				break;
+			case "h":
+				displayHelp();
+				break;
+			case "i":
+				currentPlayer.getPlayerInventory().useItem();
+				break;
+			case "l":
+				System.out.println(currentRoom.getRoomDescription(1));
+			case "1":
+				saveGame();
+				break;
+			case "2":
+				loadGame();
+				break;
+			case "0":
+				//exit 
+				break;
+			default:
+				System.out.println("Command not recognized.");
+				break;
+			}
 		}
 	}
 
@@ -608,7 +699,7 @@ public class GameController
 			}
 		}
 	}
-	
+
 	/*********************************************************************
 	Method for displaying the game's helpList String.
 
@@ -628,7 +719,7 @@ public class GameController
 	 *********************************************************************/
 	public void constructGame()
 	{
-		
+
 		hitOutput = new String [] {"barely grazed", "scored a major hit on", 
 				"landed a solid strike on", "whacked the crap out of"};
 
@@ -647,7 +738,7 @@ public class GameController
 				"You flaunt your puny muscles.", "",
 				"You expell flatulence in the general direction of",
 				"is mildly amused that you thought that would have any effect.",
-				"is like full-on Super Seiyan berserker mode mad right now."};
+		"is like full-on Super Seiyan berserker mode mad right now."};
 
 		tauntHide = new String [] {"dodgeDown", "100", "You shout insults about your foes "
 				+ "maternal unit. \n"
@@ -659,11 +750,11 @@ public class GameController
 
 		tauntConcentration = new String [] {"dodgeDown", "25", 
 				"You shout insults about your foes maternal unit. \n"
-				+ "Enraged, he is having trouble concentrating.", "Plucifer",
-				"You do your best to taunt", "You flaunt your puny muscles.", 
-				"You expell flatulence in the general direction of",
-				"is mildly amused that you thought that would have any effect.",
-				"is dumbfounded.", "is disgusted but unmoved."};
+						+ "Enraged, he is having trouble concentrating.", "Plucifer",
+						"You do your best to taunt", "You flaunt your puny muscles.", 
+						"You expell flatulence in the general direction of",
+						"is mildly amused that you thought that would have any effect.",
+						"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntStandard = new String [] {"z", "0", " ", " ", 
 				"You bite your thumb at ",
@@ -683,7 +774,7 @@ public class GameController
 				+ "gravity combat training.", true, false);
 		oxygen = new Oxygen ("Supplemental O2 Device", "Vader's voice changer. Makes you sound cool and"
 				+ " prevents asphyxiation in thin atmosphere.", true, false);
-		
+
 		//accessories
 		academy = new Accessory ("Academy Monitor", "Hurts about as much as a papercut to remove."
 				+ " If the paper was made of salted knives.", false, -1, -1, 0);
@@ -701,7 +792,7 @@ public class GameController
 		admiralsCrest = new Accessory("Admiral's Crest", "You're kind of a big deal now, you murderer.",
 				false, 3, 3, 3);
 		hat = new Accessory("Harrison Ford's Hat", "Fortune and glory, kid. Fortune and glory.",false, 2, 5, 5);
-		
+
 		//weapons
 		fisticuffs = new Weapon("Fisticuffs", "Have at thee, coward!", false, 1);
 		bluntObject = new Weapon("Blunt Object", "No, not that kind of \"blunt.\"", false, 2);
@@ -711,7 +802,7 @@ public class GameController
 		theBird = new Weapon("The Bird", "Mazer's weapon of choice, used to devastating effect.", false, 3);
 		lightSaber = new Weapon("Lightsaber", "Vader's lightsaber. You should be ticketed for all the physical"
 				+ " laws you're violating with this.", false, 5);
-		
+
 		//consumables
 		bandAid = new Consumable("Band-Aid", "Cheap, non-effective healing technology from the 20th century.",
 				false, 1);
@@ -760,7 +851,7 @@ public class GameController
 		mosquito = new Enemy(17, "Swarm of Mosquitos", 35, 12, 10, stimpak,
 				6, hitOutput, tauntStandard);
 
-		
+
 		// set up test player 1
 		Inventory inv = new Inventory();
 		currentPlayer = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
