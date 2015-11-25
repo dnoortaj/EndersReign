@@ -70,6 +70,15 @@ public class GameController
 	Enemy mazer, jerry, peter, dissenter, droid, bonzo, hyrum, vader, queen, 
 	beatle, cadet, bullies, ant, centipede, bee, housefly, mosquito, bedBug;
 	
+	/** game puzzles **/
+	
+	/** game rooms **/
+	Room womb, deliveryRoom, crib, livingRoom, orrientation, battleStrategyClass,
+	scienceClass, mathClass, hallway, infirmary, bedroom, livingRoom2, spaceship,
+	bunkroomL, combatArena, strategyClass, bunkroomL2, hallwayS, bunkroomS, combatArena2,
+	bunkroomD, combatArena3, shower, sleepingQuarters, battleSimulatorRoom, sleepingQuarters2,
+	battleSimulatorRoom2, commandRoom, oxygenRoom, outside, formicCastle;
+	
 	/*********************************************************************
 	Default constructor method for GameController.
 
