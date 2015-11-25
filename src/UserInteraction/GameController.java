@@ -764,8 +764,7 @@ public class GameController
 				" makes a comment about you being the son of a motherless goat.",
 				" uses this as an" + " opportunity to take a free hit on you." };
 
-
-
+		
 		//Items
 		//Key items
 		tablet = new Tablet ("Tablet", "A cutting-edge computational device, standard issue to Academy"
@@ -814,8 +813,6 @@ public class GameController
 		queenEggs = new Consumable("Queen Eggs", "Taste like chicken.", false, 1);
 
 		//EnemYS
-
-
 		bullies = new Enemy(01, "Jerry and two of his cohorts", 50, 19, 
 					10, writ, 10, hitOutput, tauntFlee);
 		peter = new Enemy(02, "Peter", 40, 10, 10, bluntObject, 10, hitOutput,
@@ -851,6 +848,7 @@ public class GameController
 		mosquito = new Enemy(17, "Swarm of Mosquitos", 35, 12, 10, stimpak,
 					6, hitOutput, tauntStandard);
 
+		
 		//puzzles
 		String[][] wombPuzzle = new String[3][5];
 
@@ -884,7 +882,6 @@ public class GameController
 		mathPuzzle[0][3] = "\n'Ok so math might not be your forte…'\n";
 		mathPuzzle[0][4] = "c";
 
-
 		String[][] sciencePuzzle = new String[3][5];
 
 		sciencePuzzle[0][0] = "'Science class is proving to be no walk in the park either, and one question in particular seems to keep tripping you up: If you boiled some ice in a hot frying pan, would it become a gas or a liquid?'\n";
@@ -892,7 +889,6 @@ public class GameController
 		sciencePuzzle[0][2] = "\n'Yes! It melts and becomes a liquid. Then the liquid gets hot and evaporates into a vapor, which is a gas!'\n";
 		sciencePuzzle[0][3] = "\n'Well at least you can match your socks'\n";
 		sciencePuzzle[0][4] = "b";
-
 
 		String[][] historyPuzzle = new String[3][5];
 
@@ -902,7 +898,6 @@ public class GameController
 		historyPuzzle[0][3] = "\n'It's better to focus on the future instead of the past anyway'\n";
 		historyPuzzle[0][4] = "a";
 
-
 		String[][] bullyPuzzle = new String[3][5];
 
 		bullyPuzzle[0][0] = "'After the incident with Stilson(the bully) in science class, Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. With you on the verge of being kicked out of the academy, how would you explain your actions?'\n";
@@ -911,7 +906,6 @@ public class GameController
 		bullyPuzzle[0][3] = "\n'That is not tactic we are looking for in our future leaders'\n";
 		bullyPuzzle[0][4] = "c";
 
-
 		String[][] spaceshipPuzzle = new String[3][5];
 
 		spaceshipPuzzle[0][0] = "'A fellow cadet pukes on the spaceship during the flight to battle school, how do you avoid getting enveloped by this disgusting substance?'\n";
@@ -919,7 +913,6 @@ public class GameController
 		spaceshipPuzzle[0][2] = "\n'You avoided a very unpleasant situation'\n";
 		spaceshipPuzzle[0][3] = "\n'That's just nasty, I wouldn't want to be you right now'\n";
 		spaceshipPuzzle[0][4] = "a";
-
 
 		String[][] giantPuzzle = new String[3][5];
 
