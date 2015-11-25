@@ -46,6 +46,11 @@ public class Weapon extends Item implements Serializable
 		return hitOutput[i];
 	}
 	
+	public void setOutput(String[] hitOutput)
+	{
+		this.hitOutput = hitOutput;
+	}
+	
 	/**
 	 * @return the weaponAttackBonus
 	 */
