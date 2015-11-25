@@ -63,8 +63,8 @@ public class GameController
 	Consumable bandAid,	morphine, potion, stimpak, surgeryKit, phoenixDown, queenEggs;
 
 	/** enemy taunt text arrays */
-	String[] hitOutput, tauntFlee, tauntEnrage, tauntHide, tauntConcentration, 
-	tauntStandard;
+	String[] hitOutput, laserOutput, fistOutput, birdOutput, saberOutput, tauntFlee, 
+	tauntEnrage, tauntHide, tauntConcentration, tauntStandard;
 
 	/** game enemies */
 	Enemy mazer, jerry, peter, dissenter, droid, bonzo, hyrum, vader, queen, 
@@ -722,7 +722,13 @@ public class GameController
 
 		hitOutput = new String [] {"barely grazed", "scored a major hit on", 
 				"landed a solid strike on", "whacked the crap out of"};
+		laserOutput = new String [] {"just grazed", "beamed", "zapped", "zapped a headshot on"};
+		fistOutput = new String [] {"jabbed", "socked", "gut-punched", "decked em right in the kisser, poor"};
+		birdOutput = new String [] {"shot the bird but it was barely noticed by", "gave the finger to", 
+				"flicked off", "shot the double bird to"};
+		saberOutput = new String [] {"poked", "removed the eyebrows of", "cut off an appendage of", "scalped"};
 
+		
 		tauntFlee = new String [] {"attDown", "10", "You take a kungfu stance "
 					+ "and grin menacingly. \n"
 					+ "Two of the bullies show their true colors and flee.", "Jerry",
@@ -793,14 +799,14 @@ public class GameController
 		hat = new Accessory("Harrison Ford's Hat", "Fortune and glory, kid. Fortune and glory.",false, 2, 5, 5);
 
 		//weapons
-		fisticuffs = new Weapon("Fisticuffs", "Have at thee, coward!", false, 1,hitOutput);
+		fisticuffs = new Weapon("Fisticuffs", "Have at thee, coward!", false, 1,fistOutput);
 		bluntObject = new Weapon("Blunt Object", "No, not that kind of \"blunt.\"", false, 2,hitOutput);
-		laserPistol = new Weapon("Laser Pistol", "Cautionary note reads: \"NOT FOR ACTUAL USE.\"", false, 0,hitOutput);
+		laserPistol = new Weapon("Laser Pistol", "Cautionary note reads: \"NOT FOR ACTUAL USE.\"", false, 0, laserOutput);
 		dualLaser = new Weapon("Dual Laser Pistols", "What's 0 times 2? Because that's how much damage you'll"
-				+ " be doing with these.", false, 0, hitOutput);
-		theBird = new Weapon("The Bird", "Mazer's weapon of choice, used to devastating effect.", false, 3, hitOutput);
+				+ " be doing with these.", false, 0, laserOutput);
+		theBird = new Weapon("The Bird", "Mazer's weapon of choice, used to devastating effect.", false, 3, birdOutput);
 		lightSaber = new Weapon("Lightsaber", "Vader's lightsaber. You should be ticketed for all the physical"
-				+ " laws you're violating with this.", false, 5, hitOutput);
+				+ " laws you're violating with this.", false, 5, saberOutput);
 
 		//consumables
 		bandAid = new Consumable("Band-Aid", "Cheap, non-effective healing technology from the 20th century.",
