@@ -11,16 +11,18 @@ import UserInteraction.*;
 public class Weapon extends Item implements Serializable
 {
 	private int weaponAttackBonus;
+	private String[] hitOutput;
 
 	/**
 	 * Creates an instance of Weapon and fills said instance with its name, description, key item
 	 * property, and attack value. Used in for weapon pool creation on starting a new game.
 	 */
 	public Weapon(String name, String description, boolean isKeyItem,
-				int attack)
+				int attack, String[] hOutput)
 	{
 		super("Weapon", name, description, isKeyItem);
 		weaponAttackBonus = attack;
+		hitOutput = hOutput;
 	}
 
 	/**
@@ -40,6 +42,9 @@ public class Weapon extends Item implements Serializable
 		System.out.println("You equip the " + itemType.toLowerCase() +" [" + itemName + "].");
 	}
 	
+	public String getOutput(int i){
+		return hitOutput[i];
+	}
 	
 	/**
 	 * @return the weaponAttackBonus
