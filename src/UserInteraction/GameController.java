@@ -76,8 +76,8 @@ public class GameController
 	bullyPuzzle, spaceshipPuzzle, giantPuzzle, gunPuzzle, battlePuzzle, preliminaryPuzzle, genocidePuzzle;
 
 	/** game rooms */
-	Room womb, deliveryRoom, crib, livingRoom, orrientation, battleStrategyClass,
-	scienceClass, mathClass, hallway, infirmary, bedroom, livingRoom2, spaceship,
+	Room womb, deliveryRoom, crib, livingRoom, orrientation, hallway, battleStrategyClass,
+	scienceClass, mathClass, hallway2, infirmary, bedroom, livingRoom2, spaceship,
 	bunkroomL, combatArena, strategyClass, bunkroomL2, hallwayS, bunkroomS, combatArena2,
 	bunkroomD, combatArena3, shower, cabin, sleepingQuarters, battleSimulatorRoom, sleepingQuarters2,
 	battleSimulatorRoom2, commandRoom, airlock, outside, formicCastle;
@@ -336,33 +336,34 @@ public class GameController
 		crib = roomList.get(2);
 		livingRoom = roomList.get(3);
 		orrientation = roomList.get(4);
-		battleStrategyClass = roomList.get(5);
-		scienceClass = roomList.get(6);
-		mathClass = roomList.get(7);
-		hallway = roomList.get(8);
-		infirmary = roomList.get(9);
-		bedroom = roomList.get(10);
-		livingRoom2 = roomList.get(11);
-		spaceship = roomList.get(12);
-		bunkroomL = roomList.get(13);
-		combatArena = roomList.get(14);
-		strategyClass = roomList.get(15);
-		bunkroomL2 = roomList.get(16);
-		hallwayS = roomList.get(17);
-		bunkroomS = roomList.get(18);
-		combatArena2 = roomList.get(19);
-		bunkroomD = roomList.get(20);
-		combatArena3 = roomList.get(21);
-		shower = roomList.get(22);
-		cabin = roomList.get(23);
-		sleepingQuarters = roomList.get(24);
-		battleSimulatorRoom = roomList.get(25);
-		sleepingQuarters2 = roomList.get(26);
-		battleSimulatorRoom2 = roomList.get(27);
-		commandRoom = roomList.get(28);
-		airlock = roomList.get(29);
-		outside = roomList.get(30);
-		formicCastle = roomList.get(31);
+		hallway = roomList.get(5);
+		battleStrategyClass = roomList.get(6);
+		scienceClass = roomList.get(7);
+		mathClass = roomList.get(8);
+		hallway2 = roomList.get(9);
+		infirmary = roomList.get(10);
+		bedroom = roomList.get(11);
+		livingRoom2 = roomList.get(12);
+		spaceship = roomList.get(13);
+		bunkroomL = roomList.get(14);
+		combatArena = roomList.get(15);
+		strategyClass = roomList.get(16);
+		bunkroomL2 = roomList.get(17);
+		hallwayS = roomList.get(18);
+		bunkroomS = roomList.get(19);
+		combatArena2 = roomList.get(20);
+		bunkroomD = roomList.get(21);
+		combatArena3 = roomList.get(22);
+		shower = roomList.get(23);
+		cabin = roomList.get(24);
+		sleepingQuarters = roomList.get(25);
+		battleSimulatorRoom = roomList.get(26);
+		sleepingQuarters2 = roomList.get(27);
+		battleSimulatorRoom2 = roomList.get(28);
+		commandRoom = roomList.get(29);
+		airlock = roomList.get(30);
+		outside = roomList.get(31);
+		formicCastle = roomList.get(32);
 	}
 
 	public void saveGame()
@@ -528,10 +529,11 @@ public class GameController
 		roomList.add(crib);
 		roomList.add(livingRoom);
 		roomList.add(orrientation);
+		roomList.add(hallway);
 		roomList.add(battleStrategyClass);
 		roomList.add(scienceClass);
 		roomList.add(mathClass);
-		roomList.add(hallway);
+		roomList.add(hallway2);
 		roomList.add(infirmary);
 		roomList.add(bedroom);
 		roomList.add(livingRoom2);
@@ -1015,20 +1017,37 @@ public class GameController
 
 		// rooms
 		womb = new Room("womb", new String[]{"Soon to be born into the world,"
-					+ " you, little Ender, are within your mother's womb.", "Amniotic"
-								+ " fluid surrounds you, a helpless little fetus."}, null, 100,
-					this.wombPuzzle, 100, new Room[]{null, null, deliveryRoom, null});
-		deliveryRoom = new Room("deliveryRoom", new String[]{"After escaping"
-					+ " the womb, you cry as the doctor hands you over to your mother.",
-					"You are surrounded by adults- nurses, doctors, creepers- oh wait. "
-								+ "that's just your family watching to see your next move. You appear"
-								+ " to be \"special\" in their eyes."}, null, 100, null, 100, new Room[]
-											{null, null, crib, deliveryRoom});
-		crib = new Room("crib", new String[]{"Your family has brought you home and "
-					+ "placed you in your crib.  You lay within these bars that confine you, "
-					+ "your parents standing idly nearby","You listen closer and overhear them"
-								+ " discussing your future. You are meant to be someone, Ender."}, null, 100,
-					this.cribPuzzle, 100, new Room[]{null, null, livingRoom, null});
+			+ " you, little Ender, are within your mother's womb.", "Amniotic"
+			+ " fluid surrounds you, a helpless little fetus."}, null, 100,
+			this.wombPuzzle, 100, new Room[]{null, null, deliveryRoom, null});
+	deliveryRoom = new Room("deliveryRoom", new String[]{"After escaping"
+			+ " the womb, you cry as the doctor hands you over to your mother.",
+			"You are surrounded by adults- nurses, doctors, creepers- oh wait. "
+			+ "that's just your family watching to see your next move. You appear"
+			+ " to be \"special\" in their eyes."}, null, 100, null, 100, new Room[]
+			{null, null, crib, deliveryRoom});
+	crib = new Room("crib", new String[]{"Your family has brought you home and "
+			+ "placed you in your crib.  You lay within these bars that confine you, "
+			+ "your parents standing idly nearby","You listen closer and overhear them"
+			+ " discussing your future. You are meant to be someone, Ender."}, null, 100,
+			this.cribPuzzle, 100, new Room[]{null, null, livingRoom, null});
+	livingRoom = new Room("livingRoom", new String[]{"As a toddler, you spend your "
+			+ "free time in the living room utilizing your constant curiosity of the"
+			+ " world around you to learn as much as you can as quickly as possible.",
+			"Looking around, you see your brother and sister sitting on the couch reading"
+			+ " books."}, null, 100, this.namePuzzle, 100, new Room[]{null, orrientation, null,
+			null});
+	orrientation = new Room("orrientation", new String[]{"Welcome to the Academy."
+			+ " They've installed a monitor in the back of your neck so they can watch your"
+			+ " every move. That's not creepy at all.","Surrounding you are a handful of kids"
+			+ " just like you- dressed the same, incredibly intelligent, all being monitored"
+			+ " very closely."}, null, 100, null, 100, new Room[]{null, hallway, null, null});
+	hallway = new Room("hallway", new String[]{"Just another brick in the wall. You silently"
+			+ " stroll the crowded hallway between classes.","To your left is your math class,"
+			+ " to your right is your science class, and all around you are some of the most"
+			+ " intelligent kids in the entire country. Careful where you tread."}, null, 100,
+			null, 100, new Room[]{orrientation, hallway2, scienceClass, mathClass});
+
 
 
 		// set up test player 1
