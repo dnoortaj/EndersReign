@@ -983,24 +983,39 @@ public class GameController
 		battlePuzzle[0][0] = "'You are now the new leader of the Dragon squad and are currently engaged in a battle simulator against your old squad (the Salamanders). In order to defeat your adversary and advance to command school, you must reach their gate by choosing the correct formation. Which formation will lead you to victory?'\n";
 		battlePuzzle[0][1] = "Options: \n'a' \tArrowhead Formation \n'b' \tBunch Formation \n'c' \tCrossfire Formation\n";
 		battlePuzzle[0][2] = "\n'We are proud to accept you into Command School!'\n";
-		battlePuzzle[0][3] = "\n'TODO'\n";
+		battlePuzzle[0][3] = "\n'That tactic was unsatisfactory'\n";
 		battlePuzzle[0][4] = "b";
 
 		String[][] preliminaryPuzzle = new String[3][5];
 
-		preliminaryPuzzle[0][0] = "'TODO'\n";
-		preliminaryPuzzle[0][1] = "Options: \n'a' \tTODO \n'b' \tTODO \n'c' \tTODO\n";
-		preliminaryPuzzle[0][2] = "\n'TODO'\n";
-		preliminaryPuzzle[0][3] = "\n'TODO'\n";
+		preliminaryPuzzle[0][0] = "'You are about to embark on three missions that are crucial in reaching the Formic home world. On this first mission, you are informed that someone in your squad has been leaking confidential information to the buggers and you must find out who it is. How will you find the traitor?'\n";
+		preliminaryPuzzle[0][1] = "Options: \n'a' \tGather your squad and interrogate each of them \n'b' \tDon't reveal you new found knowledge to you squad in order to shadow them \n'c' \tAssume you are misinformed and do nothing i\n";
+		preliminaryPuzzle[0][2] = "\n'Good idea, speak softly and carry a big stick!'\n";
+		preliminaryPuzzle[0][3] = "\n'That was a very inept decision'\n";
 		preliminaryPuzzle[0][4] = "b";
+		preliminaryPuzzle[1][0] = "'Your next mission is to share some inspiring words with the new cadets in order to boost morale. What will you say?'\n";
+		preliminaryPuzzle[1][1] = "Options: \n'a' \tWar is like a box of chocolates, you never know when you're gonna die \n'b' \tDon't drop the soap in the shower \n'c' \tYour focus will determine your reality\n";
+		preliminaryPuzzle[1][2] = "'That was quite the rally!'\n";
+		preliminaryPuzzle[1][3] = "'Amusing yet uninspiring'\n";
+		preliminaryPuzzle[1][4] = "'c'";
+		preliminaryPuzzle[2][0] = "'Your final mission is to take a remote Formic outpost with the least casualties possible. How will you accomplish this?'\n";
+		preliminaryPuzzle[2][1] = "Options: \n'a' \tFull on frontal assault \n'b' \tFind a diplomatic solution \n'c' \tUse a sacrificial diversion force to infiltrate their base \n";
+		preliminaryPuzzle[2][2] = "'Mission complete!'\n";
+		preliminaryPuzzle[2][3] = "'Mission failed: casualties too high'\n";
+		preliminaryPuzzle[2][4] = "'b'";
 
 		String[][] genocidePuzzle = new String[3][5];
 
-		genocidePuzzle[0][0] = "'TODO'\n";
-		genocidePuzzle[0][1] = "Options: \n'a' \tTODO \n'b' \tTODO \n'c' \tTODO\n";
-		genocidePuzzle[0][2] = "\n'TODO'\n";
-		genocidePuzzle[0][3] = "\n'TODO'\n";
+		genocidePuzzle[0][0] = "'In order to graduate, you must pass this final battle simulator: Destroy the Formic home world.'\n";
+		genocidePuzzle[0][1] = "Options: \n'a' \tEngage every enemy ship in range \n'b' \tProtect Petra's ship and shoot the planet \n'c' \tRetreat to fight another day\n";
+		genocidePuzzle[0][2] = "\n'Way to accidently commit genocide, can't win for losing I guess'\n";
+		genocidePuzzle[0][3] = "\n'Technically this was a lose-lose situation, but unfortunately you lost'\n";
 		genocidePuzzle[0][4] = "b";
+		genocidePuzzle[1][0] = "'After being tricked into almost sending the Formic race into extinction, what will you do with the last eggs?'\n";
+		genocidePuzzle[1][1] = "Options: \n'a' \tTake them to a far off inhabitable world and leave them \n'b' \tCrush them like the bug filth they are and end it once and for all \n'c' \tRaise them on Earth to adopt our customs whilst taking the necessary precautions\n";
+		genocidePuzzle[1][2] = "'Let it not be said that Ender Wiggins lacks compassion'\n";
+		genocidePuzzle[1][3] = "'Ouch, now that's just cruel'\n";
+		genocidePuzzle[1][4] = "'c'";
 
 
 		//Constructed puzzles
