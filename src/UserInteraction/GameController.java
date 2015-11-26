@@ -1061,15 +1061,162 @@ public class GameController
 				+ " to your right is your science class, and all around you are some of the most"
 				+ " intelligent kids in the entire country. Careful where you tread."}, null, 100,
 				null, 100);
+		scienceClass = new Room("scienceClass", new String[]{"Specimens galore and"
+				+ " not a thing on the floor.  The science classroom is pristine.","There"
+				+ " appear to be multiple pointy objects on desktops.  The classroom is quite"
+				+ " normal otherwise."}, bullies, 100, this.sciencePuzzle, 100);
+		mathClass = new Room("mathClass", new String[]{"Well, you miscalculated that move.  "
+				+ "You are now in the math classroom.  The amount of safety infractions within "
+				+ "this room are just adding up.","Minus the bright fluorescence, this math class "
+				+ " is pointless. No one here. Just empty sets desks and chairs."}, null, 0,
+				this.mathPuzzle, 100);
+		hallway2 = new Room("hallway2", new String[]{"The hallway buzzes with the sound of meaningful "
+				+ "conversation.","Students. Students everywhere. Battle Strategy class is to your left "
+				+ "and the infirmary is to your right."}, null, 100, null, 100);
+		battleStrategyClass = new Room("battleStrategyClass", new String[]{"Action time! Battle"
+				+ " Strategy class has begun. You take your seat and prepare for today's quiz."
+				,"Students around you scribble answers frantically on their quizzes."}, 
+				null, 100, this.battleStrategyPuzzle, 100);
+		infirmary = new Room("infirmary", new String[]{"Welcome to the infirmary! We've"
+				+ " been expecting you...Now lay face down.  This won't hurt a bit.",
+				"You feel a major twinge of pain as the nurse rips your monitor out "
+				+ "of the back of your neck.  They are no longer watching you. You've "
+				+ "been removed from the program and sent home."}, null, 100, null, 100);
+		bedroom = new Room("bedroom", new String[]{"You've returned to your family. You "
+				+ "enter your shared bedroom with your elder brother, Peter.","Your "
+				+ "siblings question your release from the program, and Peter wishes to "
+				+ "play a game of 'Formic Invader'"}, peter, 100, null, 100);
+		livingRoom2 = new Room("livingRoom2", new String[]{"Colonel Hyrum Graff and "
+				+ "Major Anderson came over to talk to you."," Everyone is gathered "
+				+ "in the living room, watching as the Colonel begins to question you"},
+				null, 100, this.bullyPuzzle, 100);
+		spaceship = new Room("spaceship", new String[]{"You step forward and step foot "
+				+ "onto the spaceshuttle, seeing all of the other new launchies headed "
+				+ "to Battle School","You take your seat and buckle in for the flight."},
+				null, 100, this.spaceshipPuzzle, 100);
+		bunkroomL = new Room("bunkroomL", new String[]{"When you reach Battle School, "
+				+ "everyone walks into the bunkroom.", "Just rows of bunks line either "
+				+ "side of the room. The new cadets left you the one closest to the door"
+				+ " and on the bottom bunk."}, null, 100, null, 100);
+		combatArena = new Room("combatArena", new String[]{"You and your team get to "
+				+ "experience the Combat Arena. Zero gravity!","You see barriers and "
+				+ "you're tempted to give your gun a real test to see what it can do."},
+				dissenter, 100, null, 100);
+		strategyClass = new Room("strategyClass", new String[]{"You just walked into "
+				+ "Strategy class. This is where you learn hand-to-hand combat.",
+				"You see other cadets fighting the droids and one is open for you to fight."},
+				droid, 100, null, 100);
+		bunkroomL2 = new Room("bunkroomL2", new String[]{"You return to your bunk,"
+				+ " exhausted from your day's events. You remove all of your gear "
+				+ "and lay down in your bunk.","All of the other Launchies are in "
+				+ "their respective bunks, and you lay here wide awake. Now would "
+				+ "be a great time to see what your tablet can do."}, null, 100, 
+				this.giantPuzzle, 100);
+		hallwayS = new Room("hallwayS", new String[]{"After defeating the giant, "
+				+ "Colonel Graff and Major Anderson promote you to the Salamander"
+				+ " team. You meet your new team and Leader, Bonzo. He isn't too "
+				+ "happy to have a new person on his team, so watch your back.","This "
+				+ "hallway has all of your teammates playing a game of jacks. None"
+				+ " too interested in getting to know you."}, null, 100, null, 100);
+		bunkroomS = new Room("bunkroomS", new String[]{"You walk into your new bunkroom"
+				+ " and it resembles your old one except now you have this cool "
+				+ "salamander on your uniforms.","Bunkbeds. Bunkbeds everywhere. "
+				+ "It appears that this team likes to play 'Rebuild your gun as "
+				+ "fast as you can'. Bonzo is the champion at this game!"}, null, 
+				100, this.gunPuzzle, 100);
+		combatArena2 = new Room("combatArena2", new String[]{"Time to battle the "
+				+ "Leopards! You and your team begin to enter the combat arena, "
+				+ "but Bonzo stops you.'You stay here. You aren't going to get in "
+				+ "my way. We are undefeated for a reason. We don't need a Launchie"
+				+ " like you'","You decide to step foot into the combat arena in "
+				+ "order to protect a teammate that doesn't see what she's about to "
+				+ "float into."}, cadet, 100, null, 100);
+		bunkroomD = new Room("bunkroomD", new String[]{"Colonel Graff was watching"
+				+ " and saw what you did.  He thinks your strategy skills are "
+				+ "wonderful and you're ready to run your own team! Welcome to being "
+				+ "the leader of the Dragons.","You see a few cadets you recognize "
+				+ "and a few new ones, but they're all ready to follow your lead."}, 
+				null, 100, null, 100);
+		combatArena3 = new Room("combatArena3", new String[]{"They're changing the "
+				+ "rules!! Now it's your team versus Salamanders and Leopards! What "
+				+ "ever will you do to defeat all of these people?","For some reason "
+				+ "the gate already open to the arena when you arrive.. This is very "
+				+ "suspicious."}, null, 100, this.battlePuzzle, 100);
+		shower = new Room("shower", new String[]{"You defeated Bonzo! And now it's time"
+				+ " to clean off all that sweat and grime from that stressful battle.",
+				"There are just rows of showers in this room, covered in tile from floor"
+				+ " to ceiling."}, bonzo, 100, null, 100);
+		cabin = new Room("cabin", new String[]{"Tired of all the games everyone was"
+				+ " playing, you quit being a cadet because they wouldn't let you talk"
+				+ " to your sister. So here you are, in a cabin in the woods on your own..."
+				+ "Somehow you can afford this. It makes total sense that a 13 year old is "
+				+ "living out on his own.","There's a nice lake here and you choose to sit"
+				+ " on the dock and just think for a while."}, null, 100, null, 100);
+		sleepingQuarters = new Room("sleepingQuarters", new String[]{"They convinced you to"
+				+ " go to the forward outpost for Command School. So, here's your sleeping"
+				+ " quarters.","There is a strange man with tattoos all over his face just"
+				+ " sitting in the middle of your room as if he's meditating."}, mazer, 
+				100, null, 100);
+		battleSimulatorRoom = new Room("battleSimulatorRoom", new String[]{"This is the battle"
+				+ " simulation room. They want to see how you perform leading a fleet against "
+				+ "the Formics.","You have a team, each in charge of part of the fleet, all "
+				+ "awaiting your instructions."},null, 100, this.preliminaryPuzzle, 100);
+		sleepingQuarters2 = new Room("sleepingQuarters2", new String[]{"After pretending to "
+				+ "lead against the Formics, you've retired to your sleeping quarters to reconsider"
+				+ " strategies.","Here you just see your bed. Your room here is pretty barren."}, 
+				null, 100, null, 100);
+		battleSimulatorRoom2 = new Room("battleSimulatorRoom2", new String[]{"You've entered the Battle"
+				+ " Simulator Room.  Your team awaits your commands, ready for more practice.","This is"
+				+ " your graduation ceremony. If you perform well, you graduate!"}, 
+				null, 100, this.genocidePuzzle, 100);
+		commandRoom = new Room("commandRoom", new String[]{"You are outraged to find out that this was"
+				+ " all real! You run into the Command Room where you come face to face with Colonel"
+				+ " Graff.","This room is filled with your leaders, all proud that you defeated the Formics"
+				+ " in the most efficient way possible!"}, hyrum, 100, null, 100);
+		airlock = new Room("airlock", new String[]{"You decide you take a look outside of the Forward"
+				+ "Outpost. This is the airlock room where you prepare for an oxygen free environment.",
+				"There are suits on the wall, but you can't seem to find the oxygen mask."}, vader, 100,
+				null, 100);
+		outside = new Room("outside", new String[]{"",""}, null, 100, null, 100);
+		formicCastle = new Room("formicCastle", new String[]{"This must be the Formic queen's castle..."
+				+ "but it's in ruins.","All you see is ruins everywhere..a loving home that you"
+				+ " are entirely responsible for destroying. You should feel like a really terrible"
+				+ " human being."}, queen, 100, null, 100);
 
-		
 		// room exits
 		womb.setRoomExits(new Room[]{null, null, deliveryRoom, null});
 		deliveryRoom.setRoomExits(new Room[]{null, null, crib, null});
 		crib.setRoomExits(new Room[]{null, null, livingRoom, null});
-		livingRoom.setRoomExits( new Room[]{null, orientation, null, null});
-		orientation.setRoomExits( new Room[]{null, hallway, null, null});
-		hallway.setRoomExits( new Room[]{orientation, hallway2, scienceClass, mathClass});
+		livingRoom.setRoomExits(new Room[]{null, orientation, null, null});
+		orientation.setRoomExits(new Room[]{null, hallway, null, null});
+		hallway.setRoomExits(new Room[]{orientation, hallway2, scienceClass, mathClass});
+		scienceClass.setRoomExits(new Room[]{null, null, null, hallway});
+		mathClass.setRoomExits(new Room[]{null, null, hallway, null});
+		hallway2.setRoomExits(new Room[]{hallway, null, infirmary, battleStrategyClass});
+		battleStrategyClass.setRoomExits(new Room[]{null, null, hallway2, null});
+		infirmary.setRoomExits(new Room[]{null, bedroom, null, hallway2});
+		bedroom.setRoomExits(new Room[]{null, livingRoom2, null, null});
+		livingRoom2.setRoomExits(new Room[]{bedroom, spaceship, null, null});
+		spaceship.setRoomExits(new Room[]{null, bunkroomL, null, null});
+		bunkroomL.setRoomExits(new Room[]{null, hallwayS, combatArena, strategyClass});
+		combatArena.setRoomExits(new Room[]{strategyClass, bunkroomS, bunkroomD, bunkroomL});
+		strategyClass.setRoomExits(new Room[]{null, null, bunkroomL2, null});
+		bunkroomL2.setRoomExits(new Room[]{null, hallwayS, combatArena, strategyClass});
+		hallwayS.setRoomExits(new Room[]{bunkroomL, bunkroomS, null, null});
+		bunkroomS.setRoomExits(new Room[]{hallwayS, null, combatArena2, null});
+		combatArena2.setRoomExits(new Room[]{strategyClass, bunkroomS, bunkroomD, bunkroomL});
+		bunkroomD.setRoomExits(new Room[]{shower, null, null, combatArena3});
+		combatArena3.setRoomExits(new Room[]{strategyClass, bunkroomS, bunkroomD, bunkroomL});
+		shower.setRoomExits(new Room[]{null, bunkroomD, cabin, null});
+		cabin.setRoomExits(new Room[]{null, sleepingQuarters, shower, null});
+		sleepingQuarters.setRoomExits(new Room[]{cabin, null, battleSimulatorRoom, null});
+		battleSimulatorRoom.setRoomExits(new Room[]{null, null, null, sleepingQuarters2});
+		sleepingQuarters2.setRoomExits(new Room[]{cabin, null, battleSimulatorRoom2, airlock});
+		battleSimulatorRoom2.setRoomExits(new Room[]{null, commandRoom, null, sleepingQuarters2});
+		commandRoom.setRoomExits(new Room[]{battleSimulatorRoom, null, null, sleepingQuarters2});
+		airlock.setRoomExits(new Room[]{null, null, sleepingQuarters2, outside});
+		outside.setRoomExits(new Room[]{null, null, airlock, formicCastle});
+		formicCastle.setRoomExits(new Room[]{null, null, outside, null});
 		
 		// set up test player 1
 		Inventory inv = new Inventory();

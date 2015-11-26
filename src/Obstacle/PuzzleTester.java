@@ -38,13 +38,16 @@ public class PuzzleTester
 		puzzle2[1][3] = "\n'You have failed me for the last time'\n";
 		puzzle2[1][4] = "c";
 
+		//added this to get rid of errors
+		String[] output = {"yeah some stuff", "and more stuff"};
+		
 		Player currentPlayer = new Player();
-		Weapon wep = new Weapon("AWESOMESWORD", "IT'S AWESOME", false, 9999);
+		Weapon wep = new Weapon("AWESOMESWORD", "IT'S AWESOME", false, 9999, output);
 		Puzzle runner = new Puzzle(false, puzzle, wep, 0);
 		runner.solvePuzzle();
 		currentPlayer.addToScore(runner.getPuzzlePoints());
 		
-		Weapon wep2 = new Weapon("DIAMONDSWORD", "EPICOCITY", false, 9999);
+		Weapon wep2 = new Weapon("DIAMONDSWORD", "EPICOCITY", false, 9999, output);
 		Puzzle runner2 = new Puzzle(false, puzzle2, wep2, 0);
 		runner2.solvePuzzle();
 		currentPlayer.addToScore(runner2.getPuzzlePoints());
