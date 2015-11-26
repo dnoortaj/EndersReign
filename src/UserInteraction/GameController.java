@@ -1046,7 +1046,7 @@ public class GameController
 		this.genocidePuzzle = new Puzzle(false, genocidePuzzle, admiralsCrest, 5);
 
 
-		// rooms
+		// rooms 
 		womb = new Room("womb", new String[]{"Soon to be born into the world,"
 			+ " you, little Ender, are within your mother's womb.", "Amniotic"
 			+ " fluid surrounds you, a helpless little fetus."}, null, 100,
