@@ -41,11 +41,11 @@ public class InventoryTest {
 	@Before
 	public void setUp() throws Exception {
 		// weapons
-		w1 = new Weapon("Weapon 1", "First weapon.", false, 10);
-		w2 = new Weapon("Weapon 2", "Second weapon.", false, 20);
-		w3 = new Weapon("Weapon 3", "Third weapon.", false, 30);
-		w4 = new Weapon("Weapon 4", "Fourth weapon.", false, 40);
-		w5 = new Weapon("Weapon 5", "Fifth weapon.", false, 50);
+		w1 = new Weapon("Weapon 1", "First weapon.", false, 10, null);
+		w2 = new Weapon("Weapon 2", "Second weapon.", false, 20, null);
+		w3 = new Weapon("Weapon 3", "Third weapon.", false, 30, null);
+		w4 = new Weapon("Weapon 4", "Fourth weapon.", false, 40, null);
+		w5 = new Weapon("Weapon 5", "Fifth weapon.", false, 50, null);
 
 		// accessories
 		a1 = new Accessory("Accessory 1", "First accessory.", false, 1, 1, 1);

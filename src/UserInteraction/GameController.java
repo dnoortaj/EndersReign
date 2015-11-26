@@ -72,7 +72,7 @@ public class GameController
 	beatle, cadet, bullies, ant, centipede, bee, housefly, mosquito, bedBug;
 
 	/** game puzzles */
-	Puzzle wombPuzzle, cribPuzzle, namePuzzle, mathPuzzle, sciencePuzzle, hallwayPuzzle,
+	Puzzle wombPuzzle, cribPuzzle, namePuzzle, mathPuzzle, sciencePuzzle, battleStrategyPuzzle,
 	bullyPuzzle, spaceshipPuzzle, giantPuzzle, gunPuzzle, battlePuzzle, preliminaryPuzzle, genocidePuzzle;
 
 	/** game rooms */
@@ -158,8 +158,14 @@ public class GameController
 			fileReader = new FileInputStream(gameFile);
 			deserializer = new ObjectInputStream(fileReader);
 			loadObjects();
+			
+			// TODO game startup text for new file
+			System.out.println("TODO");
+			System.out.println(currentRoom.getRoomDescription(0));
+			
+			// TODO setup solve puzzle for initial room
+			currentRoom.getRoomPuzzle().solvePuzzle();
 			listener();
-			// TODO requires some logic to start game
 		}
 		catch(IOException e)
 		{
@@ -321,7 +327,7 @@ public class GameController
 		namePuzzle = puzzleList.get(2);
 		mathPuzzle = puzzleList.get(3);
 		sciencePuzzle = puzzleList.get(4);
-		hallwayPuzzle = puzzleList.get(5);
+		battleStrategyPuzzle = puzzleList.get(5);
 		bullyPuzzle = puzzleList.get(6);
 		spaceshipPuzzle = puzzleList.get(7);
 		giantPuzzle = puzzleList.get(8);
@@ -514,7 +520,7 @@ public class GameController
 		puzzleList.add(namePuzzle);
 		puzzleList.add(mathPuzzle);
 		puzzleList.add(sciencePuzzle);
-		puzzleList.add(hallwayPuzzle);
+		puzzleList.add(battleStrategyPuzzle);
 		puzzleList.add(bullyPuzzle);
 		puzzleList.add(spaceshipPuzzle);
 		puzzleList.add(giantPuzzle);
@@ -592,6 +598,7 @@ public class GameController
 				break;
 			case "l":
 				System.out.println(currentRoom.getRoomDescription(1));
+				break;
 			case "1":
 				saveGame();
 				break;
@@ -659,45 +666,54 @@ public class GameController
 		{
 			System.out.println(currentRoom.getRoomDescription(0));
 
-			// attempt trigger current room's enemy
-			if(!currentRoom.getRoomEnemy().enemyIsDead())
+			if(currentRoom.getRoomEnemy() != null)
 			{
-				if(random.nextInt(100) + 1 > currentRoom.getRoomEnemyChance())
+				// attempt trigger current room's enemy
+				if(!currentRoom.getRoomEnemy().enemyIsDead())
 				{
-					// monster was encountered
-					monsterEncountered = true;
-
-					// combat flag set prior to fight, updated after fight
-					currentPlayer.setBattleFlag(true);
-					currentRoom.getRoomEnemy().fight(currentPlayer);
-					currentPlayer.setBattleFlag(false);
-
-					if(currentRoom.getRoomEnemy().enemyIsDead())
+					if(random.nextInt(100) + 1 > currentRoom.getRoomEnemyChance())
 					{
-						// updates score
-						System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
+						// monster was encountered
+						monsterEncountered = true;
+
+						// combat flag set prior to fight, updated after fight
+						currentPlayer.setBattleFlag(true);
+						currentRoom.getRoomEnemy().fight(currentPlayer);
+						currentPlayer.setBattleFlag(false);
+
+						if(currentRoom.getRoomEnemy().enemyIsDead())
+						{
+							// updates score
+							System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
 									+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
 
-						// retrieves the room's enemy reward and adds to current player inventory
-						currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomEnemy().getReward());
-					}			
+							// retrieves the room's enemy reward and adds to current player inventory
+							currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomEnemy().getReward());
+						}			
+					}
 				}
 			}
 
-			// attempt to trigger current room's puzzle if enemy was not encountered
-			if(!currentRoom.getRoomPuzzle().getPuzzleIsCompleted() && !monsterEncountered)
+			if(currentRoom.getRoomPuzzle() != null && !monsterEncountered)
 			{
-				if(random.nextInt(100) + 1 > currentRoom.getRoomEnemyChance())
+				// attempt to trigger current room's puzzle if enemy was not encountered
+				if(!currentRoom.getRoomPuzzle().getPuzzleIsCompleted())
 				{
-					// triggers the puzzle, adds outcome to player score
-					currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
+					if(random.nextInt(100) + 1 > currentRoom.getRoomEnemyChance())
+					{
+						// triggers the puzzle, adds outcome to player score
+						currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
 
-					// updates score
-					System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
+						// updates score
+						System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
 								+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
 
-					// retrieves the room's puzzle reward and adds to current player inventory
-					currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+						// retrieves the room's puzzle reward and adds to current player inventory
+						if(currentRoom.getRoomPuzzle().getPuzzleReward() != null)
+						{
+							currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+						}
+					}
 				}
 			}
 		}
@@ -998,7 +1014,7 @@ public class GameController
 
 		this.sciencePuzzle = new Puzzle(false, sciencePuzzle, goldStar, 5);
 
-		this.hallwayPuzzle = new Puzzle(false, hallwayPuzzle, buggerMask, 5);
+		this.battleStrategyPuzzle = new Puzzle(false, battleStrategyPuzzle, buggerMask, 5);
 
 		this.bullyPuzzle = new Puzzle(false, bullyPuzzle, writ, 5);
 
