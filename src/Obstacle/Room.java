@@ -52,7 +52,7 @@ public class Room implements Serializable
 	 */
 	
 	public Room(String roomName, String[] roomDescription, Enemy roomEnemy, int roomEnemyChance, 
-			Puzzle roomPuzzle, int roomPuzzleChance)
+			Puzzle roomPuzzle, int roomPuzzleChance, Room[] roomExits)
 	{
 		this.roomName = roomName;
 		this.roomDescription = roomDescription;
@@ -60,6 +60,7 @@ public class Room implements Serializable
 		this.roomEnemyChance = roomEnemyChance;
 		this.roomPuzzle = roomPuzzle;
 		this.roomPuzzleChance = roomPuzzleChance;
+		this.roomExits = roomExits;
 	}
 	
 	/**

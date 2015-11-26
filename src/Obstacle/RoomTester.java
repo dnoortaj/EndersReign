@@ -82,9 +82,9 @@ public class RoomTester
 		Enemy bully = new Enemy(001, "Bully", 20, 15, 5, null, 5, hitOutput, taunt);
 		Puzzle jigsaw = new Puzzle(false, jigsawText,
 				null, 5);
-		Room room1 = new Room("Convocation Area", roomDescription, 
-				bully, 50, jigsaw, 10); 
-		Room room2 = new Room("Classroom", roomDescription2, null, 0, null, 0);
+		Room room1 = new Room("Convocation Area", new String[]{"",""}, 
+				bully, 50, jigsaw, 10, new Room[]{null, null, null, null}); 
+		Room room2 = new Room("Classroom", roomDescription2, null, 0, null, 0, new Room[]{null, room1, null, null});
 		String sentence = ("\n What would you like to do?" +
 				"\n> Look around \n> Move forward \n> Go back");
 		

@@ -841,7 +841,7 @@ public class GameController
 		phoenixDown = new Consumable("Phoenix Down", "Reraise sold separately.", false, 999);
 		queenEggs = new Consumable("Queen Eggs", "Taste like chicken.", false, 1);
 
-		//EnemYS
+		//Enemies
 		bullies = new Enemy(01, "Jerry and two of his cohorts", 50, 19, 
 					10, writ, 10, bluntOutput, tauntFlee);
 		peter = new Enemy(02, "Peter", 40, 8, 10, bluntObject, 10, hitOutput,
@@ -929,7 +929,7 @@ public class GameController
 
 		String[][] bullyPuzzle = new String[3][5];
 
-		bullyPuzzle[0][0] = "'After the incident with Stilson(the bully) in science class, Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. With you on the verge of being kicked out of the academy, how would you explain your actions?'\n";
+		bullyPuzzle[0][0] = "'After the incident with Jerry(the bully) in science class, Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. With you on the verge of being kicked out of the academy, how would you explain your actions?'\n";
 		bullyPuzzle[0][1] = "Options: \n'a' \tIt was purely self-defense \n'b' \tHe deserved it \n'c' \tTo end all future fights\n";
 		bullyPuzzle[0][2] = "\n'A very effective battle tactic, Battle School can use more minds like yours. Congratulations!'\n";
 		bullyPuzzle[0][3] = "\n'That is not tactic we are looking for in our future leaders'\n";
@@ -982,6 +982,24 @@ public class GameController
 		genocidePuzzle[0][2] = "\n'TODO'\n";
 		genocidePuzzle[0][3] = "\n'TODO'\n";
 		genocidePuzzle[0][4] = "b";
+		
+		// rooms
+		womb = new Room("womb", new String[]{"Soon to be born into the world,"
+				+ " you, little Ender, are within your mother's womb.", "Amniotic"
+				+ " fluid surrounds you, a helpless little fetus."}, null, 100,
+				this.wombPuzzle, 100, new Room[]{null, null, deliveryRoom, null});
+		deliveryRoom = new Room("deliveryRoom", new String[]{"After escaping"
+				+ " the womb, you cry as the doctor hands you over to your mother.",
+				"You are surrounded by adults- nurses, doctors, creepers- oh wait. "
+				+ "that's just your family watching to see your next move. You appear"
+				+ " to be \"special\" in their eyes."}, null, 100, null, 100, new Room[]
+				{null, null, crib, deliveryRoom});
+		crib = new Room("crib", new String[]{"Your family has brought you home and "
+				+ "placed you in your crib.  You lay within these bars that confine you, "
+				+ "your parents standing idly nearby","You listen closer and overhear them"
+				+ " discussing your future. You are meant to be someone, Ender."}, null, 100,
+				this.cribPuzzle, 100, new Room[]{null, null, livingRoom, null});
+
 
 		// set up test player 1
 		Inventory inv = new Inventory();
