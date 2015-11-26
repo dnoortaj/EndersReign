@@ -72,7 +72,7 @@ public class GameController
 	beatle, cadet, bullies, ant, centipede, bee, housefly, mosquito, bedBug;
 
 	/** game puzzles */
-	Puzzle wombPuzzle, cribPuzzle, namePuzzle, mathPuzzle, sciencePuzzle, historyPuzzle,
+	Puzzle wombPuzzle, cribPuzzle, namePuzzle, mathPuzzle, sciencePuzzle, hallwayPuzzle,
 	bullyPuzzle, spaceshipPuzzle, giantPuzzle, gunPuzzle, battlePuzzle, preliminaryPuzzle, genocidePuzzle;
 
 	/** game rooms */
@@ -321,7 +321,7 @@ public class GameController
 		namePuzzle = puzzleList.get(2);
 		mathPuzzle = puzzleList.get(3);
 		sciencePuzzle = puzzleList.get(4);
-		historyPuzzle = puzzleList.get(5);
+		hallwayPuzzle = puzzleList.get(5);
 		bullyPuzzle = puzzleList.get(6);
 		spaceshipPuzzle = puzzleList.get(7);
 		giantPuzzle = puzzleList.get(8);
@@ -513,7 +513,7 @@ public class GameController
 		puzzleList.add(namePuzzle);
 		puzzleList.add(mathPuzzle);
 		puzzleList.add(sciencePuzzle);
-		puzzleList.add(historyPuzzle);
+		puzzleList.add(hallwayPuzzle);
 		puzzleList.add(bullyPuzzle);
 		puzzleList.add(spaceshipPuzzle);
 		puzzleList.add(giantPuzzle);
@@ -878,7 +878,7 @@ public class GameController
 					6, bzzOutput, tauntBug);
 
 
-		//puzzles
+		//puzzles arrays
 		String[][] wombPuzzle = new String[3][5];
 
 		wombPuzzle[0][0] = "'You are in the womb and the umbilical cord is wrapped around your neck. How do you escape?'\n";
@@ -886,6 +886,7 @@ public class GameController
 		wombPuzzle[0][2] = "\n'You escape the clutches of death...even though technically you weren't born yet'\n";
 		wombPuzzle[0][3] = "\n'You are stillborn'\n";
 		wombPuzzle[0][4] = "b";
+
 
 		String[][] cribPuzzle = new String[3][5];
 
@@ -983,32 +984,33 @@ public class GameController
 		genocidePuzzle[0][3] = "\n'TODO'\n";
 		genocidePuzzle[0][4] = "b";
 
+
 		//Constructed puzzles
-		Puzzle puzWomb = new Puzzle(false, wombPuzzle, surgeryKit, 5);
+		this.wombPuzzle = new Puzzle(false, wombPuzzle, surgeryKit, 5);
 
-		Puzzle puzCrib = new Puzzle(false, cribPuzzle, bandAid, 5);
+		this.cribPuzzle = new Puzzle(false, cribPuzzle, bandAid, 5);
 
-		Puzzle puzName = new Puzzle(false, namePuzzle, tablet, 5);
+		this.namePuzzle = new Puzzle(false, namePuzzle, tablet, 5);
 
-		Puzzle puzMath = new Puzzle(false, mathPuzzle, goldStar, 5);
+		this.mathPuzzle = new Puzzle(false, mathPuzzle, goldStar, 5);
 
-		Puzzle puzScience = new Puzzle(false, sciencePuzzle, goldStar, 5);
+		this.sciencePuzzle = new Puzzle(false, sciencePuzzle, goldStar, 5);
 
-		Puzzle puzHallway = new Puzzle(false, hallwayPuzzle, buggerMask, 5);
+		this.hallwayPuzzle = new Puzzle(false, hallwayPuzzle, buggerMask, 5);
 
-		Puzzle puzBully = new Puzzle(false, bullyPuzzle, writ, 5);
+		this.bullyPuzzle = new Puzzle(false, bullyPuzzle, writ, 5);
 
-		Puzzle puzSpaceship = new Puzzle(false, spaceshipPuzzle, launchie, 5);
+		this.spaceshipPuzzle = new Puzzle(false, spaceshipPuzzle, launchie, 5);
 
-		Puzzle puzGiant = new Puzzle(false, giantPuzzle, laserPistol, 5);
+		this.giantPuzzle = new Puzzle(false, giantPuzzle, laserPistol, 5);
 
-		Puzzle puzGun = new Puzzle(false, gunPuzzle, salamander, 5);
+		this.gunPuzzle = new Puzzle(false, gunPuzzle, salamander, 5);
 
-		Puzzle puzBattle = new Puzzle(false, battlePuzzle, dragon, 5);
+		this.battlePuzzle = new Puzzle(false, battlePuzzle, dragon, 5);
 
-		Puzzle puzPreliminary = new Puzzle(false, preliminaryPuzzle, hat, 5);
+		this.preliminaryPuzzle = new Puzzle(false, preliminaryPuzzle, hat, 5);
 
-		Puzzle puzGenocide = new Puzzle(false, genocidePuzzle, admiralsCrest, 5);
+		this.genocidePuzzle = new Puzzle(false, genocidePuzzle, admiralsCrest, 5);
 
 
 		// rooms
