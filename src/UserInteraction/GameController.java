@@ -922,17 +922,17 @@ public class GameController
 		sciencePuzzle[0][3] = "\n'Well at least you can match your socks'\n";
 		sciencePuzzle[0][4] = "b";
 
-		String[][] hallwayPuzzle = new String[3][5];
+		String[][] battleStrategyPuzzle = new String[3][5];
 
-		hallwayPuzzle[0][0] = "'While walking through the hallway on your way to Battle Class, you see a poster that reads: What walks on four feet in the morning, two in the afternoon and three at night? What can this possibly be?'\n";
-		hallwayPuzzle[0][1] = "Options: \n'a' \tA Man \n'b' \tA Formic \n'c' \tA Monkey\n";
-		hallwayPuzzle[0][2] = "\n'A wise choice! as an infant, he crawls on all fours; as an adult, he walks on two legs and; in old age, he uses a 'walking' stick.'\n";
-		hallwayPuzzle[0][3] = "\n'It's better to focus on the future instead of the past anyway'\n";
-		hallwayPuzzle[0][4] = "a";
+		battleStrategyPuzzle[0][0] = "'Your professor presents a question: A formic appears 50 meters ahead of you. What do you do?'\n";
+		battleStrategyPuzzle[0][1] = "Options: \n'a' \tRun out to greet it \n'b' \tSent entire fleet after it \n'c' \tDo nothing\n";
+		battleStrategyPuzzle[0][2] = "\n'Brilliant! Now the formic is dead AND you've wasted resources, but good job!'\n";
+		battleStrategyPuzzle[0][3] = "\n'You're not quite ready for field experience...'\n";
+		battleStrategyPuzzle[0][4] = "b";
 
 		String[][] bullyPuzzle = new String[3][5];
 
-		bullyPuzzle[0][0] = "'After the incident with Stilson(the bully) in science class, Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. With you on the verge of being kicked out of the academy, how would you explain your actions?'\n";
+		bullyPuzzle[0][0] = "'After the incident with Jerry(the bully) in science class, Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. With you on the verge of being kicked out of the academy, how would you explain your actions?'\n";
 		bullyPuzzle[0][1] = "Options: \n'a' \tIt was purely self-defense \n'b' \tHe deserved it \n'c' \tTo end all future fights\n";
 		bullyPuzzle[0][2] = "\n'A very effective battle tactic, Battle School can use more minds like yours. Congratulations!'\n";
 		bullyPuzzle[0][3] = "\n'That is not tactic we are looking for in our future leaders'\n";
