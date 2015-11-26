@@ -76,7 +76,7 @@ public class GameController
 	bullyPuzzle, spaceshipPuzzle, giantPuzzle, gunPuzzle, battlePuzzle, preliminaryPuzzle, genocidePuzzle;
 
 	/** game rooms */
-	Room womb, deliveryRoom, crib, livingRoom, orrientation, hallway, battleStrategyClass,
+	Room womb, deliveryRoom, crib, livingRoom, orientation, hallway, battleStrategyClass,
 	scienceClass, mathClass, hallway2, infirmary, bedroom, livingRoom2, spaceship,
 	bunkroomL, combatArena, strategyClass, bunkroomL2, hallwayS, bunkroomS, combatArena2,
 	bunkroomD, combatArena3, shower, cabin, sleepingQuarters, battleSimulatorRoom, sleepingQuarters2,
@@ -335,7 +335,7 @@ public class GameController
 		deliveryRoom = roomList.get(1);
 		crib = roomList.get(2);
 		livingRoom = roomList.get(3);
-		orrientation = roomList.get(4);
+		orientation = roomList.get(4);
 		hallway = roomList.get(5);
 		battleStrategyClass = roomList.get(6);
 		scienceClass = roomList.get(7);
@@ -528,7 +528,7 @@ public class GameController
 		roomList.add(deliveryRoom);
 		roomList.add(crib);
 		roomList.add(livingRoom);
-		roomList.add(orrientation);
+		roomList.add(orientation);
 		roomList.add(hallway);
 		roomList.add(battleStrategyClass);
 		roomList.add(scienceClass);
@@ -1035,9 +1035,9 @@ public class GameController
 			+ "free time in the living room utilizing your constant curiosity of the"
 			+ " world around you to learn as much as you can as quickly as possible.",
 			"Looking around, you see your brother and sister sitting on the couch reading"
-			+ " books."}, null, 100, this.namePuzzle, 100, new Room[]{null, orrientation, null,
+			+ " books."}, null, 100, this.namePuzzle, 100, new Room[]{null, orientation, null,
 			null});
-	orrientation = new Room("orrientation", new String[]{"Welcome to the Academy."
+	orientation = new Room("orientation", new String[]{"Welcome to the Academy."
 			+ " They've installed a monitor in the back of your neck so they can watch your"
 			+ " every move. That's not creepy at all.","Surrounding you are a handful of kids"
 			+ " just like you- dressed the same, incredibly intelligent, all being monitored"
@@ -1046,7 +1046,7 @@ public class GameController
 			+ " stroll the crowded hallway between classes.","To your left is your math class,"
 			+ " to your right is your science class, and all around you are some of the most"
 			+ " intelligent kids in the entire country. Careful where you tread."}, null, 100,
-			null, 100, new Room[]{orrientation, hallway2, scienceClass, mathClass});
+			null, 100, new Room[]{orientation, hallway2, scienceClass, mathClass});
 
 
 
