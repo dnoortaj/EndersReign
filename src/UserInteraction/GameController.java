@@ -1192,7 +1192,8 @@ public class GameController
 				+ "Outpost. This is the airlock room where you prepare for an oxygen free environment.",
 				"There are suits on the wall, but you can't seem to find the oxygen mask."}, vader, 100,
 				null, 100);
-		outside = new Room("outside", new String[]{"",""}, null, 100, null, 100);
+		outside = new Room("outside", new String[]{"Outside is barren. You only see ruins.","There is a "
+				+ "building in the distance, you begin to head towards it."}, null, 100, null, 100);
 		formicCastle = new Room("formicCastle", new String[]{"This must be the Formic queen's castle..."
 				+ "but it's in ruins.","All you see is ruins everywhere..a loving home that you"
 				+ " are entirely responsible for destroying. You should feel like a really terrible"
