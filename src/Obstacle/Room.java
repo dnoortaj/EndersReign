@@ -49,10 +49,11 @@ public class Room implements Serializable
 	 * @param roomEnemyChance
 	 * @param roomPuzzle
 	 * @param roomPuzzleChance
+	 * @param autosave
 	 */
 	
 	public Room(String roomName, String[] roomDescription, Enemy roomEnemy, int roomEnemyChance, 
-			Puzzle roomPuzzle, int roomPuzzleChance, Room[] roomExits)
+			Puzzle roomPuzzle, int roomPuzzleChance)
 	{
 		this.roomName = roomName;
 		this.roomDescription = roomDescription;
@@ -60,7 +61,6 @@ public class Room implements Serializable
 		this.roomEnemyChance = roomEnemyChance;
 		this.roomPuzzle = roomPuzzle;
 		this.roomPuzzleChance = roomPuzzleChance;
-		this.roomExits = roomExits;
 	}
 	
 	/**

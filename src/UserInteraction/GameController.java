@@ -1035,37 +1035,42 @@ public class GameController
 		womb = new Room("womb", new String[]{"Soon to be born into the world,"
 			+ " you, little Ender, are within your mother's womb.", "Amniotic"
 			+ " fluid surrounds you, a helpless little fetus."}, null, 100,
-			this.wombPuzzle, 100, new Room[]{null, null, deliveryRoom, null});
-	deliveryRoom = new Room("deliveryRoom", new String[]{"After escaping"
-			+ " the womb, you cry as the doctor hands you over to your mother.",
-			"You are surrounded by adults- nurses, doctors, creepers- oh wait. "
-			+ "that's just your family watching to see your next move. You appear"
-			+ " to be \"special\" in their eyes."}, null, 100, null, 100, new Room[]
-			{null, null, crib, deliveryRoom});
-	crib = new Room("crib", new String[]{"Your family has brought you home and "
-			+ "placed you in your crib.  You lay within these bars that confine you, "
-			+ "your parents standing idly nearby","You listen closer and overhear them"
-			+ " discussing your future. You are meant to be someone, Ender."}, null, 100,
-			this.cribPuzzle, 100, new Room[]{null, null, livingRoom, null});
-	livingRoom = new Room("livingRoom", new String[]{"As a toddler, you spend your "
-			+ "free time in the living room utilizing your constant curiosity of the"
-			+ " world around you to learn as much as you can as quickly as possible.",
-			"Looking around, you see your brother and sister sitting on the couch reading"
-			+ " books."}, null, 100, this.namePuzzle, 100, new Room[]{null, orientation, null,
-			null});
-	orientation = new Room("orientation", new String[]{"Welcome to the Academy."
-			+ " They've installed a monitor in the back of your neck so they can watch your"
-			+ " every move. That's not creepy at all.","Surrounding you are a handful of kids"
-			+ " just like you- dressed the same, incredibly intelligent, all being monitored"
-			+ " very closely."}, null, 100, null, 100, new Room[]{null, hallway, null, null});
-	hallway = new Room("hallway", new String[]{"Just another brick in the wall. You silently"
-			+ " stroll the crowded hallway between classes.","To your left is your math class,"
-			+ " to your right is your science class, and all around you are some of the most"
-			+ " intelligent kids in the entire country. Careful where you tread."}, null, 100,
-			null, 100, new Room[]{orientation, hallway2, scienceClass, mathClass});
+			this.wombPuzzle, 100);
+		deliveryRoom = new Room("deliveryRoom", new String[]{"After escaping"
+				+ " the womb, you cry as the doctor hands you over to your mother.",
+				"You are surrounded by adults- nurses, doctors, creepers- oh wait. "
+				+ "that's just your family watching to see your next move. You appear"
+				+ " to be \"special\" in their eyes."}, null, 100, null, 100);
+		crib = new Room("crib", new String[]{"Your family has brought you home and "
+				+ "placed you in your crib.  You lay within these bars that confine you, "
+				+ "your parents standing idly nearby","You listen closer and overhear them"
+				+ " discussing your future. You are meant to be someone, Ender."}, null, 100,
+				this.cribPuzzle, 100);
+		livingRoom = new Room("livingRoom", new String[]{"As a toddler, you spend your "
+				+ "free time in the living room utilizing your constant curiosity of the"
+				+ " world around you to learn as much as you can as quickly as possible.",
+				"Looking around, you see your brother and sister sitting on the couch reading"
+				+ " books."}, null, 100, this.namePuzzle, 100);
+		orientation = new Room("orientation", new String[]{"Welcome to the Academy."
+				+ " They've installed a monitor in the back of your neck so they can watch your"
+				+ " every move. That's not creepy at all.","Surrounding you are a handful of kids"
+				+ " just like you- dressed the same, incredibly intelligent, all being monitored"
+				+ " very closely."}, null, 100, null, 100);
+		hallway = new Room("hallway", new String[]{"Just another brick in the wall. You silently"
+				+ " stroll the crowded hallway between classes.","To your left is your math class,"
+				+ " to your right is your science class, and all around you are some of the most"
+				+ " intelligent kids in the entire country. Careful where you tread."}, null, 100,
+				null, 100);
 
-
-
+		
+		// room exits
+		womb.setRoomExits(new Room[]{null, null, deliveryRoom, null});
+		deliveryRoom.setRoomExits(new Room[]{null, null, crib, null});
+		crib.setRoomExits(new Room[]{null, null, livingRoom, null});
+		livingRoom.setRoomExits( new Room[]{null, orientation, null, null});
+		orientation.setRoomExits( new Room[]{null, hallway, null, null});
+		hallway.setRoomExits( new Room[]{orientation, hallway2, scienceClass, mathClass});
+		
 		// set up test player 1
 		Inventory inv = new Inventory();
 		currentPlayer = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
