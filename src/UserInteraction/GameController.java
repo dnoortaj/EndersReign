@@ -724,7 +724,7 @@ public class GameController
 		hitOutput = new String [] {"You barely grazed doe.", "You scored a major hit on doe.", 
 				"You landed a solid strike on doe.", "You whacked the crap out of doe."};
 		bluntOutput = new String [] {"You tapped doe.", "You whacked doe.", "You smashed doe's head.",
-				"You bludgeoned doe's face in."};	
+		"You bludgeoned doe's face in."};	
 		laserOutput = new String [] {"You just grazed doe", "You beamed doe in the leg", 
 				"You zapped doe in the chest", "You zapped doe square in the forehead."};
 		fistOutput = new String [] {"You jabbed at doe and just clipped his shoulder", 
@@ -737,44 +737,44 @@ public class GameController
 		bugOutput = new String [] {"The You pesters doe.", 
 				"You sneaks up on you and bites you on the back of the neck.", 
 				"You crawls up your arm and it feels all ichy.", 
-				"You crawls in your ear and lays eggs in your brain."};
+		"You crawls in your ear and lays eggs in your brain."};
 		bzzOutput = new String [] {"\"Bzzzz, Bzzz\" says the You.", 
 				"You flys in close and darts off at the last moment.  /n In an attempt to smack it you manage"
-				+ " to slap yourself across the face.", "You stings you in the eyeball."};
+							+ " to slap yourself across the face.", "You stings you in the eyeball."};
 
-		
+
 		tauntFlee = new String [] {"attDown", "10", "You take a kungfu stance "
-				+ "and grin menacingly. \n"
-				+ "Two of the bullies show their true colors and flee.", "Jerry",
-				"You do your best to taunt", "You flaunt your puny muscles.", 
-				"You expell flatulence in the general direction of",
-				"is mildly amused that you thought that would have any affect.",
-				"is dumbfounded.", "is disgusted but unmoved."};
+					+ "and grin menacingly. \n"
+					+ "Two of the bullies show their true colors and flee.", "Jerry",
+					"You do your best to taunt", "You flaunt your puny muscles.", 
+					"You expell flatulence in the general direction of",
+					"is mildly amused that you thought that would have any affect.",
+					"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntEnrage = new String [] {"enrage", "50", "You show your opponent "
-				+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
-				+ "really mad.", 
-				"ENRAGED Mazer Rackham", "You do your best to taunt", 
-				"You flaunt your puny muscles.", "",
-				"You expell flatulence in the general direction of",
-				"is mildly amused that you thought that would have any effect.",
-				"is like full-on Super Seiyan berserker mode mad right now."};
+					+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
+					+ "really mad.", 
+					"ENRAGED Mazer Rackham", "You do your best to taunt", 
+					"You flaunt your puny muscles.", "",
+					"You expell flatulence in the general direction of",
+					"is mildly amused that you thought that would have any effect.",
+		"is like full-on Super Seiyan berserker mode mad right now."};
 
 		tauntHide = new String [] {"dodgeDown", "100", "You shout insults about your foes "
-				+ "maternal unit. \n"
-				+ "Enraged, he is done playing the hiding game.", "Plucifer",
-				"You do your best to taunt", "You flaunt your puny muscles.", 
-				"You expell flatulence in the general direction of",
-				"is mildly amused that you thought that would have any effect.",
-				"is dumbfounded.", "is disgusted but unmoved."};
+					+ "maternal unit. \n"
+					+ "Enraged, he is done playing the hiding game.", "Plucifer",
+					"You do your best to taunt", "You flaunt your puny muscles.", 
+					"You expell flatulence in the general direction of",
+					"is mildly amused that you thought that would have any effect.",
+					"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntConcentration = new String [] {"dodgeDown", "25", 
 				"You shout insults about your foes maternal unit. \n"
-				+ "Enraged, he is having trouble concentrating.", "Plucifer",
-				"You do your best to taunt", "You flaunt your puny muscles.", 
-				"You expell flatulence in the general direction of",
-				"is mildly amused that you thought that would have any effect.",
-				"is dumbfounded.", "is disgusted but unmoved."};
+							+ "Enraged, he is having trouble concentrating.", "Plucifer",
+							"You do your best to taunt", "You flaunt your puny muscles.", 
+							"You expell flatulence in the general direction of",
+							"is mildly amused that you thought that would have any effect.",
+							"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntStandard = new String [] {"z", "0", " ", " ", 
 				"You bite your thumb at ",
@@ -783,17 +783,17 @@ public class GameController
 				" is not impressed.",
 				" makes a comment about you being the son of a motherless goat.",
 				" uses this as an" + " opportunity to take a free hit on you." };
-		
+
 		tauntBug = new String [] {"z", "0", " ", " ", 
 				"You threaten to stomp ",
 				"You wave your arms wildly in the air.",
 				"You buzz mockingly ",
 				" is a bug, thus is impervious to your misguided attempts at psychological warfare.",
 				"says \"bzzzz\".",
-				" uses this as an opportunity to take a free hit on you." };
+		" uses this as an opportunity to take a free hit on you." };
 
 
-		
+
 		//Items
 		//Key items
 		tablet = new Tablet ("Tablet", "A cutting-edge computational device, standard issue to Academy"
@@ -826,10 +826,10 @@ public class GameController
 		bluntObject = new Weapon("Blunt Object", "No, not that kind of \"blunt.\"", false, 2,hitOutput);
 		laserPistol = new Weapon("Laser Pistol", "Cautionary note reads: \"NOT FOR ACTUAL USE.\"", false, 0, laserOutput);
 		dualLaser = new Weapon("Dual Laser Pistols", "What's 0 times 2? Because that's how much damage you'll"
-				+ " be doing with these.", false, 0, laserOutput);
+					+ " be doing with these.", false, 0, laserOutput);
 		theBird = new Weapon("The Bird", "Mazer's weapon of choice, used to devastating effect.", false, 3, birdOutput);
 		lightSaber = new Weapon("Lightsaber", "Vader's lightsaber. You should be ticketed for all the physical"
-				+ " laws you're violating with this.", false, 5, saberOutput);
+					+ " laws you're violating with this.", false, 5, saberOutput);
 
 		//consumables
 		bandAid = new Consumable("Band-Aid", "Cheap, non-effective healing technology from the 20th century.",
@@ -877,7 +877,7 @@ public class GameController
 		mosquito = new Enemy(17, "Swarm of Mosquitos", 35, 8, 17, stimpak,
 					6, bzzOutput, tauntBug);
 
-		
+
 		//puzzles
 		String[][] wombPuzzle = new String[3][5];
 
@@ -919,17 +919,17 @@ public class GameController
 		sciencePuzzle[0][3] = "\n'Well at least you can match your socks'\n";
 		sciencePuzzle[0][4] = "b";
 
-		String[][] historyPuzzle = new String[3][5];
+		String[][] hallwayPuzzle = new String[3][5];
 
-		historyPuzzle[0][0] = "'Although history class is relatively simple, it can be arduous at times: What walks on four feet in the morning, two in the afternoon and three at night?'\n";
-		historyPuzzle[0][1] = "Options: \n'a' \tA Man \n'b' \tA Formic \n'c' \tA Monkey\n";
-		historyPuzzle[0][2] = "\n'A wise choice! as an infant, he crawls on all fours; as an adult, he walks on two legs and; in old age, he uses a 'walking' stick.'\n";
-		historyPuzzle[0][3] = "\n'It's better to focus on the future instead of the past anyway'\n";
-		historyPuzzle[0][4] = "a";
+		hallwayPuzzle[0][0] = "'While walking through the hallway on your way to Battle Class, you see a poster that reads: What walks on four feet in the morning, two in the afternoon and three at night? What can this possibly be?'\n";
+		hallwayPuzzle[0][1] = "Options: \n'a' \tA Man \n'b' \tA Formic \n'c' \tA Monkey\n";
+		hallwayPuzzle[0][2] = "\n'A wise choice! as an infant, he crawls on all fours; as an adult, he walks on two legs and; in old age, he uses a 'walking' stick.'\n";
+		hallwayPuzzle[0][3] = "\n'It's better to focus on the future instead of the past anyway'\n";
+		hallwayPuzzle[0][4] = "a";
 
 		String[][] bullyPuzzle = new String[3][5];
 
-		bullyPuzzle[0][0] = "'After the incident with Jerry(the bully) in science class, Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. With you on the verge of being kicked out of the academy, how would you explain your actions?'\n";
+		bullyPuzzle[0][0] = "'After the incident with Stilson(the bully) in science class, Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. With you on the verge of being kicked out of the academy, how would you explain your actions?'\n";
 		bullyPuzzle[0][1] = "Options: \n'a' \tIt was purely self-defense \n'b' \tHe deserved it \n'c' \tTo end all future fights\n";
 		bullyPuzzle[0][2] = "\n'A very effective battle tactic, Battle School can use more minds like yours. Congratulations!'\n";
 		bullyPuzzle[0][3] = "\n'That is not tactic we are looking for in our future leaders'\n";
@@ -982,23 +982,51 @@ public class GameController
 		genocidePuzzle[0][2] = "\n'TODO'\n";
 		genocidePuzzle[0][3] = "\n'TODO'\n";
 		genocidePuzzle[0][4] = "b";
-		
+
+		//Constructed puzzles
+		Puzzle puzWomb = new Puzzle(false, wombPuzzle, surgeryKit, 5);
+
+		Puzzle puzCrib = new Puzzle(false, cribPuzzle, bandAid, 5);
+
+		Puzzle puzName = new Puzzle(false, namePuzzle, tablet, 5);
+
+		Puzzle puzMath = new Puzzle(false, mathPuzzle, goldStar, 5);
+
+		Puzzle puzScience = new Puzzle(false, sciencePuzzle, goldStar, 5);
+
+		Puzzle puzHallway = new Puzzle(false, hallwayPuzzle, buggerMask, 5);
+
+		Puzzle puzBully = new Puzzle(false, bullyPuzzle, writ, 5);
+
+		Puzzle puzSpaceship = new Puzzle(false, spaceshipPuzzle, launchie, 5);
+
+		Puzzle puzGiant = new Puzzle(false, giantPuzzle, laserPistol, 5);
+
+		Puzzle puzGun = new Puzzle(false, gunPuzzle, salamander, 5);
+
+		Puzzle puzBattle = new Puzzle(false, battlePuzzle, dragon, 5);
+
+		Puzzle puzPreliminary = new Puzzle(false, preliminaryPuzzle, hat, 5);
+
+		Puzzle puzGenocide = new Puzzle(false, genocidePuzzle, admiralsCrest, 5);
+
+
 		// rooms
 		womb = new Room("womb", new String[]{"Soon to be born into the world,"
-				+ " you, little Ender, are within your mother's womb.", "Amniotic"
-				+ " fluid surrounds you, a helpless little fetus."}, null, 100,
-				this.wombPuzzle, 100, new Room[]{null, null, deliveryRoom, null});
+					+ " you, little Ender, are within your mother's womb.", "Amniotic"
+								+ " fluid surrounds you, a helpless little fetus."}, null, 100,
+					this.wombPuzzle, 100, new Room[]{null, null, deliveryRoom, null});
 		deliveryRoom = new Room("deliveryRoom", new String[]{"After escaping"
-				+ " the womb, you cry as the doctor hands you over to your mother.",
-				"You are surrounded by adults- nurses, doctors, creepers- oh wait. "
-				+ "that's just your family watching to see your next move. You appear"
-				+ " to be \"special\" in their eyes."}, null, 100, null, 100, new Room[]
-				{null, null, crib, deliveryRoom});
+					+ " the womb, you cry as the doctor hands you over to your mother.",
+					"You are surrounded by adults- nurses, doctors, creepers- oh wait. "
+								+ "that's just your family watching to see your next move. You appear"
+								+ " to be \"special\" in their eyes."}, null, 100, null, 100, new Room[]
+											{null, null, crib, deliveryRoom});
 		crib = new Room("crib", new String[]{"Your family has brought you home and "
-				+ "placed you in your crib.  You lay within these bars that confine you, "
-				+ "your parents standing idly nearby","You listen closer and overhear them"
-				+ " discussing your future. You are meant to be someone, Ender."}, null, 100,
-				this.cribPuzzle, 100, new Room[]{null, null, livingRoom, null});
+					+ "placed you in your crib.  You lay within these bars that confine you, "
+					+ "your parents standing idly nearby","You listen closer and overhear them"
+								+ " discussing your future. You are meant to be someone, Ender."}, null, 100,
+					this.cribPuzzle, 100, new Room[]{null, null, livingRoom, null});
 
 
 		// set up test player 1
