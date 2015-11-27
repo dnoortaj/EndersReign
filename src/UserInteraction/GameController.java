@@ -727,18 +727,17 @@ public class GameController
 	 *********************************************************************/
 	public void displayHelp()
 	{
-		format = "%1$-20s%2$-20s%3$-20s%4$-20s";
+		format = "%1$-20s%2$-20s%3$-20s%4$-20s\n";
 		System.out.println(currentRoom.getRoomDescription(1));
 		System.out.println(currentPlayer.getPlayerCurrentHP() + "/" 
 			+ currentPlayer.getPlayerMaxHP() + " HitPoints");
 		System.out.println(currentPlayer.getPlayerScore() + " magical fairy points.\n");
-		System.out.println("MOVEMENT:");
-		System.out.format(format, " >W North ", " >S South ", " >A West ", " >D East ");
-		System.out.println("\nACTION: ");
-		System.out.format(format, " >L Look ", " >I Inventory ", "", "");
-		System.out.println("\nFUNCTION:");
-		System.out.format(format, " >1 Save Game ", " >2 Load Game ", ">0 Exit Game", "", "" );
-		
+		System.out.format(format, " MOVEMENT ", " ACTION ", " FUNCTION", "");
+		System.out.format(format, " >W North ", " >L Look ", " >1 Save Game ", "");	
+		System.out.format(format," >S South ", " >I Inventory ", " >2 Load Game ", "");	
+		System.out.format(format, " >D East " , "", " >0 Exit Game", "");	
+		System.out.format(format, " >A West " , "", "", "");
+		System.out.println("\n(Input is not case sensitive.)");
 		
 	}
 
