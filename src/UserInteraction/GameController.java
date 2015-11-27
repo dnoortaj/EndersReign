@@ -21,7 +21,7 @@ import Obstacle.*;
 public class GameController
 {
 	/** game command list */
-	private String helpList;
+	private String helpList, format;
 
 	/** file to be loaded, for use with save/load methods */
 	private String gameFile = null;
@@ -727,7 +727,19 @@ public class GameController
 	 *********************************************************************/
 	public void displayHelp()
 	{
-		System.out.println(helpList);
+		format = "%1$-20s%2$-20s%3$-20s%4$-20s";
+		System.out.println(currentRoom.getRoomDescription(1));
+		System.out.println(currentPlayer.getPlayerCurrentHP() + "/" 
+			+ currentPlayer.getPlayerMaxHP() + " HitPoints");
+		System.out.println(currentPlayer.getPlayerScore() + " magical fairy points.\n");
+		System.out.println("MOVEMENT:");
+		System.out.format(format, " >W North ", " >S South ", " >A West ", " >D East ");
+		System.out.println("\nACTION: ");
+		System.out.format(format, " >L Look ", " >I Inventory ", "", "");
+		System.out.println("\nFUNCTION:");
+		System.out.format(format, " >1 Save Game ", " >2 Load Game ", ">0 Exit Game", "", "" );
+		
+		
 	}
 
 	/*********************************************************************
