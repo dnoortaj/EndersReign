@@ -96,7 +96,7 @@ public class Inventory implements Serializable
 				Collections.sort(list);
 				System.out.print(displayItemList());
 				System.out.print("Which item would you like to use? (0 to cancel)\n> ");
-				input = scanner.next();
+				input = scanner.nextLine();
 
 				// attempts to parse an appropriate integer from user input
 				do
@@ -112,7 +112,7 @@ public class Inventory implements Serializable
 					{
 						System.out.println("Integer value not detected.");
 						System.out.print("Please enter an integer value. (0 to cancel)\n> ");
-						input = scanner.next();
+						input = scanner.nextLine();
 						numberFlag = false;
 					}
 
@@ -135,7 +135,7 @@ public class Inventory implements Serializable
 
 							// ask for new input
 							System.out.print("Please select a valid number. (0 to cancel)\n> ");
-							input = scanner.next();
+							input = scanner.nextLine();
 							numberFlag = false;
 						}
 
@@ -146,7 +146,7 @@ public class Inventory implements Serializable
 							// ask for new input
 							System.out.println("You cannot use that item in battle.");
 							System.out.print("Please select a different item. (0 to cancel)\n> ");
-							input = scanner.next();
+							input = scanner.nextLine();
 							numberFlag = false;
 						}
 						else
@@ -429,7 +429,7 @@ public class Inventory implements Serializable
 					System.out.print(displayItems());
 					System.out.print("Please select an item to discard. (0 to refuse " + 
 							newItem + ")\n> ");
-					input = scanner.next();
+					input = scanner.nextLine();
 
 					// attempts to parse an appropriate integer from user input
 					do
@@ -446,7 +446,7 @@ public class Inventory implements Serializable
 							System.out.println("Integer value not detected.");
 							System.out.print("Please select an item to discard. (0 to refuse " + 
 									newItem + ")\n> ");
-							input = scanner.next();
+							input = scanner.nextLine();
 							numberFlag = false;
 						}
 
@@ -469,7 +469,7 @@ public class Inventory implements Serializable
 								// ask for new input
 								System.out.print("Please select an item to discard. (0 to refuse " + 
 										newItem + ")\n> ");
-								input = scanner.next();
+								input = scanner.nextLine();
 								numberFlag = false;
 							}
 
@@ -480,7 +480,7 @@ public class Inventory implements Serializable
 								System.out.println("You cannot discard a key item.");
 								System.out.print("Please select an item to discard. (0 to refuse " + 
 										newItem + ")\n> ");
-								input = scanner.next();
+								input = scanner.nextLine();
 								numberFlag = false;
 							}
 

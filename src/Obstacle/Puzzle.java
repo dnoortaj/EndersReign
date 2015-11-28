@@ -19,7 +19,7 @@ public class Puzzle implements Serializable
 	private String[][] puzzleText = new String[3][5];
 	private Item puzzleReward;
 	private int puzzlePoints = 0;
-	private Scanner input;
+	transient private Scanner input;
 
 	public Puzzle()
 	{

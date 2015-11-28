@@ -21,19 +21,19 @@ import Obstacle.*;
 public class GameController
 {
 	/** game command list */
-	private String helpList, format;
+	private String helpList, format, resume, helpMe, roaming;
 
 	/** file to be loaded, for use with save/load methods */
 	private String gameFile = null;
 
 	/** current game's player */
 	private Player currentPlayer = null;
+	
+	private boolean mainMenu = true;
+	private boolean displayTitle = true;
 
 	/** current game's player location */
 	private Room currentRoom = null;
-
-	/** inventory used with currentPlayer */
-	private Inventory inv = null;
 
 	/** lists for use with serialization */
 	private List<Item> itemList = null;
@@ -90,7 +90,9 @@ public class GameController
 	 *********************************************************************/
 	public GameController()
 	{
-		// null
+		helpMe = "Press \"H\" for help.";
+		resume = "Gameplay resumed. " + helpMe;
+		roaming = "You're free to roam around. " + helpMe;
 	}
 
 	/*********************************************************************
@@ -102,7 +104,9 @@ public class GameController
 	 *********************************************************************/
 	public void mainMenu()
 	{		 
-		System.out.println(" ______   ______   ______   ______   ______   ______   ______      \n"+
+		if(displayTitle)
+		{
+			System.out.println(" ______   ______   ______   ______   ______   ______   ______      \n"+
 					"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
 					"._.__._. /______________/  /_____.________/  /_/\\__/  /__._./ ._.  \n" +
 					"| |  | |    \\_   _____/ ____   __| _/__________)/______  | |  | |  \n" +
@@ -117,8 +121,10 @@ public class GameController
 					"|______|  ______   ______  \\_______________ \\/______   ______ |_|  \n" +
 					"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/      \n" +
 					"/_____/  /_____/  /_____/  /_____/  /_____/  /_____/  /_____/     \n\n\n\n" +
-					"Welcome to Ender's Reign: Wiggin's Formic Rage! \nWould you like to:" +
-					"\n> Start New Game \n> Load Game \n> Exit");
+					"Welcome to Ender's Reign: Wiggin's Formic Rage!");
+					displayTitle = false;
+		}
+		System.out.println("Would you like to:\n> Start New Game \n> Load Game \n> Exit");
 		String input = scanner.nextLine();
 
 		while (!input.equalsIgnoreCase("new")
@@ -126,7 +132,7 @@ public class GameController
 					&& !input.equalsIgnoreCase("exit"))
 		{
 			System.out.println("Your input did not match available options." +
-						"\n Please type \"New\", \"Load\", or \"Exit\"");
+					"\n Please type \"New\", \"Load\", or \"Exit\"");
 			input = scanner.nextLine();
 		}
 
@@ -154,22 +160,50 @@ public class GameController
 	{	
 		try
 		{
-			gameFile = "DEFAULT.dat";
-			fileReader = new FileInputStream(gameFile);
-			deserializer = new ObjectInputStream(fileReader);
-			loadObjects();
+// 			TODO actually make a default save file
+//			gameFile = "DEFAULT.dat";
+//			fileReader = new FileInputStream(gameFile);
+//			deserializer = new ObjectInputStream(fileReader);
+//			loadObjects();
 			
-			// TODO game startup text for new file
-			System.out.println("TODO");
+			constructGame();
+			mainMenu = false;
+			System.out.print("Please enter your desired profile name. (Leave blank for default name)\n> ");
+			String input = scanner.nextLine();
+			if(input.trim().equals("") || input == null)
+			{
+				currentPlayer.setPlayerName("Ender");
+			}
+			else
+			{
+				currentPlayer.setPlayerName(input);
+			}
+
+// 			TODO game startup text for new file
+			System.out.println("TODO - game startup text");
 			System.out.println(currentRoom.getRoomDescription(0));
 			
-			// TODO setup solve puzzle for initial room
-			currentRoom.getRoomPuzzle().solvePuzzle();
+			currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
+			
+			// updates score
+			System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
+					+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+
+			// retrieves the room's puzzle reward and adds to current player inventory
+			if(currentRoom.getRoomPuzzle().getPuzzleReward() != null)
+			{
+				currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+			}
+			
+			System.out.println(roaming);
+			
 			listener();
 		}
-		catch(IOException e)
+		catch(Exception e)
 		{
+			e.printStackTrace();
 			System.out.println("ERROR - COULD NOT START NEW GAME");
+			mainMenu();
 		}
 	}
 
@@ -182,63 +216,62 @@ public class GameController
 	 *********************************************************************/
 	public void loadGame()
 	{
-		int input = -1;
-		boolean errorFlag = false;
-		System.out.println("Please select a save file to load. (Enter a value 1-3, or 0 to cancel)\n> ");
-		do
+		System.out.print("Please select a save file to load. (Enter a value 1-3, or 0 to cancel)\n> ");
+		String input = scanner.nextLine();
+		
+		while(!input.equalsIgnoreCase("0") && !input.equalsIgnoreCase("1") && 
+				!input.equalsIgnoreCase("2") && !input.equalsIgnoreCase("3"))
 		{
-			try
-			{
-				input = Integer.parseInt(scanner.nextLine());
-			}
-			catch (Exception e)
-			{
-				input = -1;
-				errorFlag = true;
-			}
+			System.out.print("Valid value not detected; please try again. (Enter a value 1-3, or 0 to cancel)\n> ");
+			input = scanner.nextLine();
+		}
 
-			if (input == 0)
+		if(input.equalsIgnoreCase("0"))
+		{
+			System.out.println("Load operation cancelled.");
+			if(mainMenu)
 			{
-				return;
-			}
-			else if (input == 1)
-			{
-				gameFile = "game1.dat";
-				errorFlag = false;
-			}
-			else if (input == 2)
-			{
-				gameFile = "game2.dat";	
-				errorFlag = false;		
-			}
-			else if (input == 3)
-			{
-				gameFile = "game3.dat";	
-				errorFlag = false;		
+				mainMenu();
 			}
 			else
 			{
-				System.out.println("Valid value not detected; please try again. (Enter a value 1-3, or 0 to cancel)\n> ");
-				errorFlag = true;
+				System.out.println(resume);
 			}
+			return;
 		}
-		while(errorFlag);
-
-		// TODO game loaded message, cancellation procedure
-
+		else if(input.equalsIgnoreCase("1"))
+		{
+			gameFile = "game1.dat";
+		}
+		else if(input.equalsIgnoreCase("2"))
+		{
+			gameFile = "game2.dat";
+		}
+		else if(input.equalsIgnoreCase("3"))
+		{
+			gameFile = "game3.dat";	
+		}
+		
 		try
 		{
 			fileReader = new FileInputStream(gameFile);
 			deserializer = new ObjectInputStream(fileReader);
 			loadObjects();
-			listener();
-			// TODO requires some logic to start game
 		}
 		catch (Exception e)
 		{
 			System.out.println("ERROR - COULD NOT READ FROM FILE\n");
+			e.printStackTrace();
 			loadGame();
 		}
+		
+		System.out.println("Save file " + gameFile + " successfully loaded.");
+		mainMenu = false;
+		
+		// TODO add description things and help info.
+		System.out.println("TODO - HELP DESCRIPTION AND OPTIONS");
+		System.out.println(resume);
+		listener();
 	}
 
 	/*********************************************************************
@@ -261,8 +294,8 @@ public class GameController
 		} 
 		catch (Exception e) 
 		{
-			System.out.println("ERROR - COULD NOT LOAD OBJECTS FROM FILE");
 			e.printStackTrace();
+			System.out.println("ERROR - COULD NOT LOAD OBJECTS FROM FILE");
 		}
 	}
 
@@ -374,47 +407,33 @@ public class GameController
 
 	public void saveGame()
 	{
-		int input = -1;
-		boolean errorFlag = false;
-		System.out.println("Please select a save slot to use. (Enter a value 1-3, or 0 to cancel)\n> ");
-		do
+		System.out.print("Please select a save slot to use. (Enter a value 1-3, or 0 to cancel)\n> ");
+		String input = scanner.nextLine();
+		
+		while(!input.equalsIgnoreCase("0") && !input.equalsIgnoreCase("1") && 
+				!input.equalsIgnoreCase("2") && !input.equalsIgnoreCase("3"))
 		{
-			try
-			{
-				input = Integer.parseInt(scanner.nextLine());
-			}
-			catch (Exception e)
-			{
-				input = -1;
-				errorFlag = true;
-			}
-
-			if (input == 0)
-			{
-				return;
-			}
-			else if (input == 1)
-			{
-				gameFile = "game1.dat";
-				errorFlag = false;
-			}
-			else if (input == 2)
-			{
-				gameFile = "game2.dat";	
-				errorFlag = false;		
-			}
-			else if (input == 3)
-			{
-				gameFile = "game3.dat";	
-				errorFlag = false;		
-			}
-			else
-			{
-				System.out.println("Valid value not detected; please try again. (Enter a value 1-3, or 0 to cancel)\n> ");
-				errorFlag = true;
-			}
+			System.out.print("Valid value not detected; please try again. (Enter a value 1-3, or 0 to cancel)\n> ");
+			input = scanner.nextLine();
 		}
-		while(errorFlag);
+
+		if(input.equalsIgnoreCase("0"))
+		{
+			System.out.println("Save operation cancelled.\n" + resume);
+			return;
+		}
+		else if(input.equalsIgnoreCase("1"))
+		{
+			gameFile = "game1.dat";
+		}
+		else if(input.equalsIgnoreCase("2"))
+		{
+			gameFile = "game2.dat";
+		}
+		else if(input.equalsIgnoreCase("3"))
+		{
+			gameFile = "game3.dat";	
+		}
 
 		// TODO save confirmation message, cancellation procedure
 
@@ -426,9 +445,16 @@ public class GameController
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			System.out.println("ERROR - COULD NOT SAVE TO FILE\n");
 			saveGame();
 		}
+
+		System.out.println("Game successfully saved to " + gameFile + ".");
+		
+// 		TODO add description things and help info.
+//		System.out.println("TODO - HELP DESCRIPTION AND OPTIONS");
+		System.out.println(resume);
 	}
 
 	/*********************************************************************
@@ -515,6 +541,7 @@ public class GameController
 		enemyList.add(bedBug);
 
 		// puzzle section
+		puzzleList = new ArrayList<Puzzle>();
 		puzzleList.add(wombPuzzle);
 		puzzleList.add(cribPuzzle);
 		puzzleList.add(namePuzzle);
@@ -530,6 +557,7 @@ public class GameController
 		puzzleList.add(genocidePuzzle);
 
 		// room section
+		roomList = new ArrayList<Room>();
 		roomList.add(womb);
 		roomList.add(deliveryRoom);
 		roomList.add(crib);
@@ -576,7 +604,7 @@ public class GameController
 		while(true)
 		{
 			System.out.print("> ");
-			String input = scanner.next();
+			String input = scanner.nextLine();
 			switch (input.toLowerCase()) {
 			case "w":
 				move(0);
@@ -689,7 +717,9 @@ public class GameController
 
 							// retrieves the room's enemy reward and adds to current player inventory
 							currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomEnemy().getReward());
-						}			
+						}
+						
+						System.out.println(roaming);
 					}
 				}
 			}
@@ -713,6 +743,8 @@ public class GameController
 						{
 							currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
 						}
+
+						System.out.println(roaming);
 					}
 				}
 			}
@@ -1245,9 +1277,10 @@ public class GameController
 		outside.setRoomExits(new Room[]{null, null, airlock, formicCastle});
 		formicCastle.setRoomExits(new Room[]{null, null, outside, null});
 		
-		// set up test player 1
-		Inventory inv = new Inventory();
-		currentPlayer = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, inv);
+		// set up current player and room
+		currentPlayer = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, new Inventory());
+		currentPlayer.getPlayerInventory().setOwner(currentPlayer);
+		currentRoom = womb;
 	}
 
 	/*********************************************************************
