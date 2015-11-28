@@ -77,10 +77,11 @@ public class Inventory implements Serializable
 	@param none
 	@return boolean - False if no item has been used, true if item used.
 	 *********************************************************************/
-	public boolean useItem()
+	public Item useItem()
 	{
 		scanner = new Scanner(System.in);
 		String input = "";
+		Item item = null;
 		int number = 0;
 		boolean numberFlag = false;
 		Weapon tempWeapon = null;
@@ -125,7 +126,7 @@ public class Inventory implements Serializable
 						if(number == -1)
 						{
 							System.out.println("You decide not to use an item.");
-							return false;
+							return item;
 						}
 
 						// if it is a key item or number is outside of bounds
@@ -151,6 +152,7 @@ public class Inventory implements Serializable
 						}
 						else
 						{
+							item = list.get(number);
 							if(list.get(number).getItemType().equalsIgnoreCase("Weapon"))
 							{
 								// use the weapon
@@ -228,18 +230,18 @@ public class Inventory implements Serializable
 					}
 				}
 				while(!numberFlag);
-				return true;
+				return item;
 			}
 			else
 			{
 				System.out.print(displayItemList());
-				return false;
+				return item;
 			}
 		}
 		else
 		{
 			System.out.println("INVENTORY LIST NOT FOUND");
-			return false;
+			return item;
 		}
 	}
 

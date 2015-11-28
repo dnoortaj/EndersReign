@@ -49,7 +49,7 @@ public class Tablet extends KeyItem
 	*********************************************************************/
 	public void useItem(Player p)
 	{
-		if(isUsed /* NOT YET IMPLEMENTED or current room isn't tablet room */)
+		if(isUsed)
 		{
 			// message displayed on use
 			System.out.println("You cannot use the Tablet at this time.");
@@ -57,18 +57,9 @@ public class Tablet extends KeyItem
 		else
 		{
 			p.setTabletFlag(true);
-			isUsed = true;
 
 			// message displayed on use
-			System.out.println("You use the device.");
-			
-			/* NOT YET IMPLEMENTED
-			 * p.addToScore(puzzle.solvePuzzle());
-			 * System.out.println("Your score just increased by " + puzzle.getPuzzlePoints()
-			 * 		+ " points for a total of " + p.getPlayerScore() + "!");
-			 * p.getPlayerInventory().addToInventory(puzzle.getPuzzleReward());
-			 */
-			
+			System.out.println("You attempt to use the Tablet.");
 		}
 	}
 }

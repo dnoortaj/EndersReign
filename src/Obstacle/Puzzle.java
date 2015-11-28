@@ -18,14 +18,19 @@ public class Puzzle implements Serializable
 	private boolean puzzleIsCompleted = false;
 	private String[][] puzzleText = new String[3][5];
 	private Item puzzleReward;
+	private int questionWeight = 0;
 	private int puzzlePoints = 0;
+	private boolean keyPuzzle = false;
 	transient private Scanner input;
 
 	public Puzzle()
 	{
 		puzzleIsCompleted = false;
 		puzzleText = new String[3][5];
+		questionWeight = 0;
 		puzzlePoints = 0;
+		puzzleReward = null;
+		setKeyPuzzle(false);
 	}
 
 	/**
@@ -33,12 +38,14 @@ public class Puzzle implements Serializable
 	 * puzzleIsCompleted, puzzleText, puzzleReward, and puzzlePoints.
 	 */
 	public Puzzle(boolean puzzleIsCompleted, String[][] puzzleText,
-			Item puzzleReward, int puzzlePoints)
+			Item puzzleReward, int questionWeight, int puzzlePoints, boolean keyPuzzle)
 	{
 		this.puzzleIsCompleted = puzzleIsCompleted;
 		this.puzzleText = puzzleText;
+		this.questionWeight = questionWeight;
 		this.puzzleReward = puzzleReward;
 		this.puzzlePoints = puzzlePoints;
+		this.setKeyPuzzle(keyPuzzle);
 	}
 
 	/**
@@ -65,7 +72,7 @@ public class Puzzle implements Serializable
 				if (answer.equals(puzzleText[i][4]))
 				{
 					System.out.println(puzzleText[i][2]);
-					puzzlePoints += 5;
+					puzzlePoints += questionWeight;
 
 				} else
 				{
@@ -117,6 +124,47 @@ public class Puzzle implements Serializable
 	public int getPuzzlePoints()
 	{
 		return puzzlePoints;
+	}
+
+	/**
+	 * @return whether or not this puzzle can be failed
+	 * 
+	 *         Description: Returns the puzzle's keyPuzzle status.
+	 */
+	public boolean isKeyPuzzle() 
+	{
+		return keyPuzzle;
+	}
+
+	/**
+	 * @param whether or not the puzzle may be failed
+	 * 
+	 *         Description: Sets the puzzle's keyPuzzle status
+	 */
+	public void setKeyPuzzle(boolean keyPuzzle) 
+	{
+		this.keyPuzzle = keyPuzzle;
+	}
+
+	/**
+	 * @return how many points each question in 
+	 *         the puzzle is worth
+	 * 
+	 *         Description: Returns how many points each correct
+	 *         answer in this puzzle is worth.
+	 */
+	public int getQuestionWeight() {
+		return questionWeight;
+	}
+
+	/**
+	 * @param the point weight of each puzzle part
+	 * 
+	 *         Description: Sets how many points each question in 
+	 *         the puzzle is worth.
+	 */
+	public void setQuestionWeight(int questionWeight) {
+		this.questionWeight = questionWeight;
 	}
 
 }

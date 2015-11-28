@@ -43,12 +43,12 @@ public class PuzzleTester
 		
 		Player currentPlayer = new Player();
 		Weapon wep = new Weapon("AWESOMESWORD", "IT'S AWESOME", false, 9999, output);
-		Puzzle runner = new Puzzle(false, puzzle, wep, 0);
+		Puzzle runner = new Puzzle(false, puzzle, wep, 5, 0, false);
 		runner.solvePuzzle();
 		currentPlayer.addToScore(runner.getPuzzlePoints());
 		
 		Weapon wep2 = new Weapon("DIAMONDSWORD", "EPICOCITY", false, 9999, output);
-		Puzzle runner2 = new Puzzle(false, puzzle2, wep2, 0);
+		Puzzle runner2 = new Puzzle(false, puzzle2, wep2, 5, 0, false);
 		runner2.solvePuzzle();
 		currentPlayer.addToScore(runner2.getPuzzlePoints());
 		System.out.println("The Player's score is now " + currentPlayer.getPlayerScore()+" points");

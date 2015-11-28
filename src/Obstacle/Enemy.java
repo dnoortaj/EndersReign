@@ -256,7 +256,7 @@ public class Enemy implements Serializable {
 	} 
 
 	public void useItem() {
-		if(playa.getPlayerInventory().useItem()){
+		if(playa.getPlayerInventory().useItem() != null){
 			enemyAttack();
 		}
 		else{

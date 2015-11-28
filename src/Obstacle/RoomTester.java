@@ -81,7 +81,7 @@ public class RoomTester
 		
 		Enemy bully = new Enemy(001, "Bully", 20, 15, 5, null, 5, hitOutput, taunt);
 		Puzzle jigsaw = new Puzzle(false, jigsawText,
-				null, 5);
+				null, 5, 0, false);
 		Room room1 = new Room("Convocation Area", new String[]{"",""}, 
 				bully, 50, jigsaw, 10); 
 		Room room2 = new Room("Classroom", roomDescription2, null, 0, null, 0);

@@ -21,7 +21,7 @@ import Obstacle.*;
 public class GameController
 {
 	/** game command list */
-	private String helpList, format, resume, helpMe, roaming;
+	private String helpList, format, resume, helpMe, roaming, puzzleFailed;
 
 	/** file to be loaded, for use with save/load methods */
 	private String gameFile = null;
@@ -93,6 +93,9 @@ public class GameController
 		helpMe = "Press \"H\" for help.";
 		resume = "Gameplay resumed. " + helpMe;
 		roaming = "You're free to roam around. " + helpMe;
+		puzzleFailed = "Good job, you scored 0 points in that last encounter.\n" +
+				"Maybe your cat walked on the keyboard, or you just have a case of terminal derpies;\n" +
+				"whichever it is, you're going to have to try that over again.";
 	}
 
 	/*********************************************************************
@@ -181,19 +184,30 @@ public class GameController
 
 // 			TODO game startup text for new file
 			System.out.println("TODO - game startup text");
-			System.out.println(currentRoom.getRoomDescription(0));
-			
-			currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
-			
-			// updates score
-			System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
-					+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
 
-			// retrieves the room's puzzle reward and adds to current player inventory
-			if(currentRoom.getRoomPuzzle().getPuzzleReward() != null)
+			// forced encounter with first puzzle
+			do
 			{
-				currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+				System.out.println(currentRoom.getRoomDescription(0));
+				autoSave();
+				currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
+				if(currentRoom.getRoomPuzzle().getPuzzlePoints() != 0)
+				{
+					// updates score
+					System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
+							+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+
+					// retrieves the room's puzzle reward and adds to current player inventory
+					currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+
+				}
+				else if(currentRoom.getRoomPuzzle().getPuzzlePoints() == 0)
+				{
+					System.out.println(puzzleFailed);
+					loadCheckpoint();
+				}
 			}
+			while(currentRoom.getRoomPuzzle().getPuzzlePoints() == 0);
 			
 			System.out.println(roaming);
 			autoSave();
@@ -268,8 +282,6 @@ public class GameController
 		System.out.println("Save file " + gameFile + " successfully loaded.");
 		mainMenu = false;
 		
-		// TODO add description things and help info.
-		System.out.println("TODO - HELP DESCRIPTION AND OPTIONS");
 		System.out.println(resume);
 		autoSave();
 		listener();
@@ -436,8 +448,6 @@ public class GameController
 			gameFile = "game3.dat";	
 		}
 
-		// TODO save confirmation message, cancellation procedure
-
 		try
 		{
 			fileWriter = new FileOutputStream(gameFile);
@@ -452,9 +462,6 @@ public class GameController
 		}
 
 		System.out.println("Game successfully saved to " + gameFile + ".");
-		
-// 		TODO add description things and help info.
-//		System.out.println("TODO - HELP DESCRIPTION AND OPTIONS");
 		System.out.println(resume);
 	}
 
@@ -608,37 +615,46 @@ public class GameController
 			String input = scanner.nextLine();
 			switch (input.toLowerCase()) {
 			case "w":
+			case "north":
 				move(0);
 				break;
 			case "s":
+			case "south":
 				move(1);
 				break;
 			case "a":
+			case "west":
 				move(2);
 				break;
 			case "d":
+			case "east":
 				move(3);
 				break;
 			case "h":
+			case "help":
 				displayHelp();
 				break;
 			case "i":
-				currentPlayer.getPlayerInventory().useItem();
-				System.out.println(resume);
+			case "inventory":
+				useItem();
+				System.out.println(roaming);
 				break;
 			case "l":
+			case "look":
 				System.out.println(currentRoom.getRoomDescription(1));
 				System.out.print(pathFinder());
 				break;
 			case "1":
+			case "save":
 				saveGame();
 				break;
 			case "2":
+			case "load":
 				loadGame();
 				break;
 			case "0":
+			case "exit":
 				System.exit(0);
-				break;
 			default:
 				System.out.println("Command not recognized.");
 				break;
@@ -646,6 +662,53 @@ public class GameController
 		}
 	}
 
+	/*********************************************************************
+	Method for handling special item cases.
+
+	@param none
+	@return none
+	 *********************************************************************/
+	private void useItem()
+	{
+		Item item = currentPlayer.getPlayerInventory().useItem();
+		String name = null;
+		
+		if(item != null)
+		{
+			name = item.getItemName();
+		}
+		
+		if(name != null)
+		{
+			if(name.equalsIgnoreCase("tablet") && currentRoom.equals(bunkroomL2))
+			{
+				tablet.setIsUsed(true);
+				currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
+				// updates score
+				int points = currentRoom.getRoomPuzzle().getPuzzlePoints();
+				System.out.println("Your score just increased by " + points
+						+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+
+				// retrieves the room's puzzle reward and adds to current player inventory
+				if(currentRoom.getRoomPuzzle().getPuzzleReward() != null && points != 0)
+				{
+					currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+				}	
+			}
+			else if(name.equalsIgnoreCase("phoenix down"))
+			{
+				System.out.println("Your gain an additional life.");
+				currentPlayer.setPlayerLives(currentPlayer.getPlayerLives() + 1);
+			}
+			else if(name.equalsIgnoreCase("queen eggs"))
+			{
+				// TODO winning
+				System.out.println("WINNING.");
+				winGame();
+			}
+		}
+	}
+	
 	/*********************************************************************
 	Method for moving between rooms. Accepts an integer corresponding to
 	an index position of the room's roomExits[].
@@ -681,11 +744,25 @@ public class GameController
 		// see if player can move, make the move
 		if(currentRoom.getRoomExits(direction) != null)
 		{
-			// move in desired direction, update room
-			autoSave();
-			currentRoom = currentRoom.getRoomExits(direction);
-			System.out.println("You head " + dir);
-			hasMoved = true;
+			Room room = currentRoom.getRoomExits(direction);
+			if((room.equals(combatArena) || room.equals(combatArena2) || room.equals(combatArena3)) && 
+					!currentPlayer.isSuitFlag())
+			{
+				System.out.println("You must have the combat suit equipped in order to enter this area.");
+			}
+			else if((room.equals(airlock) || room.equals(outside) || room.equals(formicCastle)) && 
+					!currentPlayer.isOxygenFlag())
+			{
+				System.out.println("You must have the supplemental O2 device equipped in order to enter this area.");
+			}
+			else
+			{
+				// move in desired direction, update room
+				autoSave();
+				currentRoom = currentRoom.getRoomExits(direction);
+				System.out.println("You head " + dir);
+				hasMoved = true;
+			}
 		}
 		else
 		{
@@ -738,19 +815,39 @@ public class GameController
 				// attempt to trigger current room's puzzle if enemy was not encountered
 				if(!currentRoom.getRoomPuzzle().getPuzzleIsCompleted())
 				{
-					if(random.nextInt(100) + 1 <= currentRoom.getRoomEnemyChance())
+					if(random.nextInt(100) + 1 <= currentRoom.getRoomPuzzleChance())
 					{
 						// triggers the puzzle, adds outcome to player score
 						currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
-
-						// updates score
-						System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
-								+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
-
-						// retrieves the room's puzzle reward and adds to current player inventory
-						if(currentRoom.getRoomPuzzle().getPuzzleReward() != null)
+						int points = currentRoom.getRoomPuzzle().getPuzzlePoints();
+						if(currentRoom.getRoomPuzzle().isKeyPuzzle() && points != 0)
 						{
-							currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+							// updates score
+							System.out.println("Your score just increased by " + points
+									+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+
+							// retrieves the room's puzzle reward and adds to current player inventory
+							if(currentRoom.getRoomPuzzle().getPuzzleReward() != null)
+							{
+								currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+							}
+						}
+						else if(currentRoom.getRoomPuzzle().isKeyPuzzle() && points == 0)
+						{
+							System.out.println(puzzleFailed);
+							loadCheckpoint();
+							return;
+						}
+						else if(!currentRoom.getRoomPuzzle().isKeyPuzzle())
+						{
+							System.out.println("Your score just increased by " + points
+									+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+
+							// retrieves the room's puzzle reward and adds to current player inventory
+							if(currentRoom.getRoomPuzzle().getPuzzleReward() != null && points != 0)
+							{
+								currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+							}
 						}
 
 						System.out.println(roaming);
@@ -761,10 +858,10 @@ public class GameController
 	}
 	
 	/*********************************************************************
-	Method for outputting a String of possible movement directions.
+	Method for returning a String of possible movement directions.
 
 	@param none
-	@return none
+	@return String - The string of available movement directions.
 	 *********************************************************************/
 	private String pathFinder()
 	{
@@ -850,6 +947,7 @@ public class GameController
 				System.out.println("Autosave successfully loaded.");
 				currentPlayer.setPlayerLives(currentPlayer.getPlayerLives() - 1);
 				System.out.println("You have " + currentPlayer.getPlayerLives() + " lives remaining.");
+				System.out.println(resume);
 			}
 			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
 			{
@@ -858,14 +956,32 @@ public class GameController
 		}
 		else
 		{
-			System.out.println("You've exhausted all of your extra lives, and have permanently died. For reals this time.");
+			System.out.println("You've exhausted all of your extra lives.\n" +
+					"Your journey seems to be at an end. For reals this time.");
 			System.out.println("Score: " + currentPlayer.getPlayerScore());
-			System.out.println("Rank: Dead Zombie\nBetter luck next time\nGAME OVER.");
+			System.out.println("Rank: Dead Zombie\nBetter luck next time!");
+			System.out.println("GAME OVER.");
+			
+			System.out.print("Return to title menu? (Y/N)\n> ");
+			String input = scanner.nextLine();
+			while(!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("yes") && 
+					!input.equalsIgnoreCase("n") && !input.equalsIgnoreCase("no"))
+			{
+				System.out.print("Valid value not detected; please try again. (Y/N)\n> ");
+				input = scanner.nextLine();
+			}
 
-			// TODO reset to title or exit?
-			mainMenu = true;
-			displayTitle = true;
-			mainMenu();
+			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
+			{
+
+				mainMenu = true;
+				displayTitle = true;
+				mainMenu();
+			}
+			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+			{
+				System.exit(0);
+			}
 		}
 	}
 
@@ -909,10 +1025,26 @@ public class GameController
 		System.out.println("Rank: " + rank);
 		System.out.println("GAME OVER.");
 		
-		// TODO reset to title or exit?
-		mainMenu = true;
-		displayTitle = true;
-		mainMenu();
+		System.out.print("Return to title menu? (Y/N)\n> ");
+		String input = scanner.nextLine();
+		while(!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("yes") && 
+				!input.equalsIgnoreCase("n") && !input.equalsIgnoreCase("no"))
+		{
+			System.out.print("Valid value not detected; please try again. (Y/N)\n> ");
+			input = scanner.nextLine();
+		}
+
+		if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
+		{
+
+			mainMenu = true;
+			displayTitle = true;
+			mainMenu();
+		}
+		else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+		{
+			System.exit(0);
+		}
 	}
 	
 	/*********************************************************************
@@ -1070,7 +1202,7 @@ public class GameController
 		jerry = new Enemy(); /* adding blank enemy for load/save lists */
 		bullies = new Enemy(01, "Jerry and two of his cohorts", 50, 19, 
 					10, writ, 10, bluntOutput, tauntFlee);
-		peter = new Enemy(02, "Peter", 40, 8, 10, bluntObject, 10, hitOutput,
+		peter = new Enemy(02, "Peter", 40, 8, 10, buggerMask, 10, hitOutput,
 					tauntHide);
 		dissenter = new Enemy(03, "Dissenter", 40, 10, 10, fisticuffs, 10, 
 					fistOutput, tauntStandard);
@@ -1227,31 +1359,31 @@ public class GameController
 
 
 		//Constructed puzzles
-		this.wombPuzzle = new Puzzle(false, wombPuzzle, surgeryKit, 5);
+		this.wombPuzzle = new Puzzle(false, wombPuzzle, potion, 5, 0, true);
 
-		this.cribPuzzle = new Puzzle(false, cribPuzzle, bandAid, 5);
+		this.cribPuzzle = new Puzzle(false, cribPuzzle, bandAid, 5, 0, false);
 
-		this.namePuzzle = new Puzzle(false, namePuzzle, tablet, 5);
+		this.namePuzzle = new Puzzle(false, namePuzzle, tablet, 5, 0, true);
 
-		this.mathPuzzle = new Puzzle(false, mathPuzzle, goldStar, 5);
+		this.mathPuzzle = new Puzzle(false, mathPuzzle, goldStar, 5, 0, false);
 
-		this.sciencePuzzle = new Puzzle(false, sciencePuzzle, goldStar, 5);
+		this.sciencePuzzle = new Puzzle(false, sciencePuzzle, surgeryKit, 5, 0, false);
 
-		this.battleStrategyPuzzle = new Puzzle(false, battleStrategyPuzzle, buggerMask, 5);
+		this.battleStrategyPuzzle = new Puzzle(false, battleStrategyPuzzle, buggerMask, 5, 0, false);
 
-		this.bullyPuzzle = new Puzzle(false, bullyPuzzle, writ, 5);
+		this.bullyPuzzle = new Puzzle(false, bullyPuzzle, writ, 5, 0, false);
 
-		this.spaceshipPuzzle = new Puzzle(false, spaceshipPuzzle, launchie, 5);
+		this.spaceshipPuzzle = new Puzzle(false, spaceshipPuzzle, launchie, 5, 0, false);
 
-		this.giantPuzzle = new Puzzle(false, giantPuzzle, laserPistol, 5);
+		this.giantPuzzle = new Puzzle(false, giantPuzzle, salamander, 5, 0, false);
 
-		this.gunPuzzle = new Puzzle(false, gunPuzzle, salamander, 5);
+		this.gunPuzzle = new Puzzle(false, gunPuzzle, dualLaser, 5, 0, false);
 
-		this.battlePuzzle = new Puzzle(false, battlePuzzle, dragon, 5);
+		this.battlePuzzle = new Puzzle(false, battlePuzzle, dragon, 5, 0, true);
 
-		this.preliminaryPuzzle = new Puzzle(false, preliminaryPuzzle, hat, 5);
+		this.preliminaryPuzzle = new Puzzle(false, preliminaryPuzzle, phoenixDown, 5, 0, true);
 
-		this.genocidePuzzle = new Puzzle(false, genocidePuzzle, admiralsCrest, 5);
+		this.genocidePuzzle = new Puzzle(false, genocidePuzzle, admiralsCrest, 5, 0, true);
 
 
 		// rooms 
