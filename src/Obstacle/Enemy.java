@@ -104,7 +104,7 @@ public class Enemy implements Serializable {
 				+ " points of damage.");
 			}
 			else{
-				System.out.println("You non-describtly attacked " + eName + ". Inflicting "
+				System.out.println("You non-descriptly attacked " + eName + ". Inflicting "
 						+ actualDamage.intValue() + " points of damage.");
 			}
 			tempo(650);
