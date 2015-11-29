@@ -61,7 +61,7 @@ public class Enemy implements Serializable {
 			tempo(1250);
 		}
 		else{
-			System.out.println(eName + " is approaching you with an apparent degree of malice.");
+			System.out.println("There is " + eName + ", approaching you with an apparent degree of malice.");
 			tempo(1250);
 		}
 		System.out.println(eName + " engaged you in combat."+
@@ -70,7 +70,7 @@ public class Enemy implements Serializable {
 			System.out.println(eName + " is agile and very elusive.  You would do well"
 					+ " to be mindful that your opponent is hiding.");
 		}else if (taunt[0].equalsIgnoreCase("attDown")){
-			System.out.println(eName + " has you out numbered. " + taunt[3] + ", the apparent alpha, is "
+			System.out.println(eName + " have you out numbered. \n" + taunt[3] + ", the apparent alpha, is "
 					+ "resolved to take you down however his pals are just following his lead.");
 		}
 		listener();
