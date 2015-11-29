@@ -180,7 +180,15 @@ public class Enemy implements Serializable {
 			listener();
 		}
 		else if(taunt[0].equalsIgnoreCase("dodgeDown") && firstTaunt){
-			eDodge = eDodge - Integer.parseInt(taunt[1]);
+			if((eDodge - Integer.parseInt(taunt[1])) > 0)
+			{
+				eDodge = eDodge - Integer.parseInt(taunt[1]);
+			}
+			else
+			{
+				eDodge = 1;
+			}
+
 			eName = taunt[3];
 			System.out.println(taunt[2]);
 			firstTaunt = false;
@@ -219,9 +227,8 @@ public class Enemy implements Serializable {
 	}
 
 	public void escape() {
-		
-		if(rand.nextInt(playa.getPlayerDodge()) > (rand.nextInt(eDodge))
-				&& eID != 9 && eID != 8){
+		if((rand.nextInt(playa.getPlayerDodge()) > rand.nextInt(eDodge)) && eID != 9 && eID != 8)
+		{
 			System.out.println("As the French so often do, you turned tail"
 					+ " and ran like the coward that you are. ");
 			System.out.println(eName + " doesn't seem to know where you went.");

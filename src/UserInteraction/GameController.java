@@ -1524,7 +1524,7 @@ package UserInteraction;
 					+ "and lay down in your bunk.","All of the other Launchies are in "
 					+ "their respective bunks, and you lay here wide awake. Now would "
 					+ "be a great time to see what your tablet can do."}, null, 100, 
-					this.giantPuzzle, 100);
+					null, 100);
 			hallwayS = new Room("a long hallway", new String[]{"After defeating the giant, "
 					+ "Colonel Graff and Major Anderson promote you to the Salamander"
 					+ " team. You meet your new team and Leader, Bonzo. He isn't too "
@@ -1613,14 +1613,14 @@ package UserInteraction;
 			livingRoom2.setRoomExits(new Room[]{bedroom, spaceship, null, null});
 			spaceship.setRoomExits(new Room[]{null, bunkroomL, null, null});
 			bunkroomL.setRoomExits(new Room[]{null, hallwayS, combatArena, strategyClass});
-			combatArena.setRoomExits(new Room[]{strategyClass, bunkroomS, bunkroomD, bunkroomL});
+			combatArena.setRoomExits(new Room[]{strategyClass, bunkroomS, bunkroomD, bunkroomL2});
 			strategyClass.setRoomExits(new Room[]{null, null, bunkroomL2, null});
 			bunkroomL2.setRoomExits(new Room[]{null, hallwayS, combatArena, strategyClass});
-			hallwayS.setRoomExits(new Room[]{bunkroomL, bunkroomS, null, null});
+			hallwayS.setRoomExits(new Room[]{bunkroomL2, bunkroomS, null, null});
 			bunkroomS.setRoomExits(new Room[]{hallwayS, null, combatArena2, null});
-			combatArena2.setRoomExits(new Room[]{strategyClass, bunkroomS, bunkroomD, bunkroomL});
+			combatArena2.setRoomExits(new Room[]{strategyClass, bunkroomS, bunkroomD, bunkroomL2});
 			bunkroomD.setRoomExits(new Room[]{shower, null, null, combatArena3});
-			combatArena3.setRoomExits(new Room[]{strategyClass, bunkroomS, bunkroomD, bunkroomL});
+			combatArena3.setRoomExits(new Room[]{strategyClass, bunkroomS, bunkroomD, bunkroomL2});
 			shower.setRoomExits(new Room[]{null, bunkroomD, cabin, null});
 			cabin.setRoomExits(new Room[]{null, sleepingQuarters, shower, null});
 			sleepingQuarters.setRoomExits(new Room[]{cabin, null, battleSimulatorRoom, null});
