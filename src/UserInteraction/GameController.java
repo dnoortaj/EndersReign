@@ -1108,7 +1108,7 @@ public class GameController
 					"is mildly amused that you thought that would have any affect.",
 					"is dumbfounded.", "is disgusted but unmoved."};
 
-		tauntFlee1 = tauntFlee;
+		tauntFlee1 = tauntFlee; 
 		tauntFlee1 [3] = "Bonzo";
 		
 		tauntEnrage = new String [] {"enrage", "50", "You show your opponent "
