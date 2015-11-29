@@ -1122,8 +1122,13 @@ public class GameController
 					"is mildly amused that you thought that would have any affect.",
 					"is dumbfounded.", "is disgusted but unmoved."};
 
-		tauntFlee1 = tauntFlee; 
-		tauntFlee1 [3] = "Bonzo";
+		tauntFlee1 = new String [] {"attDown", "10", "You take a karate kid krane stance "
+				+ "and grin menacingly. \n"
+				+ "Two of the bullies show their true colors and flee.", "Bonzo",
+				"You do your best to taunt", "You flaunt your puny muscles.", 
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any affect.",
+				"is dumbfounded.", "is disgusted but unmoved."};
 		
 		tauntEnrage = new String [] {"enrage", "50", "You show your opponent "
 					+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
@@ -1609,7 +1614,7 @@ public class GameController
 		formicCastle.setRoomExits(new Room[]{null, null, outside, null});
 		
 		// set up current player and room
-		currentPlayer = new Player("Test Player", 7, 65, 65, 20, 8, 10, false, false, false, false, new Inventory());
+		currentPlayer = new Player("Test Player", 0, 65, 65, 20, 10, 10, false, false, false, false, new Inventory());
 		currentPlayer.getPlayerInventory().setOwner(currentPlayer);
 		currentRoom = womb;
 	}
