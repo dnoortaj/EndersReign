@@ -181,34 +181,24 @@ public class GameController
 			{
 				currentPlayer.setPlayerName(input);
 			}
-
+			
 // 			TODO game startup text for new file
 			System.out.println("TODO - game startup text");
+			System.out.println(currentRoom.getRoomDescription(0));
 
-			// forced encounter with first puzzle
-			do
+			wait(1000);
+
+			currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
+			// updates score
+			System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
+					+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+
+			if(currentRoom.getRoomPuzzle().getPuzzlePoints() != 0)
 			{
-				System.out.println(currentRoom.getRoomDescription(0));
-				autoSave();
-				currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
-				if(currentRoom.getRoomPuzzle().getPuzzlePoints() != 0)
-				{
-					// updates score
-					System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
-							+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
-
-					// retrieves the room's puzzle reward and adds to current player inventory
-					currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
-
-				}
-				else if(currentRoom.getRoomPuzzle().getPuzzlePoints() == 0)
-				{
-					System.out.println(puzzleFailed);
-					loadCheckpoint();
-				}
+				// retrieves the room's puzzle reward and adds to current player inventory
+				currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
 			}
-			while(currentRoom.getRoomPuzzle().getPuzzlePoints() == 0);
-			
+
 			System.out.println(roaming);
 			autoSave();
 			listener();
@@ -785,6 +775,8 @@ public class GameController
 						// monster was encountered
 						monsterEncountered = true;
 
+						wait(1000);
+						
 						// combat flag set prior to fight, updated after fight
 						currentPlayer.setBattleFlag(true);
 						currentRoom.getRoomEnemy().fight(currentPlayer);
@@ -817,6 +809,8 @@ public class GameController
 				{
 					if(random.nextInt(100) + 1 <= currentRoom.getRoomPuzzleChance())
 					{
+						wait(1000);
+						
 						// triggers the puzzle, adds outcome to player score
 						currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
 						int points = currentRoom.getRoomPuzzle().getPuzzlePoints();
@@ -896,6 +890,7 @@ public class GameController
 	 *********************************************************************/
 	public void autoSave()
 	{
+		// heals currentPlayer to max HP prior to making the save
 		try
 		{
 			fileWriter = new FileOutputStream("autosave.dat");
@@ -946,6 +941,7 @@ public class GameController
 				}
 				System.out.println("Autosave successfully loaded.");
 				currentPlayer.setPlayerLives(currentPlayer.getPlayerLives() - 1);
+				currentPlayer.setPlayerCurrentHP(currentPlayer.getPlayerMaxHP());
 				System.out.println("You have " + currentPlayer.getPlayerLives() + " lives remaining.");
 				System.out.println(resume);
 			}
@@ -1067,6 +1063,24 @@ public class GameController
 		System.out.format(format, " >A West " , "", "", "");
 		System.out.println("\n(Input is not case sensitive.)");
 		
+	}
+	
+	/*********************************************************************
+	Method for making the program wait.
+
+	@param int time - How long to delay the program, in milliseconds.
+	@return none
+	 *********************************************************************/
+	private void wait(int time)
+	{
+		try 
+		{
+		    Thread.sleep(time);
+		} 
+		catch(Exception e) 
+		{
+			Thread.currentThread().interrupt();
+		}
 	}
 
 	/*********************************************************************
@@ -1245,7 +1259,7 @@ public class GameController
 		wombPuzzle[0][0] = "\nYou are in the womb and the umbilical cord is wrapped around your neck. How do you escape?\n";
 		wombPuzzle[0][1] = "You can either: \n'a' \tStruggle to get free \n'b' \tKeep as still as possible \n'c' \tEat your way out\n";
 		wombPuzzle[0][2] = "\nYou escape the clutches of death...even though technically you weren't born yet\n";
-		wombPuzzle[0][3] = "\nYou are stillborn\n";
+		wombPuzzle[0][3] = "\nYou're probably going to be born retarded. But hey, at least you'll have character.\n";
 		wombPuzzle[0][4] = "b";
 
 
