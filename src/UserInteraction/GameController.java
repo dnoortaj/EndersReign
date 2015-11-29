@@ -11,7 +11,7 @@ import Obstacle.*;
  * GameController class. Facilitates game construction,
  * user interaction with game objects, saving, loading.
  * 
- * @author Dale Burke
+ * @author Dale Burke 
  * @author John-Paul Sprouse
  * @author Danyelle Noortajalli
  * @author Ethan Patterson

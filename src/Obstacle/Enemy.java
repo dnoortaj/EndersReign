@@ -145,7 +145,7 @@ public class Enemy implements Serializable {
 	/*********************************************************************
 	taunt String array description
 
-	0- describes special taunt cases "a" alters attack upon first taunt,
+	0- describes special taunt cases "a" alters attack upon first taunt, 
 		"d" alters dodge, anything else taunt has no real consequence
 	1- how much the taunt type is altered
 	2- string output for special taunt case
