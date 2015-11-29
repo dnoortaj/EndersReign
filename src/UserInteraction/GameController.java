@@ -65,7 +65,7 @@ public class GameController
 	/** enemy taunt text arrays */
 	String[] bluntOutput, hitOutput, laserOutput, fistOutput, birdOutput, saberOutput, 
 	tauntFlee, tauntEnrage, tauntHide, tauntConcentration, tauntStandard, bugOutput, 
-	tauntBug, bzzOutput;
+	tauntBug, bzzOutput, tauntFlee1;
 
 	/** game enemies */
 	Enemy mazer, jerry, peter, dissenter, droid, bonzo, hyrum, vader, queen, 
@@ -1108,6 +1108,9 @@ public class GameController
 					"is mildly amused that you thought that would have any affect.",
 					"is dumbfounded.", "is disgusted but unmoved."};
 
+		tauntFlee1 = tauntFlee;
+		tauntFlee1 [3] = "Bonzo";
+		
 		tauntEnrage = new String [] {"enrage", "50", "You show your opponent "
 					+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
 					+ "really mad.", 
@@ -1115,11 +1118,11 @@ public class GameController
 					"You flaunt your puny muscles.", "",
 					"You expell flatulence in the general direction of",
 					"is mildly amused that you thought that would have any effect.",
-		"is like full-on Super Seiyan berserker mode mad right now."};
+					"is like full-on Super Seiyan berserker mode mad right now."};
 
 		tauntHide = new String [] {"dodgeDown", "100", "You shout insults about your foes "
 					+ "maternal unit. \n"
-					+ "Enraged, he is done playing the hiding game.", "Plucifer",
+					+ "Enraged, he is done playing the hiding game.", "Peter",
 					"You do your best to taunt", "You flaunt your puny muscles.", 
 					"You expell flatulence in the general direction of",
 					"is mildly amused that you thought that would have any effect.",
@@ -1127,11 +1130,11 @@ public class GameController
 
 		tauntConcentration = new String [] {"dodgeDown", "25", 
 				"You shout insults about your foes maternal unit. \n"
-							+ "Enraged, he is having trouble concentrating.", "Plucifer",
-							"You do your best to taunt", "You flaunt your puny muscles.", 
-							"You expell flatulence in the general direction of",
-							"is mildly amused that you thought that would have any effect.",
-							"is dumbfounded.", "is disgusted but unmoved."};
+				+ "Enraged, he is having trouble concentrating.", "Plucifer",
+				"You do your best to taunt", "You flaunt your puny muscles.", 
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any effect.",
+				"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntStandard = new String [] {"z", "0", " ", " ", 
 				"You bite your thumb at ",
@@ -1147,7 +1150,7 @@ public class GameController
 				"You buzz mockingly ",
 				" is a bug, thus is impervious to your misguided attempts at psychological warfare.",
 				"says \"bzzzz\".",
-		" uses this as an opportunity to take a free hit on you." };
+				" uses this as an opportunity to take a free hit on you." };
 
 
 
@@ -1209,7 +1212,7 @@ public class GameController
 		droid = new Enemy(04, "Hand-to-Hand Combat Droid", 50, 10, 10, 
 					morphine, 10, hitOutput, tauntConcentration);
 		bonzo = new Enemy(05, "Bonzo and two of his buddies", 55, 25, 10,
-					laserPistol, 10, bluntOutput, tauntFlee);
+					laserPistol, 10, bluntOutput, tauntFlee1);
 		mazer = new Enemy(06, "Mazer Rackham", 70, 14, 
 					10, theBird, 10, birdOutput, tauntEnrage);
 		hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, hat, 10, 

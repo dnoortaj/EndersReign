@@ -56,7 +56,7 @@ public class Enemy implements Serializable {
 	public void fight(Player p) {
 		playa = p;
 		inBattle = true;
-		System.out.println("You have engaged in combat with " + eName + "."+
+		System.out.println(eName + " has engaged you in combat."+
 				" (Press H for Help)");
 		if(taunt[0].equalsIgnoreCase("d")){
 			System.out.println(eName + " is agile and very elusive.  You would do well"
@@ -126,8 +126,8 @@ public class Enemy implements Serializable {
 	}
 
 	public boolean hitMiss(int dodge){
-		int chance = rand.nextInt(40);
-		if(chance >= dodge){
+		
+		if(rand.nextInt(14) <= dodge){
 			return true;
 		}
 		else{
@@ -209,7 +209,7 @@ public class Enemy implements Serializable {
 
 	public void escape() {
 		
-		if(rand.nextInt(playa.getPlayerDodge()) > (rand.nextInt(eDodge) + 3)
+		if(rand.nextInt(playa.getPlayerDodge()) > (rand.nextInt(eDodge))
 				&& eID != 9 && eID != 8){
 			System.out.println("As the French so often do, you turned tail"
 					+ " and ran like the coward that you are. ");
@@ -248,7 +248,7 @@ public class Enemy implements Serializable {
 			System.out.println("You are dead.");
 		}
 		else if(playa.getPlayerCurrentHP() <= -6){
-			System.out.println("You are so dead you're nearly undead.");
+			System.out.println("You are very dead.");
 		}
 		else{
 			listener();
@@ -287,7 +287,7 @@ public class Enemy implements Serializable {
 	public void listener() {
 		s = new Scanner(System.in);
 		System.out.print("> ");
-		String input = s.next();
+		String input = s.nextLine();
 		switch (input.toLowerCase()) {
 		case "a":
 			playerAttack();
