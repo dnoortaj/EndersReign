@@ -1239,122 +1239,139 @@ public class GameController
 		//puzzles arrays
 		String[][] wombPuzzle = new String[3][5];
 
-		wombPuzzle[0][0] = "'You are in the womb and the umbilical cord is wrapped around your neck. How do you escape?'\n";
+		wombPuzzle[0][0] = "\nYou are in the womb and the umbilical cord is wrapped around your neck. How do you escape?\n";
 		wombPuzzle[0][1] = "You can either: \n'a' \tStruggle to get free \n'b' \tKeep as still as possible \n'c' \tEat your way out\n";
-		wombPuzzle[0][2] = "\n'You escape the clutches of death...even though technically you weren't born yet'\n";
-		wombPuzzle[0][3] = "\n'You are stillborn'\n";
+		wombPuzzle[0][2] = "\nYou escape the clutches of death...even though technically you weren't born yet\n";
+		wombPuzzle[0][3] = "\nYou are stillborn\n";
 		wombPuzzle[0][4] = "b";
 
 
 		String[][] cribPuzzle = new String[3][5];
 
-		cribPuzzle[0][0] = "'After a few months have passed, you have grown to the point where your crib has become too small to sleep in. In order to find better sleeping arrangement, you must convince you parents you are too big for the crib by escaping it. How will you go about doing this?'\n";
+		cribPuzzle[0][0] = "\nAfter a few months have passed, you have grown to the point where your crib has become too small to sleep in.\n"
+					+ "In order to find better sleeping arrangement, you must convince you parents you are too big for the crib by escaping it.\n"
+					+ "How will you go about doing this?\n";
 		cribPuzzle[0][1] = "Would you: \n'a' \tClimb up the sides \n'b' \tRock the cradle \n'c' \tEndlessly scream until relocated\n";
-		cribPuzzle[0][2] = "\n'Very good!'\n";
-		cribPuzzle[0][3] = "\n'Not quite'\n";
+		cribPuzzle[0][2] = "\nVery good!\n";
+		cribPuzzle[0][3] = "\nNot quite\n";
 		cribPuzzle[0][4] = "a";
 
 		String[][] namePuzzle = new String[3][5];
 
-		namePuzzle[0][0] = "'Upon frEeing yourself of the coNfinement of the crib, you Discover a namE inscRibed into the wood on the side of the crib. You presume that the name has to be yours, what is it?'\n";
+		namePuzzle[0][0] = "\nUpon frEeing yourself of the coNfinement of the crib, you Discover a namE inscRibed into the wood on the side of the crib.\n "
+					+ "You presume that the name has to be yours, what is it?\n";
 		namePuzzle[0][1] = "Options: \n'a' \tDaren \n'b' \tEnder \n'c' \tErnie\n";
-		namePuzzle[0][2] = "\n'I sense something very special about you Ender, but you still have much to learn at the Academy!'\n";
-		namePuzzle[0][3] = "\n'You must search deeper within yourself'\n";
+		namePuzzle[0][2] = "\nI sense something very special about you Ender, but you still have much to learn at the Academy!\n";
+		namePuzzle[0][3] = "\nYou must search deeper within yourself\n";
 		namePuzzle[0][4] = "b";
 
 		String[][] mathPuzzle = new String[3][5];
 
-		mathPuzzle[0][0] = "'During one of your math lessons you come across a mind boggling problem: Two fathers and two sons sat down to eat eggs for breakfast. They ate exactly three eggs, each person had an egg. How do you explain this?'\n";
-		mathPuzzle[0][1] = "Options: \n'a' \tThey split the eggs into multiple parts \n'b' \tThe 'sons' are conjoined twins \n'c' \tOne of the 'fathers' is also a grandfather\n";
-		mathPuzzle[0][2] = "\n'Way to think logically!'\n";
-		mathPuzzle[0][3] = "\n'Ok so math might not be your forte…'\n";
+		mathPuzzle[0][0] = "\nDuring one of your math lessons you come across a mind boggling problem:\n"
+					+ " Two fathers and two sons sat down to eat eggs for breakfast.\n"
+					+ " They ate exactly three eggs, each person had an egg. How do you explain this?\n";
+		mathPuzzle[0][1] = "Options: \n'a' \tThey split the eggs into multiple parts \n"
+					+ "'b' \tThe 'sons' are conjoined twins \n"
+					+ "'c' \tOne of the 'fathers' is also a grandfather\n";
+		mathPuzzle[0][2] = "\nWay to think logically!\n";
+		mathPuzzle[0][3] = "\nOk so math might not be your forte…\n";
 		mathPuzzle[0][4] = "c";
 
 		String[][] sciencePuzzle = new String[3][5];
 
-		sciencePuzzle[0][0] = "'Science class is proving to be no walk in the park either, and one question in particular seems to keep tripping you up: If you boiled some ice in a hot frying pan, would it become a gas or a liquid?'\n";
+		sciencePuzzle[0][0] = "\nScience class is proving to be no walk in the park either, and one question in particular seems to keep tripping you up:\n"
+					+ " If you boiled some ice in a hot frying pan, would it become a gas or a liquid?\n";
 		sciencePuzzle[0][1] = "Options: \n'a' \tLiquid \n'b' \tBoth \n'c' \tGas\n";
-		sciencePuzzle[0][2] = "\n'Yes! It melts and becomes a liquid. Then the liquid gets hot and evaporates into a vapor, which is a gas!'\n";
-		sciencePuzzle[0][3] = "\n'Well at least you can match your socks'\n";
+		sciencePuzzle[0][2] = "\nYes! It melts and becomes a liquid. Then the liquid gets hot and evaporates into a vapor, which is a gas!\n";
+		sciencePuzzle[0][3] = "\nWell at least you can match your socks\n";
 		sciencePuzzle[0][4] = "b";
 
 		String[][] battleStrategyPuzzle = new String[3][5];
 
-		battleStrategyPuzzle[0][0] = "'Your professor presents a question: A formic appears 50 meters ahead of you. What do you do?'\n";
+		battleStrategyPuzzle[0][0] = "\nYour professor presents a question: A formic appears 50 meters ahead of you. What do you do?\n";
 		battleStrategyPuzzle[0][1] = "Options: \n'a' \tRun out to greet it \n'b' \tSent entire fleet after it \n'c' \tDo nothing\n";
-		battleStrategyPuzzle[0][2] = "\n'Brilliant! Now the formic is dead AND you've wasted resources, but good job!'\n";
-		battleStrategyPuzzle[0][3] = "\n'You're not quite ready for field experience...'\n";
+		battleStrategyPuzzle[0][2] = "\nBrilliant! Now the formic is dead AND you've wasted resources, but good job!\n";
+		battleStrategyPuzzle[0][3] = "\nYou're not quite ready for field experience...\n";
 		battleStrategyPuzzle[0][4] = "b";
 
 		String[][] bullyPuzzle = new String[3][5];
 
-		bullyPuzzle[0][0] = "'After the incident with Jerry(the bully) in science class, Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. With you on the verge of being kicked out of the academy, how would you explain your actions?'\n";
+		bullyPuzzle[0][0] = "\nAfter the incident with Jerry(the bully) in science class,\n"
+					+ "Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did.\n"
+					+ "With you on the verge of being kicked out of the academy, how would you explain your actions?\n";
 		bullyPuzzle[0][1] = "Options: \n'a' \tIt was purely self-defense \n'b' \tHe deserved it \n'c' \tTo end all future fights\n";
-		bullyPuzzle[0][2] = "\n'A very effective battle tactic, Battle School can use more minds like yours. Congratulations!'\n";
-		bullyPuzzle[0][3] = "\n'That is not tactic we are looking for in our future leaders'\n";
+		bullyPuzzle[0][2] = "\nA very effective battle tactic, Battle School can use more minds like yours. Congratulations!\n";
+		bullyPuzzle[0][3] = "\nThat is not tactic we are looking for in our future leaders\n";
 		bullyPuzzle[0][4] = "c";
 
 		String[][] spaceshipPuzzle = new String[3][5];
 
-		spaceshipPuzzle[0][0] = "'A fellow cadet pukes on the spaceship during the flight to battle school, how do you avoid getting enveloped by this disgusting substance?'\n";
+		spaceshipPuzzle[0][0] = "\nA fellow cadet pukes on the spaceship during the flight to battle school,\n"
+					+ "how do you avoid getting enveloped by this disgusting substance?\n";
 		spaceshipPuzzle[0][1] = "Options: \n'a' \tLean/Dodge Left \n'b' \tSit there and take it like a real man \n'c' \tLean/Dodge Right\n";
-		spaceshipPuzzle[0][2] = "\n'You avoided a very unpleasant situation'\n";
-		spaceshipPuzzle[0][3] = "\n'That's just nasty, I wouldn't want to be you right now'\n";
+		spaceshipPuzzle[0][2] = "\nYou avoided a very unpleasant situation\n";
+		spaceshipPuzzle[0][3] = "\nThat's just nasty, I wouldn't want to be you right now\n";
 		spaceshipPuzzle[0][4] = "a";
 
 		String[][] giantPuzzle = new String[3][5];
 
-		giantPuzzle[0][0] = "'You are now a mouse and encounter a giant barring your way. He presents you with two chalices in order to get past him, which one do you choose?'\n";
+		giantPuzzle[0][0] = "\nYou are now a mouse and encounter a giant barring your way.\n"
+					+ "He presents you with two chalices in order to get past him, which one do you choose?\n";
 		giantPuzzle[0][1] = "Options: \n'a' \tThe Left Chalice \n'b' \tThe Right Chalice \n'c' \tAttack the Giant\n";
-		giantPuzzle[0][2] = "\n'Congratulations, you have successfully murdered the giant by crawling up his arm and dismantling his brain though his eye socket'\n";
-		giantPuzzle[0][3] = "\n'Sorry, wrong choice'\n";
+		giantPuzzle[0][2] = "\nCongratulations, you have successfully murdered the giant by crawling up his arm and dismantling his brain though his eye socket\n";
+		giantPuzzle[0][3] = "\nSorry, wrong choice\n";
 		giantPuzzle[0][4] = "c";
 
 		String[][] gunPuzzle = new String[3][5];
 
-		gunPuzzle[0][0] = "'You need to know how to assemble your laser pistol if you want to be a part of the Salamanders. How would you go about constructing it?'\n";
+		gunPuzzle[0][0] = "You need to know how to assemble your laser pistol if you want to be a part of the Salamanders.\n"
+					+ "How would you go about constructing it?\n";
 		gunPuzzle[0][1] = "Options: \n'a' \t1. Crystal, 2. Aluminum Cylinder, 3. Barrel, 4. Magazine \n'b' \t1. Aluminum Cylinder, 2. Barrel, 3. Crystal, 4. Magazine \n'c' \t1. Magazine, 2. Barrel, 3. Aluminum Cylinder, 4. Crystal\n";
-		gunPuzzle[0][2] = "\n'Welcome to the Salamander Squad!'\n";
-		gunPuzzle[0][3] = "\n'You might need a bit more training'\n";
+		gunPuzzle[0][2] = "\nWelcome to the Salamander Squad!\n";
+		gunPuzzle[0][3] = "\nYou might need a bit more training\n";
 		gunPuzzle[0][4] = "a";
 
 		String[][] battlePuzzle = new String[3][5];
 
-		battlePuzzle[0][0] = "'You are now the new leader of the Dragon squad and are currently engaged in a battle simulator against your old squad (the Salamanders). In order to defeat your adversary and advance to command school, you must reach their gate by choosing the correct formation. Which formation will lead you to victory?'\n";
+		battlePuzzle[0][0] = "\nYou are now the new leader of the Dragon squad and are currently engaged in a battle simulator against your old squad (the Salamanders).\n"
+					+ "In order to defeat your adversary and advance to command school, you must reach their gate by choosing the correct formation.\n"
+					+ "Which formation will lead you to victory?\n";
 		battlePuzzle[0][1] = "Options: \n'a' \tArrowhead Formation \n'b' \tBunch Formation \n'c' \tCrossfire Formation\n";
-		battlePuzzle[0][2] = "\n'We are proud to accept you into Command School!'\n";
-		battlePuzzle[0][3] = "\n'That tactic was unsatisfactory'\n";
+		battlePuzzle[0][2] = "\nWe are proud to accept you into Command School!\n";
+		battlePuzzle[0][3] = "\nThat tactic was unsatisfactory\n";
 		battlePuzzle[0][4] = "b";
 
 		String[][] preliminaryPuzzle = new String[3][5];
 
-		preliminaryPuzzle[0][0] = "'You are about to embark on three missions that are crucial in reaching the Formic home world. On this first mission, you are informed that someone in your squad has been leaking confidential information to the buggers and you must find out who it is. How will you find the traitor?'\n";
+		preliminaryPuzzle[0][0] = "\nYou are about to embark on three missions that are crucial in reaching the Formic home world.\n"
+					+ "On this first mission, you are informed that someone in your squad has been leaking confidential information to the buggers\n"
+					+ "and you must find out who it is. How will you find the traitor?\n";
 		preliminaryPuzzle[0][1] = "Options: \n'a' \tGather your squad and interrogate each of them \n'b' \tDon't reveal you new found knowledge to you squad in order to shadow them \n'c' \tAssume you are misinformed and do nothing i\n";
-		preliminaryPuzzle[0][2] = "\n'Good idea, speak softly and carry a big stick!'\n";
-		preliminaryPuzzle[0][3] = "\n'That was a very inept decision'\n";
+		preliminaryPuzzle[0][2] = "\nGood idea, speak softly and carry a big stick!\n";
+		preliminaryPuzzle[0][3] = "\nThat was a very inept decision\n";
 		preliminaryPuzzle[0][4] = "b";
-		preliminaryPuzzle[1][0] = "'Your next mission is to share some inspiring words with the new cadets in order to boost morale. What will you say?'\n";
+		preliminaryPuzzle[1][0] = "\nYour next mission is to share some inspiring words with the new cadets in order to boost morale. What will you say?\n";
 		preliminaryPuzzle[1][1] = "Options: \n'a' \tWar is like a box of chocolates, you never know when you're gonna die \n'b' \tDon't drop the soap in the shower \n'c' \tYour focus will determine your reality\n";
-		preliminaryPuzzle[1][2] = "'That was quite the rally!'\n";
-		preliminaryPuzzle[1][3] = "'Amusing yet uninspiring'\n";
+		preliminaryPuzzle[1][2] = "That was quite the rally!\n";
+		preliminaryPuzzle[1][3] = "Amusing yet uninspiring\n";
 		preliminaryPuzzle[1][4] = "'c'";
-		preliminaryPuzzle[2][0] = "'Your final mission is to take a remote Formic outpost with the least casualties possible. How will you accomplish this?'\n";
+		preliminaryPuzzle[2][0] = "\nYour final mission is to take a remote Formic outpost with the least casualties possible. How will you accomplish this?\n";
 		preliminaryPuzzle[2][1] = "Options: \n'a' \tFull on frontal assault \n'b' \tFind a diplomatic solution \n'c' \tUse a sacrificial diversion force to infiltrate their base \n";
-		preliminaryPuzzle[2][2] = "'Mission complete!'\n";
-		preliminaryPuzzle[2][3] = "'Mission failed: casualties too high'\n";
+		preliminaryPuzzle[2][2] = "Mission complete!\n";
+		preliminaryPuzzle[2][3] = "Mission failed: casualties too high\n";
 		preliminaryPuzzle[2][4] = "'b'";
 
 		String[][] genocidePuzzle = new String[3][5];
 
-		genocidePuzzle[0][0] = "'In order to graduate, you must pass this final battle simulator: Destroy the Formic home world.'\n";
+		genocidePuzzle[0][0] = "\nIn order to graduate, you must pass this final battle simulator: Destroy the Formic home world.\n";
 		genocidePuzzle[0][1] = "Options: \n'a' \tEngage every enemy ship in range \n'b' \tProtect Petra's ship and shoot the planet \n'c' \tRetreat to fight another day\n";
-		genocidePuzzle[0][2] = "\n'Way to accidently commit genocide, can't win for losing I guess'\n";
-		genocidePuzzle[0][3] = "\n'Technically this was a lose-lose situation, but unfortunately you lost'\n";
+		genocidePuzzle[0][2] = "\nWay to accidently commit genocide, can't win for losing I guess\n";
+		genocidePuzzle[0][3] = "\nTechnically this was a lose-lose situation, but unfortunately you lost\n";
 		genocidePuzzle[0][4] = "b";
-		genocidePuzzle[1][0] = "'After being tricked into almost sending the Formic race into extinction, what will you do with the last eggs?'\n";
+		genocidePuzzle[1][0] = "\nAfter being tricked into almost sending the Formic race into extinction, what will you do with the last eggs?\n";
 		genocidePuzzle[1][1] = "Options: \n'a' \tTake them to a far off inhabitable world and leave them \n'b' \tCrush them like the bug filth they are and end it once and for all \n'c' \tRaise them on Earth to adopt our customs whilst taking the necessary precautions\n";
-		genocidePuzzle[1][2] = "'Let it not be said that Ender Wiggins lacks compassion'\n";
-		genocidePuzzle[1][3] = "'Ouch, now that's just cruel'\n";
+		genocidePuzzle[1][2] = "Let it not be said that Ender Wiggins lacks compassion\n";
+		genocidePuzzle[1][3] = "Ouch, now that's just cruel\n";
 		genocidePuzzle[1][4] = "'c'";
 
 

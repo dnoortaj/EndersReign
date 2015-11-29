@@ -62,6 +62,7 @@ public class Puzzle implements Serializable
 			{
 				System.out.println(puzzleText[i][0]);
 				System.out.println(puzzleText[i][1]);
+				System.out.print("> ");
 				String answer = input.nextLine();
 
 				while (!answer.equalsIgnoreCase("a") && !answer.equalsIgnoreCase("b") && !answer.equalsIgnoreCase("c"))
