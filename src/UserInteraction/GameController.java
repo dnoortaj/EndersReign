@@ -774,8 +774,6 @@ public class GameController
 					{
 						// monster was encountered
 						monsterEncountered = true;
-
-						wait(1000);
 						
 						// combat flag set prior to fight, updated after fight
 						currentPlayer.setBattleFlag(true);
@@ -1398,7 +1396,7 @@ public class GameController
 
 
 		//Constructed puzzles
-		this.wombPuzzle = new Puzzle(false, wombPuzzle, potion, 5, 0, true);
+		this.wombPuzzle = new Puzzle(false, wombPuzzle, potion, 5, 0, false);
 
 		this.cribPuzzle = new Puzzle(false, cribPuzzle, bandAid, 5, 0, false);
 
