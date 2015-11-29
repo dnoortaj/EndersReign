@@ -21,7 +21,7 @@ import Obstacle.*;
 public class GameController
 {
 	/** game command list */
-	private String helpList, format, resume, helpMe, roaming, puzzleFailed;
+	private String format, resume, helpMe, roaming, puzzleFailed;
 
 	/** file to be loaded, for use with save/load methods */
 	private String gameFile = null;
@@ -183,24 +183,14 @@ public class GameController
 			}
 			
 // 			TODO game startup text for new file
-			System.out.println("TODO - game startup text");
-			System.out.println(currentRoom.getRoomDescription(0));
-
-			wait(1000);
-
-			currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
-			// updates score
-			System.out.println("Your score just increased by " + currentRoom.getRoomPuzzle().getPuzzlePoints()
-					+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
-
-			if(currentRoom.getRoomPuzzle().getPuzzlePoints() != 0)
-			{
-				// retrieves the room's puzzle reward and adds to current player inventory
-				currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
-			}
-
-			System.out.println(roaming);
+			System.out.println("Greetings to you, the unlucky finder of this terrible game. Present this game at\n" +
+					"your ITEC 3860 classroom at eight-thirty in the morning of the eleventh day of December,\n" +
+					"and do not be late. You may bring with you several excuses as to your content choices, but nothing else.\n" +
+					"In your wildest nightmares you could not imagine the god-awful coding horror that awaits you!\n" +
+					".. see, it's a golden ticket parody, from.. nevermind. Anyway, you're Ender Wiggin, and we're\n" +
+					"starting from the very-very beginning. For reals.\n");
 			autoSave();
+			forceMove(womb);
 			listener();
 		}
 		catch(Exception e)
@@ -271,7 +261,6 @@ public class GameController
 		
 		System.out.println("Save file " + gameFile + " successfully loaded.");
 		mainMenu = false;
-		
 		System.out.println(resume);
 		autoSave();
 		listener();
@@ -673,6 +662,7 @@ public class GameController
 			if(name.equalsIgnoreCase("tablet") && currentRoom.equals(bunkroomL2))
 			{
 				tablet.setIsUsed(true);
+				System.out.println("You find a curious-looking game loaded on your tablet and proceed to investigate.");
 				currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
 				// updates score
 				int points = currentRoom.getRoomPuzzle().getPuzzlePoints();
@@ -685,15 +675,19 @@ public class GameController
 					currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
 				}	
 			}
+			else if(name.equalsIgnoreCase("tablet") && !currentRoom.equals(bunkroomL2))
+			{
+				System.out.println("Nothing in particular catches your interest and you soon decide to turn off the tablet.");
+			}
 			else if(name.equalsIgnoreCase("phoenix down"))
 			{
-				System.out.println("Your gain an additional life.");
+				System.out.println("Your gain an additional life. Go figure.");
 				currentPlayer.setPlayerLives(currentPlayer.getPlayerLives() + 1);
 			}
 			else if(name.equalsIgnoreCase("queen eggs"))
 			{
 				// TODO winning
-				System.out.println("WINNING.");
+				System.out.println("Well, let's pretend you didn't just eat those..");
 				winGame();
 			}
 		}
@@ -709,8 +703,6 @@ public class GameController
 	 *********************************************************************/
 	public void move(int direction)
 	{
-		boolean hasMoved = false;
-		boolean monsterEncountered = false;
 		String dir = "nowhere.";
 
 		// set direction string element
@@ -735,6 +727,8 @@ public class GameController
 		if(currentRoom.getRoomExits(direction) != null)
 		{
 			Room room = currentRoom.getRoomExits(direction);
+			
+			// TODO set up special movement conditions here
 			if((room.equals(combatArena) || room.equals(combatArena2) || room.equals(combatArena3)) && 
 					!currentPlayer.isSuitFlag())
 			{
@@ -749,9 +743,9 @@ public class GameController
 			{
 				// move in desired direction, update room
 				autoSave();
-				currentRoom = currentRoom.getRoomExits(direction);
 				System.out.println("You head " + dir);
-				hasMoved = true;
+				wait(1000);
+				forceMove(currentRoom.getRoomExits(direction));
 			}
 		}
 		else
@@ -759,12 +753,24 @@ public class GameController
 			// notify player of non-move
 			System.out.println("You cannot move " + dir);
 		}
+	}
 
-		// if player moved
-		if(hasMoved)
+	/*********************************************************************
+	Helper method for changing the currentRoom. Sets currentRoom to the
+	provided Room, triggers appropriate encounter. Recursively calls
+	forceMove in the event that a Room redirect is present.
+
+	@param Room room - The new currentRoom.
+	@return none
+	 *********************************************************************/
+	private void forceMove(Room room)
+	{
+		boolean monsterEncountered = false;
+		currentRoom = room;
+		System.out.println(currentRoom.getRoomDescription(0));
+
+		if(room != null)
 		{
-			System.out.println(currentRoom.getRoomDescription(0));
-
 			if(currentRoom.getRoomEnemy() != null)
 			{
 				// attempt trigger current room's enemy
@@ -774,7 +780,7 @@ public class GameController
 					{
 						// monster was encountered
 						monsterEncountered = true;
-						
+
 						// combat flag set prior to fight, updated after fight
 						currentPlayer.setBattleFlag(true);
 						currentRoom.getRoomEnemy().fight(currentPlayer);
@@ -783,6 +789,7 @@ public class GameController
 						if(currentRoom.getRoomEnemy().enemyIsDead())
 						{
 							// updates score
+							currentPlayer.setPlayerScore(currentPlayer.getPlayerScore() + currentRoom.getRoomEnemy().getPoints()); 
 							System.out.println("Your score just increased by " + currentRoom.getRoomEnemy().getPoints()
 									+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
 
@@ -794,8 +801,6 @@ public class GameController
 							loadCheckpoint();
 							return;
 						}
-						
-						System.out.println(roaming);
 					}
 				}
 			}
@@ -808,7 +813,7 @@ public class GameController
 					if(random.nextInt(100) + 1 <= currentRoom.getRoomPuzzleChance())
 					{
 						wait(1000);
-						
+
 						// triggers the puzzle, adds outcome to player score
 						currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
 						int points = currentRoom.getRoomPuzzle().getPuzzlePoints();
@@ -841,11 +846,17 @@ public class GameController
 								currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
 							}
 						}
-
-						System.out.println(roaming);
 					}
 				}
 			}
+
+			if(currentRoom.getRedirect() != null)
+			{
+				wait(1000);
+				forceMove(currentRoom.getRedirect());
+				return;
+			}
+			System.out.println(roaming);
 		}
 	}
 	
@@ -941,7 +952,16 @@ public class GameController
 				currentPlayer.setPlayerLives(currentPlayer.getPlayerLives() - 1);
 				currentPlayer.setPlayerCurrentHP(currentPlayer.getPlayerMaxHP());
 				System.out.println("You have " + currentPlayer.getPlayerLives() + " lives remaining.");
-				System.out.println(resume);
+				
+				// if you're at the beginning of the game, reset first puzzle
+				if(currentRoom.equals(womb))
+				{
+					forceMove(womb);
+				}
+				else
+				{
+					System.out.println(resume);
+				}
 			}
 			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
 			{
@@ -989,6 +1009,8 @@ public class GameController
 	{
 		String rank = "";
 		int score = currentPlayer.getPlayerScore();
+		
+		// TODO set some actual score ranges based on available encounters ((total points in game - 5)/6)
 		if(score < 100)
 		{
 			rank = "Bugger";
@@ -1113,12 +1135,12 @@ public class GameController
 
 
 		tauntFlee = new String [] {"attDown", "10", "You take a kungfu stance "
-					+ "and grin menacingly. \n"
-					+ "Two of the bullies show their true colors and flee.", "Jerry",
-					"You do your best to taunt", "You flaunt your puny muscles.", 
-					"You expell flatulence in the general direction of",
-					"is mildly amused that you thought that would have any affect.",
-					"is dumbfounded.", "is disgusted but unmoved."};
+				+ "and grin menacingly. \n"
+				+ "Two of the bullies show their true colors and flee.", "Jerry",
+				"You do your best to taunt", "You flaunt your puny muscles.", 
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any affect.",
+				"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntFlee1 = new String [] {"attDown", "10", "You take a karate kid krane stance "
 				+ "and grin menacingly. \n"
@@ -1129,21 +1151,21 @@ public class GameController
 				"is dumbfounded.", "is disgusted but unmoved."};
 		
 		tauntEnrage = new String [] {"enrage", "50", "You show your opponent "
-					+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
-					+ "really mad.", 
-					"ENRAGED Mazer Rackham", "You do your best to taunt", 
-					"You flaunt your puny muscles.", "",
-					"You expell flatulence in the general direction of",
-					"is mildly amused that you thought that would have any effect.",
-					"is like full-on Super Seiyan berserker mode mad right now."};
+				+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
+				+ "really mad.", 
+				"ENRAGED Mazer Rackham", "You do your best to taunt", 
+				"You flaunt your puny muscles.", "",
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any effect.",
+				"is like full-on Super Seiyan berserker mode mad right now."};
 
 		tauntHide = new String [] {"dodgeDown", "100", "You shout insults about your foes "
-					+ "maternal unit. \n"
-					+ "Enraged, he is done playing the hiding game.", "Peter",
-					"You do your best to taunt", "You flaunt your puny muscles.", 
-					"You expell flatulence in the general direction of",
-					"is mildly amused that you thought that would have any effect.",
-					"is dumbfounded.", "is disgusted but unmoved."};
+				+ "maternal unit. \n"
+				+ "Enraged, he is done playing the hiding game.", "Peter",
+				"You do your best to taunt", "You flaunt your puny muscles.", 
+				"You expell flatulence in the general direction of",
+				"is mildly amused that you thought that would have any effect.",
+				"is dumbfounded.", "is disgusted but unmoved."};
 
 		tauntConcentration = new String [] {"dodgeDown", "25", 
 				"You shout insults about your foes maternal unit. \n"
@@ -1611,8 +1633,17 @@ public class GameController
 		outside.setRoomExits(new Room[]{null, null, airlock, formicCastle});
 		formicCastle.setRoomExits(new Room[]{null, null, outside, null});
 		
+		// room redirect conditions
+		womb.setRedirect(deliveryRoom);
+		deliveryRoom.setRedirect(crib);
+		crib.setRedirect(livingRoom);
+		livingRoom.setRedirect(orientation);
+		infirmary.setRedirect(bedroom);
+		livingRoom2.setRedirect(spaceship);
+		spaceship.setRedirect(bunkroomL);
+		
 		// set up current player and room
-		currentPlayer = new Player("Test Player", 0, 65, 65, 20, 10, 10, false, false, false, false, new Inventory());
+		currentPlayer = new Player("Player", 0, 100, 100, 20, 10, 5, false, false, false, false, new Inventory());
 		currentPlayer.getPlayerInventory().setOwner(currentPlayer);
 		currentRoom = womb;
 	}

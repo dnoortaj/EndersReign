@@ -26,6 +26,7 @@ public class Room implements Serializable
 	private Puzzle roomPuzzle;
 	private int roomPuzzleChance;
 	private Room[] roomExits = {null, null, null, null};
+	private Room redirect = null;
 	
 	/** Method: Room
 	 * 
@@ -153,6 +154,16 @@ public class Room implements Serializable
 	{
 		this.roomExits = roomExits;
 	}
+
+	/**
+	 * Method: setRedirect
+	 * sets the room to be redirected to
+	 *  @param Room redirect - Room to redirect to
+	 */
+	public void setRedirect(Room redirect) 
+	{
+		this.redirect = redirect;
+	}
 	
 	/**
 	 * Method: getRoomName
@@ -213,5 +224,15 @@ public class Room implements Serializable
 	public int getRoomPuzzleChance()
 	{
 		return roomPuzzleChance;
+	}
+	
+	/**
+	 * Method: getRedirect
+	 * getter for Room to be redirected to
+	 *  @return Room
+	 */
+	public Room getRedirect() 
+	{
+		return redirect;
 	}
 }

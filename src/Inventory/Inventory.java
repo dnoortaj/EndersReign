@@ -270,9 +270,9 @@ public class Inventory implements Serializable
 			{
 				playerStats += "Nobody's Statistics:\n";
 			}
-			playerStats += "  >  Hit Points: " + owner.getPlayerCurrentHP() + "/" +
-					owner.getPlayerMaxHP() + "\n  >  Attack: " + owner.getPlayerAttack() +
-					"\n  >  Dodge: " + owner.getPlayerDodge() + "\n";
+			playerStats += "   Hit Points: " + owner.getPlayerCurrentHP() + "/" +
+					owner.getPlayerMaxHP() + "\n   Attack: " + owner.getPlayerAttack() +
+					"\n   Dodge: " + owner.getPlayerDodge() + "\n";
 		}
 
 		// determines if weapon and accessory are equipped
@@ -315,14 +315,14 @@ public class Inventory implements Serializable
 		{
 			if(list.size() == 0)
 			{
-				itemList = "  >  You do not currently possess any usable items.\n";
+				itemList = "   You do not currently possess any usable items.\n";
 			}
 			else
 			{
 				for(int i = 0; i < list.size(); i++)
 				{
 					// construct the item profile
-					itemList += "  >  " + (i + 1) + ": [";
+					itemList += "   " + (i + 1) + ": [";
 
 					if(list.get(i).getItemName() != null)
 					{
