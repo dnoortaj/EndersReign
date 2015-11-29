@@ -11,7 +11,7 @@ public class Enemy implements Serializable {
 
 	private boolean enemyIsDead, inBattle, firstTaunt;
 	private String eName;
-	private int eHP, eDodge, eAttack, ePoints, eID;
+	private int eHP, eDodge, eAttack, ePoints, eID, intro;
 	private String weaponOut, weaponOut2;
 
 	private Item eReward;
@@ -56,11 +56,22 @@ public class Enemy implements Serializable {
 	public void fight(Player p) {
 		playa = p;
 		inBattle = true;
-		System.out.println(eName + " has engaged you in combat."+
+		if((eID % 2) == 0){
+			System.out.println(eName + " is mean-mugging you.");
+			tempo(1250);
+		}
+		else{
+			System.out.println(eName + " is approaching you with an apparent degree of malice.");
+			tempo(1250);
+		}
+		System.out.println(eName + " engaged you in combat."+
 				" (Press H for Help)");
-		if(taunt[0].equalsIgnoreCase("d")){
+		if(taunt[0].equalsIgnoreCase("dodgeDown")){
 			System.out.println(eName + " is agile and very elusive.  You would do well"
 					+ " to be mindful that your opponent is hiding.");
+		}else if (taunt[0].equalsIgnoreCase("attDown")){
+			System.out.println(eName + " has you out numbered. " + taunt[3] + ", the apparent alpha, is "
+					+ "resolved to take you down however his pals are just following his lead.");
 		}
 		listener();
 	}

@@ -1092,24 +1092,24 @@ public class GameController
 
 		hitOutput = new String [] {"You barely grazed doe.", "You scored a major hit on doe.", 
 				"You landed a solid strike on doe.", "You whacked the crap out of doe."};
-		bluntOutput = new String [] {"You tapped doe.", "You whacked doe.", "You smashed doe's head.",
-		"You bludgeoned doe's face in."};	
-		laserOutput = new String [] {"You just grazed doe", "You beamed doe in the leg", 
-				"You zapped doe in the chest", "You zapped doe square in the forehead."};
-		fistOutput = new String [] {"You jabbed at doe and just clipped his shoulder", 
-				"You socked doe.", "You gut-punched doe.", "You decked em right in the kisser, poor doe"};
-		birdOutput = new String [] {"You shot the bird but doe barely noticed", "You gave the finger to doe.",
-				"You flicked off doe", "You shot doe the double bird."};
+		bluntOutput = new String [] {"You tapped doe.", "You whacked doe.", "You smashed doe in the head.",
+				"You bludgeoned doe in the face."};	
+		laserOutput = new String [] {"You just grazed doe,", "You beamed doe in the leg,", 
+				"You zapped doe in the chest,", "You zapped doe square in the forehead."};
+		fistOutput = new String [] {"You jabbed at doe and just clipped his shoulder,", 
+				"You socked doe.", "You gut-punched doe.", "You decked em right in the kisser, poor doe."};
+		birdOutput = new String [] {"You shot the bird but doe barely noticed,", "You gave the finger to doe.",
+				"You flicked off doe,", "You shot doe the double bird."};
 		saberOutput = new String [] {"You poked doe with a lightsaber.", 
-				"You swing your laser sword at doe and just managed to remove his eyebrows.",
-				"You cut off one of doe/'s appendages.", "You scalped doe"};
+				"You swing your laser sword at doe and just managed to remove some eyebrows.",
+				"You cut off an appendage doe will probably miss.", "You scalped doe"};
 		bugOutput = new String [] {"The You pesters doe.", 
 				"You sneaks up on you and bites you on the back of the neck.", 
 				"You crawls up your arm and it feels all ichy.", 
-		"You crawls in your ear and lays eggs in your brain."};
+				"You crawls in your ear and lays eggs in your brain."};
 		bzzOutput = new String [] {"\"Bzzzz, Bzzz\" says the You.", 
 				"You flys in close and darts off at the last moment.  /n In an attempt to smack it you manage"
-							+ " to slap yourself across the face.", "You stings you in the eyeball."};
+				+ " to slap yourself across the face.", "You stings you in the eyeball."};
 
 
 		tauntFlee = new String [] {"attDown", "10", "You take a kungfu stance "
