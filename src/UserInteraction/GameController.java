@@ -1595,7 +1595,7 @@ package UserInteraction;
 					+ "and lay down in your bunk.","All of the other Launchies are in "
 					+ "their respective bunks, and you lay here wide awake.\nNow would "
 					+ "be a great time to see what your tablet can do."}, 
-					null, 100, null, 100);
+					null, 100, giantPuzzle, 0);
 			hallwayS = new Room("a long hallway leading to the Salamander bunks", new String[]{
 					"After the giant encounter, Colonel Graff and Major Anderson promote you to the Salamander"
 					+ " team. You meet\nyour new team and Leader, Bonzo. He isn't too "
