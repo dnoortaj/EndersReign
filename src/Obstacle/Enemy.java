@@ -188,7 +188,7 @@ public class Enemy implements Serializable {
 				eDodge = 1;
 			}
 
-			//eName = taunt[3]; 
+			//eName = taunt[3];  
 			System.out.println(taunt[2]);
 			firstTaunt = false;
 			listener();
