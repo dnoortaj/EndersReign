@@ -1261,7 +1261,7 @@ package UserInteraction;
 
 			//accessories
 			academy = new Accessory ("Academy Monitor", "Hurts about as much as a papercut to remove."
-						+ " If the paper was made of salted knives.", false, -1, 0, 0);
+						+ " If the paper was made of salted knives.", false, 0, -1, 0);
 			writ = new Accessory ("Writ of Advanced Bullying", "Beware that, when fighting bullies, you "
 						+ "yourself do not become a bully.", false, 2, -1, 2);
 			goldStar = new Accessory ("Gold Star", "Grants the title, \"Teacher's Pet.\"", false, 0, 3, 0);
