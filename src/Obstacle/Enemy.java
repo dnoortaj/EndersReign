@@ -138,7 +138,7 @@ public class Enemy implements Serializable {
 
 	public boolean hitMiss(int dodge){
 		
-		if(rand.nextInt(14) <= dodge){
+		if(rand.nextInt(101) >= dodge){
 			return true;
 		}
 		else{
