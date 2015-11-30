@@ -108,7 +108,6 @@ public class Enemy implements Serializable {
 			eHP = (int)(eHP - actualDamage);
 			Weapon temp = ((Weapon) playa.getPlayerInventory().getCurrentWeapon());
 			if(temp != null){
-				System.out.println(damageDescription);
 				weaponOut =(temp.getOutput(damageDescription));
 				weaponOut2  = weaponOut.replace("doe", eName);
 				System.out.println(weaponOut2 + " Inflicting " + actualDamage.intValue()
@@ -261,7 +260,7 @@ public class Enemy implements Serializable {
 
 
 	public void playerIsAlive(){
-		if(playa.getPlayerCurrentHP() < 0 && playa.getPlayerCurrentHP() >= -5){
+		if(playa.getPlayerCurrentHP() <= 0 && playa.getPlayerCurrentHP() >= -5){
 			playa.setPlayerCurrentHP(0);
 			System.out.println("You are dead.");
 		}
