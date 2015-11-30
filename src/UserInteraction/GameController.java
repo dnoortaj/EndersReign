@@ -1613,12 +1613,10 @@ package UserInteraction;
 					+ "Leopards! You and your team begin to enter the combat arena, "
 					+ "but Bonzo stops you. 'You stay here. \nYou aren't going to get in "
 					+ "my way. We are undefeated for a reason. We don't need a Launchie"
-					+ " like you.'","You decide to step foot into the combat arena in "
-					+ "order to protect a teammate that doesn't see what she's about to "
-					+ "float into."}, 
+					+ " like you.'","There are people 'pew'ing their guns at each other."}, 
 					null, 100, bonzoPuzzle, 100);
 			bunkroomD = new Room("the Dragons' bunkroom", new String[]{"You see a few cadets you recognize "
-					+ "and a few new ones, but they're all ready to follow your lead.","You're being called to a final"
+					+ "and a few new ones, but they're all ready to follow your lead.","You're being called to a final "
 					+ "face-off agains the Salamanders; better head to the combat arena!"}, 
 					null, 100, null, 100);
 			combatArena3 = new Room("the zero-gravity combat arena", new String[]{"They're changing the "
@@ -1736,11 +1734,11 @@ package UserInteraction;
 					+ "new quarters, and your new team: the Dragons.","REDIRECTS TO bunkroomD"}, 
 					null, 100, null, 100);
 			lake = new Room("a tranquil lake", new String[]{"There's a nice lake here and you choose to sit"
-					+ " on the dock and just think for a while.\nThe silence is short-lived, however, as"
+					+ " on the dock and just think for a while.\nThe silence is short-lived, however, as "
 					+ "you spot Colonel Graff pulling up to your cabin and\nmaking his way over to you. "
 					+ "A long conversation ensues, in which the Colonel accuses you of being\na baby-back-"
-					+ "b!tch, urging you to re-join\nthe Federation -- as a commander-in-training. Eventually, you surrender, "
-					+ "and are subsequently\nshipped off to Command School's Forward Outpost.","REDIRECTS TO sleepingQuarters"}, 
+					+ "b!tch, urging you to re-join the Federation -- as a commander-in-training. \nEventually, you surrender, "
+					+ "and are subsequently shipped off to Command School's Forward Outpost.","REDIRECTS TO sleepingQuarters"}, 
 					null, 100, null, 100);
 			commandHallway = new Room("the hallway leading to the command room", new 
 					String[]{"You walk into the hallway and consider your options of storming"
@@ -1822,6 +1820,7 @@ package UserInteraction;
 			livingRoom2.setRedirect(spaceship);
 			spaceship.setRedirect(bunkroomL);
 			hallwayS.setRedirect(bunkroomS);
+			hallwayD.setRedirect(bunkroomD);
 			combatArena3.setRedirect(shower);
 			shower.setRedirect(cabin);
 			cabin.setRedirect(lake);
