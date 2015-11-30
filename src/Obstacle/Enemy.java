@@ -100,7 +100,7 @@ public class Enemy implements Serializable {
 	}
 
 	public void playerAttack() {
-		if(hitMiss(eDodge)){
+		if(hitMiss(eDodge)){ 
 			int damage = damage();
 			int damageDescription = damage / 10;
 			Double doubDamage = (double)damage;
@@ -188,7 +188,7 @@ public class Enemy implements Serializable {
 				eDodge = 1;
 			}
 
-			eName = taunt[3];
+			//eName = taunt[3];
 			System.out.println(taunt[2]);
 			firstTaunt = false;
 			listener();
