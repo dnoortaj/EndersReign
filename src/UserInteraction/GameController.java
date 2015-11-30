@@ -1690,30 +1690,45 @@ package UserInteraction;
 					+ "taking note of the special attention given by the janitorial staff; it is\ncompletely and utterly spotless.","Important-"
 					+ "looking individuals and instructors occasionally pass you by. It may not be a good idea to linger here."}, 
 					mosquito, 20, null, 100);
-			adminOffice = new Room("move desc", new String[]{"initial string","look string"}, 
-					bee, 50, null, 100);
-			emptyClassroom = new Room("move desc", new String[]{"initial string","look string"}, 
-					bullies, 50, null, 100);
-			
-			homeHallway = new Room("move desc", new String[]{"initial string","look string"}, 
+			adminOffice = new Room("the Administrative Office", new String[]{"You walk into"
+					+ " the administrative office where you see a few students awaiting their"
+					+ " upcoming doom","The administrative assistant is mean mugging you. I"
+					+ " don't think you'll be very productive here.."}, bee, 50, null, 100);
+			emptyClassroom = new Room("an empty classroom", new String[]{"You just "
+					+ "walked into a classroom that supposedly classes take place in.",
+					"You see empty chairs and desks, it's pretty pointless for you to"
+					+ " be in here."}, bullies, 50, null, 100);
+			homeHallway = new Room("the hallway", new String[]{"You walked into the hallway"
+					+ " that separates all of the bedrooms of the house.","Well, there are lots"
+					+ " of family portraits to show off what a failure your family has been so far."}, 
 					mosquito, 50, null, 100);
-			sisterRoom = new Room("move desc", new String[]{"initial string","look string"}, 
+			sisterRoom = new Room("your sister's room", new String[]{"You've entered the"
+					+ " dark abyss that is your sister's bedroom.","Well, there's her bed "
+					+ "and stuff... just a lot of really girly things .. don't touch."}, 
 					bedBug, 50, null, 100);
-			kitchen = new Room("move desc", new String[]{"initial string","look string"}, 
-					centipede, 50, null, 100);
-			diningRoom = new Room("move desc", new String[]{"initial string","look string"}, 
+			kitchen = new Room("the kitchen", new String[]{"You have wandered into the"
+					+ " kitchen aimlessly","Are you hungry or something? You can look in"
+					+ " the fridge, but you won't find anything good in there."}, centipede, 
+					50, null, 100);
+			diningRoom = new Room("the dining room", new String[]{"This is the room in "
+					+ "which you nourish your body as a family.","You see a table, some "
+					+ "chairs, fancy china that you only bring out when grandma visits..."}, 
 					beatle, 50, null, 100);
 
-			launchieHallway = new Room("move desc", new String[]{"initial string","look string"}, 
-					dissenter, 60, null, 100);
+			launchieHallway = new Room("the hallway leading to the launchie bunkroom",
+					new String[]{"You are in the hallway between the launchie bunkroom and"
+					+ " the combat arena.","You can continue to stand there and look pretty"
+					+ " or you can actually do something productive."}, dissenter, 60, null, 100);
 			
 			strategyClass2 = new Room("a combat training classroom", new String[]{"You just walked into "
 					+ "Combat Strategy class. This is where you learn hand-to-hand combat.",
 					"You see other cadets fighting the droids and one is open for you to fight."}, 
 					droid, 50, null, 100);
 
-			salamanderHallway = new Room("move desc", new String[]{"initial string","look string"}, 
-					cadet, 60, null, 100);
+			salamanderHallway = new Room("the hallway leading to the salamander bunkroom",
+					new String[]{"You are in the hallway between the salamander bunkroom and"
+					+ " the combat arena.","I guess you just want to stand here and watch paint"
+					+ " dry, because that's about all there is to do in this room."}, cadet, 60, null, 100);
 			hallwayD = new Room("an orange-lit hallway leading to the Dragons' quarters", new String[]{
 					"Colonel Graff was watching and saw what you did. He thinks your strategy skills are\n"
 					+ "wonderful and you're ready to run your own team; welcome to the ranks of squad "
@@ -1727,12 +1742,18 @@ package UserInteraction;
 					+ "b!tch, urging you to re-join\nthe Federation -- as a commander-in-training. Eventually, you surrender, "
 					+ "and are subsequently\nshipped off to Command School's Forward Outpost.","REDIRECTS TO sleepingQuarters"}, 
 					null, 100, null, 100);
-			commandHallway = new Room("move desc", new String[]{"initial string","look string"}, 
-					jerry, 20, null, 100);
-			commandHallway2 = new Room("move desc", new String[]{"initial string","look string"}, 
-					jerry, 20, null, 100);
-			queenRoom = new Room("move desc", new String[]{"initial string","look string"}, 
-					queen, 100, null, 100);
+			commandHallway = new Room("the hallway leading to the command room", new 
+					String[]{"You walk into the hallway and consider your options of storming"
+					+ " into the command room","walls, walls, oh, and a door or two. You can"
+					+ " choose to enter one or just go back"}, jerry, 20, null, 100);
+			commandHallway2 = new Room("the hallway leading to the command room", new 
+					String[]{"You walk into the hallway and consider your options of storming"
+					+ " into the command room","walls, walls, oh, and a door or two. You can"
+					+ " choose to enter one or just go back"}, jerry, 20, null, 100);
+			queenRoom = new Room("the Queen's sleeping quarters", new String[]{"You enter"
+					+ " the queen's room timidly.. looking left and right to find the Formic"
+					+ " doom you are about to encounter.","Ruins, ruins everywhere. Nothing"
+					+ " but everything you destroyed."}, queen, 100, null, 100);
 
 			// room exits
 			womb.setRoomExits(new Room[]{deliveryRoom, null, null, null});
