@@ -73,7 +73,7 @@ package UserInteraction;
 
 		/** game puzzles */
 		Puzzle wombPuzzle, cribPuzzle, namePuzzle, mathPuzzle, sciencePuzzle, battleStrategyPuzzle,
-		bullyPuzzle, spaceshipPuzzle, giantPuzzle, gunPuzzle, battlePuzzle, preliminaryPuzzle, genocidePuzzle;
+		bullyPuzzle, spaceshipPuzzle, giantPuzzle, gunPuzzle, battlePuzzle, preliminaryPuzzle, genocidePuzzle, bonzoPuzzle;
 
 		/** game rooms */
 		Room womb, deliveryRoom, crib, livingRoom, orientation, hallway, battleStrategyClass,
@@ -362,6 +362,7 @@ package UserInteraction;
 			battlePuzzle = puzzleList.get(10);
 			preliminaryPuzzle = puzzleList.get(11);
 			genocidePuzzle = puzzleList.get(12);
+			bonzoPuzzle = puzzleList.get(13);
 
 			// room section
 			womb = roomList.get(0);
@@ -561,6 +562,7 @@ package UserInteraction;
 			puzzleList.add(battlePuzzle);
 			puzzleList.add(preliminaryPuzzle);
 			puzzleList.add(genocidePuzzle);
+			puzzleList.add(bonzoPuzzle);
 
 			// room section
 			roomList = new ArrayList<Room>();
@@ -770,10 +772,29 @@ package UserInteraction;
 				{
 					System.out.println("You must have the combat suit equipped in order to enter this area.");
 				}
-				else if((room.equals(airlock) || room.equals(outside) || room.equals(formicCastle)) && 
-						!currentPlayer.isOxygenFlag())
+				else if(room.equals(outside) && !genocidePuzzle.getPuzzleIsCompleted())
+				{
+					System.out.println("You have no reason to leave the Outpost.");
+				}
+				else if(room.equals(outside) && !currentPlayer.isOxygenFlag())
 				{
 					System.out.println("You must have the supplemental O2 device equipped in order to enter this area.");
+				}
+				else if(room.equals(infirmary) && !bullies.enemyIsDead())
+				{
+					System.out.println("You have no reason to visit the infirmary at the moment.");
+				}
+				else if(room.equals(hallwayS) && !giantPuzzle.getPuzzleIsCompleted())
+				{
+					System.out.println("You're not authorized to visit the Salamander wing of the station.");
+				}
+				else if(room.equals(hallwayD) && !bonzoPuzzle.getPuzzleIsCompleted())
+				{
+					System.out.println("You're not authorized to visit the Dragon wing of the station.");
+				}
+				else if(room.equals(commandRoom) && !genocidePuzzle.getPuzzleIsCompleted())
+				{
+					System.out.println("You're not authorized to enter the command room.");
 				}
 				else
 				{
@@ -1167,8 +1188,9 @@ package UserInteraction;
 					"You crawls up your arm and it feels all ichy.", 
 					"You crawls in your ear and lays eggs in your brain."};
 			bzzOutput = new String [] {"\"Bzzzz, Bzzz\" says the You.", 
-					"You flys in close and darts off at the last moment.  /n In an attempt to smack it you manage"
-					+ " to slap yourself across the face.", "You stings you in the eyeball."};
+                    "You flies in close and darts off at the last moment.  \n In an attempt to smack it you manage"
+                    + " to slap yourself across the face.", "You stings you on the tip of your nose.",
+                    "You stings you in the eyeball."};
 
 			tauntFlee = new String [] {"attDown", "10", "You take a kungfu stance "
 					+ "and grin menacingly. \n"
@@ -1239,7 +1261,7 @@ package UserInteraction;
 
 			//accessories
 			academy = new Accessory ("Academy Monitor", "Hurts about as much as a papercut to remove."
-						+ " If the paper was made of salted knives.", false, -1, -1, 0);
+						+ " If the paper was made of salted knives.", false, -1, 0, 0);
 			writ = new Accessory ("Writ of Advanced Bullying", "Beware that, when fighting bullies, you "
 						+ "yourself do not become a bully.", false, 2, -1, 2);
 			goldStar = new Accessory ("Gold Star", "Grants the title, \"Teacher's Pet.\"", false, 0, 3, 0);
@@ -1267,30 +1289,29 @@ package UserInteraction;
 
 			//consumables
 			bandAid = new Consumable("Band-Aid", "Cheap, non-effective healing technology from the 20th century.",
-						false, 1);
-			morphine = new Consumable("Morphine", "Consumable,It's not addictive. Promise.", false, 4);
-			potion = new Consumable("Potion", "Cures light wounds for 1d8 health.", false, 8);
-			stimpak = new Consumable("Stimpak", "Standard-issue healing medication.", false, 16);
-			surgeryKit = new Consumable("Surgery Kit", "Now with 20% more amputation!" , false,32);
+						false, 10);
+			morphine = new Consumable("Morphine", "Consumable,It's not addictive. Promise.", false, 20);
+			potion = new Consumable("Potion", "Cures light wounds for 1d8 health.", false, 30);
+			stimpak = new Consumable("Stimpak", "Standard-issue healing medication.", false, 40);
+			surgeryKit = new Consumable("Surgery Kit", "Now with 20% more amputation!" , false, 50);
 			phoenixDown = new Consumable("Phoenix Down", "Reraise sold separately.", false, 999);
 			queenEggs = new Consumable("Queen Eggs", "Taste like chicken.", false, 1);
 
 			
 			//Enemies
-			jerry = new Enemy(); /* adding blank enemy for load/save lists */
 			bullies = new Enemy(01, "Jerry and two of his cohorts", 50, 19, 
 						10, writ, 10, bluntOutput, tauntFlee);
 			peter = new Enemy(02, "Peter", 40, 8, 10, buggerMask, 10, hitOutput,
 						tauntHide);
-			dissenter = new Enemy(03, "Dissenter", 40, 10, 10, fisticuffs, 10, 
+			dissenter = new Enemy(03, "Dissenter", 40, 10, 10, laserPistol, 10, 
 						fistOutput, tauntStandard);
 			droid = new Enemy(04, "Hand-to-Hand Combat Droid", 50, 10, 10, 
 						morphine, 10, hitOutput, tauntConcentration);
 			bonzo = new Enemy(05, "Bonzo and two of his buddies", 55, 25, 10,
-						laserPistol, 10, bluntOutput, tauntFlee1);
+						dualLaser, 10, bluntOutput, tauntFlee1);
 			mazer = new Enemy(06, "Mazer Rackham", 70, 14, 
 						10, theBird, 10, birdOutput, tauntEnrage);
-			hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, hat, 10, 
+			hyrum = new Enemy(07, "Colonel Hyrum Graff", 55, 12, 12, admiralsCrest, 10, 
 						laserOutput, tauntStandard);
 			vader = new Enemy(8, "Darth Vader", 65, 17, 12, lightSaber, 20, 
 						saberOutput, tauntStandard);
@@ -1312,6 +1333,8 @@ package UserInteraction;
 						6, bugOutput, tauntBug);
 			mosquito = new Enemy(17, "Swarm of Mosquitos", 35, 8, 17, stimpak,
 						6, bzzOutput, tauntBug);
+			jerry = new Enemy(18, "Short-Round", 40, 10, 10, hat, 10, 
+					hitOutput, tauntStandard);
 
 
 			//puzzles arrays
@@ -1374,7 +1397,7 @@ package UserInteraction;
 
 			String[][] bullyPuzzleText = new String[3][5];
 
-			bullyPuzzleText[0][0] = "\nAfter the incident with Jerry(the bully) in science class,\n"
+			bullyPuzzleText[0][0] = "\nAfter the incident with Jerry (the bully) in science class,\n"
 						+ "Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did.\n"
 						+ "With you on the verge of being kicked out of the academy, how would you explain your actions?\n";
 			bullyPuzzleText[0][1] = "Options: \n'a' \tIt was purely self-defense \n'b' \tHe deserved it \n'c' \tTo end all future fights\n";
@@ -1424,7 +1447,7 @@ package UserInteraction;
 			preliminaryPuzzleText[0][0] = "\nYou are about to embark on three missions that are crucial in reaching the Formic home world.\n"
 						+ "On this first mission, you are informed that someone in your squad has been leaking confidential information to the buggers\n"
 						+ "and you must find out who it is. How will you find the traitor?\n";
-			preliminaryPuzzleText[0][1] = "Options: \n'a' \tGather your squad and interrogate each of them \n'b' \tDon't reveal you new found knowledge to you squad in order to shadow them \n'c' \tAssume you are misinformed and do nothing i\n";
+			preliminaryPuzzleText[0][1] = "Options: \n'a' \tGather your squad and interrogate each of them \n'b' \tDon't reveal you new found knowledge to you squad in order to shadow them \n'c' \tAssume you are misinformed and do nothing \n";
 			preliminaryPuzzleText[0][2] = "\nGood idea, speak softly and carry a big stick!\n";
 			preliminaryPuzzleText[0][3] = "\nThat was a very inept decision\n";
 			preliminaryPuzzleText[0][4] = "b";
@@ -1437,7 +1460,7 @@ package UserInteraction;
 			preliminaryPuzzleText[2][1] = "Options: \n'a' \tFull on frontal assault \n'b' \tFind a diplomatic solution \n'c' \tUse a sacrificial diversion force to infiltrate their base \n";
 			preliminaryPuzzleText[2][2] = "Mission complete!\n";
 			preliminaryPuzzleText[2][3] = "Mission failed: casualties too high\n";
-			preliminaryPuzzleText[2][4] = "'b'";
+			preliminaryPuzzleText[2][4] = "'c'";
 
 			String[][] genocidePuzzleText = new String[3][5];
 
@@ -1446,26 +1469,29 @@ package UserInteraction;
 			genocidePuzzleText[0][2] = "\nWay to accidently commit genocide, can't win for losing I guess\n";
 			genocidePuzzleText[0][3] = "\nTechnically this was a lose-lose situation, but unfortunately you lost\n";
 			genocidePuzzleText[0][4] = "b";
-			genocidePuzzleText[1][0] = "\nAfter being tricked into almost sending the Formic race into extinction, what will you do with the last eggs?\n";
-			genocidePuzzleText[1][1] = "Options: \n'a' \tTake them to a far off inhabitable world and leave them \n'b' \tCrush them like the bug filth they are and end it once and for all \n'c' \tRaise them on Earth to adopt our customs whilst taking the necessary precautions\n";
-			genocidePuzzleText[1][2] = "Let it not be said that Ender Wiggins lacks compassion\n";
-			genocidePuzzleText[1][3] = "Ouch, now that's just cruel\n";
-			genocidePuzzleText[1][4] = "'c'";
+			
+			String[][] bonzoPuzzleText = new String[3][5];
+
+            bonzoPuzzleText[0][0] = "\nYou begin to enter the combat arena, but Bonzo turns to you and says 'You stay here!' What do you do?\n";
+            bonzoPuzzleText[0][1] = "Options: \n'a' \tGo anyways \n'b' \tStay there like the coward you are \n'c' \tPunch everybody in the face\n";
+            bonzoPuzzleText[0][2] = "\nWay to be courageous and disobey your commanding officer!\n";
+            bonzoPuzzleText[0][3] = "\nYou're not quite ready for field experience...\n";
+            bonzoPuzzleText[0][4] = "a";
 
 			//Constructed puzzles
-			wombPuzzle = new Puzzle(false, wombPuzzleText, potion, 5, 0, false);
+			wombPuzzle = new Puzzle(false, wombPuzzleText, fisticuffs, 5, 0, false);
 
-			cribPuzzle = new Puzzle(false, cribPuzzleText, bandAid, 5, 0, false);
+			cribPuzzle = new Puzzle(false, cribPuzzleText, academy, 5, 0, false);
 
 			namePuzzle = new Puzzle(false, namePuzzleText, tablet, 5, 0, true);
 
 			mathPuzzle = new Puzzle(false, mathPuzzleText, goldStar, 5, 0, false);
 
-			sciencePuzzle = new Puzzle(false, sciencePuzzleText, surgeryKit, 5, 0, false);
+			sciencePuzzle = new Puzzle(false, sciencePuzzleText, bluntObject, 5, 0, false);
 
-			battleStrategyPuzzle = new Puzzle(false, battleStrategyPuzzleText, buggerMask, 5, 0, false);
+			battleStrategyPuzzle = new Puzzle(false, battleStrategyPuzzleText, morphine, 5, 0, false);
 
-			bullyPuzzle = new Puzzle(false, bullyPuzzleText, writ, 5, 0, false);
+			bullyPuzzle = new Puzzle(false, bullyPuzzleText, suit, 5, 0, true);
 
 			spaceshipPuzzle = new Puzzle(false, spaceshipPuzzleText, launchie, 5, 0, false);
 
@@ -1477,14 +1503,16 @@ package UserInteraction;
 
 			preliminaryPuzzle = new Puzzle(false, preliminaryPuzzleText, phoenixDown, 5, 0, true);
 
-			genocidePuzzle = new Puzzle(false, genocidePuzzleText, admiralsCrest, 5, 0, true);
+			genocidePuzzle = new Puzzle(false, genocidePuzzleText, oxygen, 5, 0, true);
+			
+			bonzoPuzzle = new Puzzle(false, bonzoPuzzleText, dragon, 5, 0, true);
 
 
 			// rooms 
 			womb = new Room("your mother's womb", new String[]{"Soon to be born into the world,"
 					+ " you, little Ender, are within your mother's womb.\nAmniotic"
 					+ " fluid surrounds you, a helpless little fetus.","REDIRECT TO deliveryRoom"}, 
-					null, 100, null, 100);
+					null, 100, wombPuzzle, 100);
 			deliveryRoom = new Room("a bright light leading outside", new String[]{"After escaping"
 					+ " the womb, you cry as the doctor hands you over to your mother.\n"
 					+ "You are surrounded by adults- nurses, doctors, creepers- oh wait. "
@@ -1495,40 +1523,41 @@ package UserInteraction;
 					+ "placed you in your crib.\nYou lay within these bars that confine you, "
 					+ "your parents standing idly nearby.\nYou listen closer and overhear them"
 					+ " discussing your future.\nYou are meant to be someone, Ender.","REDIRECT TO livingRoom"}, 
-					null, 100, null, 100);
+					null, 100, cribPuzzle, 100);
 			livingRoom = new Room("a well-lit living room", new String[]{"As a toddler, you spend your "
 					+ "free time in the living room utilizing your constant curiosity of the\n"
 					+ " world around you to learn as much as you can as quickly as possible.\nLooking around, you "
 					+ "see your brother and sister sitting on the couch reading books.", "REDIRECT TO orientation"}, 
-					null, 100, null, 100);
+					null, 100, namePuzzle, 100);
 			orientation = new Room("orientation at the academy", new String[]{"Welcome to the Academy."
 					+ " They've installed a monitor in the back of your neck so they can watch your"
 					+ " every move. That's not creepy at all.","Surrounding you are a handful of kids"
 					+ " just like you- dressed the same, incredibly intelligent, all being monitored"
 					+ " very closely."}, 
-					null, 100, null, 100);
+					beatle, 20, null, 100);
 			hallway = new Room("a long hallway", new String[]{"Just another brick in the wall. You silently"
 					+ " stroll the crowded hallway between classes.","To your left is your math class,"
 					+ " to your right is your science class, and all\naround you are some of the most"
 					+ " intelligent kids in the entire country. Careful where you tread."}, 
-					null, 100, null, 100);
+					housefly, 20, null, 100);
 			scienceClass = new Room("a science classroom", new String[]{"Specimens galore and"
 					+ " not a thing on the floor. The science classroom is pristine.","There"
 					+ " appear to be multiple pointy objects on desktops. The classroom\nis quite"
 					+ " normal otherwise."}, 
-					null, 100, null, 100);
+					bullies, 20, sciencePuzzle, 80);
 			mathClass = new Room("a math classroom", new String[]{"Well, you miscalculated that move. "
 					+ "You are now in the math classroom.\nThe amount of safety infractions within "
 					+ "this room are just adding up.","Minus the bright fluorescence, this math class "
 					+ " is pointless.\nNo one here. Just empty sets of desks and chairs."}, 
-					null, 100, null, 100);
+					bullies, 20, mathPuzzle, 80);
 			hallway2 = new Room("another long hallway", new String[]{"The hallway buzzes with the sound of meaningful "
 					+ "conversation.","Students. Students everywhere. Battle Strategy class is on one side"
-					+ "and the infirmary is on the other."}, null, 100, null, 100);
+					+ "and the infirmary is on the other."}, 
+					ant, 50, null, 100);
 			battleStrategyClass = new Room("the battle strategy classroom", new String[]{"Action time! Battle"
 					+ " Strategy class has begun. You take your seat and prepare for today's quiz."
 					,"Students around you scribble answers frantically on their quizzes."}, 
-					null, 100, null, 100);
+					centipede, 20, battleStrategyPuzzle, 80);
 			infirmary = new Room("the infirmary", new String[]{"Welcome to the infirmary! We've"
 					+ " been expecting you... Now lay face down. This won't hurt a bit.\n\n"
 					+ "You feel a major twinge of pain as the nurse rips your monitor out "
@@ -1539,15 +1568,15 @@ package UserInteraction;
 					+ "enter your shared bedroom with your elder brother, Peter.","Your "
 					+ "siblings question your release from the program, and Peter wishes to "
 					+ "play a game of 'Formic Invader'."}, 
-					null, 100, null, 100);
+					peter, 60, null, 100);
 			livingRoom2 = new Room("your household living room", new String[]{"Colonel Hyrum Graff and "
 					+ "Major Anderson came over to talk to you.\nEveryone is gathered "
 					+ "in the living room, watching as the Colonel begins to question you.","REDIRECT TO spaceship"},
-					null, 100, null, 100);
+					null, 100, bullyPuzzle, 100);
 			spaceship = new Room("the shuttle to Battle School", new String[]{"You step foot "
 					+ "onto the spaceshuttle, seeing all of the other new launchies headed "
 					+ "to\nBattle School. You take your seat and buckle in for the flight.","REDIRECT TO bunkroomL"},
-					null, 100, null, 100);
+					null, 100, spaceshipPuzzle, 100);
 			bunkroomL = new Room("the launchies' bunkroom", new String[]{"When you reach Battle School, "
 					+ "everyone walks into the bunkroom.", "Just rows of bunks line either "
 					+ "side of the room. The new cadets left you the one closest to the door\n"
@@ -1556,11 +1585,11 @@ package UserInteraction;
 			combatArena = new Room("the zero-gravity combat arena", new String[]{"You and your peers get to "
 					+ "experience the Combat Arena. Zero gravity!","You see barriers and "
 					+ "you're tempted to give your gun a real test to see what it can do."},
-					null, 100, null, 100);
+					cadet, 60, null, 100);
 			strategyClass = new Room("a combat training classroom", new String[]{"You just walked into "
 					+ "Combat Strategy class. This is where you learn hand-to-hand combat.",
 					"You see other cadets fighting the droids and one is open for you to fight."}, 
-					null, 100, null, 100);
+					droid, 50, null, 100);
 			bunkroomL2 = new Room("the launchies' bunkroom", new String[]{"You return to your bunk,"
 					+ " exhausted from your day's events. You remove all of your gear\n"
 					+ "and lay down in your bunk.","All of the other Launchies are in "
@@ -1568,8 +1597,8 @@ package UserInteraction;
 					+ "be a great time to see what your tablet can do."}, 
 					null, 100, null, 100);
 			hallwayS = new Room("a long hallway leading to the Salamander bunks", new String[]{
-					"After defeating the giant, Colonel Graff and Major Anderson promote you to the Salamander"
-					+ " team. You meet your new team and Leader, Bonzo. He isn't too "
+					"After the giant encounter, Colonel Graff and Major Anderson promote you to the Salamander"
+					+ " team. You meet\nyour new team and Leader, Bonzo. He isn't too "
 					+ "happy to have a new person on his team, so watch your back.\nYour "
 					+ "new teammates are in the hall, playing a game of jacks. None"
 					+ " too interested in getting to know you.","REDIRECT TO bunkroomS"}, 
@@ -1579,7 +1608,7 @@ package UserInteraction;
 					+ "salamander insignia on your uniforms.","Bunkbeds. Bunkbeds everywhere. "
 					+ "It appears that this team likes to play 'Rebuild your gun \nas "
 					+ "fast as you can'. Bonzo is the champion of this game!"}, 
-					null, 100, null, 100);
+					dissenter, 50, gunPuzzle, 50);
 			combatArena2 = new Room("the zero-gravity combat arena", new String[]{"Time to battle the "
 					+ "Leopards! You and your team begin to enter the combat arena, "
 					+ "but Bonzo stops you. 'You stay here. \nYou aren't going to get in "
@@ -1587,7 +1616,7 @@ package UserInteraction;
 					+ " like you.'","You decide to step foot into the combat arena in "
 					+ "order to protect a teammate that doesn't see what she's about to "
 					+ "float into."}, 
-					null, 100, null, 100);
+					null, 100, bonzoPuzzle, 100);
 			bunkroomD = new Room("the Dragons' bunkroom", new String[]{"You see a few cadets you recognize "
 					+ "and a few new ones, but they're all ready to follow your lead.","You're being called to a final"
 					+ "face-off agains the Salamanders; better head to the combat arena!"}, 
@@ -1597,12 +1626,12 @@ package UserInteraction;
 					+ "ever will you do to defeat all of these people?\nFor some reason "
 					+ "the gate already open to the arena when you arrive.. This is very "
 					+ "suspicious.","REDIRECT TO shower"}, 
-					null, 100, null, 100);
+					null, 100, battlePuzzle, 100);
 			shower = new Room("the showers", new String[]{"You defeated Bonzo! And now it's time"
 					+ " to clean off all that sweat and grime from that stressful battle.\n"
 					+ "There are just rows of showers in this room, covered in tile from floor"
 					+ " to ceiling.\nYou suddenly realize that someone has been following you.","REDIRECT TO cabin"}, 
-					null, 100, null, 100);
+					bonzo, 100, null, 100);
 			cabin = new Room("a lake-adjacent cabin", new String[]{"Tired of all the fighting and"
 					+ " drama, you quit being a cadet (mostly because they wouldn't let you talk"
 					+ "\nto your sister). So here you are, in a cabin in the woods on your own...\n"
@@ -1613,38 +1642,38 @@ package UserInteraction;
 					+ " go to the forward outpost for Command School. So, here's your sleeping"
 					+ " quarters.","There is a strange man with tattoos all over his face just"
 					+ " sitting in the middle of your room as if he's meditating."}, 
-					null, 100, null, 100);
+					mazer, 50, null, 100);
 			battleSimulatorRoom = new Room("the battle simulation room", new String[]{"This is the battle"
 					+ " simulation room. They want to see how you perform leading a fleet against "
 					+ "the Formics.","You have a team, each in charge of part of the fleet, all "
 					+ "awaiting your instructions."}, 
-					null, 100, null, 100);
+					null, 100, preliminaryPuzzle, 100);
 			sleepingQuarters2 = new Room("your Command School quarters", new String[]{"After pretending to "
 					+ "lead against the Formics, you've retired to your sleeping quarters to reconsider"
 					+ " strategies.","Here you just see your bed. Your room here is pretty barren."}, 
-					null, 100, null, 100);
+					mazer, 50, null, 100);
 			battleSimulatorRoom2 = new Room("the battle simulation room", new String[]{"You've entered the Battle"
 					+ " Simulator Room. Your team awaits your commands, ready for more practice.\nApparently, the "
 					+ "higher-ups have decided to attend this simulation","The simulator screens have switched over to "
 					+ "live footage of what appears to be the Formic homeworld. You are outraged to find out that\nthis was"
 					+ " all real!"}, 
-					null, 100, null, 100);
+					null, 100, genocidePuzzle, 100);
 			commandRoom = new Room("the Command Room", new String[]{"You run into the Command Room where you come "
 					+ "face to face with Colonel Graff.","This room is filled with your leaders, all proud that you defeated the Formics"
 					+ " in the most efficient way possible!"}, 
-					null, 100, null, 100);
+					hyrum, 100, null, 100);
 			airlock = new Room("the Outpost airlock", new String[]{"You decide you take a look outside of the Forward"
 					+ "Outpost. This is the airlock,\nwhere you prepare to enter an oxygen free environment.",
 					"There are suits on the wall, but you can't seem to find an oxygen mask."}, 
-					null, 100, null, 100);
+					vader, 50, null, 100);
 			outside = new Room("the Outpost outskirts", new String[]{"Outside is barren. You only see ruins.","There is a "
 					+ "building in the distance, you're compelled to head towards it."}, 
-					null, 100, null, 100);
+					jerry, 20, null, 100);
 			formicCastle = new Room("a ruined castle", new String[]{"This must be the Formic queen's castle..."
 					+ "but it's in ruins.","All you see is ruins everywhere.. a loving home that you"
 					+ " are entirely responsible for destroying.\nYou should feel like a really terrible"
 					+ " human being."}, 
-					null, 100, null, 100);
+					jerry, 20, null, 100);
 			
 			
 			// NEW ROOMS
@@ -1653,38 +1682,38 @@ package UserInteraction;
 					+ " since orientation; all that's left over is an quiet room with rows upon rows of"
 					+ " un-filled chairs.","A few slackers are hiding out here in an attempt to dodge"
 					+ " their responsibilities."}, 
-					null, 100, null, 100);
+					bee, 50, null, 100);
 			hallway3 = new Room("an unassuming hallway", new String[]{"This hallway appears to bend at a 90-degree angle and "
 					+ "continue on for some distance.","This is a very boring location. You feel very bored because of how boring it is."}, 
-					null, 100, null, 100);
+					housefly, 20, null, 100);
 			hallway4 = new Room("a long, pristine hallway leading to Academy offices", new String[]{"You start down the hallway, "
 					+ "taking note of the special attention given by the janitorial staff; it is\ncompletely and utterly spotless.","Important-"
 					+ "looking individuals and instructors occasionally pass you by. It may not be a good idea to linger here."}, 
-					null, 100, null, 100);
+					mosquito, 20, null, 100);
 			adminOffice = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					bee, 50, null, 100);
 			emptyClassroom = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					bullies, 50, null, 100);
 			
 			homeHallway = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					mosquito, 50, null, 100);
 			sisterRoom = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					bedBug, 50, null, 100);
 			kitchen = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					centipede, 50, null, 100);
 			diningRoom = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					beatle, 50, null, 100);
 
 			launchieHallway = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					dissenter, 60, null, 100);
 			
 			strategyClass2 = new Room("a combat training classroom", new String[]{"You just walked into "
 					+ "Combat Strategy class. This is where you learn hand-to-hand combat.",
 					"You see other cadets fighting the droids and one is open for you to fight."}, 
-					null, 100, null, 100);
+					droid, 50, null, 100);
 
 			salamanderHallway = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					cadet, 60, null, 100);
 			hallwayD = new Room("an orange-lit hallway leading to the Dragons' quarters", new String[]{
 					"Colonel Graff was watching and saw what you did. He thinks your strategy skills are\n"
 					+ "wonderful and you're ready to run your own team; welcome to the ranks of squad "
@@ -1699,11 +1728,11 @@ package UserInteraction;
 					+ "and are subsequently\nshipped off to Command School's Forward Outpost.","REDIRECTS TO sleepingQuarters"}, 
 					null, 100, null, 100);
 			commandHallway = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					jerry, 20, null, 100);
 			commandHallway2 = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					jerry, 20, null, 100);
 			queenRoom = new Room("move desc", new String[]{"initial string","look string"}, 
-					null, 100, null, 100);
+					queen, 100, null, 100);
 
 			// room exits
 			womb.setRoomExits(new Room[]{deliveryRoom, null, null, null});
@@ -1779,7 +1808,7 @@ package UserInteraction;
 			
 			
 			// set up current player and room
-			currentPlayer = new Player("Player", 0, 100, 100, 20, 10, 5, false, false, false, false, new Inventory());
+			currentPlayer = new Player("Player", 0, 100, 100, 20, 10, 10, false, false, false, false, new Inventory());
 			currentPlayer.getPlayerInventory().setOwner(currentPlayer);
 			currentRoom = womb;
 		}
