@@ -12,7 +12,7 @@ public class TauntTester {
 				+ "and grin menacingly. \n"
 				+ "Two of the bullies show their true colors and flee.", "Jerry",
 				"You bite your thumb.", "You flaunt your puny muscles.", 
-				"You give your best menacing scowl.",
+				"You give your best menacing scowl to",
 				"is mildly amused that you thought that would have any affect.",
 				"is dumbfounded.", "is not really paying enough attention to notice."};
 
@@ -76,11 +76,11 @@ public class TauntTester {
 	public void print(String[] taunt){
 		int i = 4;
 		
-			System.out.println("Taunt type = " + taunt[0] + ". Change Amount " + taunt[1] + ". Next line is the special taunt Output.");
+			System.out.println("--Taunt type = " + taunt[0] + ". Change Amount " + taunt[1] + ". Next line is the special taunt Output.");
 			System.out.println(taunt[2]);
-			System.out.println("If taunt type is attDown then new name is " + taunt[3]);
+			System.out.println("--If taunt type is attDown then new name is " + taunt[3]);
 			while(6 >= i){
-				System.out.println(i + " and " + (i+3));
+				System.out.println("--" + i + " and " + (i+3));
 				if(i == 4 || i == 6){
 				System.out.println(taunt[i] + " Plucifer.");
 				}else{
@@ -94,19 +94,19 @@ public class TauntTester {
 		}
 
 	public void go(){
-		System.out.println("\nFlee");
+		System.out.println("\n--Flee");
 		print(tauntFlee);
-		System.out.println("\nEnrage");
+		System.out.println("\n--Enrage");
 		print(tauntEnrage);
-		System.out.println("\nhide");
+		System.out.println("\n--hide");
 		print(tauntHide);
-		System.out.println("\nConcentration");
+		System.out.println("\n--Concentration");
 		print(tauntConcentration);
-		System.out.println("\nStandard");
+		System.out.println("\n--Standard");
 		print(tauntStandard);
-		System.out.println("\nBug");
+		System.out.println("\n--Bug");
 		print(tauntBug);
-		System.out.println("\nFlee1");
+		System.out.println("\n--Flee1");
 		print(tauntFlee1);
 	}
 	
