@@ -3,6 +3,7 @@ import Inventory.*;
 
 import java.io.Serializable;
 import java.util.Scanner;
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  * @author Ethan Patterson
@@ -60,27 +61,28 @@ public class Puzzle implements Serializable
 		{
 			if(puzzleText[i][0] != null)
 			{
-				System.out.println(puzzleText[i][0]);
+				System.out.println(wrapIt(puzzleText[i][0]));
 				System.out.println(puzzleText[i][1]);
 				System.out.print("> ");
 				String answer = input.nextLine();
 
 				while (!answer.equalsIgnoreCase("a") && !answer.equalsIgnoreCase("b") && !answer.equalsIgnoreCase("c"))
 				{
-					System.out.println("Your input was invalid.\nPlease try again.");
+					System.out.println("Your input was invalid. Please try again.");
+					System.out.print("> ");
 					answer = input.nextLine();
 				}
+				wait(1000);
 				if (answer.equals(puzzleText[i][4]))
 				{
-					System.out.println(puzzleText[i][2]);
+					System.out.println(wrapIt(puzzleText[i][2]));
 					puzzlePoints += questionWeight;
 
 				} else
 				{
-					System.out.println(puzzleText[i][3]);
+					System.out.println(wrapIt(puzzleText[i][3]));
 				}
 			}
-
 		} 
 		puzzleIsCompleted = true;
 		return puzzlePoints;
@@ -168,4 +170,34 @@ public class Puzzle implements Serializable
 		this.questionWeight = questionWeight;
 	}
 
+
+	/*********************************************************************
+	Private helper method for wrapping designated Strings at 80 
+	characters. Uses the wrap function from apache.
+
+	@param String string - String to wrap.
+	@return String - The string with new lines at 80 characters.
+	 *********************************************************************/
+	private String wrapIt(String string)
+	{
+		return WordUtils.wrap(string, 100, "\n", true);
+	}
+	
+	/*********************************************************************
+	Method for making the program wait.
+
+	@param int time - How long to delay the program, in milliseconds.
+	@return none
+	 *********************************************************************/
+	private void wait(int time)
+	{
+		try 
+		{
+		    Thread.sleep(time);
+		} 
+		catch(Exception e) 
+		{
+			Thread.currentThread().interrupt();
+		}
+	}
 }

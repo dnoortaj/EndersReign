@@ -4,7 +4,9 @@ package UserInteraction;
 	import java.util.List;
 	import java.util.Random;
 	import java.util.Scanner;
-	import Inventory.*;
+	import org.apache.commons.lang3.text.WordUtils;
+
+import Inventory.*;
 	import Obstacle.*;
 
 	/*********************************************************************
@@ -21,7 +23,8 @@ package UserInteraction;
 	public class GameController
 	{
 		/** game command list */
-		private String format, resume, helpMe, roaming, puzzleFailed;
+		private String helpFormat, resume, helpMe, roaming, puzzleFailed, 
+		startupText, lineBreak;
 
 		/** file to be loaded, for use with save/load methods */
 		private String gameFile = null;
@@ -94,10 +97,18 @@ package UserInteraction;
 		{
 			helpMe = "Press \"H\" for help.";
 			resume = "Gameplay resumed. " + helpMe;
-			roaming = "You're free to roam around. " + helpMe;
-			puzzleFailed = "Good job, you scored 0 points in that last encounter.\n" +
-					"Maybe your cat walked on the keyboard, or you just have a case of terminal derpies;\n" +
+			roaming = "\nYou're free to roam around. " + helpMe;
+			puzzleFailed = "Good job, you scored 0 points in that last encounter. " +
+					"Maybe your cat walked on the keyboard, or you just have a case of terminal derpies; " +
 					"whichever it is, you're going to have to try that over again.";
+			startupText = "Greetings to you, the unlucky finder of this terrible game. Present this game at " +
+					"your ITEC 3860 classroom at eight-thirty in the morning of the eleventh day of December, " +
+					"and do not be late. You may bring with you several excuses as to your content choices, but nothing else. " +
+					"In your wildest nightmares you could not imagine the god-awful coding horror that awaits you! " +
+					".. see, it's a golden ticket parody, from.. nevermind. Anyway, you're Ender Wiggin, and we're " +
+					"starting from the very-very beginning. For reals.";
+			lineBreak = "\n=================================================="
+					+ "==================================================\n";
 		}
 
 		/*********************************************************************
@@ -129,7 +140,8 @@ package UserInteraction;
 						"Welcome to Ender's Reign: Wiggin's Formic Rage!");
 						displayTitle = false;
 			}
-			System.out.println("Would you like to:\n> Start New Game \n> Load Game \n> Exit");
+			System.out.println("Would you like to:\n> Start [New] Game \n> [Load] Game \n> [Exit]");
+			System.out.print("> ");
 			String input = scanner.nextLine();
 
 			while (!input.equalsIgnoreCase("new")
@@ -138,6 +150,7 @@ package UserInteraction;
 			{
 				System.out.println("Your input did not match available options." +
 						"\n Please type \"New\", \"Load\", or \"Exit\"");
+				System.out.print("> ");
 				input = scanner.nextLine();
 			}
 
@@ -183,15 +196,12 @@ package UserInteraction;
 				{
 					currentPlayer.setPlayerName(input);
 				}
-				
-//	 			TODO game startup text for new file
-				System.out.println("Greetings to you, the unlucky finder of this terrible game. Present this game at\n" +
-						"your ITEC 3860 classroom at eight-thirty in the morning of the eleventh day of December,\n" +
-						"and do not be late. You may bring with you several excuses as to your content choices, but nothing else.\n" +
-						"In your wildest nightmares you could not imagine the god-awful coding horror that awaits you!\n" +
-						".. see, it's a golden ticket parody, from.. nevermind. Anyway, you're Ender Wiggin, and we're\n" +
-						"starting from the very-very beginning. For reals.\n");
+		
+				System.out.println(lineBreak);
+				wait(1000);
+				System.out.println(wrapIt(startupText));
 				autoSave();
+				wait(1000);
 				forceMove(womb);
 				listener();
 			}
@@ -256,8 +266,8 @@ package UserInteraction;
 			}
 			catch (Exception e)
 			{
-				System.out.println("ERROR - COULD NOT READ FROM FILE\n");
 				e.printStackTrace();
+				System.out.println("ERROR - COULD NOT READ FROM FILE\n");
 				loadGame();
 			}
 			
@@ -485,8 +495,8 @@ package UserInteraction;
 			}
 			catch(Exception e)
 			{
-				System.out.println("ERROR - COULD NOT SAVE OBJECTS TO FILE");
 				e.printStackTrace();
+				System.out.println("ERROR - COULD NOT SAVE OBJECTS TO FILE");
 			}
 		}
 
@@ -654,11 +664,12 @@ package UserInteraction;
 				case "i":
 				case "inventory":
 					useItem();
-					System.out.println(roaming);
+					wait(500);
+					System.out.println(wrapIt(roaming));
 					break;
 				case "l":
 				case "look":
-					System.out.println(currentRoom.getRoomDescription(1));
+					System.out.println(wrapIt(currentRoom.getRoomDescription(1)));
 					System.out.print(pathFinder());
 					break;
 				case "1":
@@ -699,33 +710,51 @@ package UserInteraction;
 			{
 				if(name.equalsIgnoreCase("tablet") && currentRoom.equals(bunkroomL2))
 				{
-					tablet.setIsUsed(true);
-					System.out.println("You find a curious-looking game loaded on your tablet and proceed to investigate.");
-					currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
-					// updates score
-					int points = currentRoom.getRoomPuzzle().getPuzzlePoints();
-					System.out.println("Your score just increased by " + points
-							+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
-
-					// retrieves the room's puzzle reward and adds to current player inventory
-					if(currentRoom.getRoomPuzzle().getPuzzleReward() != null && points != 0)
+					if(!tablet.getIsUsed())
 					{
-						currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
-					}	
+						tablet.setIsUsed(true);
+						wait(1000);
+						System.out.println(wrapIt("You find a curious-looking game loaded on your tablet and proceed to investigate."));
+						wait(1000);
+						System.out.println(lineBreak);
+						currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
+						// updates score
+						int points = currentRoom.getRoomPuzzle().getPuzzlePoints();
+						System.out.println(wrapIt("Your score just increased by " + points
+								+ " points for a total of " + currentPlayer.getPlayerScore() + "!"));
+
+						// retrieves the room's puzzle reward and adds to current player inventory
+						if(currentRoom.getRoomPuzzle().getPuzzleReward() != null && points != 0)
+						{
+							currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomPuzzle().getPuzzleReward());
+						}
+						wait(1000);
+						System.out.print(lineBreak);
+					}
 				}
 				else if(name.equalsIgnoreCase("tablet") && !currentRoom.equals(bunkroomL2))
 				{
-					System.out.println("Nothing in particular catches your interest and you soon decide to turn off the tablet.");
+					if(!tablet.getIsUsed())
+					{
+						wait(1000);
+						System.out.println(wrapIt("Nothing in particular catches your interest and you soon decide to turn off the tablet."));
+						wait(1000);
+					}
 				}
 				else if(name.equalsIgnoreCase("phoenix down"))
 				{
+					wait(1000);
 					System.out.println("Your gain an additional life. Go figure.");
+					wait(1000);
 					currentPlayer.setPlayerLives(currentPlayer.getPlayerLives() + 1);
 				}
 				else if(name.equalsIgnoreCase("queen eggs"))
 				{
 					// TODO winning
+					wait(1000);
 					System.out.println("Well, let's pretend you didn't just eat those..");
+					wait(1000);
+					System.out.println(lineBreak);
 					winGame();
 				}
 			}
@@ -770,7 +799,7 @@ package UserInteraction;
 				if((room.equals(combatArena) || room.equals(combatArena2) || room.equals(combatArena3)) && 
 						!currentPlayer.isSuitFlag())
 				{
-					System.out.println("You must have the combat suit equipped in order to enter this area.");
+					System.out.println(wrapIt("You must have the combat suit equipped in order to enter this area."));
 				}
 				else if(room.equals(outside) && !genocidePuzzle.getPuzzleIsCompleted())
 				{
@@ -778,7 +807,7 @@ package UserInteraction;
 				}
 				else if(room.equals(outside) && !currentPlayer.isOxygenFlag())
 				{
-					System.out.println("You must have the supplemental O2 device equipped in order to enter this area.");
+					System.out.println(wrapIt("You must have the supplemental O2 device equipped in order to enter this area."));
 				}
 				else if(room.equals(infirmary) && !bullies.enemyIsDead())
 				{
@@ -824,7 +853,8 @@ package UserInteraction;
 		{
 			boolean monsterEncountered = false;
 			currentRoom = room;
-			System.out.println(currentRoom.getRoomDescription(0));
+			System.out.println(lineBreak);
+			System.out.println(wrapIt(currentRoom.getRoomDescription(0)));
 
 			if(room != null)
 			{
@@ -838,6 +868,7 @@ package UserInteraction;
 							// monster was encountered
 							monsterEncountered = true;
 
+							System.out.println(lineBreak);
 							// combat flag set prior to fight, updated after fight
 							currentPlayer.setBattleFlag(true);
 							currentRoom.getRoomEnemy().fight(currentPlayer);
@@ -846,9 +877,10 @@ package UserInteraction;
 							if(currentRoom.getRoomEnemy().enemyIsDead())
 							{
 								// updates score
-								currentPlayer.setPlayerScore(currentPlayer.getPlayerScore() + currentRoom.getRoomEnemy().getPoints()); 
-								System.out.println("Your score just increased by " + currentRoom.getRoomEnemy().getPoints()
-										+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+								currentPlayer.setPlayerScore(currentPlayer.getPlayerScore() + currentRoom.getRoomEnemy().getPoints());
+								wait(1000);
+								System.out.println("\n" + wrapIt("Your score just increased by " + currentRoom.getRoomEnemy().getPoints()
+										+ " points for a total of " + currentPlayer.getPlayerScore() + "!"));
 
 								// retrieves the room's enemy reward and adds to current player inventory
 								currentPlayer.getPlayerInventory().addToInventory(currentRoom.getRoomEnemy().getReward());
@@ -870,15 +902,16 @@ package UserInteraction;
 						if(random.nextInt(100) + 1 <= currentRoom.getRoomPuzzleChance())
 						{
 							wait(1000);
-
+							System.out.println(lineBreak);
+							
 							// triggers the puzzle, adds outcome to player score
 							currentPlayer.addToScore(currentRoom.getRoomPuzzle().solvePuzzle());
 							int points = currentRoom.getRoomPuzzle().getPuzzlePoints();
 							if(currentRoom.getRoomPuzzle().isKeyPuzzle() && points != 0)
 							{
 								// updates score
-								System.out.println("Your score just increased by " + points
-										+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+								System.out.println(wrapIt("Your score just increased by " + points
+										+ " points for a total of " + currentPlayer.getPlayerScore() + "!"));
 
 								// retrieves the room's puzzle reward and adds to current player inventory
 								if(currentRoom.getRoomPuzzle().getPuzzleReward() != null)
@@ -888,14 +921,14 @@ package UserInteraction;
 							}
 							else if(currentRoom.getRoomPuzzle().isKeyPuzzle() && points == 0)
 							{
-								System.out.println(puzzleFailed);
+								System.out.println(wrapIt(puzzleFailed));
 								loadCheckpoint();
 								return;
 							}
 							else if(!currentRoom.getRoomPuzzle().isKeyPuzzle())
 							{
-								System.out.println("Your score just increased by " + points
-										+ " points for a total of " + currentPlayer.getPlayerScore() + "!");
+								System.out.println(wrapIt("Your score just increased by " + points
+										+ " points for a total of " + currentPlayer.getPlayerScore() + "!"));
 
 								// retrieves the room's puzzle reward and adds to current player inventory
 								if(currentRoom.getRoomPuzzle().getPuzzleReward() != null && points != 0)
@@ -913,7 +946,8 @@ package UserInteraction;
 					forceMove(currentRoom.getRedirect());
 					return;
 				}
-				System.out.println(roaming);
+				wait(1000);
+				System.out.println(lineBreak + wrapIt(roaming));
 			}
 		}
 		
@@ -930,19 +964,19 @@ package UserInteraction;
 			{
 				if(currentRoom.getRoomExits(0) != null)
 				{
-					directions += "To the north lies " + currentRoom.getRoomExits(0).getRoomName() + ".\n";
+					directions += wrapIt("To the north lies " + currentRoom.getRoomExits(0).getRoomName() + ".\n");
 				}
 				if(currentRoom.getRoomExits(1) != null)
 				{
-					directions += "To the south lies " + currentRoom.getRoomExits(1).getRoomName() + ".\n";
+					directions += wrapIt("To the south lies " + currentRoom.getRoomExits(1).getRoomName() + ".\n");
 				}
 				if(currentRoom.getRoomExits(2) != null)
 				{
-					directions += "To the west lies " + currentRoom.getRoomExits(2).getRoomName() + ".\n";
+					directions += wrapIt("To the west lies " + currentRoom.getRoomExits(2).getRoomName() + ".\n");
 				}
 				if(currentRoom.getRoomExits(3) != null)
 				{
-					directions += "To the east lies " + currentRoom.getRoomExits(3).getRoomName() + ".\n";
+					directions += wrapIt("To the east lies " + currentRoom.getRoomExits(3).getRoomName() + ".\n");
 				}
 			}
 			return directions;
@@ -1009,7 +1043,8 @@ package UserInteraction;
 					currentPlayer.setPlayerLives(currentPlayer.getPlayerLives() - 1);
 					currentPlayer.setPlayerCurrentHP(currentPlayer.getPlayerMaxHP());
 					System.out.println("You have " + currentPlayer.getPlayerLives() + " lives remaining.");
-					
+					System.out.println(lineBreak);
+					wait(1000);
 					// if you're at the beginning of the game, reset first puzzle
 					if(currentRoom.equals(womb))
 					{
@@ -1028,12 +1063,17 @@ package UserInteraction;
 			}
 			else
 			{
-				System.out.println("You've exhausted all of your extra lives.\n" +
-						"Your journey seems to be at an end. For reals this time.");
+				System.out.println(lineBreak);
+				System.out.println(wrapIt("You've exhausted all of your extra lives. " +
+						"Your journey seems to be at an end. For reals this time."));
 				System.out.println("Score: " + currentPlayer.getPlayerScore());
 				System.out.println("Rank: Dead Zombie\nBetter luck next time!");
+
+				System.out.println(lineBreak);
+				// TODO losing text
 				System.out.println("GAME OVER.");
-				
+
+				System.out.println(lineBreak);
 				System.out.print("Return to title menu? (Y/N)\n> ");
 				String input = scanner.nextLine();
 				while(!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("yes") && 
@@ -1045,9 +1085,9 @@ package UserInteraction;
 
 				if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
 				{
-
 					mainMenu = true;
 					displayTitle = true;
+					System.out.println(lineBreak);
 					mainMenu();
 				}
 				else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
@@ -1068,37 +1108,40 @@ package UserInteraction;
 			String rank = "";
 			int score = currentPlayer.getPlayerScore();
 			
-			// TODO set some actual score ranges based on available encounters ((total points in game - 5)/6)
-			if(score < 100)
+			if(score < 130)
 			{
 				rank = "Bugger";
 			}
-			else if(score >= 100 && score < 200)
+			else if(score >= 130 && score < 160)
 			{
 				rank = "Launchie";
 			}
-			else if(score >= 200 && score < 300)
+			else if(score >= 160 && score < 190)
 			{
 				rank = "Salamander";
 			}
-			else if(score >= 300 && score < 400)
+			else if(score >= 190 && score < 210)
 			{
 				rank = "Dragon";
 			}
-			else if(score >= 400 && score < 500)
+			else if(score >= 210 && score < 240)
 			{
 				rank = "Admiral";
 			}
-			else if(score >= 500)
+			else if(score >= 240)
 			{
 				rank = "Genocidal Maniac";
 			}
-			System.out.println("Congratulations! You've unwittingly accomplished more than Hitler ever dreamed possible.");
-			System.out.println("I hope you're proud of yourself, you filthy murderer. But no, really, good job!");
+			System.out.println(wrapIt("Congratulations! You've unwittingly accomplished more than Hitler ever dreamed possible. " +
+					"I hope you're proud of yourself, you filthy murderer. But no, really, good job!"));
 			System.out.println("Score: " + score);
 			System.out.println("Rank: " + rank);
+
+			System.out.println(lineBreak);
+			// TODO winning text
 			System.out.println("GAME OVER.");
-			
+
+			System.out.println(lineBreak);
 			System.out.print("Return to title menu? (Y/N)\n> ");
 			String input = scanner.nextLine();
 			while(!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("yes") && 
@@ -1113,6 +1156,7 @@ package UserInteraction;
 
 				mainMenu = true;
 				displayTitle = true;
+				System.out.println(lineBreak);
 				mainMenu();
 			}
 			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
@@ -1129,16 +1173,16 @@ package UserInteraction;
 		 *********************************************************************/
 		public void displayHelp()
 		{
-			format = "%1$-20s%2$-20s%3$-20s%4$-20s\n";
-			System.out.println(currentRoom.getRoomDescription(1));
+			helpFormat = "%1$-20s%2$-20s%3$-20s%4$-20s\n";
+			System.out.println(wrapIt(currentRoom.getRoomDescription(1)));
 			System.out.println(currentPlayer.getPlayerCurrentHP() + "/" 
-				+ currentPlayer.getPlayerMaxHP() + " Hit Points");
+				+ currentPlayer.getPlayerMaxHP() + " Hit Points.");
 			System.out.println(currentPlayer.getPlayerScore() + " magical fairy points.\n");
-			System.out.format(format, " MOVEMENT ", " ACTION ", " FUNCTION", "");
-			System.out.format(format, " >W North ", " >L Look ", " >1 Save Game ", "");	
-			System.out.format(format," >S South ", " >I Inventory ", " >2 Load Game ", "");	
-			System.out.format(format, " >D East " , "", " >0 Exit Game", "");	
-			System.out.format(format, " >A West " , "", "", "");
+			System.out.format(helpFormat, " MOVEMENT ", " ACTION ", " FUNCTION", "");
+			System.out.format(helpFormat, " > W North ", " > L Look ", " > 1 Save Game ", "");	
+			System.out.format(helpFormat," > S South ", " > I Inventory ", " > 2 Load Game ", "");	
+			System.out.format(helpFormat, " > D East " , "", " > 0 Exit Game", "");	
+			System.out.format(helpFormat, " > A West " , "", "", "");
 			System.out.println("\n(Input is not case sensitive.)");
 			
 		}
@@ -1188,12 +1232,12 @@ package UserInteraction;
 					"You crawls up your arm and it feels all ichy.", 
 					"You crawls in your ear and lays eggs in your brain."};
 			bzzOutput = new String [] {"\"Bzzzz, Bzzz\" says the You.", 
-                    "You flies in close and darts off at the last moment.  \n In an attempt to smack it you manage"
+                    "You flies in close and darts off at the last moment. In an attempt to smack it you manage"
                     + " to slap yourself across the face.", "You stings you on the tip of your nose.",
                     "You stings you in the eyeball."};
 
 			tauntFlee = new String [] {"attDown", "10", "You take a kungfu stance "
-					+ "and grin menacingly. \n"
+					+ "and grin menacingly. "
 					+ "Two of the bullies show their true colors and flee.", "Jerry",
 					"You do your best to taunt", "You flaunt your puny muscles.", 
 					"You expell flatulence in the general direction of",
@@ -1201,7 +1245,7 @@ package UserInteraction;
 					"is dumbfounded.", "is disgusted but unmoved."};
 
 			tauntFlee1 = new String [] {"attDown", "10", "You take a karate kid krane stance "
-					+ "and grin menacingly. \n"
+					+ "and grin menacingly. "
 					+ "Two of the bullies show their true colors and flee.", "Bonzo",
 					"You do your best to taunt", "You flaunt your puny muscles.", 
 					"You expell flatulence in the general direction of",
@@ -1209,16 +1253,17 @@ package UserInteraction;
 					"is dumbfounded.", "is disgusted but unmoved."};
 			
 			tauntEnrage = new String [] {"enrage", "50", "You show your opponent "
-					+ "the full moon. \nPerhaps that wasn't your best move yet, now he is "
+					+ "the full moon. Perhaps that wasn't your best move yet; now he is "
 					+ "really mad.", 
 					"ENRAGED Mazer Rackham", "You do your best to taunt", 
-					"You flaunt your puny muscles.", "",
+					"You flaunt your puny muscles.",
 					"You expell flatulence in the general direction of",
 					"is mildly amused that you thought that would have any effect.",
-					"is like full-on Super Seiyan berserker mode mad right now."};
+					"is like full-on Super Seiyan berserker mode mad right now.",
+					"is seriously gonna fcuk your sh!t up."};
 
 			tauntHide = new String [] {"dodgeDown", "100", "You shout insults about your foes "
-					+ "maternal unit. \n"
+					+ "maternal unit. "
 					+ "Enraged, he is done playing the hiding game.", "Peter",
 					"You do your best to taunt", "You flaunt your puny muscles.", 
 					"You expell flatulence in the general direction of",
@@ -1226,7 +1271,7 @@ package UserInteraction;
 					"is dumbfounded.", "is disgusted but unmoved."};
 
 			tauntConcentration = new String [] {"dodgeDown", "25", 
-					"You shout insults about your foes maternal unit. \n"
+					"You shout insults about your foes maternal unit. "
 					+ "Enraged, he is having trouble concentrating.", "Plucifer",
 					"You do your best to taunt", "You flaunt your puny muscles.", 
 					"You expell flatulence in the general direction of",
@@ -1234,19 +1279,19 @@ package UserInteraction;
 					"is dumbfounded.", "is disgusted but unmoved."};
 
 			tauntStandard = new String [] {"z", "0", " ", " ", 
-					"You bite your thumb at ",
+					"You bite your thumb at",
 					"You wave your arms wildly in the air.",
-					"You shout obsenities at ",
+					"You shout obscenities at",
 					" is not impressed.",
 					" makes a comment about you being the son of a motherless goat.",
 					" uses this as an" + " opportunity to take a free hit on you." };
 
 			tauntBug = new String [] {"z", "0", " ", " ", 
-					"You threaten to stomp ",
+					"You threaten to stomp",
 					"You wave your arms wildly in the air.",
-					"You buzz mockingly ",
+					"You buzz mockingly",
 					" is a bug, thus is impervious to your misguided attempts at psychological warfare.",
-					"says \"bzzzz\".",
+					"says \"bug sounds\".",
 					" uses this as an opportunity to take a free hit on you." };
 
 			
@@ -1260,11 +1305,11 @@ package UserInteraction;
 						+ " prevents asphyxiation in thin atmosphere.", true, false);
 
 			//accessories
-			academy = new Accessory ("Academy Monitor", "Hurts about as much as a papercut to remove."
-						+ " If the paper was made of salted knives.", false, 0, -1, 0);
+			academy = new Accessory ("Academy Monitor", "Hurts about as much as a papercut to remove,"
+						+ " if the paper was made of salted knives.", false, 0, -1, 0);
 			writ = new Accessory ("Writ of Advanced Bullying", "Beware that, when fighting bullies, you "
 						+ "yourself do not become a bully.", false, 2, -1, 2);
-			goldStar = new Accessory ("Gold Star", "Grants the title, \"Teacher's Pet.\"", false, 0, 3, 0);
+			goldStar = new Accessory ("Gold Star", "Grants the title, 'Teacher's Pet.'", false, 0, 3, 0);
 			buggerMask = new Accessory ("Bugger Mask", "Buggers and Astronauts. Get with the program.", false,
 						1, 0, 3);
 			launchie = new Accessory("Launchie Insignia", "A bright yellow patch. Granted for reaching Battle"
@@ -1279,8 +1324,8 @@ package UserInteraction;
 
 			//weapons
 			fisticuffs = new Weapon("Fisticuffs", "Have at thee, coward!", false, 1,fistOutput);
-			bluntObject = new Weapon("Blunt Object", "No, not that kind of \"blunt.\"", false, 2,hitOutput);
-			laserPistol = new Weapon("Laser Pistol", "Cautionary note reads: \"NOT FOR ACTUAL USE.\"", false, 0, laserOutput);
+			bluntObject = new Weapon("Blunt Object", "No, not that kind of 'blunt.'", false, 2,hitOutput);
+			laserPistol = new Weapon("Laser Pistol", "Cautionary note reads: 'NOT FOR ACTUAL USE.'", false, 0, laserOutput);
 			dualLaser = new Weapon("Dual Laser Pistols", "What's 0 times 2? Because that's how much damage you'll"
 						+ " be doing with these.", false, 0, laserOutput);
 			theBird = new Weapon("The Bird", "Mazer's weapon of choice, used to devastating effect.", false, 3, birdOutput);
@@ -1290,12 +1335,12 @@ package UserInteraction;
 			//consumables
 			bandAid = new Consumable("Band-Aid", "Cheap, non-effective healing technology from the 20th century.",
 						false, 10);
-			morphine = new Consumable("Morphine", "Consumable,It's not addictive. Promise.", false, 20);
+			morphine = new Consumable("Morphine", "It's not addictive. Promise.", false, 20);
 			potion = new Consumable("Potion", "Cures light wounds for 1d8 health.", false, 30);
 			stimpak = new Consumable("Stimpak", "Standard-issue healing medication.", false, 40);
 			surgeryKit = new Consumable("Surgery Kit", "Now with 20% more amputation!" , false, 50);
 			phoenixDown = new Consumable("Phoenix Down", "Reraise sold separately.", false, 999);
-			queenEggs = new Consumable("Queen Eggs", "Taste like chicken.", false, 1);
+			queenEggs = new Consumable("Queen Eggs", "Taste like chicken.", true, 1);
 
 			
 			//Enemies
@@ -1340,142 +1385,146 @@ package UserInteraction;
 			//puzzles arrays
 			String[][] wombPuzzleText = new String[3][5];
 
-			wombPuzzleText[0][0] = "\nYou are in the womb and the umbilical cord is wrapped around your neck. How do you escape?\n";
-			wombPuzzleText[0][1] = "You can either: \n'a' \tStruggle to get free \n'b' \tKeep as still as possible \n'c' \tEat your way out\n";
-			wombPuzzleText[0][2] = "\nYou escape the clutches of death...even though technically you weren't born yet\n";
+			wombPuzzleText[0][0] = "You are in the womb and the umbilical cord is wrapped around your neck. How do you escape?\n";
+			wombPuzzleText[0][1] = "You can either:\n'a' \tStruggle to get free \n'b' \tKeep as still as possible \n'c' \tEat your way out\n";
+			wombPuzzleText[0][2] = "\nYou escape the clutches of death... even though, technically, you weren't born yet.\n";
 			wombPuzzleText[0][3] = "\nYou're probably going to be born retarded. But hey, at least you'll have character.\n";
 			wombPuzzleText[0][4] = "b";
 
 
 			String[][] cribPuzzleText = new String[3][5];
 
-			cribPuzzleText[0][0] = "\nAfter a few months have passed, you have grown to the point where your crib has become too small to sleep in.\n"
-						+ "In order to find better sleeping arrangement, you must convince you parents you are too big for the crib by escaping it.\n"
+			cribPuzzleText[0][0] = "After a few months have passed, you have grown to the point where your crib has become too small to sleep in. "
+						+ "In order to find better sleeping arrangement, you must convince you parents you are too big for the crib by escaping it. "
 						+ "How will you go about doing this?\n";
 			cribPuzzleText[0][1] = "Would you: \n'a' \tClimb up the sides \n'b' \tRock the cradle \n'c' \tEndlessly scream until relocated\n";
 			cribPuzzleText[0][2] = "\nVery good!\n";
-			cribPuzzleText[0][3] = "\nNot quite\n";
+			cribPuzzleText[0][3] = "\nNot quite..\n";
 			cribPuzzleText[0][4] = "a";
 
 			String[][] namePuzzleText = new String[3][5];
 
-			namePuzzleText[0][0] = "\nUpon frEeing yourself of the coNfinement of the crib, you Discover a namE inscRibed into the wood on the side of the crib.\n "
+			namePuzzleText[0][0] = "Upon frEeing yourself of the coNfinement of the crib, you Discover a namE inscRibed into the wood on the side of the crib. "
 						+ "You presume that the name has to be yours, what is it?\n";
 			namePuzzleText[0][1] = "Options: \n'a' \tDaren \n'b' \tEnder \n'c' \tErnie\n";
 			namePuzzleText[0][2] = "\nI sense something very special about you Ender, but you still have much to learn at the Academy!\n";
-			namePuzzleText[0][3] = "\nYou must search deeper within yourself\n";
+			namePuzzleText[0][3] = "\nYou must search deeper within yourself.\n";
 			namePuzzleText[0][4] = "b";
 
 			String[][] mathPuzzleText = new String[3][5];
 
-			mathPuzzleText[0][0] = "\nDuring one of your math lessons you come across a mind boggling problem:\n"
-						+ " Two fathers and two sons sat down to eat eggs for breakfast.\n"
-						+ " They ate exactly three eggs, each person had an egg. How do you explain this?\n";
+			mathPuzzleText[0][0] = "During one of your 'math' lessons, you come across a mind boggling problem: "
+						+ "Two fathers and two sons sat down to eat eggs for breakfast. "
+						+ "They ate exactly three eggs, each person had an egg. How do you explain this?\n";
 			mathPuzzleText[0][1] = "Options: \n'a' \tThey split the eggs into multiple parts \n"
 						+ "'b' \tThe 'sons' are conjoined twins \n"
 						+ "'c' \tOne of the 'fathers' is also a grandfather\n";
 			mathPuzzleText[0][2] = "\nWay to think logically!\n";
-			mathPuzzleText[0][3] = "\nOk so math might not be your forte…\n";
+			mathPuzzleText[0][3] = "\nOk so riddle-math might not be your forte..\n";
 			mathPuzzleText[0][4] = "c";
 
 			String[][] sciencePuzzleText = new String[3][5];
 
-			sciencePuzzleText[0][0] = "\nScience class is proving to be no walk in the park either, and one question in particular seems to keep tripping you up:\n"
-						+ " If you boiled some ice in a hot frying pan, would it become a gas or a liquid?\n";
+			sciencePuzzleText[0][0] = "Science class is proving to be no walk in the park, and one question in particular seems to keep tripping you up: "
+						+ "If you boiled some ice in a hot frying pan, would it become a gas or a liquid?\n";
 			sciencePuzzleText[0][1] = "Options: \n'a' \tLiquid \n'b' \tBoth \n'c' \tGas\n";
 			sciencePuzzleText[0][2] = "\nYes! It melts and becomes a liquid. Then the liquid gets hot and evaporates into a vapor, which is a gas!\n";
-			sciencePuzzleText[0][3] = "\nWell at least you can match your socks\n";
+			sciencePuzzleText[0][3] = "\nWell, at least you can match your socks.\n";
 			sciencePuzzleText[0][4] = "b";
 
 			String[][] battleStrategyPuzzleText = new String[3][5];
 
-			battleStrategyPuzzleText[0][0] = "\nYour professor presents a question: A formic appears 50 meters ahead of you. What do you do?\n";
-			battleStrategyPuzzleText[0][1] = "Options: \n'a' \tRun out to greet it \n'b' \tSent entire fleet after it \n'c' \tDo nothing\n";
+			battleStrategyPuzzleText[0][0] = "Your professor presents a question: A formic appears 50 meters ahead of you. What do you do?\n";
+			battleStrategyPuzzleText[0][1] = "Options: \n'a' \tRun out to hug it \n'b' \tSent entire fleet after it \n'c' \tDo nothing\n";
 			battleStrategyPuzzleText[0][2] = "\nBrilliant! Now the formic is dead AND you've wasted resources, but good job!\n";
-			battleStrategyPuzzleText[0][3] = "\nYou're not quite ready for field experience...\n";
+			battleStrategyPuzzleText[0][3] = "\nYou're not quite ready for field experience..\n";
 			battleStrategyPuzzleText[0][4] = "b";
 
 			String[][] bullyPuzzleText = new String[3][5];
 
-			bullyPuzzleText[0][0] = "\nAfter the incident with Jerry (the bully) in science class,\n"
-						+ "Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did.\n"
+			bullyPuzzleText[0][0] = "After the incident with Jerry (the bully) in the Academy, "
+						+ "Colonel Graff and Major Anderson inquire as to the reason why you retaliated the way you did. "
 						+ "With you on the verge of being kicked out of the academy, how would you explain your actions?\n";
 			bullyPuzzleText[0][1] = "Options: \n'a' \tIt was purely self-defense \n'b' \tHe deserved it \n'c' \tTo end all future fights\n";
-			bullyPuzzleText[0][2] = "\nA very effective battle tactic, Battle School can use more minds like yours. Congratulations!\n";
-			bullyPuzzleText[0][3] = "\nThat is not tactic we are looking for in our future leaders\n";
+			bullyPuzzleText[0][2] = "\nA very effective battle tactic; Battle School can use more minds like yours. Congratulations!\n";
+			bullyPuzzleText[0][3] = "\nThat is not the answer a potential future leader would give.\n";
 			bullyPuzzleText[0][4] = "c";
 
 			String[][] spaceshipPuzzleText = new String[3][5];
 
-			spaceshipPuzzleText[0][0] = "\nA fellow cadet pukes on the spaceship during the flight to battle school,\n"
+			spaceshipPuzzleText[0][0] = "A fellow cadet pukes on the spaceship during the flight to battle school, "
 						+ "how do you avoid getting enveloped by this disgusting substance?\n";
 			spaceshipPuzzleText[0][1] = "Options: \n'a' \tLean/Dodge Left \n'b' \tSit there and take it like a real man \n'c' \tLean/Dodge Right\n";
-			spaceshipPuzzleText[0][2] = "\nYou avoided a very unpleasant situation\n";
-			spaceshipPuzzleText[0][3] = "\nThat's just nasty, I wouldn't want to be you right now\n";
+			spaceshipPuzzleText[0][2] = "\nYou avoided a very unpleasant situation.\n";
+			spaceshipPuzzleText[0][3] = "\nThat's just nasty, I wouldn't want to be you right now.\n";
 			spaceshipPuzzleText[0][4] = "a";
 
 			String[][] giantPuzzleText = new String[3][5];
 
-			giantPuzzleText[0][0] = "\nYou are now a mouse and encounter a giant barring your way.\n"
-						+ "He presents you with two chalices in order to get past him, which one do you choose?\n";
+			giantPuzzleText[0][0] = "You are now a mouse and encounter a giant barring your way. "
+						+ "He presents you with two chalices, stating that one is filled with poison, and "
+						+ "the other will lead you to 'fairy land.' In order to get past him, which one do you choose?\n";
 			giantPuzzleText[0][1] = "Options: \n'a' \tThe Left Chalice \n'b' \tThe Right Chalice \n'c' \tAttack the Giant\n";
-			giantPuzzleText[0][2] = "\nCongratulations, you have successfully murdered the giant by crawling up his arm and dismantling his brain though his eye socket\n";
-			giantPuzzleText[0][3] = "\nSorry, wrong choice\n";
+			giantPuzzleText[0][2] = "\nCongratulations, you have successfully murdered the giant by crawling up his arm and dismantling his brain though "
+						+ "his eye socket. Totally cool!\n";
+			giantPuzzleText[0][3] = "\nSorry, wrong choice..\n";
 			giantPuzzleText[0][4] = "c";
 
 			String[][] gunPuzzleText = new String[3][5];
 
-			gunPuzzleText[0][0] = "You need to know how to assemble your laser pistol if you want to be a part of the Salamanders.\n"
+			gunPuzzleText[0][0] = "You need to know how to assemble your laser pistol if you want to be a part of the Salamanders. "
 						+ "How would you go about constructing it?\n";
 			gunPuzzleText[0][1] = "Options: \n'a' \t1. Crystal, 2. Aluminum Cylinder, 3. Barrel, 4. Magazine \n'b' \t1. Aluminum Cylinder, 2. Barrel, 3. Crystal, 4. Magazine \n'c' \t1. Magazine, 2. Barrel, 3. Aluminum Cylinder, 4. Crystal\n";
-			gunPuzzleText[0][2] = "\nWelcome to the Salamander Squad!\n";
-			gunPuzzleText[0][3] = "\nYou might need a bit more training\n";
+			gunPuzzleText[0][2] = "\nCritical success! +1 laser pistol.\n";
+			gunPuzzleText[0][3] = "\nYou might need a bit more training.\n";
 			gunPuzzleText[0][4] = "a";
 
 			String[][] battlePuzzleText = new String[3][5];
 
-			battlePuzzleText[0][0] = "\nYou are now the new leader of the Dragon squad and are currently engaged in a battle simulator against your old squad (the Salamanders).\n"
-						+ "In order to defeat your adversary and advance to command school, you must reach their gate by choosing the correct formation.\n"
-						+ "Which formation will lead you to victory?\n";
+			battlePuzzleText[0][0] = "You are now the new leader of the Dragon squad and are currently engaged in a battle simulator against your old squad (the Salamanders) "
+						+ "as well as the Leopard squad. In order to defeat your adversaries and advance to command school, you must reach their gate by choosing the "
+						+ "correct formation. Which formation will lead you to victory?\n";
 			battlePuzzleText[0][1] = "Options: \n'a' \tArrowhead Formation \n'b' \tBunch Formation \n'c' \tCrossfire Formation\n";
-			battlePuzzleText[0][2] = "\nWe are proud to accept you into Command School!\n";
-			battlePuzzleText[0][3] = "\nThat tactic was unsatisfactory\n";
+			battlePuzzleText[0][2] = "\nCongratulations, you and your team have triumphed!\n";
+			battlePuzzleText[0][3] = "\nBonzo and his allies tear your team apart.\n";
 			battlePuzzleText[0][4] = "b";
 
 			String[][] preliminaryPuzzleText = new String[3][5];
 
-			preliminaryPuzzleText[0][0] = "\nYou are about to embark on three missions that are crucial in reaching the Formic home world.\n"
-						+ "On this first mission, you are informed that someone in your squad has been leaking confidential information to the buggers\n"
+			preliminaryPuzzleText[0][0] = "You are about to embark on three missions that are crucial in reaching the Formic home world. "
+						+ "On this first mission, you are informed that someone in your squad has been leaking confidential information to the buggers "
 						+ "and you must find out who it is. How will you find the traitor?\n";
-			preliminaryPuzzleText[0][1] = "Options: \n'a' \tGather your squad and interrogate each of them \n'b' \tDon't reveal you new found knowledge to you squad in order to shadow them \n'c' \tAssume you are misinformed and do nothing \n";
+			preliminaryPuzzleText[0][1] = "Options: \n'a' \tGather your squad and interrogate each of them \n'b' \tDon't reveal you new found "
+						+ "knowledge to you squad in order to shadow them \n'c' \tAssume you are misinformed and do nothing \n";
 			preliminaryPuzzleText[0][2] = "\nGood idea, speak softly and carry a big stick!\n";
-			preliminaryPuzzleText[0][3] = "\nThat was a very inept decision\n";
+			preliminaryPuzzleText[0][3] = "\nThat was a very inept move.\n";
 			preliminaryPuzzleText[0][4] = "b";
-			preliminaryPuzzleText[1][0] = "\nYour next mission is to share some inspiring words with the new cadets in order to boost morale. What will you say?\n";
-			preliminaryPuzzleText[1][1] = "Options: \n'a' \tWar is like a box of chocolates, you never know when you're gonna die \n'b' \tDon't drop the soap in the shower \n'c' \tYour focus will determine your reality\n";
+			preliminaryPuzzleText[1][0] = "Your next mission is to share some inspiring words with the new cadets in order to boost morale. What will you say?\n";
+			preliminaryPuzzleText[1][1] = "Options: \n'a' \tWar is like a box of chocolates, you never know when you're gonna die \n'b' \tDon't drop the soap in "
+						+ "the shower \n'c' \tYour focus will determine your reality\n";
 			preliminaryPuzzleText[1][2] = "That was quite the rally!\n";
-			preliminaryPuzzleText[1][3] = "Amusing yet uninspiring\n";
-			preliminaryPuzzleText[1][4] = "'c'";
-			preliminaryPuzzleText[2][0] = "\nYour final mission is to take a remote Formic outpost with the least casualties possible. How will you accomplish this?\n";
+			preliminaryPuzzleText[1][3] = "Amusing, yet uninspiring.\n";
+			preliminaryPuzzleText[1][4] = "c";
+			preliminaryPuzzleText[2][0] = "Your final mission is to take a remote Formic outpost with the least casualties possible. How will you accomplish this?\n";
 			preliminaryPuzzleText[2][1] = "Options: \n'a' \tFull on frontal assault \n'b' \tFind a diplomatic solution \n'c' \tUse a sacrificial diversion force to infiltrate their base \n";
 			preliminaryPuzzleText[2][2] = "Mission complete!\n";
-			preliminaryPuzzleText[2][3] = "Mission failed: casualties too high\n";
-			preliminaryPuzzleText[2][4] = "'c'";
+			preliminaryPuzzleText[2][3] = "Mission failed: casualties too high.\n";
+			preliminaryPuzzleText[2][4] = "c";
 
 			String[][] genocidePuzzleText = new String[3][5];
 
-			genocidePuzzleText[0][0] = "\nIn order to graduate, you must pass this final battle simulator: Destroy the Formic home world.\n";
+			genocidePuzzleText[0][0] = "In order to graduate, you must pass this final battle simulator: Destroy the Formic home world.\n";
 			genocidePuzzleText[0][1] = "Options: \n'a' \tEngage every enemy ship in range \n'b' \tProtect Petra's ship and shoot the planet \n'c' \tRetreat to fight another day\n";
-			genocidePuzzleText[0][2] = "\nWay to accidently commit genocide, can't win for losing I guess\n";
-			genocidePuzzleText[0][3] = "\nTechnically this was a lose-lose situation, but unfortunately you lost\n";
+			genocidePuzzleText[0][2] = "\nWay to accidently commit genocide. It's kind of winning, I guess.\n";
+			genocidePuzzleText[0][3] = "\nTechnically, this was a lose-lose situation. Unfortunately, you lost.\n";
 			genocidePuzzleText[0][4] = "b";
 			
 			String[][] bonzoPuzzleText = new String[3][5];
 
-            bonzoPuzzleText[0][0] = "\nYou begin to enter the combat arena, but Bonzo turns to you and says 'You stay here!' What do you do?\n";
+            bonzoPuzzleText[0][0] = "You begin to enter the combat arena, but Bonzo turns to you and says 'You stay here!' What do you do?\n";
             bonzoPuzzleText[0][1] = "Options: \n'a' \tGo anyways \n'b' \tStay there like the coward you are \n'c' \tPunch everybody in the face\n";
             bonzoPuzzleText[0][2] = "\nWay to be courageous and disobey your commanding officer!\n";
-            bonzoPuzzleText[0][3] = "\nYou're not quite ready for field experience...\n";
+            bonzoPuzzleText[0][3] = "\nYou're not quite ready for field experience..\n";
             bonzoPuzzleText[0][4] = "a";
 
 			//Constructed puzzles
@@ -1505,28 +1554,28 @@ package UserInteraction;
 
 			genocidePuzzle = new Puzzle(false, genocidePuzzleText, oxygen, 5, 0, true);
 			
-			bonzoPuzzle = new Puzzle(false, bonzoPuzzleText, dragon, 5, 0, true);
+			bonzoPuzzle = new Puzzle(false, bonzoPuzzleText, phoenixDown, 5, 0, true);
 
 
 			// rooms 
 			womb = new Room("your mother's womb", new String[]{"Soon to be born into the world,"
-					+ " you, little Ender, are within your mother's womb.\nAmniotic"
+					+ " you, little Ender, are within your mother's womb. Amniotic"
 					+ " fluid surrounds you, a helpless little fetus.","REDIRECT TO deliveryRoom"}, 
 					null, 100, wombPuzzle, 100);
 			deliveryRoom = new Room("a bright light leading outside", new String[]{"After escaping"
-					+ " the womb, you cry as the doctor hands you over to your mother.\n"
+					+ " the womb, you cry as the doctor hands you over to your mother. "
 					+ "You are surrounded by adults- nurses, doctors, creepers- oh wait. "
-					+ "that's just your family\nwatching to see your next move. You appear"
+					+ "that's just your family watching to see your next move. You appear"
 					+ " to be \"special\" in their eyes.","REDIRECT TO crib"}, 
 					null, 100, null, 100);
 			crib = new Room("your childhood crib", new String[]{"Your family has brought you home and "
-					+ "placed you in your crib.\nYou lay within these bars that confine you, "
-					+ "your parents standing idly nearby.\nYou listen closer and overhear them"
-					+ " discussing your future.\nYou are meant to be someone, Ender.","REDIRECT TO livingRoom"}, 
+					+ "placed you in your crib. You lay within these bars that confine you, "
+					+ "your parents standing idly nearby. You listen closer and overhear them"
+					+ " discussing your future. You are meant to be someone, Ender.","REDIRECT TO livingRoom"}, 
 					null, 100, cribPuzzle, 100);
 			livingRoom = new Room("a well-lit living room", new String[]{"As a toddler, you spend your "
-					+ "free time in the living room utilizing your constant curiosity of the\n"
-					+ " world around you to learn as much as you can as quickly as possible.\nLooking around, you "
+					+ "free time in the living room utilizing your constant curiosity of the"
+					+ " world around you to learn as much as you can as quickly as possible. Looking around, you "
 					+ "see your brother and sister sitting on the couch reading books.", "REDIRECT TO orientation"}, 
 					null, 100, namePuzzle, 100);
 			orientation = new Room("orientation at the academy", new String[]{"Welcome to the Academy."
@@ -1537,18 +1586,18 @@ package UserInteraction;
 					beatle, 20, null, 100);
 			hallway = new Room("a long hallway", new String[]{"Just another brick in the wall. You silently"
 					+ " stroll the crowded hallway between classes.","To your left is your math class,"
-					+ " to your right is your science class, and all\naround you are some of the most"
+					+ " to your right is your science class, and all around you are some of the most"
 					+ " intelligent kids in the entire country. Careful where you tread."}, 
 					housefly, 20, null, 100);
 			scienceClass = new Room("a science classroom", new String[]{"Specimens galore and"
 					+ " not a thing on the floor. The science classroom is pristine.","There"
-					+ " appear to be multiple pointy objects on desktops. The classroom\nis quite"
+					+ " appear to be multiple pointy objects on desktops. The classroom is quite"
 					+ " normal otherwise."}, 
 					bullies, 20, sciencePuzzle, 80);
 			mathClass = new Room("a math classroom", new String[]{"Well, you miscalculated that move. "
-					+ "You are now in the math classroom.\nThe amount of safety infractions within "
+					+ "You are now in the math classroom. The amount of safety infractions within "
 					+ "this room are just adding up.","Minus the bright fluorescence, this math class "
-					+ " is pointless.\nNo one here. Just empty sets of desks and chairs."}, 
+					+ " is pointless. No one here. Just empty sets of desks and chairs."}, 
 					bullies, 20, mathPuzzle, 80);
 			hallway2 = new Room("another long hallway", new String[]{"The hallway buzzes with the sound of meaningful "
 					+ "conversation.","Students. Students everywhere. Battle Strategy class is on one side"
@@ -1559,9 +1608,9 @@ package UserInteraction;
 					,"Students around you scribble answers frantically on their quizzes."}, 
 					centipede, 20, battleStrategyPuzzle, 80);
 			infirmary = new Room("the infirmary", new String[]{"Welcome to the infirmary! We've"
-					+ " been expecting you... Now lay face down. This won't hurt a bit.\n\n"
+					+ " been expecting you... Now lay face down. This won't hurt a bit. "
 					+ "You feel a major twinge of pain as the nurse rips your monitor out "
-					+ "of the back of your neck.\nThey are no longer watching you. You've "
+					+ "of the back of your neck. They are no longer watching you; you've "
 					+ "been removed from the program and sent home.", "REDIRECT TO bedroom"}, 
 					null, 100, null, 100);
 			bedroom = new Room("your bedroom", new String[]{"You've returned to your family. You "
@@ -1570,16 +1619,16 @@ package UserInteraction;
 					+ "play a game of 'Formic Invader'."}, 
 					peter, 60, null, 100);
 			livingRoom2 = new Room("your household living room", new String[]{"Colonel Hyrum Graff and "
-					+ "Major Anderson came over to talk to you.\nEveryone is gathered "
+					+ "Major Anderson came over to talk to you. Everyone is gathered "
 					+ "in the living room, watching as the Colonel begins to question you.","REDIRECT TO spaceship"},
 					null, 100, bullyPuzzle, 100);
 			spaceship = new Room("the shuttle to Battle School", new String[]{"You step foot "
 					+ "onto the spaceshuttle, seeing all of the other new launchies headed "
-					+ "to\nBattle School. You take your seat and buckle in for the flight.","REDIRECT TO bunkroomL"},
+					+ "to Battle School. You take your seat and buckle in for the flight.","REDIRECT TO bunkroomL"},
 					null, 100, spaceshipPuzzle, 100);
 			bunkroomL = new Room("the launchies' bunkroom", new String[]{"When you reach Battle School, "
 					+ "everyone walks into the bunkroom.", "Just rows of bunks line either "
-					+ "side of the room. The new cadets left you the one closest to the door\n"
+					+ "side of the room. The new cadets left you the one closest to the door "
 					+ "and on the bottom bunk."}, 
 					null, 100, null, 100);
 			combatArena = new Room("the zero-gravity combat arena", new String[]{"You and your peers get to "
@@ -1591,27 +1640,27 @@ package UserInteraction;
 					"You see other cadets fighting the droids and one is open for you to fight."}, 
 					droid, 50, null, 100);
 			bunkroomL2 = new Room("the launchies' bunkroom", new String[]{"You return to your bunk,"
-					+ " exhausted from your day's events. You remove all of your gear\n"
+					+ " exhausted from your day's events. You remove all of your gear "
 					+ "and lay down in your bunk.","All of the other Launchies are in "
-					+ "their respective bunks, and you lay here wide awake.\nNow would "
+					+ "their respective bunks, and you lay here wide awake. Now would "
 					+ "be a great time to see what your tablet can do."}, 
 					null, 100, giantPuzzle, 0);
 			hallwayS = new Room("a long hallway leading to the Salamander bunks", new String[]{
 					"After the giant encounter, Colonel Graff and Major Anderson promote you to the Salamander"
-					+ " team. You meet\nyour new team and Leader, Bonzo. He isn't too "
-					+ "happy to have a new person on his team, so watch your back.\nYour "
+					+ " team. You meet your new team and Leader, Bonzo. He isn't too "
+					+ "happy to have a new person on his team, so watch your back. Your "
 					+ "new teammates are in the hall, playing a game of jacks. None"
 					+ " too interested in getting to know you.","REDIRECT TO bunkroomS"}, 
 					null, 100, null, 100);
 			bunkroomS = new Room("the Salamanders' bunkroom", new String[]{"You walk into your new bunkroom"
-					+ " and it resembles your old one except now you have this cool\n"
+					+ " and it resembles your old one except now you have this cool "
 					+ "salamander insignia on your uniforms.","Bunkbeds. Bunkbeds everywhere. "
-					+ "It appears that this team likes to play 'Rebuild your gun \nas "
+					+ "It appears that this team likes to play 'Rebuild your gun as "
 					+ "fast as you can'. Bonzo is the champion of this game!"}, 
 					dissenter, 50, gunPuzzle, 50);
 			combatArena2 = new Room("the zero-gravity combat arena", new String[]{"Time to battle the "
 					+ "Leopards! You and your team begin to enter the combat arena, "
-					+ "but Bonzo stops you. 'You stay here. \nYou aren't going to get in "
+					+ "but Bonzo stops you. 'You stay here. You aren't going to get in "
 					+ "my way. We are undefeated for a reason. We don't need a Launchie"
 					+ " like you.'","There are people 'pew'ing their guns at each other."}, 
 					null, 100, bonzoPuzzle, 100);
@@ -1620,25 +1669,24 @@ package UserInteraction;
 					+ "face-off agains the Salamanders; better head to the combat arena!"}, 
 					null, 100, null, 100);
 			combatArena3 = new Room("the zero-gravity combat arena", new String[]{"They're changing the "
-					+ "rules!! Now it's your team versus Salamanders and Leopards!\nWhat "
-					+ "ever will you do to defeat all of these people?\nFor some reason "
-					+ "the gate already open to the arena when you arrive.. This is very "
+					+ "rules!! Now it's your team versus Salamanders and Leopards! What "
+					+ "ever will you do to defeat all of these people? For some reason "
+					+ "the gate is already open to the arena when you arrive.. This is very "
 					+ "suspicious.","REDIRECT TO shower"}, 
 					null, 100, battlePuzzle, 100);
-			shower = new Room("the showers", new String[]{"You defeated Bonzo! And now it's time"
-					+ " to clean off all that sweat and grime from that stressful battle.\n"
+			shower = new Room("the showers", new String[]{"You defeated the Salamanders and Leopards! Now it's time"
+					+ " to clean off all that sweat and grime from that stressful battle. "
 					+ "There are just rows of showers in this room, covered in tile from floor"
-					+ " to ceiling.\nYou suddenly realize that someone has been following you.","REDIRECT TO cabin"}, 
+					+ " to ceiling. You suddenly realize that someone has been following you.","REDIRECT TO cabin"}, 
 					bonzo, 100, null, 100);
 			cabin = new Room("a lake-adjacent cabin", new String[]{"Tired of all the fighting and"
 					+ " drama, you quit being a cadet (mostly because they wouldn't let you talk"
-					+ "\nto your sister). So here you are, in a cabin in the woods on your own...\n"
+					+ " to your sister). So here you are, in a cabin in the woods on your own... "
 					+ "Somehow you can afford this. It makes total sense that a 13 year old is "
 					+ "living out on his own.","REDIRECT TO lake"}, 
 					null, 100, null, 100);
-			sleepingQuarters = new Room("your Command School quarters", new String[]{"They convinced you to"
-					+ " go to the forward outpost for Command School. So, here's your sleeping"
-					+ " quarters.","There is a strange man with tattoos all over his face just"
+			sleepingQuarters = new Room("your Command School quarters", new String[]{"Upon entering the Forward "
+					+ "Outpost, you are shown to your new quarters.","There is a strange man with tattoos all over his face just"
 					+ " sitting in the middle of your room as if he's meditating."}, 
 					mazer, 50, null, 100);
 			battleSimulatorRoom = new Room("the battle simulation room", new String[]{"This is the battle"
@@ -1651,25 +1699,25 @@ package UserInteraction;
 					+ " strategies.","Here you just see your bed. Your room here is pretty barren."}, 
 					mazer, 50, null, 100);
 			battleSimulatorRoom2 = new Room("the battle simulation room", new String[]{"You've entered the Battle"
-					+ " Simulator Room. Your team awaits your commands, ready for more practice.\nApparently, the "
+					+ " Simulator Room. Your team awaits your commands, ready for more practice. Apparently, the "
 					+ "higher-ups have decided to attend this simulation","The simulator screens have switched over to "
-					+ "live footage of what appears to be the Formic homeworld. You are outraged to find out that\nthis was"
+					+ "live footage of what appears to be the Formic homeworld. You are outraged to find out that this was"
 					+ " all real!"}, 
 					null, 100, genocidePuzzle, 100);
 			commandRoom = new Room("the Command Room", new String[]{"You run into the Command Room where you come "
 					+ "face to face with Colonel Graff.","This room is filled with your leaders, all proud that you defeated the Formics"
 					+ " in the most efficient way possible!"}, 
 					hyrum, 100, null, 100);
-			airlock = new Room("the Outpost airlock", new String[]{"You decide you take a look outside of the Forward"
-					+ "Outpost. This is the airlock,\nwhere you prepare to enter an oxygen free environment.",
+			airlock = new Room("the Outpost airlock", new String[]{"You decide you take a look outside the Forward "
+					+ "Outpost. This is the airlock, where you prepare to enter an oxygen-free environment.",
 					"There are suits on the wall, but you can't seem to find an oxygen mask."}, 
 					vader, 50, null, 100);
 			outside = new Room("the Outpost outskirts", new String[]{"Outside is barren. You only see ruins.","There is a "
-					+ "building in the distance, you're compelled to head towards it."}, 
+					+ "building in the distance; you're compelled to head towards it."}, 
 					jerry, 20, null, 100);
 			formicCastle = new Room("a ruined castle", new String[]{"This must be the Formic queen's castle..."
-					+ "but it's in ruins.","All you see is ruins everywhere.. a loving home that you"
-					+ " are entirely responsible for destroying.\nYou should feel like a really terrible"
+					+ "but it's in ruins.","All you see is ruins everywhere.. a loving home that you and your allies"
+					+ " are entirely responsible for destroying. You should feel like a really terrible"
 					+ " human being."}, 
 					jerry, 20, null, 100);
 			
@@ -1685,15 +1733,15 @@ package UserInteraction;
 					+ "continue on for some distance.","This is a very boring location. You feel very bored because of how boring it is."}, 
 					housefly, 20, null, 100);
 			hallway4 = new Room("a long, pristine hallway leading to Academy offices", new String[]{"You start down the hallway, "
-					+ "taking note of the special attention given by the janitorial staff; it is\ncompletely and utterly spotless.","Important-"
+					+ "taking note of the special attention given by the janitorial staff; it is completely and utterly spotless.","Important-"
 					+ "looking individuals and instructors occasionally pass you by. It may not be a good idea to linger here."}, 
 					mosquito, 20, null, 100);
 			adminOffice = new Room("the Administrative Office", new String[]{"You walk into"
 					+ " the administrative office where you see a few students awaiting their"
-					+ " upcoming doom","The administrative assistant is mean mugging you. I"
+					+ " upcoming doom.","The administrative assistant is mean mugging you. I"
 					+ " don't think you'll be very productive here.."}, bee, 50, null, 100);
 			emptyClassroom = new Room("an empty classroom", new String[]{"You just "
-					+ "walked into a classroom that supposedly classes take place in.",
+					+ "walked into a classroom that classes supposedly take place in.",
 					"You see empty chairs and desks, it's pretty pointless for you to"
 					+ " be in here."}, bullies, 50, null, 100);
 			homeHallway = new Room("the hallway", new String[]{"You walked into the hallway"
@@ -1702,10 +1750,10 @@ package UserInteraction;
 					mosquito, 50, null, 100);
 			sisterRoom = new Room("your sister's room", new String[]{"You've entered the"
 					+ " dark abyss that is your sister's bedroom.","Well, there's her bed "
-					+ "and stuff... just a lot of really girly things .. don't touch."}, 
+					+ "and stuff... just a lot of really girly things.. don't touch."}, 
 					bedBug, 50, null, 100);
-			kitchen = new Room("the kitchen", new String[]{"You have wandered into the"
-					+ " kitchen aimlessly","Are you hungry or something? You can look in"
+			kitchen = new Room("the kitchen", new String[]{"You have aimlessly wandered into the"
+					+ " kitchen.","Are you hungry or something? You can look in"
 					+ " the fridge, but you won't find anything good in there."}, centipede, 
 					50, null, 100);
 			diningRoom = new Room("the dining room", new String[]{"This is the room in "
@@ -1728,30 +1776,33 @@ package UserInteraction;
 					+ " the combat arena.","I guess you just want to stand here and watch paint"
 					+ " dry, because that's about all there is to do in this room."}, cadet, 60, null, 100);
 			hallwayD = new Room("an orange-lit hallway leading to the Dragons' quarters", new String[]{
-					"Colonel Graff was watching and saw what you did. He thinks your strategy skills are\n"
+					"Colonel Graff was watching and saw what you did. He thinks your strategy skills are "
 					+ "wonderful and you're ready to run your own team; welcome to the ranks of squad "
-					+ "captain!\nThe Colonel instructs you to follow the hallway to your"
+					+ "captain! The Colonel instructs you to follow the hallway to your "
 					+ "new quarters, and your new team: the Dragons.","REDIRECTS TO bunkroomD"}, 
 					null, 100, null, 100);
 			lake = new Room("a tranquil lake", new String[]{"There's a nice lake here and you choose to sit"
-					+ " on the dock and just think for a while.\nThe silence is short-lived, however, as "
-					+ "you spot Colonel Graff pulling up to your cabin and\nmaking his way over to you. "
-					+ "A long conversation ensues, in which the Colonel accuses you of being\na baby-back-"
-					+ "b!tch, urging you to re-join the Federation -- as a commander-in-training. \nEventually, you surrender, "
+					+ " on the dock and just think for a while. The silence is short-lived, however, as "
+					+ "you spot Colonel Graff pulling up to your cabin and making his way over to you. "
+					+ "A long conversation ensues, in which the Colonel accuses you of being a baby-back-"
+					+ "b!tch, urging you to re-join the Federation- as a commander-in-training. Eventually, you surrender, "
 					+ "and are subsequently shipped off to Command School's Forward Outpost.","REDIRECTS TO sleepingQuarters"}, 
 					null, 100, null, 100);
-			commandHallway = new Room("the hallway leading to the command room", new 
-					String[]{"You walk into the hallway and consider your options of storming"
-					+ " into the command room","walls, walls, oh, and a door or two. You can"
-					+ " choose to enter one or just go back"}, jerry, 20, null, 100);
+			commandHallway = new Room("the hallway leading to the command room", new String[]{
+					"You enter the steely-grey hall outside, which acts as a connection hub between "
+					+ "the various facilities of the Forward Outpost.","Walls, walls, oh, and a door or "
+					+ "two. You can choose to enter one or just go back."}, 
+					jerry, 20, null, 100);
 			commandHallway2 = new Room("the hallway leading to the command room", new 
-					String[]{"You walk into the hallway and consider your options of storming"
-					+ " into the command room","walls, walls, oh, and a door or two. You can"
-					+ " choose to enter one or just go back"}, jerry, 20, null, 100);
+					String[]{"You walk into the hallway and consider storming"
+					+ " into the command room.","Walls, walls, oh, and a door or two. You can"
+					+ " choose to enter one or just go back."}, 
+					jerry, 20, null, 100);
 			queenRoom = new Room("the Queen's sleeping quarters", new String[]{"You enter"
-					+ " the queen's room timidly.. looking left and right to find the Formic"
+					+ " the queen's room, timidly.. looking left and right to find the Formic"
 					+ " doom you are about to encounter.","Ruins, ruins everywhere. Nothing"
-					+ " but everything you destroyed."}, queen, 100, null, 100);
+					+ " but everything you destroyed."}, 
+					queen, 100, null, 100);
 
 			// room exits
 			womb.setRoomExits(new Room[]{deliveryRoom, null, null, null});
@@ -1832,7 +1883,19 @@ package UserInteraction;
 			currentPlayer.getPlayerInventory().setOwner(currentPlayer);
 			currentRoom = womb;
 		}
+		
+		/*********************************************************************
+		Private helper method for wrapping designated Strings at 80 
+		characters. Uses the wrap function from apache.
 
+		@param String string - String to wrap.
+		@return String - The string with new lines at 80 characters.
+		 *********************************************************************/
+		private String wrapIt(String string)
+		{
+			return WordUtils.wrap(string, 100, "\n", true);
+		}
+		
 		/*********************************************************************
 		Main method for running GameController.
 

@@ -1,6 +1,8 @@
 package Inventory;
 import java.io.Serializable;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import UserInteraction.*;  
 
 @SuppressWarnings("serial")
@@ -44,10 +46,10 @@ public class Consumable extends Item implements Serializable
 		// message displayed on use
 		if(totalHealed == 0)
 		{
-			System.out.println("It must be nice to have full health and an abundance of healing items,\n" + 
-					"huh? 50 DKP minus (for first world problems), in addition to healing 0\n" +
+			System.out.println(WordUtils.wrap("It must be nice to have full health and an abundance of healing items, " + 
+					"huh? 50 DKP minus (for first world problems), in addition to healing 0 " +
 					"health. You now have overwhelming sadness and a total of " + 
-					p.getPlayerCurrentHP() + "/" + p.getPlayerMaxHP() + " HP.");
+					p.getPlayerCurrentHP() + "/" + p.getPlayerMaxHP() + " HP.", 100, "\n", true));
 		}
 		else
 		{

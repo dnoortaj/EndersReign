@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import org.apache.commons.lang3.text.WordUtils;
+
 import UserInteraction.*;
 
 /*********************************************************************
@@ -282,7 +284,7 @@ public class Inventory implements Serializable
 		}
 		else
 		{
-			weapon += "[" + currentWeapon.getItemName() + "] (ATTACK " + 
+			weapon += "[" + currentWeapon.getItemName() + "] (Attack " + 
 					currentWeapon.getWeaponAttackBonus() + ")\n";
 		}
 		if(currentAccessory == null)
@@ -291,10 +293,10 @@ public class Inventory implements Serializable
 		}
 		else
 		{
-			accessory += "[" + currentAccessory.getItemName() + "] (ATTACK " + 
+			accessory += "[" + currentAccessory.getItemName() + "] (Attack " + 
 					currentAccessory.getAccessoryAttackIncrease() +
-					" / MAX HP " + currentAccessory.getAccessoryHPIncrease() + 
-					" / DODGE " + currentAccessory.getAccessoryDodgeIncrease() + ")\n";
+					" / Max HP " + currentAccessory.getAccessoryHPIncrease() + 
+					" / Dodge " + currentAccessory.getAccessoryDodgeIncrease() + ")\n";
 		}
 		return playerStats + weapon + accessory + itemList;
 	}
@@ -322,44 +324,72 @@ public class Inventory implements Serializable
 				for(int i = 0; i < list.size(); i++)
 				{
 					// construct the item profile
-					itemList += "   " + (i + 1) + ": [";
+					itemList += "   " + (i + 1) + ":";
+					
+					// add a space if necessary
+					if((i + 1) < 10)
+					{
+						itemList += " ";
+					}
+					
+					itemList += " [";
 
 					if(list.get(i).getItemName() != null)
 					{
 						itemList += list.get(i).getItemName();
+						itemList += "] ";
+						
+						// standardize positions
+						for(int t = 0; t < (30 - list.get(i).getItemName().length()); t++)
+						{
+							itemList += "-";
+						}
+						itemList += " ";
 					}
 					else 
 					{
-						itemList += "NO NAME";
+						itemList += "NO NAME] --------------------- ";
 					}
-					itemList += "] - " + list.get(i).getItemType();
-
+					
+					itemList += list.get(i).getItemType().toUpperCase();
+					
 					// assign parameters if appropriate
 					if(list.get(i).getItemType().equalsIgnoreCase("Weapon"))
 					{
-						itemList += " (ATTACK " + ((Weapon)list.get(i)).getWeaponAttackBonus() + ")";
+						itemList += " ----------- (Attack " + ((Weapon)list.get(i)).getWeaponAttackBonus() + ")";
 					}
 					else if(list.get(i).getItemType().equalsIgnoreCase("Accessory"))
 					{
-						itemList += " (ATTACK " + ((Accessory)list.get(i)).getAccessoryAttackIncrease() +
-								" / MAX HP " + ((Accessory)list.get(i)).getAccessoryHPIncrease() + " / DODGE " + 
+						itemList += " -------- (Attack " + ((Accessory)list.get(i)).getAccessoryAttackIncrease() +
+								" / Max HP " + ((Accessory)list.get(i)).getAccessoryHPIncrease() + " / Dodge " + 
 								((Accessory)list.get(i)).getAccessoryDodgeIncrease() + ")";
 					}
 					else if(list.get(i).getItemType().equalsIgnoreCase("Consumable"))
 					{
-						itemList += " (HEALS " + ((Consumable) list.get(i)).getConsumableHPRecovery() + " HP)";
+						itemList += " ------- (Heals " + ((Consumable) list.get(i)).getConsumableHPRecovery() + " HP)";
 					}
-					itemList += " - ";
+					else if(list.get(i).getItemType().equalsIgnoreCase("Key Item"))
+					{
+						itemList += " --------- (Special Function)";
+					}
+					itemList += "\n\t";
 
 					if(list.get(i).getItemDescription() != null)
 					{
-						itemList += list.get(i).getItemDescription();
+						itemList += " \"" + WordUtils.wrap(list.get(i).getItemDescription(), 50, "\n\t  ", true) + "\"\n";
 					}
 					else
 					{
-						itemList += "NO DESCRIPTION";
+						itemList += " \"NO DESCRIPTION\"\n";
 					}
-					itemList += "\n";
+//					if(i != list.size() - 1)
+//					{
+//						itemList += "\n\n";
+//					}
+//					else
+//					{
+//						itemList += "\n";
+//					}
 				}
 			}
 		}
@@ -378,8 +408,8 @@ public class Inventory implements Serializable
 	{
 		scanner = new Scanner(System.in);
 		String input = "";
-		String replacedItem = "a nameless ";
-		String newItem = "a nameless ";
+		String replacedItem = "a nameless";
+		String newItem = "a nameless";
 		int number = 0;
 		boolean numberFlag = false;
 
@@ -393,7 +423,7 @@ public class Inventory implements Serializable
 			}
 			else
 			{
-				newItem += item.getItemType().toLowerCase();
+				newItem += " " + item.getItemType().toLowerCase();
 			}
 
 			// general check to see if the list is valid
@@ -402,8 +432,8 @@ public class Inventory implements Serializable
 				// acquisition message
 				if(item.getItemName() != null)
 				{
-					System.out.println("You acquire the " + item.getItemType().toLowerCase() + 
-							" " + newItem + ".");
+					System.out.println(wrapIt("You acquire the " + item.getItemType().toLowerCase() + 
+							" " + newItem + "."));
 				}
 				else
 				{
@@ -429,8 +459,8 @@ public class Inventory implements Serializable
 					// get user input for item to discard
 					Collections.sort(list);
 					System.out.print(displayItems());
-					System.out.print("Please select an item to discard. (0 to refuse " + 
-							newItem + ")\n> ");
+					System.out.print(wrapIt("Please select an item to discard. (0 to refuse " + 
+							newItem) + ")\n> ");
 					input = scanner.nextLine();
 
 					// attempts to parse an appropriate integer from user input
@@ -446,8 +476,8 @@ public class Inventory implements Serializable
 						catch(NumberFormatException e)
 						{
 							System.out.println("Integer value not detected.");
-							System.out.print("Please select an item to discard. (0 to refuse " + 
-									newItem + ")\n> ");
+							System.out.print(wrapIt("Please select an item to discard. (0 to refuse " + 
+									newItem) + ")\n> ");
 							input = scanner.nextLine();
 							numberFlag = false;
 						}
@@ -469,8 +499,8 @@ public class Inventory implements Serializable
 								System.out.println("Value out of bounds.");
 
 								// ask for new input
-								System.out.print("Please select an item to discard. (0 to refuse " + 
-										newItem + ")\n> ");
+								System.out.print(wrapIt("Please select an item to discard. (0 to refuse " + 
+										newItem) + ")\n> ");
 								input = scanner.nextLine();
 								numberFlag = false;
 							}
@@ -480,8 +510,8 @@ public class Inventory implements Serializable
 							{
 								// ask for new input
 								System.out.println("You cannot discard a key item.");
-								System.out.print("Please select an item to discard. (0 to refuse " + 
-										newItem + ")\n> ");
+								System.out.print(wrapIt("Please select an item to discard. (0 to refuse " + 
+										newItem) + ")\n> ");
 								input = scanner.nextLine();
 								numberFlag = false;
 							}
@@ -500,7 +530,7 @@ public class Inventory implements Serializable
 								}
 
 								// output replace message
-								System.out.println("You replace " + replacedItem + " with " + newItem + ".");
+								System.out.println(wrapIt("You replace " + replacedItem + " with " + newItem + "."));
 
 								// remove and replace the specified item with new item
 								list.remove(number);
@@ -639,5 +669,17 @@ public class Inventory implements Serializable
 	public void setInventoryList(List<Item> list) 
 	{
 		this.list = list;
+	}
+	
+	/*********************************************************************
+	Private helper method for wrapping designated Strings at 80 
+	characters. Uses the wrap function from apache.
+
+	@param String string - String to wrap.
+	@return String - The string with new lines at 80 characters.
+	 *********************************************************************/
+	private String wrapIt(String string)
+	{
+		return WordUtils.wrap(string, 100, "\n", true);
 	}
 }

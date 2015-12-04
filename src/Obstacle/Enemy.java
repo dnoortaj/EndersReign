@@ -3,6 +3,8 @@ package Obstacle;
 import java.io.Serializable;
 import java.util.Random;
 import java.util.Scanner;
+import org.apache.commons.lang3.text.WordUtils;
+
 import Inventory.*;
 import UserInteraction.*;
 
@@ -61,17 +63,17 @@ public class Enemy implements Serializable {
 			tempo(1250);
 		}
 		else{
-			System.out.println("There is " + eName + ", approaching you with an apparent degree of malice.");
+			System.out.println(wrapIt("There is " + eName + ", approaching you with an apparent degree of malice."));
 			tempo(1250);
 		}
 		System.out.println(eName + " engaged you in combat."+
 				" (Press H for Help)");
 		if(taunt[0].equalsIgnoreCase("dodgeDown")){
-			System.out.println(eName + " is agile and very elusive.  You would do well"
-					+ " to be mindful that your opponent is hiding.");
+			System.out.println(wrapIt(eName + " is agile and very elusive. You would do well"
+					+ " to be mindful that your opponent is hiding."));
 		}else if (taunt[0].equalsIgnoreCase("attDown")){
-			System.out.println(eName + " have you out numbered. \n" + taunt[3] + ", the apparent alpha, is "
-					+ "resolved to take you down however his pals are just following his lead.");
+			System.out.println(wrapIt(eName + " have you out numbered. " + taunt[3] + ", the apparent alpha, is "
+					+ "resolved to take you down however his pals are just following his lead."));
 		}
 		listener();
 	}
@@ -87,14 +89,14 @@ public class Enemy implements Serializable {
 			weaponOut = hitOutput[i].replace("You", eName);
 			weaponOut2 = weaponOut.replace("doe", "you");
 			playa.setPlayerCurrentHP((playa.getPlayerCurrentHP() - actualDamage.intValue()));
-			System.out.println(weaponOut2 + " " + 
+			System.out.println(wrapIt(weaponOut2 + " " + 
 					actualDamage.intValue() + " damage leaves you with " +
-					playa.getPlayerCurrentHP() + " hit points.");
+					playa.getPlayerCurrentHP() + " hit points."));
 			playerIsAlive();
 		}
 		else{
-			System.out.println(eName + " tried to hit you but failed "
-					+ "to make contact.");
+			System.out.println(wrapIt(eName + " tried to hit you but failed "
+					+ "to make contact."));
 			listener();
 		}
 	}
@@ -109,19 +111,19 @@ public class Enemy implements Serializable {
 			Weapon temp = ((Weapon) playa.getPlayerInventory().getCurrentWeapon());
 			if(temp != null){
 				weaponOut =(temp.getOutput(damageDescription));
-				weaponOut2  = weaponOut.replace("doe", eName);
-				System.out.println(weaponOut2 + " Inflicting " + actualDamage.intValue()
-				+ " points of damage.");
+				weaponOut2 = weaponOut.replace("doe", eName);
+				System.out.println(wrapIt(weaponOut2 + " Inflicting " + actualDamage.intValue()
+				+ " points of damage."));
 			}
 			else{
-				System.out.println("You non-descriptly attacked " + eName + ". Inflicting "
-						+ actualDamage.intValue() + " points of damage.");
+				System.out.println(wrapIt("You non-descriptly attacked " + eName + ". Inflicting "
+						+ actualDamage.intValue() + " points of damage."));
 			}
 			tempo(650);
 			enemyIsAlive();
 		}
 		else{
-			System.out.println("You tried to hit " + eName + " but missed.");
+			System.out.println(wrapIt("You tried to hit " + eName + " but missed."));
 			tempo(50);
 			enemyAttack();
 		}
@@ -142,7 +144,7 @@ public class Enemy implements Serializable {
 		}
 		else{
 			if(dodge >= 100){
-				System.out.println("Its hard to hit what you can't see.");	
+				System.out.println("It's hard to hit what you can't see.");	
 			}
 			return false;
 		}
@@ -174,7 +176,7 @@ public class Enemy implements Serializable {
 		if(taunt[0].equalsIgnoreCase("attDown") && firstTaunt){
 			eAttack = eAttack - Integer.parseInt(taunt[1]);
 			eName = taunt[3];
-			System.out.println(taunt[2]);
+			System.out.println(wrapIt(taunt[2]));
 			firstTaunt = false;
 			listener();
 		}
@@ -189,36 +191,36 @@ public class Enemy implements Serializable {
 			}
 
 			//eName = taunt[3];  
-			System.out.println(taunt[2]);
+			System.out.println(wrapIt(taunt[2]));
 			firstTaunt = false;
 			listener();
 		}
 		else if(taunt[0].equalsIgnoreCase("enrage") && firstTaunt){
 			eAttack = eAttack + Integer.parseInt(taunt[1]);
 			eName = taunt[3];
-			System.out.println(taunt[2]);
+			System.out.println(wrapIt(taunt[2]));
 			tempo(1250);
-			System.out.println(eName + " " + taunt[9]);
+			System.out.println(wrapIt(eName + " " + taunt[9]));
 			firstTaunt = false;
 			listener();
 		}
 		else{
 			if(temp == 4){
-				System.out.println(taunt[4] + " " + eName + ".");
+				System.out.println(wrapIt(taunt[4] + " " + eName + "."));
 				tempo(650);
-				System.out.println(eName + " " + taunt[7]);
+				System.out.println(wrapIt(eName + " " + taunt[7]));
 				listener();
 			}
 			else if(temp == 5){
-				System.out.println(taunt[5]);
+				System.out.println(wrapIt(taunt[5]));
 				tempo(550);
-				System.out.println(eName + " " + taunt[8]);
+				System.out.println(wrapIt(eName + " " + taunt[8]));
 				enemyAttack();
 			}
 			else if(temp == 6){
-				System.out.println(taunt[6] + " " + eName + ".");
+				System.out.println(wrapIt(taunt[6] + " " + eName + "."));
 				tempo(550);
-				System.out.println(eName + " " + taunt[9]);
+				System.out.println(wrapIt(eName + " " + taunt[9]));
 				tempo(350);
 				enemyAttack();		
 			}
@@ -228,14 +230,14 @@ public class Enemy implements Serializable {
 	public void escape() {
 		if((rand.nextInt(playa.getPlayerDodge()) > rand.nextInt(eDodge)) && eID != 9 && eID != 8)
 		{
-			System.out.println("As the French so often do, you turned tail"
-					+ " and ran like the coward that you are. ");
+			System.out.println(wrapIt("As the French so often do, you turned tail"
+					+ " and ran like the coward that you are."));
 			System.out.println(eName + " doesn't seem to know where you went.");
 			ePoints = ePoints - (ePoints / 5);
 		}
 		else{
-			System.out.println(eName + " proved too quick, your attempt to flee"
-					+ " failed miserably.");
+			System.out.println(wrapIt(eName + " proved too quick, your attempt to flee"
+					+ " failed miserably."));
 			ePoints = ePoints - (ePoints / 5);
 			enemyAttack();
 		}
@@ -322,8 +324,8 @@ public class Enemy implements Serializable {
 			useItem();
 			break;
 		case "u":
-			System.out.println("That command is not valid whilst engaged"
-					+ " in combat.");
+			System.out.println(wrapIt("That command is not valid whilst engaged"
+					+ " in combat."));
 			listener();
 			break;
 		default:
@@ -331,5 +333,17 @@ public class Enemy implements Serializable {
 			listener();
 			break;
 		}
+	}
+
+	/*********************************************************************
+	Private helper method for wrapping designated Strings at 80 
+	characters. Uses the wrap function from apache.
+
+	@param String string - String to wrap.
+	@return String - The string with new lines at 80 characters.
+	 *********************************************************************/
+	private String wrapIt(String string)
+	{
+		return WordUtils.wrap(string, 100, "\n", true);
 	}
 }

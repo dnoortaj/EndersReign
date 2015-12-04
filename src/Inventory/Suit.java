@@ -51,7 +51,7 @@ public class Suit extends KeyItem
 		if(isUsed)
 		{
 			// message displayed on use
-			System.out.println("The space suit is already equipped.");
+			System.out.println("The combat suit is already equipped.");
 		}
 		else
 		{
@@ -59,7 +59,7 @@ public class Suit extends KeyItem
 			isUsed = true;
 
 			// message displayed on use
-			System.out.println("You equip the space suit.");
+			System.out.println("You equip the combat suit.");
 		}
 	}
 }
