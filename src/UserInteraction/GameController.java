@@ -779,7 +779,6 @@ import Inventory.*;
 				}
 				else if(name.equalsIgnoreCase("queen eggs"))
 				{
-					// TODO winning
 					wait(1000);
 					System.out.println("Well, let's pretend you didn't just eat those..");
 					wait(1000);
@@ -1099,8 +1098,7 @@ import Inventory.*;
 				System.out.println("Rank: Dead Zombie\nBetter luck next time!");
 
 				System.out.println(lineBreak);
-				// TODO losing text
-				System.out.println("GAME OVER.");
+				System.out.println(losingText);
 
 				System.out.println(lineBreak);
 				System.out.print("Return to title menu? (Y/N)\n> ");
@@ -1167,8 +1165,7 @@ import Inventory.*;
 			System.out.println("Rank: " + rank);
 
 			System.out.println(lineBreak);
-			// TODO winning text
-			System.out.println("GAME OVER.");
+			System.out.println(winningText);
 
 			System.out.println(lineBreak);
 			System.out.print("Return to title menu? (Y/N)\n> ");
@@ -1908,7 +1905,7 @@ import Inventory.*;
 			
 			
 			// set up current player and room
-			currentPlayer = new Player("Player", 0, 100, 100, 20, 10, 10, false, false, false, false, new Inventory());
+			currentPlayer = new Player("Player", 0, 100, 100, 20, 10, 5, false, false, false, false, new Inventory());
 			currentPlayer.getPlayerInventory().setOwner(currentPlayer);
 			currentRoom = womb;
 		}
