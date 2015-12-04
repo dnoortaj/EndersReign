@@ -1547,7 +1547,9 @@ import Inventory.*;
 			
 			String[][] bonzoPuzzleText = new String[3][5];
 
-            bonzoPuzzleText[0][0] = "You begin to enter the combat arena, but Bonzo turns to you and says 'You stay here!' What do you do?\n";
+            bonzoPuzzleText[0][0] = "Bonzo stops you. 'You stay here. You aren't going to get in "
+					+ "my way. We are undefeated for a reason. We don't need a Launchie like you.' "
+					+ "What do you do?\n";
             bonzoPuzzleText[0][1] = "Options: \n'a' \tGo anyways \n'b' \tStay there like the coward you are \n'c' \tPunch everybody in the face\n";
             bonzoPuzzleText[0][2] = "\nWay to be courageous and disobey your commanding officer!\n";
             bonzoPuzzleText[0][3] = "\nYou're not quite ready for field experience..\n";
@@ -1685,10 +1687,8 @@ import Inventory.*;
 					+ "fast as you can'. Bonzo is the champion of this game!"}, 
 					dissenter, 50, gunPuzzle, 50);
 			combatArena2 = new Room("the zero-gravity combat arena", new String[]{"Time to battle the "
-					+ "Leopards! You and your team begin to enter the combat arena, "
-					+ "but Bonzo stops you. 'You stay here. You aren't going to get in "
-					+ "my way. We are undefeated for a reason. We don't need a Launchie"
-					+ " like you.'","There are people 'pew'ing their guns at each other."}, 
+					+ "Leopards! You and your team begin to enter the combat arena.","There are people "
+					+ "'pew'ing their guns at each other."}, 
 					null, 100, bonzoPuzzle, 100);
 			bunkroomD = new Room("the Dragons' bunkroom", new String[]{"You see a few cadets you recognize "
 					+ "and a few new ones, but they're all ready to follow your lead.","You're being called to a final "
