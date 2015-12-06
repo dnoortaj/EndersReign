@@ -34,6 +34,7 @@ import Inventory.*;
 		
 		private boolean mainMenu = true;
 		private boolean displayTitle = true;
+		private boolean rickJames = false;
 
 		/** current game's player location */
 		private Room currentRoom = null;
@@ -85,7 +86,8 @@ import Inventory.*;
 		bunkroomD, combatArena3, shower, cabin, sleepingQuarters, battleSimulatorRoom, sleepingQuarters2,
 		battleSimulatorRoom2, commandRoom, airlock, outside, formicCastle, orientation2, hallway3, 
 		hallway4, adminOffice, emptyClassroom, homeHallway, sisterRoom, kitchen, diningRoom, launchieHallway, 
-		strategyClass2, salamanderHallway, hallwayD, lake, commandHallway, commandHallway2, queenRoom;
+		strategyClass2, salamanderHallway, hallwayD, lake, commandHallway, commandHallway2, queenRoom, 
+		commandHallway3, battleSimulatorRoom3, sleepingQuarters3, sleepingQuarters4;
 
 		/*********************************************************************
 		Default constructor method for GameController.
@@ -207,13 +209,11 @@ import Inventory.*;
 		{	
 			try
 			{
-//	 			TODO actually make a default save file
-				
 				gameFile = "DEFAULT.dat";
 				fileReader = new FileInputStream(gameFile);
 				deserializer = new ObjectInputStream(fileReader);
 				loadObjects();
-				
+
 				mainMenu = false;
 				System.out.print("Please enter your desired profile name. (Leave blank for default name)\n> ");
 				String input = scanner.nextLine();
@@ -324,6 +324,7 @@ import Inventory.*;
 				enemyList = (List<Enemy>) deserializer.readObject();
 				puzzleList = (List<Puzzle>) deserializer.readObject();
 				roomList = (List<Room>) deserializer.readObject();
+				rickJames = (boolean) deserializer.readObject();
 				loadLists();
 			} 
 			catch (Exception e) 
@@ -455,6 +456,10 @@ import Inventory.*;
 			commandHallway = roomList.get(47);
 			commandHallway2 = roomList.get(48);
 			queenRoom = roomList.get(49);
+			commandHallway3 = roomList.get(50);
+			battleSimulatorRoom3 = roomList.get(51);
+			sleepingQuarters3 = roomList.get(52);
+			sleepingQuarters4 = roomList.get(53);
 		}
 
 		public void saveGame()
@@ -521,6 +526,7 @@ import Inventory.*;
 				serializer.writeObject(enemyList);
 				serializer.writeObject(puzzleList);
 				serializer.writeObject(roomList);
+				serializer.writeObject(rickJames);
 				serializer.flush();
 			}
 			catch(Exception e)
@@ -656,6 +662,10 @@ import Inventory.*;
 			roomList.add(commandHallway);
 			roomList.add(commandHallway2);
 			roomList.add(queenRoom);
+			roomList.add(commandHallway3);
+			roomList.add(battleSimulatorRoom3);
+			roomList.add(sleepingQuarters3);
+			roomList.add(sleepingQuarters4);
 		}
 
 		/*********************************************************************
@@ -713,6 +723,9 @@ import Inventory.*;
 				case "0":
 				case "exit":
 					System.exit(0);
+				case "cocaine is a hell of a drug":
+					rickJames();
+					break;
 				default:
 					System.out.println("Command not recognized.");
 					break;
@@ -774,7 +787,7 @@ import Inventory.*;
 				else if(name.equalsIgnoreCase("phoenix down"))
 				{
 					wait(1000);
-					System.out.println("Your gain an additional life. Go figure.");
+					System.out.println("You gain an additional life. Go figure.");
 					wait(1000);
 					currentPlayer.setPlayerLives(currentPlayer.getPlayerLives() + 1);
 				}
@@ -830,7 +843,7 @@ import Inventory.*;
 				{
 					System.out.println(wrapIt("You must have the combat suit equipped in order to enter this area."));
 				}
-				else if(room.equals(outside) && !genocidePuzzle.getPuzzleIsCompleted())
+				else if(room.equals(airlock) && !genocidePuzzle.getPuzzleIsCompleted())
 				{
 					System.out.println("You have no reason to leave the Outpost.");
 				}
@@ -1098,7 +1111,7 @@ import Inventory.*;
 				System.out.println("Score: " + currentPlayer.getPlayerScore());
 				System.out.println("Rank: Dead Zombie\nBetter luck next time!");
 
-				System.out.println(lineBreak);
+				System.out.print(lineBreak);
 				System.out.println(losingText);
 
 				System.out.println(lineBreak);
@@ -1165,7 +1178,7 @@ import Inventory.*;
 			System.out.println("Score: " + score);
 			System.out.println("Rank: " + rank);
 
-			System.out.println(lineBreak);
+			System.out.print(lineBreak);
 			System.out.println(winningText);
 
 			System.out.println(lineBreak);
@@ -1243,7 +1256,33 @@ import Inventory.*;
 		{
 			return WordUtils.wrap(string, 100, "\n", true);
 		}
-		
+
+		/*********************************************************************
+		Method for Rick James.
+
+		@param none
+		@return none
+		 *********************************************************************/
+		private void rickJames()
+		{
+			if(!rickJames)
+			{
+				System.out.println("RICK JAMES MODE ACTIVATED.");
+				currentPlayer.setPlayerName("Rick James");
+				currentPlayer.setPlayerAttack(currentPlayer.getPlayerAttack() + 30);
+				currentPlayer.setPlayerMaxHP(currentPlayer.getPlayerMaxHP() + 200);
+				currentPlayer.setPlayerCurrentHP(currentPlayer.getPlayerMaxHP());
+				currentPlayer.setPlayerDodge(currentPlayer.getPlayerDodge() + 15);
+				System.out.println("Your attack increases by 30.");
+				System.out.println("Your hit points increase by 200.");
+				System.out.println("Your dodge increases by 15.");
+				rickJames = true;
+			}
+			else if(rickJames)
+			{
+				System.out.println("You're already Rick James, b!atch.");
+			}
+		}
 		/*********************************************************************
 		Main method for running GameController.
 
